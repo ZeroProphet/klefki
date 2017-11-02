@@ -5,12 +5,11 @@ import random
 import base58
 import klefki.const as const
 from klefki.types.algebra.concrete import (
-    EllipticCurveCyclicSubgroupBTC,
-    FiniteFieldBTC,
     JacobianGroupBTC,
-    EllipticCurveGroupBTC
+    EllipticCurveCyclicSubgroupBTC,
+    EllipticCurveGroupBTC,
+    FiniteFieldBTC
 )
-ripemd160 = hashlib.new('ripemd160')
 
 G = EllipticCurveCyclicSubgroupBTC.G
 A = EllipticCurveGroupBTC.A
@@ -28,10 +27,10 @@ def encode_pub(pub: EllipticCurveGroupBTC) -> str:
 
 
 def decode_pub(pub: str) -> EllipticCurveGroupBTC:
-    x = reduce(lambda x, y: x * 256 + y,
-               bytes(bytearray.fromhex(pub)[1:33]), 0)
-    beta = pow(x**3 + A * x + B, (P + 1) // 4, P)
-    y = (P - beta) if ((beta + int(pub[0])) % 2) else beta
+    pub = bytearray.fromhex(pub)
+    x = reduce(lambda x, y: x * 256 + y, bytes(pub[1:33]), 0)
+    beta = pow(int(x * x * x + A * x + B), int((P + 1) // 4), int(P))
+    y = (P - beta) if ((beta + pub[0]) % 2) else beta
     return EllipticCurveGroupBTC(
         (
             FiniteFieldBTC(x),
@@ -42,7 +41,7 @@ def decode_pub(pub: str) -> EllipticCurveGroupBTC:
 
 def calcu_pub_key(key: int) -> EllipticCurveGroupBTC:
     return EllipticCurveGroupBTC(
-        JacobianGroupBTC(G) @ EllipticCurveCyclicSubgroupBTC(key)
+        JacobianGroupBTC(G @ EllipticCurveCyclicSubgroupBTC(key))
     )
 
 
@@ -73,6 +72,7 @@ def gen_address(key):
     else:
         prefix = bytes([0x03])
     networkid = bytes([0x00])
+    ripemd160 = hashlib.new('ripemd160')
     ripemd160.update(
         sha256(
             prefix + x.to_bytes(32, byteorder='big')
