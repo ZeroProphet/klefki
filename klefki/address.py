@@ -27,11 +27,17 @@ def encode_pub(pub: EllipticCurveGroupBTC) -> str:
     return '0' + str(2 + (pub.value[1].value % 2)) + ((64 - len(n)) * '0' + n)
 
 
-def decode_pub(pub: str) -> EllipticCurveCyclicSubgroupBTC:
-    x = reduce(lambda x, y: x * 256 + y, bytes(bytearray.fromhex(pub)), 0)
+def decode_pub(pub: str) -> EllipticCurveGroupBTC:
+    x = reduce(lambda x, y: x * 256 + y,
+               bytes(bytearray.fromhex(pub)[1:33]), 0)
     beta = pow(x**3 + A * x + B, (P + 1) // 4, P)
     y = (P - beta) if ((beta + int(pub[0])) % 2) else beta
-    return (x, y)
+    return EllipticCurveGroupBTC(
+        (
+            FiniteFieldBTC(x),
+            FiniteFieldBTC(y)
+        )
+    )
 
 
 def calcu_pub_key(key: int) -> EllipticCurveGroupBTC:
