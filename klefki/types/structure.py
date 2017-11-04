@@ -11,20 +11,33 @@ class MerkleTree():
         if not child and len(data) % 2 != 0:
             data.append(data[-1])
         self.data = data
+        self._nodes = None
+        self._parents = None
 
     @property
     def nodes(self) -> Iterator:
-        return map(dhash256, self.data)
+        if self._nodes is None:
+            self._nodes = list(map(dhash256, self.data))
+        return self._nodes
 
     @property
     def parents(self) -> Iterator:
-        return self.__class__(
-            map(
-                dhash256,
-                starmap(
-                    concat,
-                    trunks(self.nodes, 2)
-                )
-            ),
-            child=self
-        )
+        if self._parents is None:
+            self._parents = self.__class__(
+                map(
+                    dhash256,
+                    list(starmap(
+                        concat,
+                        trunks(self.nodes, 2)
+                    ))
+                ),
+                child=self
+            )
+        return self._parents
+
+    @property
+    def root(self):
+        if len(self.parents.nodes) > 1:
+            return self.parents.root
+        else:
+            return self.parents

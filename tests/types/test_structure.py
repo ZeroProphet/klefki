@@ -6,3 +6,4 @@ def test_mktree():
     t = MerkleTree(l)
     assert t.parents
     assert len(list(t.parents.nodes)) == 3
+    assert len(t.root.nodes) == 1
