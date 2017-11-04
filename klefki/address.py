@@ -4,6 +4,7 @@ import hashlib
 import random
 import base58
 import klefki.const as const
+from klefki.utils import dhash256
 from klefki.types.algebra.concrete import (
     JacobianGroupBTC,
     EllipticCurveCyclicSubgroupBTC,

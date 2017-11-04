@@ -17,9 +17,8 @@ def extended_euclidean_algorithm(a: int, b: int) -> Tuple[int, int, int]:
     This function implements the extended Euclidean
     algotithm and runs in O(log b) in the worst case
     '''
-    s, old_s = 0, 1
-    t, old_t = 1, 0
-    r, old_r = b, a
+    s, t, r = 0, 1, b
+    old_s, old_t, old_r = 1, 0, a
 
     while r != 0:
         quoient = old_r // r
