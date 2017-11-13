@@ -7,6 +7,8 @@ class Functor(metaclass=ABCMeta):
     __slots__ = ()
 
     def __init__(self, v):
+        if isinstance(v, self.__class__):
+            return v
         self.value = self.fmap(v)
 
     def fmap(self, o):
@@ -83,8 +85,9 @@ class Monoid(SemiGroup):
         return self is not self.identity
 
     def __matmul__(self, times):
-        return double_and_add_algorithm(
-            getattr(times, 'value', times), self, self.identity)
+        while getattr(times, 'value', None):
+            times = times.value
+        return double_and_add_algorithm(times, self, self.identity)
 
 
 class Group(Monoid):

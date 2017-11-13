@@ -1,5 +1,6 @@
 from abc import abstractproperty
 from .abstract import Group
+from .fields import FiniteField
 
 
 class EllipticCurveGroup(Group):
@@ -47,6 +48,11 @@ class CyclicGroup(Group):
     G = abstractproperty()
     # Order of subgroup
     N = abstractproperty()
+
+    def fmap(self, v):
+        if isinstance(v, FiniteField):
+            v = v.__class__(v.value % self.N)
+        return v % self.N
 
     def op(self, g):
         '''

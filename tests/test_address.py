@@ -1,5 +1,5 @@
 from bitcoin import privtopub, pubkey_to_address
-from klefki.address import gen_key_pair, gen_random_number, gen_pub_key, gen_address, encode_pub
+from klefki.address import gen_key_pair, gen_random_number, gen_pub_key, gen_address
 from klefki.address import decode_pub, calcu_pub_key
 
 
