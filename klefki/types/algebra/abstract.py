@@ -8,7 +8,7 @@ class Functor(metaclass=ABCMeta):
 
     def __init__(self, v):
         if isinstance(v, self.__class__):
-            return v
+            self.value = v.value
         self.value = self.fmap(v)
 
     def fmap(self, o):

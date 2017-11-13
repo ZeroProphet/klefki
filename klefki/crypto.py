@@ -12,8 +12,10 @@ B = EllipticCurveGroupBTC.B
 P = FiniteFieldBTC.P
 
 
+# REF: https://www.cryptocompare.com/wallets/guides/how-do-digital-signatures-in-bitcoin-work/
+
+
 def sign(m: str, priv):
-    # https://www.cryptocompare.com/wallets/guides/how-do-digital-signatures-in-bitcoin-work/
     mh = FiniteFieldBTC(int.from_bytes(
         hashlib.sha256(m.encode()).digest(), 'big'))
     mp = G @ EllipticCurveCyclicSubgroupBTC(mh)
@@ -24,3 +26,13 @@ def sign(m: str, priv):
         EllipticCurveCyclicSubgroupBTC(pu.value[0]),
         EllipticCurveCyclicSubgroupBTC((mh + rp.value[0] * priv) / rn)
     )
+
+
+def verify(m: str, pub, sig):
+    xr, sf = sig
+    hs = FiniteFieldBTC(int.from_bytes(
+        hashlib.sha256(m.encode()).digest(), 'big'))
+    u1 = EllipticCurveCyclicSubgroupBTC(hs / sf.value)
+    u2 = EllipticCurveCyclicSubgroupBTC(xr.value / sf.value)
+    res = (G @ u1 + pub @ u2)
+    return xr == res.value[0]

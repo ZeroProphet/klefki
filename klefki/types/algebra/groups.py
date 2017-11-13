@@ -51,8 +51,8 @@ class CyclicGroup(Group):
 
     def fmap(self, v):
         if isinstance(v, FiniteField):
-            v = v.__class__(v.value % self.N)
-        return v % self.N
+            return v.__class__(v.value % self.N)
+        return getattr(v, 'value', v) % self.N
 
     def op(self, g):
         '''
@@ -60,7 +60,8 @@ class CyclicGroup(Group):
         '''
         if g.value == 0:
             return self
-        return self.__class__((self.value + g.value) % self.N)
+        res = self.value + g.value
+        return self.__class__(res % self.N)
 
     def inverse(self):
         return self.__class__(self.N - 1 - self.value)
