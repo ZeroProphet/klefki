@@ -1,5 +1,5 @@
 import random
-from klefki.utils import to_hash256int
+from klefki.utils import to_sha256int
 from klefki.types.algebra.concrete import (
     JacobianGroupBTC as JG,
     EllipticCurveCyclicSubgroupBTC as CG,
@@ -30,7 +30,7 @@ def sign(priv: CF, m: str) -> tuple:
 
 def verify(pub: ECG, sig: tuple, m: str):
     r, s = sig
-    z = CF(to_hash256int(m))
+    z = CF(to_sha256int(m))
     u1 = CF(z) / s
     u2 = r / s
     rp = G @ u1 + pub @ u2
