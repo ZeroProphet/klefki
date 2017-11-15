@@ -1,4 +1,4 @@
-from klefki.crypto.ecsda import sign, verify, random_privkey, pubkey
+from klefki.crypto.ecsda import sign, verify, random_privkey, pubkey, proof
 
 
 def test_sigh():
@@ -6,3 +6,4 @@ def test_sigh():
     pub = pubkey(priv)
     sig = sign(priv, 'test')
     assert verify(pub, sig, 'test')
+    proof()
