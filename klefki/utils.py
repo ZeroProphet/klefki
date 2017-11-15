@@ -23,3 +23,7 @@ def compose(*fs: Iterable[Callable]):
             kwargs or args
         )
     return _
+
+
+def to_hash256int(m: str):
+    return int.from_bytes(sha256(m.encode()).digest(), 'big')

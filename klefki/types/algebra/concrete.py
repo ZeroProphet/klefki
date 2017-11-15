@@ -4,6 +4,7 @@ import klefki.const as const
 
 __all__ = [
     'FiniteFieldBTC',
+    'FiniteFieldCyclicBTC',
     'EllipticCurveGroupBTC',
     'JacobianGroupBTC',
     'EllipticCurveCyclicSubgroupBTC'
@@ -12,19 +13,24 @@ __all__ = [
 
 class FiniteFieldBTC(FiniteField):
     __slots__ = ()
-    P = 2**256 - 2**32 - 977
+    P = const.P
+
+
+class FiniteFieldCyclicBTC(FiniteField):
+    __slots__ = ()
+    P = const.N
 
 
 class EllipticCurveGroupBTC(EllipticCurveGroup):
     __slots__ = ()
-    A = 0
-    B = 7
+    A = const.A
+    B = const.B
 
 
 class JacobianGroupBTC(JacobianGroup):
     __slots__ = ()
-    A = 0
-    B = 7
+    A = const.A
+    B = const.B
 
 
 class EllipticCurveCyclicSubgroupBTC(CyclicGroup):

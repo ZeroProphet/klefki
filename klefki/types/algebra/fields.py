@@ -8,7 +8,7 @@ class FiniteField(Field):
     P = abstractproperty()
 
     def fmap(self, v):
-        return v % self.P
+        return getattr(v, 'value', v) % self.P
 
     @property
     def identity(self):

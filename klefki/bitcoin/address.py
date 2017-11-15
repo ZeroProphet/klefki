@@ -1,53 +1,50 @@
 from functools import reduce
 from hashlib import sha256
 import hashlib
-import random
 import base58
-import klefki.const as const
-from klefki.utils import dhash256
+from klefki.crypto.ecsda import (
+    random_privkey,
+    pubkey
+)
 from klefki.types.algebra.concrete import (
-    JacobianGroupBTC,
-    EllipticCurveCyclicSubgroupBTC,
-    EllipticCurveGroupBTC,
-    FiniteFieldBTC
+    EllipticCurveGroupBTC as ECG,
+    FiniteFieldCyclicBTC as CF,
+    EllipticCurveCyclicSubgroupBTC as CG,
+    FiniteFieldBTC as F
+
 )
 
-G = EllipticCurveCyclicSubgroupBTC.G
-A = EllipticCurveGroupBTC.A
-B = EllipticCurveGroupBTC.B
-P = FiniteFieldBTC.P
+
+G = CG.G
+A = ECG.A
+B = ECG.B
+P = F.P
 
 
-def gen_random_number() -> int:
-    return random.randint(1, const.N)
-
-
-def encode_pub(pub: EllipticCurveGroupBTC) -> str:
+def encode_pub(pub: ECG) -> str:
     n = hex(pub.value[0].value).replace('0x', '')
     return '0' + str(2 + (pub.value[1].value % 2)) + ((64 - len(n)) * '0' + n)
 
 
-def decode_pub(pub: str) -> EllipticCurveGroupBTC:
+def decode_pub(pub: str) -> ECG:
     pub = bytearray.fromhex(pub)
     x = reduce(lambda x, y: x * 256 + y, bytes(pub[1:33]), 0)
     beta = pow(int(x * x * x + A * x + B), int((P + 1) // 4), int(P))
     y = (P - beta) if ((beta + pub[0]) % 2) else beta
-    return EllipticCurveGroupBTC(
+    return ECG(
         (
-            FiniteFieldBTC(x),
-            FiniteFieldBTC(y)
+            F(x),
+            F(y)
         )
     )
 
 
-def calcu_pub_key(key: int) -> EllipticCurveGroupBTC:
-    return EllipticCurveGroupBTC(
-        JacobianGroupBTC(G @ EllipticCurveCyclicSubgroupBTC(key))
-    )
+def gen_random_privkey():
+    return gen_priv_key(random_privkey())
 
 
-def gen_priv_key(key: int, version=128, compress=1) -> str:
-    private_key = bytes([version]) + key.to_bytes(
+def gen_priv_key(key: CF, version=128, compress=1) -> str:
+    private_key = bytes([version]) + key.value.to_bytes(
         32, byteorder='big') + bytes([compress])
     auth = sha256(sha256(private_key).digest()).digest()[:4]
     res = private_key + auth
@@ -55,18 +52,22 @@ def gen_priv_key(key: int, version=128, compress=1) -> str:
     return base58.b58encode(res)
 
 
-def gen_pub_key(key: int) -> str:
+def key_to_byte(key: CF):
+    key.value.to_bytes(32, byteorder='big')
+
+
+def gen_pub_key(key: CF) -> str:
     return encode_pub(
-        calcu_pub_key(key)
+        pubkey(key)
     )
 
 
-def gen_key_pair(key=gen_random_number()):
+def gen_key_pair(key=random_privkey()):
     return gen_priv_key(key), gen_pub_key(key)
 
 
-def gen_address(key):
-    pub = G @ EllipticCurveCyclicSubgroupBTC(key)
+def gen_address(key: CF):
+    pub = G @ key
     x, y = pub.value[0].value, pub.value[1].value
     if y % 2 == 0:
         prefix = bytes([0x02])
