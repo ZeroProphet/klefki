@@ -11,7 +11,7 @@ N = CG.N
 G = CG.G
 
 
-def random_privkey() -> int:
+def random_privkey() -> CF:
     return CF(random.randint(1, N))
 
 
