@@ -1,7 +1,7 @@
 from bitcoin import privtopub, pubkey_to_address
 from klefki.crypto.ecsda import pubkey, random_privkey
 from klefki.bitcoin.address import gen_key_pair, gen_pub_key, gen_address
-from klefki.bitcoin.address import decode_pub
+from klefki.bitcoin.address import decode_pubkey, encode_privkey, decode_privkey
 
 
 def test_key():
@@ -35,10 +35,16 @@ def test_addr():
 def test_decode_pub():
     key = random_privkey()
     ans = pubkey(key)
-    ret = decode_pub(gen_pub_key(key))
+    ret = decode_pubkey(gen_pub_key(key))
     assert ans == ret
 
     key = random_privkey()
     ans = pubkey(key)
-    ret = decode_pub(gen_pub_key(key))
+    ret = decode_pubkey(gen_pub_key(key))
     assert ans == ret
+
+
+def test_decode_priv():
+    key = random_privkey()
+    res = decode_privkey(encode_privkey(key))
+    assert res == key

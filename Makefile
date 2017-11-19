@@ -8,5 +8,5 @@ dev-install:
 test:
 	pytest
 
-asn:
-	asn1ate $(ASN_PATH)/signature.asn > $(SRC_PATH)/asn/signature_asn.py
+asn1:
+	asn1ate $(ASN_PATH)/signature.asn > $(SRC_PATH)/asn/signature.py

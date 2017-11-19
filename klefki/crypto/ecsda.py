@@ -7,6 +7,15 @@ from klefki.types.algebra.concrete import (
     FiniteFieldCyclicBTC as CF
 )
 
+__all__ = [
+    'random_privkey',
+    'pubkey',
+    'sign',
+    'verify',
+    'verify_msghash'
+
+]
+
 N = CG.N
 G = CG.G
 
@@ -27,9 +36,14 @@ def sign(priv: CF, m: str) -> tuple:
     return r, s
 
 
-def verify(pub: ECG, sig: tuple, m: str):
+def verify(pub: ECG, sig: tuple, msg: str):
+    mhash = to_sha256int(msg)
+    return verify_msghash(pub, sig, mhash)
+
+
+def verify_msghash(pub: ECG, sig: tuple, mhash: int):
     r, s = sig
-    z = CF(to_sha256int(m))
+    z = CF(mhash)
     u1 = z / s
     u2 = r / s
     rp = G @ u1 + pub @ u2
