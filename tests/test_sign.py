@@ -1,17 +1,17 @@
-from klefki.crypto.ecsda import sign, verify, random_privkey, pubkey, proof
+import klefki.crypto.ecsda as ecdsa
 from klefki.bitcoin.address import gen_key_pair
-from klefki.bitcoin.sign import sign_with_privkey, verify_with_pubkey
+from klefki.bitcoin.sign import sign, verify
 
 
 def test_sign():
-    priv = random_privkey()
-    pub = pubkey(priv)
-    sig = sign(priv, 'test')
-    assert verify(pub, sig, 'test')
-    proof()
+    priv = ecdsa.random_privkey()
+    pub = ecdsa.pubkey(priv)
+    sig = ecdsa.sign(priv, 'test')
+    assert ecdsa.verify(pub, sig, 'test')
+    ecdsa.proof()
 
 
 def test_sign_btc():
     privkey, pubkey = gen_key_pair()
-    sig = sign_with_privkey(privkey, 'test')
-    assert verify_with_pubkey(pubkey, sig, 'test')
+    sig = sign(privkey, 'test')
+    assert verify(pubkey, sig, 'test')
