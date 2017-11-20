@@ -47,11 +47,44 @@ def sign(priv: CF, m: str) -> tuple:
     return r, s
 
 
-def verify(pub: ECG, sig: tuple, msg: str):
-    mhash = to_sha256int(msg)
-    return verify_msghash(pub, sig, mhash)
+
+def verify(pub: ECG, sig: tuple, mhash: int):
+    r, s = sig
+    z = CF(mhash)
+    u1 = z / s
+    u2 = r / s
+    rp = G @ u1 + pub @ u2
+    return r == rp.value[0]
 
 ```
+
+Even proof the `Sign/Verify` algorithm mathematically.
+
+
+```python
+def proof():
+    priv = random_privkey()
+    m = 'test'
+    k = CF(random_privkey())
+    z = CF(to_sha256int(m))
+    r = CF((G @ k).value[0])
+    s = z / k + priv * r / k
+
+    assert k == z / s + priv * r / s
+    assert G @ k == G @ (z / s + priv * r / s)
+    assert G @ k == G @ (z / s) + G @ priv @ (r / s)
+
+    pub = G @ priv
+    assert pub == pubkey(priv)
+    assert G @ k == G @ (z / s) + pub @ (r / s)
+    u1 = z / s
+    u2 = r / s
+    assert G @ k == G @ u1 + pub @ u2
+
+
+```
+
+
 
 # Docs
 
