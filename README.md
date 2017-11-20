@@ -2,6 +2,9 @@ Klefki
 ===================
 
 ![klefki](res/707Klefki.png)
+
+----------------------
+
 Klefki (Japanese: クレッフィ Cleffy) is a dual-type Steel/Fairy Pokémon introduced in Generation VI. It is not known to evolve into or from any other Pokémon.
 
 ----------------------
