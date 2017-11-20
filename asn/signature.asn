@@ -1,7 +1,7 @@
 Ecdsa {modules(0)}
 
 -- https://tools.ietf.org/html/rfc3278#section-8.2
-DEFINITIONS EXPLICIT TAGS ::= BEGIN
+ DEFINITIONS EXPLICIT TAGS ::= BEGIN
     ECDSA-Sig-Value ::= SEQUENCE {
         r    INTEGER,
         s    INTEGER
