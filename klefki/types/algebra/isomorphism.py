@@ -1,5 +1,4 @@
 from typing import Iterable, Callable
-from types import FunctionType
 from functools import reduce
 
 
