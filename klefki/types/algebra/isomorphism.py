@@ -2,7 +2,7 @@ from types import FunctionType
 from functools import reduce
 
 
-__all__ = ['Isomorphism']
+__all__ = ['Isomorphism', 'bijection']
 
 
 class Isomorphism():
@@ -49,7 +49,7 @@ class Isomorphism():
         return self.Trunks([self.inverse, prev.inverse])
 
     @staticmethod
-    def inv(inverse):
+    def bijection(inverse):
         def _(fn):
             fn.inverse = inverse
             return fn
@@ -57,3 +57,6 @@ class Isomorphism():
 
     def __repr__(self):
         return self.fn.__repr__()
+
+
+bijection = Isomorphism.bijection
