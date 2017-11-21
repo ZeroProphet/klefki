@@ -91,3 +91,5 @@ def proof():
 [Abstract Algebra Types](https://github.com/RyanKung/klefki/blob/master/docs/Abstract%20Algebra%20Types.ipynb)
 
 [ASN.1](https://github.com/RyanKung/klefki/blob/master/docs/ASN.1.ipynb)
+
+[Isomorphism](https://github.com/RyanKung/klefki/blob/master/docs/Isomorphism.ipynb)
