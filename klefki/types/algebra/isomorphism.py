@@ -1,8 +1,9 @@
+from typing import Iterable, Callable
 from types import FunctionType
 from functools import reduce
 
 
-__all__ = ['Isomorphism', 'bijection']
+__all__ = ['Isomorphism', 'bijection', 'do']
 
 
 class Isomorphism():
@@ -13,8 +14,6 @@ class Isomorphism():
     class Trunks(list):
 
         def __call__(self, *args, **kwargs):
-            print(self)
-
             def _eval(args, fn):
                 if type(args) in [list, tuple]:
                     return fn(*args)
@@ -25,6 +24,9 @@ class Isomorphism():
 
             return reduce(_eval, self, kwargs or args)
 
+        def __invert__(self):
+            return self.__class__([fn.inverse for fn in self[::-1]])
+
         def __rshift__(self, next):
             self.append(next)
             return self
@@ -34,7 +36,7 @@ class Isomorphism():
             return self
 
     def __init__(self, fn):
-        assert isinstance(fn, FunctionType)
+        assert hasattr(fn, '__call__')
         assert hasattr(fn, 'inverse')
         self.fn = fn
         self.inverse = fn.inverse
@@ -51,12 +53,18 @@ class Isomorphism():
     @staticmethod
     def bijection(inverse):
         def _(fn):
+            inverse.inverse = fn
             fn.inverse = inverse
             return fn
         return _
+
+    @classmethod
+    def do(cls, *fns: Iterable[Callable]) -> 'Trunks':
+        return cls.Trunks([cls(fn) for fn in fns])
 
     def __repr__(self):
         return self.fn.__repr__()
 
 
 bijection = Isomorphism.bijection
+do = Isomorphism.do

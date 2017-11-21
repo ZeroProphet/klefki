@@ -13,6 +13,9 @@ Klefki
 
 **Klefki is a playground for researching elliptic curve group based cryptocoins, such as Bitcoin. All data types & structures are based on mathematical defination of abstract algebra.**
 
+
+## AAT(Abstract Algebra Type)
+
 With `AAT(Abstract Algebra Type)` you can easily implement the bitcoin `priv/pub key` and `sign/verify` algorithms like this:
 
 ```python
@@ -81,6 +84,39 @@ def proof():
     u2 = r / s
     assert G @ k == G @ u1 + pub @ u2
 
+
+```
+
+
+## Isomorphism (Bijection Mapping)
+
+A morphism f : X → Y in a category is an isomorphism if it admits a two-sided inverse.
+
+You can define your bijection encoder/decoder like this.
+
+```python
+from klefki.types.algebra.isomorphism import bijection, do
+from klefki.asn import signature as sig
+from functools import partial
+import base58
+from pyasn1.codec.der.encoder import encode
+from pyasn1.codec.der.decoder import decode
+
+
+b58encoder = bijection(base58.b58decode)(base58.b58encode)
+asn1encoder = bijection(partial(decode, asn1Spec=sig.ECDSA_Sig_Value()))(encode)
+
+data = sig.ECDSA_Sig_Value()
+data['r'] = 123
+data['s'] = 234
+
+process = do(asn1encoder, b58encoder)
+process(data)
+>>> 'cTVygpHoWBNR'
+
+(~process)(process(data))
+>>> (ECDSA_Sig_Value().setComponentByPosition(0, Integer(123)).setComponentByPosition(1, Integer(234)),
+ b'')
 
 ```
 
