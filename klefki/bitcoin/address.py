@@ -11,8 +11,8 @@ from klefki.types.algebra.concrete import (
     FiniteFieldCyclicBTC as CF,
     EllipticCurveCyclicSubgroupBTC as CG,
     FiniteFieldBTC as F
-
 )
+from klefki.types.algebra.isomorphism import bijection
 
 __all__ = [
     'encode_pubkey',
@@ -36,6 +36,7 @@ def encode_pubkey(pub: ECG) -> str:
     return '0' + str(2 + (pub.value[1].value % 2)) + ((64 - len(n)) * '0' + n)
 
 
+@bijection(encode_pubkey)
 def decode_pubkey(pub: str) -> ECG:
     pub = bytearray.fromhex(pub)
     x = reduce(lambda x, y: x * 256 + y, bytes(pub[1:33]), 0)
@@ -57,6 +58,7 @@ def encode_privkey(key: CF, version=128, compress=1) -> str:
     return base58.b58encode(res)
 
 
+@bijection(encode_privkey)
 def decode_privkey(key: str) -> CF:
     return CF(int(base58.b58decode(key)[1: -5].hex(), 16))
 
@@ -80,7 +82,7 @@ def gen_key_pair(key=random_privkey()):
 
 
 def gen_address(key: CF):
-    pub = G @ key
+    pub = pubkey(key)
     x, y = pub.value[0].value, pub.value[1].value
     if y % 2 == 0:
         prefix = bytes([0x02])
