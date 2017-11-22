@@ -4,10 +4,10 @@ from klefki.crypto.ecdsa import (
 )
 
 from klefki.types.algebra.concrete import (
-    EllipticCurveGroupBTC as ECG,
-    EllipticCurveCyclicSubgroupBTC as CG,
-    FiniteFieldBTC as F,
-    FiniteFieldCyclicBTC as CF
+    EllipticCurveGroupSecp256k1 as ECG,
+    EllipticCurveCyclicSubgroupSecp256k1 as CG,
+    FiniteFieldSecp256k1 as F,
+    FiniteFieldCyclicSecp256k1 as CF
 )
 from klefki.types.algebra.isomorphism import bijection
 

@@ -3,42 +3,42 @@ from .fields import FiniteField
 import klefki.const as const
 
 __all__ = [
-    'FiniteFieldBTC',
-    'FiniteFieldCyclicBTC',
-    'EllipticCurveGroupBTC',
-    'JacobianGroupBTC',
-    'EllipticCurveCyclicSubgroupBTC'
+    'FiniteFieldSecp256k1',
+    'FiniteFieldCyclicSecp256k1',
+    'EllipticCurveGroupSecp256k1',
+    'JacobianGroupSecp256k1',
+    'EllipticCurveCyclicSubgroupSecp256k1'
 ]
 
 
-class FiniteFieldBTC(FiniteField):
+class FiniteFieldSecp256k1(FiniteField):
     __slots__ = ()
     P = const.P
 
 
-class FiniteFieldCyclicBTC(FiniteField):
+class FiniteFieldCyclicSecp256k1(FiniteField):
     __slots__ = ()
     P = const.N
 
 
-class EllipticCurveGroupBTC(EllipticCurveGroup):
+class EllipticCurveGroupSecp256k1(EllipticCurveGroup):
     __slots__ = ()
     A = const.A
     B = const.B
 
 
-class JacobianGroupBTC(JacobianGroup):
+class JacobianGroupSecp256k1(JacobianGroup):
     __slots__ = ()
     A = const.A
     B = const.B
 
 
-class EllipticCurveCyclicSubgroupBTC(CyclicGroup):
+class EllipticCurveCyclicSubgroupSecp256k1(CyclicGroup):
     __slots__ = ()
-    G = EllipticCurveGroupBTC(
+    G = EllipticCurveGroupSecp256k1(
         (
-            FiniteFieldBTC(const.Gx),
-            FiniteFieldBTC(const.Gy)
+            FiniteFieldSecp256k1(const.Gx),
+            FiniteFieldSecp256k1(const.Gy)
         )
     )
     N = const.N

@@ -2,11 +2,11 @@ from typing import Tuple
 import random
 from klefki.utils import to_sha256int
 from klefki.types.algebra.concrete import (
-    JacobianGroupBTC as JG,
-    FiniteFieldBTC as F,
-    EllipticCurveCyclicSubgroupBTC as CG,
-    EllipticCurveGroupBTC as ECG,
-    FiniteFieldCyclicBTC as CF
+    JacobianGroupSecp256k1 as JG,
+    FiniteFieldSecp256k1 as F,
+    EllipticCurveCyclicSubgroupSecp256k1 as CG,
+    EllipticCurveGroupSecp256k1 as ECG,
+    FiniteFieldCyclicSecp256k1 as CF
 )
 
 __all__ = [

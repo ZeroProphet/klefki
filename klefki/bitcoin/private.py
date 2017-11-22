@@ -6,7 +6,7 @@ from klefki.crypto.ecdsa import (
     random_privkey,
 )
 from klefki.types.algebra.concrete import (
-    FiniteFieldCyclicBTC as CF,
+    FiniteFieldCyclicSecp256k1 as CF,
 )
 
 from klefki.types.algebra.isomorphism import bijection, do

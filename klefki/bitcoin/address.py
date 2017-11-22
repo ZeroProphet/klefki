@@ -5,9 +5,9 @@ from klefki.crypto.ecdsa import (
     pubkey
 )
 from klefki.types.algebra.concrete import (
-    EllipticCurveGroupBTC as ECG,
-    EllipticCurveCyclicSubgroupBTC as CG,
-    FiniteFieldBTC as F
+    EllipticCurveGroupSecp256k1 as ECG,
+    EllipticCurveCyclicSubgroupSecp256k1 as CG,
+    FiniteFieldSecp256k1 as F
 )
 
 __all__ = [

@@ -2,7 +2,7 @@ import base64
 import base58
 from klefki.types.algebra.isomorphism import bijection
 from klefki.types.algebra.concrete import (
-    FiniteFieldCyclicBTC as CF,
+    FiniteFieldCyclicSecp256k1 as CF,
 )
 
 
