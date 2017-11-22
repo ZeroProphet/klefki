@@ -1,7 +1,7 @@
 from hashlib import sha256
 import hashlib
 import base58
-from klefki.crypto.ecsda import (
+from klefki.crypto.ecdsa import (
     pubkey
 )
 from klefki.types.algebra.concrete import (

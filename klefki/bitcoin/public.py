@@ -1,5 +1,5 @@
 from functools import reduce
-from klefki.crypto.ecsda import (
+from klefki.crypto.ecdsa import (
     pubkey
 )
 

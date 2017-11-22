@@ -1,7 +1,9 @@
+from typing import Tuple
 import random
 from klefki.utils import to_sha256int
 from klefki.types.algebra.concrete import (
     JacobianGroupBTC as JG,
+    FiniteFieldBTC as F,
     EllipticCurveCyclicSubgroupBTC as CG,
     EllipticCurveGroupBTC as ECG,
     FiniteFieldCyclicBTC as CF
@@ -18,6 +20,11 @@ __all__ = [
 
 N = CG.N
 G = CG.G
+A = ECG.A
+B = ECG.B
+P = F.P
+
+SigType = Tuple[CF, CF, CF]
 
 
 def random_privkey() -> CF:
@@ -28,12 +35,18 @@ def pubkey(priv: CF) -> ECG:
     return ECG(JG(G @ priv))
 
 
-def sign(priv: CF, m: str) -> tuple:
+def sign(priv: CF, m: str) -> SigType:
+    '''
+    https://bitcoin.stackexchange.com/questions/38351/ecdsa-v-r-s-what-is-v
+    '''
     k = CF(random_privkey())
     z = CF(to_sha256int(m))
-    r = CF((G @ k).value[0])  # From BTCField to CyclicBTCField
-    s = z / k + priv * r / k
-    return r, s
+
+    p = G @ k
+    r, y = CF(p.value[0]), CF(p.value[1])
+    s = (z + priv * r) / k
+    v = CF(27 + y.value % 2)
+    return v, r, s
 
 
 def verify(pub: ECG, sig: tuple, msg: str):
@@ -42,12 +55,37 @@ def verify(pub: ECG, sig: tuple, msg: str):
 
 
 def verify_msghash(pub: ECG, sig: tuple, mhash: int):
-    r, s = sig
+    if len(sig) == 2:
+        r, s = sig
+    else:
+        v, r, s = sig
     z = CF(mhash)
     u1 = z / s
     u2 = r / s
     rp = G @ u1 + pub @ u2
     return r == rp.value[0]
+
+
+def recover(sig: tuple, mhash: int):
+    v, r, s = sig
+    x = F(r)
+    xcubedaxb = x ** 3 + F(A) * x + F(B)
+    beta = pow(xcubedaxb.value, (P + 1) // 4, P)
+    if v.value % 2 ^ beta % 2:
+        y = beta
+        print('case 1')
+    else:
+        print('case 2')
+        y = P - beta
+    Gz = G @ (F(N) - F(mhash))
+    Xy = ECG((F(x), F(y))) @ s
+    Qr = Gz + Xy
+    Q = Qr @ ~CF(r)
+    return Q
+
+
+def recover_via_msg(sig: tuple, msg: str):
+    return recover(sig, to_sha256int(msg))
 
 
 def proof():
