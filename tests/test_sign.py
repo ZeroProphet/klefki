@@ -3,14 +3,11 @@ import hashlib
 import klefki.crypto.ecdsa as ecdsa
 from klefki.bitcoin import gen_key_pair
 from klefki.bitcoin.sign import sign, verify
-from klefki.bitcoin.private import decode_privkey
-from bitcoin import encode_sig
 
 
 def test_sign():
     msg = 'test'
     priv = ecdsa.random_privkey()
-    mhash = hashlib.sha256(msg.encode()).digest()
     pub = ecdsa.pubkey(priv)
     sig = ecdsa.sign(priv, msg)
     assert ecdsa.verify(pub, sig, msg)
@@ -35,5 +32,3 @@ def test_sign_btc():
     privkey, pubkey = gen_key_pair()
     sig = sign(privkey, 'test')
     assert verify(pubkey, sig, 'test')
-#    res = decode_sig(sig)
-#    assert res[0] in range(27, 34)
