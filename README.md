@@ -11,7 +11,7 @@ Klefki
 
 # TL;DR
 
-**Klefki is a playground for researching elliptic curve group based cryptocoins, such as Bitcoin. All data types & structures are based on mathematical defination of abstract algebra.**
+**Klefki is a playground for researching elliptic curve group based cryptocoins, such as Bitcoin and Ethereum. All data types & structures are based on mathematical defination of abstract algebra.**
 
 
 ## AAT(Abstract Algebra Type)
@@ -23,10 +23,10 @@ With `AAT(Abstract Algebra Type)` you can easily implement the bitcoin `priv/pub
 import random
 from klefki.utils import to_sha256int
 from klefki.types.algebra.concrete import (
-    JacobianGroupBTC as JG,
-    EllipticCurveCyclicSubgroupBTC as CG,
-    EllipticCurveGroupBTC as ECG,
-    FiniteFieldCyclicBTC as CF
+    JacobianGroupSecp256k1 as JG,
+    EllipticCurveCyclicSubgroupSecp256k1 as CG,
+    EllipticCurveGroupSecp256k1 as ECG,
+    FiniteFieldCyclicSecp256k1 as CF
 )
 
 
@@ -45,7 +45,7 @@ def pubkey(priv: CF) -> ECG:
 def sign(priv: CF, m: str) -> tuple:
     k = CF(random_privkey())
     z = CF(to_sha256int(m))
-    r = CF((G @ k).value[0])  # From BTCField to CyclicBTCField
+    r = CF((G @ k).value[0])  # From Secp256k1Field to CyclicSecp256k1Field
     s = z / k + priv * r / k
     return r, s
 
