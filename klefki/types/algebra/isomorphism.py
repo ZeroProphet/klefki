@@ -24,7 +24,7 @@ class Isomorphism():
             return reduce(_eval, self, kwargs or args)
 
         def __invert__(self):
-            return self.__class__([fn.inverse for fn in self[::-1]])
+            return self.inverse()
 
         def __rshift__(self, next):
             self.append(next)
@@ -33,6 +33,9 @@ class Isomorphism():
         def __lshift__(self, prev):
             self.insert(0, prev.inverse)
             return self
+
+        def inverse(self):
+            return self.__class__([fn.inverse for fn in self[::-1]])
 
     def __init__(self, fn):
         assert hasattr(fn, '__call__')

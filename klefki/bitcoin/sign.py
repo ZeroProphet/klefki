@@ -3,7 +3,8 @@ from pyasn1.codec.der.encoder import encode
 from pyasn1.codec.der.decoder import decode
 import klefki.crypto.ecsda as ecdsa
 from klefki.asn import signature as sig_asn
-from klefki.bitcoin.address import decode_privkey, decode_pubkey
+from klefki.bitcoin.private import decode_privkey
+from klefki.bitcoin.public import decode_pubkey
 from klefki.types.algebra.concrete import FiniteFieldCyclicBTC as FC
 
 

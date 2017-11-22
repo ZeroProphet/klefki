@@ -1,5 +1,5 @@
 import klefki.crypto.ecsda as ecdsa
-from klefki.bitcoin.address import gen_key_pair
+from klefki.bitcoin import gen_key_pair
 from klefki.bitcoin.sign import sign, verify
 
 
