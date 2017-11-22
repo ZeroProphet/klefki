@@ -5,8 +5,6 @@ from klefki.bitcoin.utils import b58encode
 from klefki.crypto.ecsda import (
     random_privkey,
 )
-
-
 from klefki.types.algebra.concrete import (
     FiniteFieldCyclicBTC as CF,
 )
