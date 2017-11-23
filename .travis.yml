@@ -1,7 +1,6 @@
 language: python
 python:
   - "3.6"
-  - "3.5"
 
 
 script: ./test.py $TEST_SUITE
@@ -9,6 +8,7 @@ script: ./test.py $TEST_SUITE
 install:
   - pip install -r requirements.txt
   - pip install -r requirements-test.txt
+  - make asn1
   - make dev-install
 script:
   - make test
