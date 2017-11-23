@@ -12,13 +12,17 @@ install_requires = [
         "r"
     )
 ]
+author = 'ryankung'
+email = 'ryankung@ieee.org'
 
 
 setup(
     name='klefki',
+    description='Klefki is a playground for researching elliptic curve group based cryptocoins, such as Bitcoin and Ethereum. All data types & structures are based on mathematical defination of abstract algebra.', # noqa
     version='0.0.1',
     packages=find_packages(here, exclude=['tests']),
-    license='MIT',
-    description='',
+    license='GPL',
+    author=author,
+    author_email=email,
     install_requires=install_requires,
 )

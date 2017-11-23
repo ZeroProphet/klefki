@@ -10,3 +10,6 @@ test:
 
 asn1:
 	asn1ate $(ASN_PATH)/signature.asn > $(SRC_PATH)/asn/signature.py
+
+upload:
+	python setup.py sdist --formats=gztar register upload
