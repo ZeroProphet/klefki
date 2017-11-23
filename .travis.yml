@@ -1,0 +1,6 @@
+install:
+  - pip install -r requirements.txt
+  - pip install -r requirements-test.txt
+  - make dev-install
+script:
+  - make test
