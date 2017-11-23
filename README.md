@@ -1,6 +1,8 @@
 Klefki
 ===================
 
+![travis](https://travis-ci.org/RyanKung/klefki.svg?branch=master)
+
 ![klefki](res/707Klefki.png)
 
 ----------------------
