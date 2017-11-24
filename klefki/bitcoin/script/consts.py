@@ -1,4 +1,3 @@
-
 # Ref: https://en.bitcoin.it/wiki/Script
 # Constants
 OP_0 = OP_FALSE = 0x00
@@ -102,3 +101,46 @@ OP_GREATERTHANOREQUAL = 0xa2
 OP_MIN = 0xa3
 OP_MAX = 0xa4
 OP_WITHIN = 0xa5
+
+# Crypto
+
+OP_RIPEMD160 = 0xa6
+OP_SHA1 = 0xa7
+OP_SHA256 = 0xa8
+OP_HASH160 = 0xa9
+OP_HASH256 = 0xaa
+OP_CODESEPARATOR = 0xab
+OP_CHECKSIG = 0xac
+OP_CHECKSIGVERIFY = 0xad
+OP_CHECKMULTISIG = 0xae
+OP_CHECKMULTISIGVERIFY = 0xaf
+
+
+# Locktime
+OP_CHECKLOCKTIMEVERIFY = 0xb1
+OP_CHECKSEQUENCEVERIFY = 0xb2
+
+
+# Pesu-words
+# These words are used internally for assisting with transaction matching. They are invalid if used in actual scripts.  # noqa
+OP_PUBKEYHASH = 0xfd
+OP_PUBKEY = 0xfe
+OP_INVALIDOPCODE = 0xff
+
+# Reserved words
+# Any opcode not assigned is also reserved. Using an unassigned opcode makes the transaction invalid. # no qa
+OP_PERSERVED = 0x50
+OP_VER = 0x62
+OP_VERIF = 0x65
+OP_VERNOTIF = 0x66
+OP_RESERVED1 = 0x89
+OP_RESERVED2 = 0x8a
+
+OP_NOP1 = 0xb0
+OP_NOP4 = 0xb3
+OP_NOP5 = 0xb4
+OP_NOP6 = 0xb5
+OP_NOP7 = 0xb6
+OP_NOP8 = 0xb7
+OP_NOP9 = 0xb8
+OP_NOP10 = 0xb9
