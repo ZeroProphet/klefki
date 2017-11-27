@@ -1,7 +1,9 @@
+from operator import add
+from functools import reduce
 from klefki.utils import EnumDict
 # Ref: https://en.bitcoin.it/wiki/Script
 # Constants
-OPS = EnumDict(dict(
+CONSTS = EnumDict(dict(
     OP_0=bytes([0x00]),
     OP_FALSE=bytes([0x00]),
     OP_PUSHDATA1=bytes([0x4c]),
@@ -24,8 +26,12 @@ OPS = EnumDict(dict(
     OP_13=bytes([0x5d]),
     OP_14=bytes([0x5e]),
     OP_15=bytes([0x5f]),
-    OP_16=bytes([0x60]),
-# Flow Control
+    OP_16=bytes([0x60])
+))
+
+FLOW_CONTROL = EnumDict(dict(
+
+    # Flow Control
 
     OP_NOP=bytes([0x61]),
     OP_IF=bytes([0x99]),
@@ -34,9 +40,10 @@ OPS = EnumDict(dict(
     OP_ENDIF=bytes([0x104]),
     OP_VERIFY=bytes([0x69]),
     OP_RETURN=bytes([0x6a]),
-
+))
 # Stack
 
+STACK = EnumDict(dict(
     OP_TOTALSTACK=bytes([0x6b]),
     OP_FORMALSTACK=bytes([0x6c]),
     OP_IFDUP=bytes([0x73]),
@@ -56,17 +63,19 @@ OPS = EnumDict(dict(
     OP_2OVER=bytes([0x70]),
     OP_2ROT=bytes([0x71]),
     OP_2SWAP=bytes([0x72]),
-
+))
 # Splice
+
+SPLICE = EnumDict(dict(
 
     OP_CAT=bytes([0x7e]),  # disabled
     OP_SUBSTR=bytes([0x7f]),  # disabled
     OP_LEFT=bytes([0x80]),  # disabled
     OP_RIGHT=bytes([0x81]),  # disabled
     OP_SIZE=bytes([0x82]),
-
+))
 # Bitwise logic
-
+BITWISE_LOGIC = EnumDict(dict(
     OP_INVERT=bytes([0x83]),  # disabled
     OP_AND=bytes([0x84]),  # disabled
     OP_OR=bytes([0x85]),  # disabled
@@ -74,9 +83,9 @@ OPS = EnumDict(dict(
     OP_EQUAL=bytes([0x87]),
     OP_EQUALVERIFY=bytes([0x88]),
 
-
+))
 # Arithmetic
-
+ARITHMETIC = EnumDict(dict(
     OP_1ADD=bytes([0x8b]),
     OP_1SUB=bytes([0x8c]),
     OP_2MUL=bytes([0x8d]),  # disabled
@@ -104,9 +113,9 @@ OPS = EnumDict(dict(
     OP_MIN=bytes([0xa3]),
     OP_MAX=bytes([0xa4]),
     OP_WITHIN=bytes([0xa5]),
-
+))
 # Crypto
-
+CROPTO = EnumDict(dict(
     OP_RIPEMD160=bytes([0xa6]),
     OP_SHA1=bytes([0xa7]),
     OP_SHA256=bytes([0xa8]),
@@ -117,21 +126,25 @@ OPS = EnumDict(dict(
     OP_CHECKSIGVERIFY=bytes([0xad]),
     OP_CHECKMULTISIG=bytes([0xae]),
     OP_CHECKMULTISIGVERIFY=bytes([0xaf]),
-
+))
 
 # Locktime
+
+LOCKTIME = EnumDict(dict(
     OP_CHECKLOCKTIMEVERIFY=bytes([0xb1]),
     OP_CHECKSEQUENCEVERIFY=bytes([0xb2]),
-
+))
 
 # Pesu-words
+PESU_WORDS = EnumDict(dict(
 # These words are used internally for assisting with transaction matching. They are invalid if used in actual scripts.  # noqa
     OP_PUBKEYHASH=bytes([0xfd]),
     OP_PUBKEY=bytes([0xfe]),
     OP_INVALIDOPCODE=bytes([0xff]),
-
+))
 # Reserved words
-# Any opcode not assigned is also reserved. Using an unassigned opcode makes the transaction invalid. # no qa
+RESERVED_WORDS = EnumDict(dict(
+    # Any opcode not assigned is also reserved. Using an unassigned opcode makes the transaction invalid. # no qa
     OP_PERSERVED=bytes([0x50]),
     OP_VER=bytes([0x62]),
     OP_VERIF=bytes([0x65]),
@@ -148,3 +161,17 @@ OPS = EnumDict(dict(
     OP_NOP9=bytes([0xb8]),
     OP_NOP10=bytes([0xb9]),
 ))
+
+
+OPS = reduce(add, [
+    RESERVED_WORDS,
+    PESU_WORDS,
+    LOCKTIME,
+    CROPTO,
+    ARITHMETIC,
+    BITWISE_LOGIC,
+    STACK,
+    FLOW_CONTROL,
+    CONSTS,
+    SPLICE
+])

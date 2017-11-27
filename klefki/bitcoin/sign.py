@@ -63,6 +63,10 @@ def sign(privkey: str, msg: str):
     return sig_encode(struct)
 
 
+def sign_bytes(privkey: str, msg: bytes):
+    return sign(privkey, msg.decode())
+
+
 def verify(pubkey: str, sig: str, msg: str):
     pubkey = decode_pubkey(pubkey)
     sig = sig_decode(sig)
