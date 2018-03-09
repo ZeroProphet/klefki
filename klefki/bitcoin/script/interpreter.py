@@ -9,6 +9,7 @@ class Stack(object):
     def __init__(self, script):
         self.storage = []
         self.script = script
+        self._output = []
 
     @classmethod
     def register(self, op):
@@ -22,6 +23,14 @@ class Stack(object):
 
     def eval(self):
         return self.ops.get(self.script[0])(self, self.script)
+
+    @property
+    def output(self):
+        return self._output
+
+    @output.setter
+    def set_output(self, v):
+        self._output.append(v)
 
     def isEmpty(self):
         return len(self.storage) == 0
@@ -40,6 +49,7 @@ class Stack(object):
 @Stack.register(CONSTS.OP_0)
 def op_0(stack, script):
     stack.push([])
+    stack.ouput = ''
     return stack.eval(script[1], stack, script[1:])
 
 
@@ -47,6 +57,7 @@ def op_pushdata(stack, script, n):
     next_n_bytes = script[0:n]
     count = int(next_n_bytes.hex(), 16)
     stack.push(script[n: count + n])
+    stack.output = next_n_bytes
     return stack.eval(script[count + n], stack, script[count + n:])
 
 
@@ -71,9 +82,11 @@ def op_pushdata4(stack, script):
 
 def op_1negate(stack, script):
     stack.push(-1)
+    stack.output = -1
     return stack.eval(script[1], stack, script[1:])
 
 
 def op_1(stack, script):
     stack.push(1)
+    stack.output = 1
     return stack.eval(script[1], stack, script[1:])
