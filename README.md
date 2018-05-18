@@ -52,7 +52,7 @@ def pubkey(priv: CF) -> ECG:
 
 
 def sign(priv: CF, m: str) -> tuple:
-    k = CF(random_privkey())
+    k = CF(random.randint(1, N))
     z = CF(to_sha256int(m))
     r = CF((G @ k).value[0])  # From Secp256k1Field to CyclicSecp256k1Field
     s = z / k + priv * r / k
