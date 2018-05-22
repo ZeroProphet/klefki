@@ -96,6 +96,22 @@ def proof():
 
 ```
 
+Or transform your Bitcoin Private Key to EOS Private/Pub key (or back)
+
+```
+from klefki.bitcoin.private import decode_privkey
+from klefki.eos.public import gen_pub_key
+from klefki.eos.private import encode_privkey
+
+
+def test_to_eos(priv):
+    key = decode_privkey(priv)
+    eos_priv = encode_privkey(key)
+    eos_pub = gen_pub_key(key)
+    print(eos_priv, eos_pub)
+
+```
+
 
 ## Isomorphism (Bijection Mapping)
 
