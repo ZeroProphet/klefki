@@ -98,7 +98,7 @@ def proof():
 
 Or transform your Bitcoin Private Key to EOS Private/Pub key (or back)
 
-```
+```python
 from klefki.bitcoin.private import decode_privkey
 from klefki.eos.public import gen_pub_key
 from klefki.eos.private import encode_privkey
