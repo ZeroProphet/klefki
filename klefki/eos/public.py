@@ -1,25 +1,21 @@
+from klefki.utils import int_to_byte
 from klefki.crypto.ecdsa import pubkey
 from klefki.types.algebra.concrete import (
     EllipticCurveGroupSecp256k1 as ECG,
-    FiniteFieldSecp256k1 as F
+    FiniteFieldCyclicSecp256k1 as CF
+
 )
-from klefki.types.algebra.isomorphism import bijection, do
+from klefki.utils import ripemd160, b58encode
 
 
-def encode_pubkey(key: ECG):
-    x = hex(key.value[0].value)[2:]
-    y = hex(key.value[1].value)[2:]
-    return '0' * (32 - len(x)) + x + '0' * (32 - len(y)) + y
+def to_bytes(pub: ECG) -> str:
+    return bytes([2 + (pub.value[1].value % 2)]) + int_to_byte(pub.value[0].value)
 
 
-@bijection(encode_pubkey)
-def decode_pubkey(key: str) -> ECG:
-    x = F(int(key[:32], 16))
-    y = F(int(key[32:], 16))
-    return ECG((x, y))
+def checksum(a) -> int:
+    assert len(a) == 33
+    return 'EOS' + b58encode(a + ripemd160(a)[:4])
 
 
-gen_pub_key = do(
-    encode_pubkey,
-    pubkey
-)
+def gen_pub_key(key: CF):
+    return checksum(to_bytes(pubkey(key)))
