@@ -14,6 +14,9 @@ def decode_privkey(priv, type):
 @command
 @output
 def priv_transfer(priv, type, target):
+    '''
+    Transform your `private` key of `type` to `private` key of `target`
+    '''
     return {
         'EOS': eos.private.encode_privkey,
         'BTC': bitcoin.private.encode_privkey,
@@ -24,6 +27,9 @@ def priv_transfer(priv, type, target):
 @command
 @output
 def priv_to_pub(priv, type, target):
+    '''
+    Transform your `private` key of `type` to `public` key of `target`
+    '''
     return {
         'BTC': bitcoin.public.gen_pub_key,
         'ETH': ethereum.public.gen_pub_key,

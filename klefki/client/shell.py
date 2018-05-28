@@ -13,8 +13,11 @@ def command(fn, name=None):
 
 @command
 def help():
+    '''
+    This help command
+    '''
     for k, v in command.registered.items():
-        print(k, v)
+        print(k, v.__doc__)
 
 
 def not_found(cmd):
