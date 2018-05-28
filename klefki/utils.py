@@ -2,6 +2,10 @@ import base58
 import base64
 from typing import Iterable, Iterator, Callable
 from klefki.types.algebra.isomorphism import bijection
+from klefki.types.algebra.concrete import (
+    FiniteFieldCyclicSecp256k1 as CF,
+)
+
 from hashlib import sha256
 import hashlib
 from functools import reduce
@@ -12,6 +16,11 @@ b64encode = bijection(base64.b64decode)(base64.b64encode)
 
 def int_to_byte(key: int) -> bytes:
     return key.to_bytes(32, byteorder='big')
+
+
+@bijection(int_to_byte)
+def byte_to_int(byte: bytes) -> CF:
+    return int(byte.hex(), 16)
 
 
 def dhash256(x: int) -> int:

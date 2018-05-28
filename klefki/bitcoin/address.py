@@ -43,5 +43,5 @@ def gen_address(pub: ECG) -> str:
     return base58.b58encode(res)
 
 
-def gen_address_from_key(key) -> str:
+def gen_address_from_priv(key) -> str:
     return gen_address(pubkey(key))

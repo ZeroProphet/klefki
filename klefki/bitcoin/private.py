@@ -1,6 +1,6 @@
 from typing import Callable
 from hashlib import sha256
-from klefki.bitcoin.utils import b58encode, int_to_byte
+from klefki.utils import b58encode, int_to_byte
 
 from klefki.crypto.ecdsa import (
     random_privkey,

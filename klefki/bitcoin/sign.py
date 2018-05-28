@@ -5,7 +5,7 @@ import klefki.crypto.ecdsa as ecdsa
 from klefki.asn import signature as sig_asn
 from klefki.bitcoin.private import decode_privkey
 from klefki.bitcoin.public import decode_pubkey
-from klefki.bitcoin.utils import int_to_byte, byte_to_int, b64encode, b58encode
+from klefki.utils import int_to_byte, byte_to_int, b64encode, b58encode
 from klefki.types.algebra.concrete import FiniteFieldCyclicSecp256k1 as CF
 from klefki.types.algebra.isomorphism import bijection, do
 
