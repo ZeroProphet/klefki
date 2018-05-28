@@ -1,4 +1,4 @@
-jj# Simple Private Transformer
+# Simple Private Transformer
 
 ### Install:
 
