@@ -1,5 +1,5 @@
 from functools import partial
-from klefki.client.shell import command
+from klefki.client.shell import command, help
 
 
 @command
@@ -13,7 +13,5 @@ def cmd2():
 
 
 def test_register():
-    assert command.registered == {
-        'cmd': cmd,
-        'test2': cmd2
-    }
+    assert 'cmd' in command.registered
+    assert 'test2' in command.registered

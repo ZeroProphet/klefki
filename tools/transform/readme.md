@@ -1,4 +1,4 @@
-# Simple Private Transformer
+jj# Simple Private Transformer
 
 ### Install:
 
@@ -9,7 +9,7 @@ make dev-install
 ### Example:
 
 ```
-python ./tools/transform.py help
+python ./tools/transform/transform.py help
 help
     This help command
 
@@ -24,14 +24,14 @@ priv_to_pub
 Transform ETH private key to BTC private Key
 
 ```
-python ./tools/transform.py priv_transfer priv=c87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3 type=ETH target=BTC
+python ./tools/transform/transform.py priv_transfer priv=c87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3 type=ETH target=BTC
 L3wNcWW97SZYV6fb6b5VgoEvtybc9d1Uu6LeiQkVN4Z38VTivKT6
 ```
 
 Transform ETH private key to EOS public Key
 
 ```
-python ./tools/transform.py priv_to_pub priv=c87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3 type=ETH target=EOS
+python ./tools/transform/transform.py priv_to_pub priv=c87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3 type=ETH target=EOS
 EOS8AXWmo3dFpK1drnjeWPyi9KTy9Fy3SkCydWx8waQrxhnRmwsrR
 ```
 

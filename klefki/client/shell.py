@@ -7,7 +7,6 @@ def command(fn, name=None):
         command.registered = {}
     fname = name or fn.__name__
     command.registered[fname] = fn
-
     return fn
 
 
