@@ -1,5 +1,11 @@
 # Simple Private Transformer
 
+### Install:
+
+```
+make dev-install
+```
+
 ### Example:
 
 Transform ETH private key to BTC private Key
