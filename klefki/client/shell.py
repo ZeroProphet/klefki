@@ -8,17 +8,24 @@ def command(fn, name=None):
     return fn
 
 
-def not_found():
-    print('cmd not found')
+@command
+def help():
+    for k, v in command.registered.items():
+        print(k, v)
+
+
+def not_found(cmd):
+    print('cmd %s not found' % cmd)
     return
 
 
-def router(cmd: str):
+def router(cmds):
     'fn a b c=1 d=2'
-    cmds = cmd.split(' ')
+    if isinstance(cmds, str):
+        cmds = cmds.split(' ')
     fn = command.registered.get(cmds[0], None)
     if not fn:
-        return not_found()
-    args = [c for c in cmds if '=' not in cmds[1:]]
-    kwargs = dict([c.split('=') for c in cmds if '=' in cmds[1:]])
+        return not_found(cmds)
+    args = [c for c in cmds[1:] if '=' not in cmds[1:]]
+    kwargs = dict([c.split('=') for c in cmds[1:] if '=' in cmds[1:]])
     return fn(*args, **kwargs)

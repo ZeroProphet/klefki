@@ -1,4 +1,5 @@
-from klefki.client.shell import command
+import sys
+from klefki.client.shell import command, router
 from klefki import eos, ethereum, bitcoin
 
 
@@ -34,3 +35,7 @@ def priv_to_pub(priv, type, target):
         'ETH': ethereum.public.gen_pub_key,
         'EOS': eos.public.gen_pub_key
     }[target](decode_privkey(priv, type))
+
+
+if __name__ == "__main__":
+    router(sys.argv[1:])
