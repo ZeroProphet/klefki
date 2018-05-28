@@ -8,6 +8,19 @@ make dev-install
 
 ### Example:
 
+```
+python ./tools/transform.py help
+help
+    This help command
+
+priv_transfer
+    Transform your `private` key of `type` to `private` key of `target`
+
+priv_to_pub
+    Transform your `private` key of `type` to `public` key of `target`
+
+```
+
 Transform ETH private key to BTC private Key
 
 ```
