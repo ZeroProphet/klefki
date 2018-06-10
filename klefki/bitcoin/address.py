@@ -1,6 +1,5 @@
 from hashlib import sha256
-import hashlib
-import base58
+from klefki.utils import dhash256, ripemd160, b58encode
 from klefki.crypto.ecdsa import (
     pubkey
 )
@@ -28,19 +27,17 @@ def gen_address(pub: ECG) -> str:
     else:
         prefix = bytes([0x03])
     networkid = bytes([0x00])
-    ripemd160 = hashlib.new('ripemd160')
-    ripemd160.update(
+    hashed = ripemd160(
         sha256(
             prefix + x.to_bytes(32, byteorder='big')
         ).digest()
     )
-    hashed = ripemd160.digest()
     assert len(hashed) == 20
     with_network = networkid + hashed
-    auth = sha256(sha256(with_network).digest()).digest()[:4]
+    auth = dhash256(with_network)[:4]
     res = with_network + auth
     assert len(res) == 25
-    return base58.b58encode(res)
+    return b58encode(res)
 
 
 def gen_address_from_priv(key) -> str:
