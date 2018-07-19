@@ -1,4 +1,4 @@
-from klefki.crypto.ecdsa import (
+from klefki.crypto.ecdsa.secp256k1 import (
     random_privkey,
 )
 from klefki.types.algebra.concrete import (

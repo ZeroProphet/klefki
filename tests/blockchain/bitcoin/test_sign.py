@@ -1,6 +1,6 @@
 import bitcoin
 import hashlib
-import klefki.crypto.ecdsa as ecdsa
+import klefki.crypto.ecdsa.secp256k1 as ecdsa
 from klefki.bitcoin import gen_key_pair
 from klefki.bitcoin.sign import sign, verify
 

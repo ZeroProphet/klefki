@@ -1,5 +1,5 @@
 from sha3 import keccak_256
-from klefki.crypto.ecdsa import pubkey
+from klefki.crypto.ecdsa.secp256k1 import pubkey
 from klefki.utils import int_to_byte
 from klefki.types.algebra.concrete import (
     EllipticCurveGroupSecp256k1 as ECG,

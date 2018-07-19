@@ -1,4 +1,4 @@
-from klefki.crypto.ecdsa import random_privkey
+from klefki.crypto.ecdsa.secp256k1 import random_privkey
 from .public import gen_pub_key
 from .private import encode_privkey
 from .address import gen_address_from_priv

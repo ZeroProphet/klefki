@@ -1,7 +1,7 @@
 import bitcoin
 import base58
 from bitcoin import privtopub, pubkey_to_address
-from klefki.crypto.ecdsa import pubkey, random_privkey
+from klefki.crypto.ecdsa.secp256k1 import pubkey, random_privkey
 from klefki.bitcoin import gen_key_pair
 from klefki.bitcoin.address import gen_address_from_priv
 from klefki.bitcoin.public import decode_pubkey, gen_pub_key

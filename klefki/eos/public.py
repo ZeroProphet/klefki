@@ -1,5 +1,5 @@
 from klefki.utils import int_to_byte
-from klefki.crypto.ecdsa import pubkey
+from klefki.crypto.ecdsa.secp256k1 import pubkey
 from klefki.types.algebra.concrete import (
     EllipticCurveGroupSecp256k1 as ECG,
     FiniteFieldCyclicSecp256k1 as CF

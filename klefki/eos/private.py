@@ -1,7 +1,7 @@
 import hashlib
 from typing import Callable
 from klefki.utils import b58encode, int_to_byte
-from klefki.crypto.ecdsa import (
+from klefki.crypto.ecdsa.secp256k1 import (
     random_privkey,
 )
 from klefki.types.algebra.concrete import (

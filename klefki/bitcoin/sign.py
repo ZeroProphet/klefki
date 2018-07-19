@@ -1,7 +1,7 @@
 from typing import Callable
 from pyasn1.codec.der.encoder import encode as edr_encode
 from pyasn1.codec.der.decoder import decode as edr_decode
-import klefki.crypto.ecdsa as ecdsa
+import klefki.crypto.ecdsa.secp256k1 as ecdsa
 from klefki.asn import signature as sig_asn
 from klefki.bitcoin.private import decode_privkey
 from klefki.bitcoin.public import decode_pubkey
