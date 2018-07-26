@@ -1,6 +1,6 @@
 import sys
 import re
-from klefki.crypto.ecdsa import random_privkey
+from klefki.crypto.ecdsa.secp256k1 import random_privkey
 from klefki.client.shell import command, router
 from klefki import eos, ethereum, bitcoin
 
