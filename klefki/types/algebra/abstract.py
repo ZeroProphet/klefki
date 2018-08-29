@@ -4,7 +4,7 @@ from klefki.algorithms import double_and_add_algorithm
 
 class Functor(metaclass=ABCMeta):
 
-    __slots__ = ()
+    __slots__ = ['value']
 
     def __init__(self, v):
         if isinstance(v, self.__class__):
@@ -94,7 +94,7 @@ class Group(Monoid):
     __slots__ = ()
 
     @abstractmethod
-    def inverse(self, g: 'Group') -> 'Group':
+    def inverse(self: 'Group') -> 'Group':
         '''
         Implement for axiom `inverse`
         '''

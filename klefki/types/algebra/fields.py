@@ -7,8 +7,8 @@ class FiniteField(Field):
 
     P = abstractproperty()
 
-    def fmap(self, v):
-        return getattr(v, 'value', v) % self.P
+    def fmap(self, o):
+        return getattr(o, 'value', o) % self.P
 
     @property
     def identity(self):
@@ -21,6 +21,11 @@ class FiniteField(Field):
     def inverse(self):
         return self.__class__(-self.value % self.P)
 
+    def mod(self, a, b):
+        if isinstance(a, complex):
+            return complex((a.real % b), (a.imag % b))
+        return a % b
+
     def sec_inverse(self):
         gcd, x, y = extended_euclidean_algorithm(self.value, self.P)
         assert (self.value * x + self.P * y) == gcd
@@ -32,8 +37,16 @@ class FiniteField(Field):
             )
         return self.__class__(x % self.P)
 
-    def op(self, n):
-        return self.__class__((self.value + n.value) % self.P)
+    def op(self, g):
+        return self.__class__(
+            self.mod(
+                (self.value + g.value), self.P
+            )
+        )
 
-    def sec_op(self, n):
-        return self.__class__((self.value * n.value) % self.P)
+    def sec_op(self, g):
+        return self.__class__(
+            self.mod(
+                (self.value * g.value), self.P
+            )
+        )
