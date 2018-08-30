@@ -8,11 +8,11 @@ class EllipticCurveGroup(Group):
     A = abstractproperty()
     B = abstractproperty()
 
-    def fmap(self, v):
-        if isinstance(v, JacobianGroup):
-            z = ~(v.value[2])
-            return (v.value[0] * z ** 2, v.value[1] * z ** 3)
-        return v
+    def fmap(self, o):
+        if isinstance(o, JacobianGroup):
+            z = ~(o.value[2])
+            return (o.value[0] * z ** 2, o.value[1] * z ** 3)
+        return o
 
     def op(self, g):
         if g.value == 0:
@@ -49,10 +49,10 @@ class CyclicGroup(Group):
     # Order of subgroup
     N = abstractproperty()
 
-    def fmap(self, v):
-        if isinstance(v, FiniteField):
-            return v.__class__(v.value % self.N)
-        return getattr(v, 'value', v) % self.N
+    def fmap(self, o):
+        if isinstance(o, FiniteField):
+            return o.__class__(o.value % self.N)
+        return getattr(o, 'value', o) % self.N
 
     def op(self, g):
         '''
@@ -75,11 +75,11 @@ class JacobianGroup(Group):
     A = abstractproperty()
     B = abstractproperty()
 
-    def fmap(self, v):
-        if isinstance(v, EllipticCurveGroup):
-            field = v.value[0].__class__
-            return [v.value[0], v.value[1], field(1)]
-        return v
+    def fmap(self, o):
+        if isinstance(o, EllipticCurveGroup):
+            field = o.value[0].__class__
+            return [o.value[0], o.value[1], field(1)]
+        return o
 
     def double(self, n=None):
         if not n:
