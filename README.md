@@ -19,6 +19,8 @@ For Installation (require python>=3.6):
 
 ```
 pip3 install klefki
+
+klefki shell
 ```
 
 Have Fun!
