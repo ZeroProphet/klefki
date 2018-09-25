@@ -15,23 +15,33 @@ class EllipticCurveGroup(Group):
         return o
 
     def op(self, g):
+        # https://www.desmos.com/calculator/ialhd71we3
         if g.value == 0:
             return self
         if self.value == 0:
             return g
+
         field = self.value[0].__class__
 
         if self.value[0] != g.value[0]:
+            #  m = \frac{y_1 - y_2}{x_1 - x_2}
             m = (self.value[1] - g.value[1]) / (self.value[0] - g.value[0])
+
         if self.value[0] == g.value[0]:
+            if self.value[1] == -(g.value[1]):
+                return self.identity
+
             m = (field(3) * self.value[0] * self.value[0] +
                  field(self.A)) / (field(2) * self.value[1])
+
         r_x = (m * m - self.value[0] - g.value[0])
         r_y = (self.value[1] + m * (r_x - self.value[0]))
         return self.__class__((r_x, -r_y))
 
     def inverse(self):
-        return self.__class__((self.value[0], -self.value[0]))
+        if self.value == 0:
+            return self
+        return self.__class__((self.value[0], -self.value[1]))
 
     @property
     def identity(self):
@@ -64,6 +74,8 @@ class CyclicGroup(Group):
         return self.__class__(res % self.N)
 
     def inverse(self):
+        if self.value == 0:
+            return self
         return self.__class__(self.N - 1 - self.value)
 
     @property
