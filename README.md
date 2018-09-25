@@ -15,7 +15,7 @@ Klefki
 
 **Klefki is a playground for researching elliptic curve group based cryptocoins, such as Bitcoin and Ethereum. All data types & structures are based on mathematical defination of abstract algebra.**
 
-#### [Try it!](https://repl.it/@RyanKung/InfatuatedStarryLanguage)
+#### [Try it!](https://repl.it/@RyanKung/Klefki-Demo)
 
 
 #### For Installation (require python>=3.6):
