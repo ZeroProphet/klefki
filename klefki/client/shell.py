@@ -1,6 +1,7 @@
 from functools import wraps, partial
 import sys
 
+
 def command(fn, name=None):
 
     if not hasattr(command, 'registered'):
@@ -8,6 +9,7 @@ def command(fn, name=None):
     fname = name or fn.__name__
     command.registered[fname] = fn
     return fn
+
 
 @command
 def shell():
@@ -23,6 +25,7 @@ def shell():
         FiniteFieldCyclicSecp256k1 as CF
     )
     import IPython
+
     N = CG.N
     G = CG.G
     IPython.embed()
@@ -39,7 +42,6 @@ def help():
 
 def not_found(cmd):
     print('cmd %s not found' % cmd)
-    return
 
 
 def output(fn):
