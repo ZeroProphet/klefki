@@ -19,7 +19,7 @@ class FiniteField(Field):
         return self.__class__(1 % self.P)
 
     def inverse(self):
-        return self.__class__(self.P -self.value)
+        return self.__class__(-self.value % self.P)
 
     def mod(self, a, b):
         if isinstance(a, complex):
