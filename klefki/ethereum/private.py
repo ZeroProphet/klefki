@@ -6,7 +6,6 @@ from klefki.types.algebra.concrete import (
 )
 from klefki.types.algebra.isomorphism import bijection
 
-
 def encode_privkey(key: CF) -> str:
     return hex(key.value)[2:]
 

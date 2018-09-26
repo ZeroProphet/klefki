@@ -22,7 +22,6 @@ class FiniteField(Field):
         return self.__class__(1 % self.P)
 
     def inverse(self):
-        import pdb; pdb.set_trace()
         return self.__class__(self.P - self.value)
 
     def mod(self, a, b):

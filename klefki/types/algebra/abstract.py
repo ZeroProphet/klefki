@@ -14,6 +14,8 @@ class Functor(metaclass=ABCMeta):
     def fmap(self, o):
         return o
 
+    def id(self):
+        return self.value
 
 class Groupoid(Functor):
 

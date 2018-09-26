@@ -24,8 +24,10 @@ def wrap_key(key: bytes, version=128, compress=1):
 def unwrap_key(key: bytes):
     return key[1: -5]
 
+def to_cf(a: int):
+    return CF(a)
 
-@bijection(CF)
+@bijection(to_cf)
 def from_cf(a: CF) -> int:
     return a.value
 

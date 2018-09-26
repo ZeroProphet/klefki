@@ -6,3 +6,6 @@ def test_complex():
 
     assert x + y
     assert x * y
+    assert (-x).__class__ == x.__class__
+    assert x + (-y)
+    assert x - y
