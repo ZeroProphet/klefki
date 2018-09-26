@@ -8,7 +8,10 @@ class FiniteField(Field):
     P = abstractproperty()
 
     def fmap(self, o):
-        return getattr(o, 'value', o) % self.P
+        value = getattr(o, 'value', o)
+        if isinstance(value, complex):
+            return complex((value.real % self.P), (value.imag % self.P))
+        return value % self.P
 
     @property
     def identity(self):
@@ -19,6 +22,7 @@ class FiniteField(Field):
         return self.__class__(1 % self.P)
 
     def inverse(self):
+        import pdb; pdb.set_trace()
         return self.__class__(self.P - self.value)
 
     def mod(self, a, b):
@@ -38,6 +42,7 @@ class FiniteField(Field):
         return self.__class__(x % self.P)
 
     def op(self, g):
+
         return self.__class__(
             self.mod(
                 (self.value + g.value), self.P

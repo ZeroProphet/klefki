@@ -6,7 +6,7 @@ dev-install:
 	python setup.py develop
 
 test:
-	pytest -v
+	pytest -v --pdb
 
 asn1:
 	asn1ate $(ASN_PATH)/signature.asn > $(SRC_PATH)/asn/signature.py
