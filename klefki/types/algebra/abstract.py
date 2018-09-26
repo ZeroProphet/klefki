@@ -1,5 +1,6 @@
 from abc import ABCMeta, abstractmethod, abstractproperty
 from klefki.algorithms import double_and_add_algorithm
+from klefki.algorithms import complex_truediv_algorithm
 
 
 class Functor(metaclass=ABCMeta):
@@ -154,4 +155,6 @@ class Field(Group):
         return self * (self ** (b - 1))
 
     def __truediv__(self, g: 'Group') -> 'Group':
+        if isinstance(g.value, complex):
+            return complex_truediv_algorithm(complex(1), self.value, self.__class__)
         return self.sec_op(g.sec_inverse())

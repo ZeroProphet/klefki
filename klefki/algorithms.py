@@ -9,6 +9,18 @@ __all__ = [
 T = TypeVar('T')
 
 
+def complex_truediv_algorithm(x: complex, y: complex, f: T) -> T:
+    a = f(x.real)
+    b = f(x.imag)
+    c = f(y.real)
+    d = f(y.imag)
+
+    return f(complex(
+        (a*c + b*d) / (c**2 + d**2),
+        (b*c - a*d) / (c**2 + d**2)
+    ))
+
+
 def extended_euclidean_algorithm(a: int, b: int) -> Tuple[int, int, int]:
     '''
     Returns a three-tuple (gcd, x, y) such that

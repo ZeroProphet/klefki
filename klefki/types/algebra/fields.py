@@ -1,6 +1,7 @@
 from abc import abstractproperty
 from .abstract import Field
 from klefki.algorithms import extended_euclidean_algorithm
+from klefki.algorithms import complex_truediv_algorithm
 
 
 class FiniteField(Field):
@@ -30,6 +31,9 @@ class FiniteField(Field):
         return a % b
 
     def sec_inverse(self):
+        if isinstance(self.value, complex):
+            return complex_truediv_algorithm(complex(1), self.value, self.__class__)
+
         gcd, x, y = extended_euclidean_algorithm(self.value, self.P)
         assert (self.value * x + self.P * y) == gcd
         if gcd != 1:
