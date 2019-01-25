@@ -26,7 +26,7 @@ pip3 install klefki
 klefki shell
 ```
 
-Have Fun!
+Have Fun!!!!
 
 ## AAT(Abstract Algebra Type)
 
