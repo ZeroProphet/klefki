@@ -65,3 +65,13 @@ def double_and_add_algorithm(times: int, x: T, init: T) -> T:
         addend = addend + addend
 
     return result
+
+
+def newton_iterator_sqrt(x: T):
+    if (x.value == 0): return x
+    last = x.__class__(0)
+    res = x.__class__(1)
+    while res != last:
+        last = res
+        res = (res + x / res) / x.__class__(2)
+    return res

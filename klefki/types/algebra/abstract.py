@@ -148,6 +148,8 @@ class Field(Group):
         return res
 
     def __pow__(self, b):
+        if 0 < b < 1:
+            return self.__class__(self.value ** b)
         if b == 1:
             return self
         if b == 2:
