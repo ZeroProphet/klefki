@@ -15,13 +15,6 @@ class EllipticCurveGroup(Group):
         return o
 
 
-    @classmethod
-    def map2curve(Cls, x: FiniteField):
-        # y^2=x^3+ax+b
-        field = x.__class__
-        y2 = (x ** 3) + x * field(Cls.A) + field(Cls.B)
-        return Cls((x, x.__class__(int(y2.value ** (1/2)))))
-
     def op(self, g):
         # https://www.desmos.com/calculator/ialhd71we3
         if g.value == 0:
