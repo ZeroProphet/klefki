@@ -22,11 +22,6 @@ class FiniteFieldSecp256k1(FiniteField):
     P = const.SECP256K1_P
 
 
-class FiniteFieldCyclicSecp256k1(FiniteField):
-    __slots__ = ()
-    P = const.SECP256K1_N
-
-
 class EllipticCurveGroupSecp256k1(EllipticCurveGroup):
     __slots__ = ()
     A = const.SECP256K1_A
