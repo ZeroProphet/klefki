@@ -90,6 +90,8 @@ class Monoid(SemiGroup):
     def __matmul__(self, times):
         while getattr(times, 'value', None):
             times = times.value
+            if times == 0:
+                return self.identity()
         return double_and_add_algorithm(times, self, self.identity)
 
 
