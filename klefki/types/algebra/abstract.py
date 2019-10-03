@@ -88,10 +88,10 @@ class Monoid(SemiGroup):
         return self is not self.identity
 
     def __matmul__(self, times):
-        while getattr(times, 'value', None):
+        while getattr(times, 'value', None) != None:
             times = times.value
-            if times == 0:
-                return self.identity()
+        if times == 0:
+            return self.identity
         return double_and_add_algorithm(times, self, self.identity)
 
 
