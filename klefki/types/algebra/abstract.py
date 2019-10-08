@@ -52,6 +52,10 @@ class Groupoid(Functor):
         assert isinstance(res, type(self))
         return res
 
+    def __mul__(self, g: 'Group') -> 'Group':
+        return self.__add__(g)
+
+
     def __repr__(self):
         return "%s::%s" % (
             type(self).__name__,
@@ -94,6 +98,13 @@ class Monoid(SemiGroup):
             return self.identity
         return double_and_add_algorithm(times, self, self.identity)
 
+    def __pow__(self, times) -> 'Group':
+        return __matmul__(times)
+
+    def __xor__(self, times) -> 'Group':
+        return __matmul__(times)
+
+
 
 class Group(Monoid):
     __slots__ = ()
@@ -119,14 +130,14 @@ class Field(Group):
     __slots__ = ()
 
     @abstractmethod
-    def sec_op(self, g: 'Group') -> 'Group':
+    def sec_op(self, g: 'Field') -> 'Field':
         '''
         The Operator for obeying axiom `associativity` (2)
         '''
         pass
 
     @abstractmethod
-    def sec_inverse(self) -> 'Group':
+    def sec_inverse(self) -> 'Field':
         '''
         Implement for axiom `inverse`
         '''
@@ -139,7 +150,7 @@ class Field(Group):
     def __invert__(self):
         return self.sec_inverse()
 
-    def __mul__(self, g: 'Group') -> 'Group':
+    def __mul__(self, g: 'Field') -> 'Field':
         '''
         Allowing call associativity operator via A * B
         Strict limit arg `g` and ret `res` should be subtype of Group,
@@ -160,7 +171,7 @@ class Field(Group):
             return self * self
         return self * (self ** (b - 1))
 
-    def __truediv__(self, g: 'Group') -> 'Group':
+    def __truediv__(self, g: 'Field') -> 'Field':
         if isinstance(g.value, complex):
             return complex_truediv_algorithm(complex(1), self.value, self.__class__)
         return self.sec_op(g.sec_inverse())
