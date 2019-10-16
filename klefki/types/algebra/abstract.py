@@ -99,10 +99,10 @@ class Monoid(SemiGroup):
         return double_and_add_algorithm(times, self, self.identity)
 
     def __pow__(self, times) -> 'Group':
-        return __matmul__(times)
+        return self.__matmul__(times)
 
     def __xor__(self, times) -> 'Group':
-        return __matmul__(times)
+        return self.__matmul__(times)
 
 
 
