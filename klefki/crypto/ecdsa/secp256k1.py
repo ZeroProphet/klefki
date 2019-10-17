@@ -42,9 +42,11 @@ def sign(priv: CF, m: str) -> SigType:
     k = CF(random_privkey())
     z = CF(to_sha256int(m))
 
-    p = G @ k
-    r, y = CF(p.value[0]), CF(p.value[1])
+    P = G @ k
+    r, y = CF(P.value[0]), P.value[1]
+
     s = (z + priv * r) / k
+
     v = CF(27 + y.value % 2)
     return v, r, s
 

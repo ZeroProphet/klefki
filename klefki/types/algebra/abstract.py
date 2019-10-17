@@ -91,15 +91,18 @@ class Monoid(SemiGroup):
     def __not__(self):
         return self is not self.identity
 
-    def __matmul__(self, times):
+    def scalar(self, times):
         while getattr(times, 'value', None) != None:
             times = times.value
         if times == 0:
             return self.identity
         return double_and_add_algorithm(times, self, self.identity)
 
+    def __matmul__(self, times):
+        return self.scalar(times)
+
     def __pow__(self, times) -> 'Group':
-        return self.__matmul__(times)
+        return self.scalar(times)
 
     def __xor__(self, times) -> 'Group':
         return self.__matmul__(times)
