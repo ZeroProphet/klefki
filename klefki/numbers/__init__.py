@@ -59,3 +59,37 @@ def power(base, exp):
         exp >>= 1
         base *= base
     return ans
+
+
+# from https://github.com/mikeivanov/paillier/blob/master/paillier/paillier.py
+
+def invmod(a, p, maxiter=1000000):
+    """The multiplicitive inverse of a in the integers modulo p:
+         a * b == 1 mod p
+       Returns b.
+       (http://code.activestate.com/recipes/576737-inverse-modulo-p/)"""
+    if a == 0:
+        raise ValueError('0 has no inverse mod %d' % p)
+    r = a
+    d = 1
+    for i in range(min(p, maxiter)):
+        d = ((p // r + 1) * d) % p
+        r = (d * a) % p
+        if r == 1:
+            break
+    else:
+        raise ValueError('%d has no inverse mod %d' % (a, p))
+    return d
+
+def modpow(base, exponent, modulus):
+    """Modular exponent:
+         c = b ^ e mod m
+       Returns c.
+       (http://www.programmish.com/?p=34)"""
+    result = 1
+    while exponent > 0:
+        if exponent & 1 == 1:
+            result = (result * base) % modulus
+        exponent = exponent >> 1
+        base = (base * base) % modulus
+    return result
