@@ -1,8 +1,9 @@
 import math
 
 
-def carmichael(n):
+def fn_lambda(n):
     '''
+    Carmichael Function
     A number n is said to be a Carmichael number if
     it satisfies the following modular arithmetic condition:
     power(b, n-1) MOD n = 1,
@@ -16,18 +17,45 @@ def carmichael(n):
     return k
 
 
+def fn_phi(n):
+    '''
+    Eulers Totient Function
+    https://stackoverflow.com/questions/18114138/computing-eulers-totient-function
+    '''
+    amount = 0
+    for k in range(1, n + 1):
+        if math.gcd(n, k) == 1:
+            amount += 1
+    return amount
+
+
+carmichael = fn_lambda
+totient = fn_phi
 
 def lcm(a, b):
-    return abs(a*b) // gcd(a, b)
+    return abs(a*b) // math.gcd(a, b)
 
 
-def len(n, base=10):
+def length(n, base=10):
     return math.floor(math.log(n, base)) + 1
 
 
-def Blen(n, base=2):
+def Blength(n, base=2):
     return math.floor(math.log(n, base)) + 1
 
 
-def Dlen(n, base=10):
+def Dlength(n, base=10):
     return math.floor(math.log(n, base)) + 1
+
+
+def power(base, exp):
+    """ Fast power calculation using repeated squaring """
+    if exp < 0:
+        return 1 / power(base, -exp)
+    ans = 1
+    while exp:
+        if exp & 1:
+            ans *= base
+        exp >>= 1
+        base *= base
+    return ans
