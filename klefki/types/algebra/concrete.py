@@ -32,6 +32,14 @@ class EllipticCurveGroupSecp256k1(EllipticCurveGroup):
     A = const.SECP256K1_A
     B = const.SECP256K1_B
 
+    @property
+    def x(self):
+        return self.value[0]
+
+    @property
+    def y(self):
+        return self.value[1]
+
 
 class JacobianGroupSecp256k1(JacobianGroup):
     __slots__ = ()
@@ -48,6 +56,15 @@ class EllipticCurveCyclicSubgroupSecp256k1(CyclicGroup):
         )
     )
     N = const.SECP256K1_N
+
+    @property
+    def x(self):
+        return self.value[0]
+
+    @property
+    def y(self):
+        return self.value[1]
+
 
 
 class FiniteFieldSecp256r1(FiniteField):

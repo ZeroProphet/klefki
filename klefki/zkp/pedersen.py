@@ -10,26 +10,26 @@ def v_multi(g: [Group], a: [Field]) -> [Group]:
                   list(map(lambda a: a[0] @ a[1], zip(g, a))))
 
 
-def commitment(G: Group, H: Group, a: Field, b) -> Group:
-    return (G ^ a) * (H ^ b)
+def commitment(x: Field, r: Field, H: Group, G: Group) -> Group:
+    return (G ^ x) * (H ^ r)
 
 
-def vertex_commitment(G: [Group], H, a: [Field], b) -> Group:
-    return v_multi(G, a) * H ^ b
+def vertex_commitment(x: [Field], r: Field, H: Group, G: [Group]) -> Group:
+    return v_multi(G, x) * H ^ r
 
 
-def matrix_commitment(G: [Group], H, a: [[Field]], b) -> Group:
-    return vertex_commitment(G, H, reduce(add, a), b)
+def matrix_commitment(x: [[Field]], r: Field, H: Group, G: [Group]) -> Group:
+    return vertex_commitment(G, H, reduce(add, x), r)
 
-def com(G, H, a, b) -> Group:
-    if type(a) in [
+def com(x, r, H, G) -> Group:
+    if type(x) in [
             Iterator,
             list
     ]:
-        if type(a[0]) in [
+        if type(x[0]) in [
             Iterator,
             list
         ]:
-            return matrix_commitment(G, H, a, b)
-        return vertex_commitment(G, H, a, b)
-    return commitment(G, H, a, b)
+            return matrix_commitment(x, r, H, G)
+        return vertex_commitment(x, r, H, G)
+    return commitment(x, r, H, G)
