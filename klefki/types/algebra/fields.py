@@ -36,12 +36,12 @@ class FiniteField(Field):
 
         gcd, x, y = extended_euclidean_algorithm(self.value, self.P)
         assert (self.value * x + self.P * y) == gcd
-        if gcd != 1:
-            # Either n is 0, or p is not prime number
-            raise ValueError(
-                '{} has no multiplicate inverse '
-                'modulo {}'.format(self.value, self.P)
-            )
+        # if gcd != 1:
+        #     # Either n is 0, or p is not prime number
+        #     raise ValueError(
+        #         '{} has no multiplicate inverse '
+        #         'modulo {}'.format(self.value, self.P)
+        #     )
         return self.__class__(x % self.P)
 
     def op(self, g):

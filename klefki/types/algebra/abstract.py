@@ -163,16 +163,19 @@ class Field(Group):
         assert isinstance(res, type(self)), 'result shuould be %s' % type(self)
         return res
 
-    def __pow__(self, b):
-        if b == 0:
-            return self.__class__(1)
-        if 0 < b < 1:
-            return self.__class__(self.value ** b)
-        if b == 1:
-            return self
-        if b == 2:
-            return self * self
-        return self * (self ** (b - 1))
+    def __pow__(self, b, m=None):
+        if hasattr(self, "P"):
+            m = self.P
+        return self.__class__(pow(self.value, b, m))
+        # if b == 0:
+        #     return self.__class__(1)
+        # if 0 < b < 1:
+        #     return self.__class__(self.value ** b)
+        # if b == 1:
+        #     return self
+        # if b == 2:
+        #     return self * self
+        # return self * (self ** (b - 1))
 
     def __truediv__(self, g: 'Field') -> 'Field':
         if isinstance(g.value, complex):
