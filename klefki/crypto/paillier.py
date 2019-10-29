@@ -36,6 +36,8 @@ class Paillier(metaclass=ABCMeta):
 
 
     def encrypt(self, m):
+        if hasattr(m, "value"):
+            m = m.value
         assert 0 <= m < self.N
         r = self.DF(random.randint(0, self.N))
         return self.G**m * r**self.N

@@ -164,6 +164,9 @@ class Field(Group):
         return res
 
     def __pow__(self, b, m=None):
+        if hasattr(b, "value"):
+            b = b.value
+
         if hasattr(self, "P"):
             m = self.P
         return self.__class__(pow(self.value, b, m))
