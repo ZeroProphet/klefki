@@ -10,29 +10,21 @@ import random
 class Paillier(metaclass=ABCMeta):
 
     def __init__(self, P, Q):
-        self.P = P
-        self.Q = Q
         assert gcd(P * Q, (P - 1) * (Q - 1)) == 1
 
-        self.N = P * Q
-        self.Lam = lcm(P - 1, Q - 1)
+        N = P * Q
+        Lam = lcm(P - 1, Q - 1)
 
-        self.F = field(self.N)
-        self.DF = field(self.N**2)
+        F = field(N)
+        DF = field(N**2)
 
-        self.G = randfield(self.DF)
-        self.L  = lambda x: (x - 1) // self.N
-        self.M = ~self.F(self.L(pow(self.G, self.Lam).value))
+        L  = lambda x: (x - 1) // N
+        G = randfield(DF)
 
+        M = ~F(L(pow(G, Lam).value))
 
-    @property
-    def privkey(self):
-        return (self.Lam, self.M)
-
-
-    @property
-    def pubkey(self):
-        return (self.N, self.G)
+        self.privkey = (Lam, M)
+        self.pubkey = (N, G)
 
 
     @classmethod
