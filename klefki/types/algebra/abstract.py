@@ -15,6 +15,10 @@ class Functor(metaclass=ABCMeta):
     def fmap(self, o):
         return o
 
+    @property
+    def functor(self):
+        return self.__class__
+
     def id(self):
         return self.value
 

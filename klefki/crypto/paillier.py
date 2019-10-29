@@ -21,7 +21,7 @@ class Paillier(metaclass=ABCMeta):
         self.DF = field(self.N**2)
 
         self.G = randfield(self.DF)
-        self.L = L = lambda x: (x - 1) // self.N
+        self.L  = lambda x: (x - 1) // self.N
         self.M = ~self.F(self.L(pow(self.G, self.Lam).value))
 
 
@@ -35,23 +35,32 @@ class Paillier(metaclass=ABCMeta):
         return (self.N, self.G)
 
 
-    def encrypt(self, m):
+    @classmethod
+    def encrypt(cls, m, pub):
+        N, G = pub
+
         if hasattr(m, "value"):
             m = m.value
-        assert 0 <= m < self.N
-        r = self.DF(random.randint(0, self.N))
-        return self.G**m * r**self.N
+
+        r = G.functor(random.randint(0, N))
+        return G**m * r**N
 
 
-    def decrypt(self, c):
-        return self.F(self.L((c ** self.Lam).value)) * self.M
+    @classmethod
+    def decrypt(cls, c, priv, pub):
+        Lam, M = priv
+        N, G = pub
 
-    def E(self, m):
-        return self.encrypt(m)
+        F = M.functor
+        L =  lambda x: (x - 1) // N
+        return F(L((c ** Lam).value)) * M
+
+    def E(self, m, pub=None):
+        return self.encrypt(m, pub or self.pubkey)
 
 
-    def D(self, m):
-        return self.decrypt(m)
+    def D(self, c, priv=None, pub=None):
+        return self.decrypt(c, priv or self.privkey, pub or self.pubkey)
 
 
     def test(self):
