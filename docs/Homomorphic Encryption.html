@@ -238,17 +238,16 @@ div.rendered_html tbody tr:hover {
 </style>
 <div class="section" id="Homomorphic-Encryption">
 <h1>Homomorphic Encryption<a class="headerlink" href="#Homomorphic-Encryption" title="Permalink to this headline">¶</a></h1>
-</div>
 <div class="section" id="History">
-<h1>History<a class="headerlink" href="#History" title="Permalink to this headline">¶</a></h1>
+<h2>History<a class="headerlink" href="#History" title="Permalink to this headline">¶</a></h2>
 <p>In <strong>1978</strong> Rivest et al. (Rivest et al, 1978a) first investigated the design of a homomorphic encryption scheme. Unfortunately, their privacy homomorphism was broken a couple of years later by Brickell and Yacobi (Brickell &amp; Yacobi, 1987).</p>
 <p>The question rose again in <strong>1991</strong> when Feigenbaum and Merritt (Feigenbaum &amp; Merritt, 1991) raised an important question: is there an encryption function (E) such that both <span class="math notranslate nohighlight">\(E(x + y)\)</span> and <span class="math notranslate nohighlight">\(E(x.y)\)</span> are easy to compute from <span class="math notranslate nohighlight">\(E(x)\)</span> and <span class="math notranslate nohighlight">\(E(y)\)</span>?</p>
 <p>Unfortunately, there has been a very little progress in determining whether such encryption schemes exist that are efficient and secure until <strong>2009</strong> when Craig Gentry, in his seminal paper, theoretically demonstrated the possibility of construction such an encryption system (Gentry, 2009).</p>
 </div>
 <div class="section" id="Fundamentals">
-<h1>Fundamentals<a class="headerlink" href="#Fundamentals" title="Permalink to this headline">¶</a></h1>
+<h2>Fundamentals<a class="headerlink" href="#Fundamentals" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="Symmetric-encryption-schemes:">
-<h2>Symmetric encryption schemes:<a class="headerlink" href="#Symmetric-encryption-schemes:" title="Permalink to this headline">¶</a></h2>
+<h3>Symmetric encryption schemes:<a class="headerlink" href="#Symmetric-encryption-schemes:" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>The sender and the receiver agree on the key they will use before establishing any secure communication session.</p>
 <ul>
@@ -266,7 +265,7 @@ div.rendered_html tbody tr:hover {
 </ul>
 </div>
 <div class="section" id="Asymmetric-encryption-schemes:">
-<h2>Asymmetric encryption schemes:<a class="headerlink" href="#Asymmetric-encryption-schemes:" title="Permalink to this headline">¶</a></h2>
+<h3>Asymmetric encryption schemes:<a class="headerlink" href="#Asymmetric-encryption-schemes:" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>every participant has a pair of keys - private and public.</p>
 <ul>
@@ -283,7 +282,7 @@ div.rendered_html tbody tr:hover {
 </ul>
 </div>
 <div class="section" id="Security-of-encryption-schemes:">
-<h2>Security of encryption schemes:<a class="headerlink" href="#Security-of-encryption-schemes:" title="Permalink to this headline">¶</a></h2>
+<h3>Security of encryption schemes:<a class="headerlink" href="#Security-of-encryption-schemes:" title="Permalink to this headline">¶</a></h3>
 <p>Security of encryption schemes was first formalized by Shannon (Shannon, 1949). In his seminal paper, Shannon first introduced the notion of perfect secrecy/unconditional secrecy.</p>
 <p>which characterizes encryption schemes for which the knowledge of a ciphertext does not give any information about the corresponding plaintext and the encryption key.</p>
 <p>Shannon also proved that One-Time Pad (Vernam, 1926) encryption scheme is perfectly secure under certain conditions.</p>
@@ -314,7 +313,7 @@ div.rendered_html tbody tr:hover {
 </li>
 </ul>
 <div class="section" id="Probabilistic-encryption:">
-<h3>Probabilistic encryption:<a class="headerlink" href="#Probabilistic-encryption:" title="Permalink to this headline">¶</a></h3>
+<h4>Probabilistic encryption:<a class="headerlink" href="#Probabilistic-encryption:" title="Permalink to this headline">¶</a></h4>
 <p>Almost all the well-known cryptosystems are <strong>deterministic</strong>. - For a fixed encryption key, a given plaintext will always be encrypted into the same ciphertext under these systems. this may lead to some security problems.</p>
 <p>E.g.</p>
 <ul class="simple">
@@ -348,7 +347,7 @@ div.rendered_html tbody tr:hover {
 </li>
 </ul>
 <div class="section" id="asymmetric-ciphers-case">
-<h4>asymmetric ciphers case<a class="headerlink" href="#asymmetric-ciphers-case" title="Permalink to this headline">¶</a></h4>
+<h5>asymmetric ciphers case<a class="headerlink" href="#asymmetric-ciphers-case" title="Permalink to this headline">¶</a></h5>
 <p>The security analysis is more mathematical and formal, and we want the randomized schemes to remain analyzable in the same way as the deterministic schemes. Researchers have proposed some models to randomize the existing deterministic schemes, Such as:</p>
 <ul class="simple">
 <li><p>Randomized schemes</p>
@@ -360,13 +359,16 @@ div.rendered_html tbody tr:hover {
 </ul>
 </div>
 <div class="section" id="Expansion">
-<h4>Expansion<a class="headerlink" href="#Expansion" title="Permalink to this headline">¶</a></h4>
+<h5>Expansion<a class="headerlink" href="#Expansion" title="Permalink to this headline">¶</a></h5>
 <p>The ratio of the length of the ciphertext and the corresponding plaintext (in bits) is called <strong>expansion</strong>.</p>
 <p>The value of this parameter is of paramount importance in determining <strong>security</strong> and <strong>efficiency tradeoff</strong> of a probabilistic encryption scheme.</p>
 <p>E.g.</p>
 <p>In Paillier’s scheme, an efficient probabilistic encryption mechanism has been proposed with the value of expansion less than 2 (Paillier, 1997).</p>
+</div>
+</div>
+</div>
 <div class="section" id="Homomorphic-encryption-schemes">
-<h5>Homomorphic encryption schemes<a class="headerlink" href="#Homomorphic-encryption-schemes" title="Permalink to this headline">¶</a></h5>
+<h3>Homomorphic encryption schemes<a class="headerlink" href="#Homomorphic-encryption-schemes" title="Permalink to this headline">¶</a></h3>
 <p><strong>Definition</strong>: Let the message space <span class="math notranslate nohighlight">\((\mathbf{M}, o)\)</span> be a <span class="math notranslate nohighlight">\(finite (semi-)group\)</span>, and let <span class="math notranslate nohighlight">\(\sigma\)</span> be the security parameter.</p>
 <p>A <strong>homomorphic public-key encryption scheme</strong>(or <strong>homomorphic cryptosystem</strong>) on <span class="math notranslate nohighlight">\(\mathbf{M}\)</span> is a quadruple <span class="math notranslate nohighlight">\((K, E, D, A)\)</span> of probabilistic.</p>
 <p>expected polynomial time algorithms, satisfying the following functionalities:</p>
@@ -398,11 +400,8 @@ div.rendered_html tbody tr:hover {
 <p>If the encryption algorithm <span class="math notranslate nohighlight">\(E\)</span> gets as additional input a uniform random number <span class="math notranslate nohighlight">\(r\)</span> of a set <span class="math notranslate nohighlight">\(Z\)</span>, the encryption shceme is called <strong>probablistic</strong>, otherwise, it is called <strong>deterministic</strong>.</p>
 <p>If a cryptosystem is probabilistic, there belong several different ciphertexts to one message depending on the random number <span class="math notranslate nohighlight">\(r \in Z\)</span>.</p>
 </div>
-</div>
-</div>
-</div>
 <div class="section" id="Ref:">
-<h2>Ref:<a class="headerlink" href="#Ref:" title="Permalink to this headline">¶</a></h2>
+<h3>Ref:<a class="headerlink" href="#Ref:" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Jaydip Sen, DOI: 10.5772/56687, Homomorphic Encryption — Theory and Application <a class="reference external" href="https://www.intechopen.com/books/theory-and-practice-of-cryptography-and-network-security-protocols-and-technologies/homomorphic-encryption-theory-and-application">https://www.intechopen.com/books/theory-and-practice-of-cryptography-and-network-security-protocols-and-technologies/homomorphic-encryption-theory-and-application</a></p></li>
 </ul>
@@ -413,6 +412,7 @@ div.rendered_html tbody tr:hover {
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span>
 </pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -445,13 +445,9 @@ div.rendered_html tbody tr:hover {
 </ul>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Abstract Algebra Types.html">Abstract Algebra Types</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Homomorphic Encryption</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#History">History</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#Fundamentals">Fundamentals</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#Symmetric-encryption-schemes:">Symmetric encryption schemes:</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Asymmetric-encryption-schemes:">Asymmetric encryption schemes:</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Security-of-encryption-schemes:">Security of encryption schemes:</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Ref:">Ref:</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Homomorphic Encryption</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#History">History</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Fundamentals">Fundamentals</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="From ZK to Bulletproofs.html">From ZK to Bulletproofsproof via Python</a></li>

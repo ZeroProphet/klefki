@@ -12,7 +12,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# History"
+    "## History"
    ]
   },
   {
@@ -40,7 +40,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# Fundamentals"
+    "## Fundamentals"
    ]
   },
   {
@@ -214,7 +214,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Homomorphic encryption schemes"
+    "### Homomorphic encryption schemes"
    ]
   },
   {
