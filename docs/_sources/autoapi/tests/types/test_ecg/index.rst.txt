@@ -1,0 +1,22 @@
+:mod:`tests.types.test_ecg`
+===========================
+
+.. py:module:: tests.types.test_ecg
+
+
+Module Contents
+---------------
+
+.. data:: N
+   
+
+   
+
+.. data:: G
+   
+
+   
+
+.. function:: test_add()
+
+

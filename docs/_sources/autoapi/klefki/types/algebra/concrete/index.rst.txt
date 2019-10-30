@@ -1,0 +1,209 @@
+:mod:`klefki.types.algebra.concrete`
+====================================
+
+.. py:module:: klefki.types.algebra.concrete
+
+
+Module Contents
+---------------
+
+.. py:class:: FiniteFieldSecp256k1
+
+   Bases: :class:`klefki.types.algebra.fields.FiniteField`
+
+   .. attribute:: __slots__
+      :annotation: = []
+
+      
+
+   .. attribute:: P
+      
+
+      
+
+
+.. py:class:: FiniteFieldCyclicSecp256k1
+
+   Bases: :class:`klefki.types.algebra.fields.FiniteField`
+
+   .. attribute:: __slots__
+      :annotation: = []
+
+      
+
+   .. attribute:: P
+      
+
+      
+
+
+.. py:class:: EllipticCurveGroupSecp256k1
+
+   Bases: :class:`klefki.types.algebra.groups.EllipticCurveGroup`
+
+   .. attribute:: __slots__
+      :annotation: = []
+
+      
+
+   .. attribute:: A
+      
+
+      
+
+   .. attribute:: B
+      
+
+      
+
+   .. method:: x(self)
+      :property:
+
+
+
+   .. method:: y(self)
+      :property:
+
+
+
+
+.. py:class:: JacobianGroupSecp256k1
+
+   Bases: :class:`klefki.types.algebra.groups.JacobianGroup`
+
+   .. attribute:: __slots__
+      :annotation: = []
+
+      
+
+   .. attribute:: A
+      
+
+      
+
+   .. attribute:: B
+      
+
+      
+
+
+.. py:class:: EllipticCurveCyclicSubgroupSecp256k1
+
+   Bases: :class:`klefki.types.algebra.groups.CyclicGroup`
+
+   .. attribute:: __slots__
+      :annotation: = []
+
+      
+
+   .. attribute:: G
+      
+
+      
+
+   .. attribute:: N
+      
+
+      
+
+   .. method:: x(self)
+      :property:
+
+
+
+   .. method:: y(self)
+      :property:
+
+
+
+
+.. py:class:: FiniteFieldSecp256r1
+
+   Bases: :class:`klefki.types.algebra.fields.FiniteField`
+
+   .. attribute:: __slots__
+      :annotation: = []
+
+      
+
+   .. attribute:: P
+      
+
+      
+
+
+.. py:class:: FiniteFieldCyclicSecp256r1
+
+   Bases: :class:`klefki.types.algebra.fields.FiniteField`
+
+   .. attribute:: __slots__
+      :annotation: = []
+
+      
+
+   .. attribute:: P
+      
+
+      
+
+
+.. py:class:: EllipticCurveGroupSecp256r1
+
+   Bases: :class:`klefki.types.algebra.groups.EllipticCurveGroup`
+
+   .. attribute:: __slots__
+      :annotation: = []
+
+      
+
+   .. attribute:: A
+      
+
+      
+
+   .. attribute:: B
+      
+
+      
+
+
+.. py:class:: JacobianGroupSecp256r1
+
+   Bases: :class:`klefki.types.algebra.groups.JacobianGroup`
+
+   .. attribute:: __slots__
+      :annotation: = []
+
+      
+
+   .. attribute:: A
+      
+
+      
+
+   .. attribute:: B
+      
+
+      
+
+
+.. py:class:: EllipticCurveCyclicSubgroupSecp256r1
+
+   Bases: :class:`klefki.types.algebra.groups.CyclicGroup`
+
+   .. attribute:: __slots__
+      :annotation: = []
+
+      
+
+   .. attribute:: G
+      
+
+      
+
+   .. attribute:: N
+      
+
+      
+
+

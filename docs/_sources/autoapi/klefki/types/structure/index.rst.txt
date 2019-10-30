@@ -1,0 +1,27 @@
+:mod:`klefki.types.structure`
+=============================
+
+.. py:module:: klefki.types.structure
+
+
+Module Contents
+---------------
+
+.. py:class:: MerkleTree(data: Iterable, child=None)
+
+   .. method:: nodes(self)
+      :property:
+
+
+
+   .. method:: parents(self)
+      :property:
+
+
+
+   .. method:: root(self)
+      :property:
+
+
+
+

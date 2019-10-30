@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>klefki.types.algebra.groups &#8212; klefki 0.7 documentation</title>
+    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for klefki.types.algebra.groups</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">abc</span> <span class="k">import</span> <span class="n">abstractproperty</span>
+<span class="kn">from</span> <span class="nn">.abstract</span> <span class="k">import</span> <span class="n">Group</span>
+<span class="kn">from</span> <span class="nn">.fields</span> <span class="k">import</span> <span class="n">FiniteField</span>
+
+
+<div class="viewcode-block" id="EllipticCurveGroup"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.EllipticCurveGroup">[docs]</a><span class="k">class</span> <span class="nc">EllipticCurveGroup</span><span class="p">(</span><span class="n">Group</span><span class="p">):</span>
+    <span class="c1"># for y^2 = x^3 + A * x + B</span>
+<div class="viewcode-block" id="EllipticCurveGroup.A"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.EllipticCurveGroup.A">[docs]</a>    <span class="n">A</span> <span class="o">=</span> <span class="n">abstractproperty</span><span class="p">()</span></div>
+<div class="viewcode-block" id="EllipticCurveGroup.B"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.EllipticCurveGroup.B">[docs]</a>    <span class="n">B</span> <span class="o">=</span> <span class="n">abstractproperty</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="EllipticCurveGroup.fmap"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.EllipticCurveGroup.fmap">[docs]</a>    <span class="k">def</span> <span class="nf">fmap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">JacobianGroup</span><span class="p">):</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="o">~</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">z</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="n">o</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">z</span> <span class="o">**</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">o</span></div>
+
+
+<div class="viewcode-block" id="EllipticCurveGroup.op"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.EllipticCurveGroup.op">[docs]</a>    <span class="k">def</span> <span class="nf">op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">g</span><span class="p">):</span>
+        <span class="c1"># https://www.desmos.com/calculator/ialhd71we3</span>
+        <span class="k">if</span> <span class="n">g</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">g</span>
+
+        <span class="n">field</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="vm">__class__</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">g</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="c1">#  m = \frac{y_1 - y_2}{x_1 - x_2}</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">g</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">g</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">g</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">identity</span>
+
+            <span class="n">m</span> <span class="o">=</span> <span class="p">(</span><span class="n">field</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span>
+                 <span class="n">field</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">A</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">field</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="n">r_x</span> <span class="o">=</span> <span class="p">(</span><span class="n">m</span> <span class="o">*</span> <span class="n">m</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">g</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">r_y</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">m</span> <span class="o">*</span> <span class="p">(</span><span class="n">r_x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">((</span><span class="n">r_x</span><span class="p">,</span> <span class="o">-</span><span class="n">r_y</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="EllipticCurveGroup.inverse"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.EllipticCurveGroup.inverse">[docs]</a>    <span class="k">def</span> <span class="nf">inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span></div>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="EllipticCurveGroup.identity"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.EllipticCurveGroup.identity">[docs]</a>    <span class="k">def</span> <span class="nf">identity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># The abstract zero of EC Group</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="CyclicGroup"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.CyclicGroup">[docs]</a><span class="k">class</span> <span class="nc">CyclicGroup</span><span class="p">(</span><span class="n">Group</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    With Lagrange&#39;s therem</span>
+<span class="sd">    the order of a subgroup is a divisor of the order of the parent group</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1"># The Base Point</span>
+<div class="viewcode-block" id="CyclicGroup.G"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.CyclicGroup.G">[docs]</a>    <span class="n">G</span> <span class="o">=</span> <span class="n">abstractproperty</span><span class="p">()</span></div>
+    <span class="c1"># Order of subgroup</span>
+<div class="viewcode-block" id="CyclicGroup.N"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.CyclicGroup.N">[docs]</a>    <span class="n">N</span> <span class="o">=</span> <span class="n">abstractproperty</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="CyclicGroup.fmap"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.CyclicGroup.fmap">[docs]</a>    <span class="k">def</span> <span class="nf">fmap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">FiniteField</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">o</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">value</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="n">o</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span></div>
+
+<div class="viewcode-block" id="CyclicGroup.op"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.CyclicGroup.op">[docs]</a>    <span class="k">def</span> <span class="nf">op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">g</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        2 + 3 -&gt; 2G + 3G -&gt; 5G</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">g</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="n">g</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">res</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CyclicGroup.inverse"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.CyclicGroup.inverse">[docs]</a>    <span class="k">def</span> <span class="nf">inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="CyclicGroup.identity"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.CyclicGroup.identity">[docs]</a>    <span class="k">def</span> <span class="nf">identity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="JacobianGroup"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.JacobianGroup">[docs]</a><span class="k">class</span> <span class="nc">JacobianGroup</span><span class="p">(</span><span class="n">Group</span><span class="p">):</span>
+<div class="viewcode-block" id="JacobianGroup.A"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.JacobianGroup.A">[docs]</a>    <span class="n">A</span> <span class="o">=</span> <span class="n">abstractproperty</span><span class="p">()</span></div>
+<div class="viewcode-block" id="JacobianGroup.B"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.JacobianGroup.B">[docs]</a>    <span class="n">B</span> <span class="o">=</span> <span class="n">abstractproperty</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="JacobianGroup.fmap"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.JacobianGroup.fmap">[docs]</a>    <span class="k">def</span> <span class="nf">fmap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">EllipticCurveGroup</span><span class="p">):</span>
+            <span class="n">field</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="vm">__class__</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">o</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">o</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">field</span><span class="p">(</span><span class="mi">1</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="n">o</span></div>
+
+<div class="viewcode-block" id="JacobianGroup.double"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.JacobianGroup.double">[docs]</a>    <span class="k">def</span> <span class="nf">double</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">n</span><span class="p">:</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="n">field</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="vm">__class__</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">n</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">n</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span>
+                <span class="p">(</span>
+                    <span class="n">field</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+                    <span class="n">field</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+                    <span class="n">field</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="n">ysq</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="n">S</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">@</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">ysq</span>
+        <span class="n">M</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">@</span> <span class="mi">3</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">**</span> <span class="mi">4</span><span class="p">)</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">A</span>
+        <span class="n">nx</span> <span class="o">=</span> <span class="n">M</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">S</span> <span class="o">@</span> <span class="mi">2</span>
+        <span class="n">ny</span> <span class="o">=</span> <span class="n">M</span> <span class="o">*</span> <span class="p">(</span><span class="n">S</span> <span class="o">-</span> <span class="n">nx</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">ysq</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">@</span> <span class="mi">8</span>
+        <span class="n">nz</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">((</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">nz</span><span class="p">))</span></div>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="JacobianGroup.identity"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.JacobianGroup.identity">[docs]</a>    <span class="k">def</span> <span class="nf">identity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="JacobianGroup.inverse"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.JacobianGroup.inverse">[docs]</a>    <span class="k">def</span> <span class="nf">inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="JacobianGroup.op"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.JacobianGroup.op">[docs]</a>    <span class="k">def</span> <span class="nf">op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">g</span><span class="p">):</span>
+        <span class="n">field</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="vm">__class__</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">g</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">g</span>
+        <span class="n">U1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">g</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="n">U2</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="n">S1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">g</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">**</span> <span class="mi">3</span>
+        <span class="n">S2</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">**</span> <span class="mi">3</span>
+        <span class="k">if</span> <span class="n">U1</span> <span class="o">==</span> <span class="n">U2</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">S1</span> <span class="o">!=</span> <span class="n">S2</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span>
+                    <span class="p">(</span>
+                        <span class="n">field</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+                        <span class="n">field</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+                        <span class="n">field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">double</span><span class="p">()</span>
+        <span class="n">H</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">U2</span><span class="o">.</span><span class="n">value</span> <span class="o">-</span> <span class="n">U1</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">S2</span><span class="o">.</span><span class="n">value</span> <span class="o">-</span> <span class="n">S1</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="n">H2</span> <span class="o">=</span> <span class="n">H</span> <span class="o">*</span> <span class="n">H</span>
+        <span class="n">H3</span> <span class="o">=</span> <span class="n">H</span> <span class="o">*</span> <span class="n">H2</span>
+        <span class="n">U1H2</span> <span class="o">=</span> <span class="n">U1</span> <span class="o">*</span> <span class="n">H2</span>
+        <span class="n">nx</span> <span class="o">=</span> <span class="p">(</span><span class="n">R</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">H3</span> <span class="o">-</span> <span class="p">(</span><span class="n">U1H2</span> <span class="o">@</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="n">ny</span> <span class="o">=</span> <span class="n">R</span> <span class="o">*</span> <span class="p">(</span><span class="n">U1H2</span> <span class="o">-</span> <span class="n">nx</span><span class="p">)</span> <span class="o">-</span> <span class="n">S1</span> <span class="o">*</span> <span class="n">H3</span>
+        <span class="n">nz</span> <span class="o">=</span> <span class="n">H</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">g</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">((</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">nz</span><span class="p">))</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../index.html">klefki</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Ryan Kung.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

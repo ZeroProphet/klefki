@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>klefki.bitcoin.private &#8212; klefki 0.7 documentation</title>
+    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-klefki.bitcoin.private">
+<span id="klefki-bitcoin-private"></span><h1><a class="reference internal" href="#module-klefki.bitcoin.private" title="klefki.bitcoin.private"><code class="xref py py-mod docutils literal notranslate"><span class="pre">klefki.bitcoin.private</span></code></a><a class="headerlink" href="#module-klefki.bitcoin.private" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="klefki.bitcoin.private.wrap_key">
+<code class="sig-prename descclassname">klefki.bitcoin.private.</code><code class="sig-name descname">wrap_key</code><span class="sig-paren">(</span><em class="sig-param">key: bytes</em>, <em class="sig-param">version=128</em>, <em class="sig-param">compress=1</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/klefki/bitcoin/private.html#wrap_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.bitcoin.private.wrap_key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="klefki.bitcoin.private.unwrap_key">
+<code class="sig-prename descclassname">klefki.bitcoin.private.</code><code class="sig-name descname">unwrap_key</code><span class="sig-paren">(</span><em class="sig-param">key: bytes</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/klefki/bitcoin/private.html#unwrap_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.bitcoin.private.unwrap_key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="klefki.bitcoin.private.to_cf">
+<code class="sig-prename descclassname">klefki.bitcoin.private.</code><code class="sig-name descname">to_cf</code><span class="sig-paren">(</span><em class="sig-param">a: int</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/klefki/bitcoin/private.html#to_cf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.bitcoin.private.to_cf" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="klefki.bitcoin.private.from_cf">
+<code class="sig-prename descclassname">klefki.bitcoin.private.</code><code class="sig-name descname">from_cf</code><span class="sig-paren">(</span><em class="sig-param">a: CF</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="../../../../_modules/klefki/bitcoin/private.html#from_cf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.bitcoin.private.from_cf" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="klefki.bitcoin.private.encode_privkey">
+<code class="sig-prename descclassname">klefki.bitcoin.private.</code><code class="sig-name descname">encode_privkey</code><em class="property"> :Callable[[CF], str]</em><a class="reference internal" href="../../../../_modules/klefki/bitcoin/private.html#encode_privkey"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.bitcoin.private.encode_privkey" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="klefki.bitcoin.private.decode_privkey">
+<code class="sig-prename descclassname">klefki.bitcoin.private.</code><code class="sig-name descname">decode_privkey</code><em class="property"> :Callable[[str], CF]</em><a class="reference internal" href="../../../../_modules/klefki/bitcoin/private.html#decode_privkey"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.bitcoin.private.decode_privkey" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="klefki.bitcoin.private.gen_random_privkey">
+<code class="sig-prename descclassname">klefki.bitcoin.private.</code><code class="sig-name descname">gen_random_privkey</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/klefki/bitcoin/private.html#gen_random_privkey"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.bitcoin.private.gen_random_privkey" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../index.html">klefki</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Ryan Kung.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../../../_sources/autoapi/klefki/bitcoin/private/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

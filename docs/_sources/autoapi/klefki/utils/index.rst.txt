@@ -1,0 +1,62 @@
+:mod:`klefki.utils`
+===================
+
+.. py:module:: klefki.utils
+
+
+Module Contents
+---------------
+
+.. data:: b58encode
+   
+
+   
+
+.. data:: b64encode
+   
+
+   
+
+.. function:: int_to_byte(key: int) -> bytes
+
+
+.. function:: byte_to_int(byte: bytes) -> CF
+
+
+.. function:: dhash256(x: int) -> int
+
+
+.. function:: ripemd160(x) -> int
+
+
+.. function:: trunks(l: Iterable, n: int) -> Iterator
+
+
+.. function:: concat(a: bytes, b: bytes) -> bytes
+
+
+.. function:: compose(*fs: Iterable[Callable])
+
+
+.. function:: to_sha256int(m: str)
+
+
+.. py:class:: EnumDict
+
+   Bases: :class:`dict`
+
+   .. method:: __getattr__(self, k)
+
+
+      Support Lazy
+
+
+   .. method:: __setattr__(self, k, v)
+
+
+
+   .. method:: __contains__(self, v)
+
+
+
+

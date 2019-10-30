@@ -1,0 +1,114 @@
+:mod:`klefki.types.algebra.groups`
+==================================
+
+.. py:module:: klefki.types.algebra.groups
+
+
+Module Contents
+---------------
+
+.. py:class:: EllipticCurveGroup
+
+   Bases: :class:`klefki.types.algebra.abstract.Group`
+
+   .. attribute:: A
+      
+
+      
+
+   .. attribute:: B
+      
+
+      
+
+   .. method:: fmap(self, o)
+
+
+
+   .. method:: op(self, g)
+
+
+
+   .. method:: inverse(self)
+
+
+
+   .. method:: identity(self)
+      :property:
+
+
+
+
+.. py:class:: CyclicGroup
+
+   Bases: :class:`klefki.types.algebra.abstract.Group`
+
+   With Lagrange's therem
+   the order of a subgroup is a divisor of the order of the parent group
+
+   .. attribute:: G
+      
+
+      
+
+   .. attribute:: N
+      
+
+      
+
+   .. method:: fmap(self, o)
+
+
+
+   .. method:: op(self, g)
+
+
+      2 + 3 -> 2G + 3G -> 5G
+
+
+   .. method:: inverse(self)
+
+
+
+   .. method:: identity(self)
+      :property:
+
+
+
+
+.. py:class:: JacobianGroup
+
+   Bases: :class:`klefki.types.algebra.abstract.Group`
+
+   .. attribute:: A
+      
+
+      
+
+   .. attribute:: B
+      
+
+      
+
+   .. method:: fmap(self, o)
+
+
+
+   .. method:: double(self, n=None)
+
+
+
+   .. method:: identity(self)
+      :property:
+
+
+
+   .. method:: inverse(self)
+
+
+
+   .. method:: op(self, g)
+
+
+
+

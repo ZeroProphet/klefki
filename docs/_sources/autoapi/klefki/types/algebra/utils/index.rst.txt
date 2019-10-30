@@ -1,0 +1,18 @@
+:mod:`klefki.types.algebra.utils`
+=================================
+
+.. py:module:: klefki.types.algebra.utils
+
+
+Module Contents
+---------------
+
+.. function:: encode(key: ECG)
+
+
+.. function:: decode(key: str) -> ECG
+
+
+.. function:: randfield(F)
+
+

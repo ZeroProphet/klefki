@@ -1,0 +1,29 @@
+:mod:`setup`
+============
+
+.. py:module:: setup
+
+
+Module Contents
+---------------
+
+.. data:: here
+   
+
+   
+
+.. data:: install_requires
+   
+
+   
+
+.. data:: author
+   :annotation: = Ryan Kung
+
+   
+
+.. data:: email
+   :annotation: = ryankung@ieee.org
+
+   
+

@@ -1,0 +1,12 @@
+:mod:`transaction`
+==================
+
+.. py:module:: transaction
+
+
+Module Contents
+---------------
+
+.. py:class:: Transaction(inputs: list, outputs, lock_time, version=1)
+
+

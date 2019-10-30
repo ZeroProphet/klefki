@@ -1,0 +1,38 @@
+:mod:`klefki.client.shell`
+==========================
+
+.. py:module:: klefki.client.shell
+
+
+Module Contents
+---------------
+
+.. function:: command(fn, name=None)
+
+
+.. function:: shell()
+
+   default Shell
+
+
+.. function:: help()
+
+   This help command
+
+
+.. function:: not_found(cmd)
+
+
+.. function:: output(fn)
+
+
+.. function:: router(cmds)
+
+   fn a b c=1 d=2
+
+
+.. data:: main
+   
+
+   
+
