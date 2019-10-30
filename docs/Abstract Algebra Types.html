@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Abstract Algebra Types &#8212; klefki 0.7 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="From ZK to Bulletproofsproof via Python" href="From ZK to Bulletproofs.html" />
+    <link rel="prev" title="Welcome to klefki’s!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="Abstract-Algebra-Types">
+<h1>Abstract Algebra Types<a class="headerlink" href="#Abstract-Algebra-Types" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Group">
+<h2>Group<a class="headerlink" href="#Group" title="Permalink to this headline">¶</a></h2>
+<p>Concrete Implementation: <code class="docutils literal notranslate"><span class="pre">klefki.types.algebra.abstract.Group</span></code></p>
+<p>A set <span class="math notranslate nohighlight">\(\mathbb{G}={a, b, c, ...}\)</span> is called a group, if tehere exists a group addition <span class="math notranslate nohighlight">\((+)\)</span> connecting the elements in <span class="math notranslate nohighlight">\((\mathbb{G}, +)\)</span> in the following way:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(a, b \in \mathbb{G}:\ c=a+b \in \mathbb{G}\)</span> (closure)</p></li>
+<li><p><span class="math notranslate nohighlight">\(a, b, c \in \mathbb{G}: (a+b)c=a(b+c)\)</span> (associativity)</p></li>
+<li><p><span class="math notranslate nohighlight">\(\exists e \in \mathbb{G}: a+e=e, \forall a \in \mathbb{G}\)</span> (identity / neutral element)</p></li>
+<li><p><span class="math notranslate nohighlight">\(\forall a \in \mathbb{G}, \exists b \in \mathbb{G}: a+b=e, i.e., b\equiv -a\)</span> (inverse)</p></li>
+</ol>
+<p>if a group obey axiom (1,2), it is a SemiGroup;</p>
+<p>if a group obey axiom (1,2,3), it is a monadid;</p>
+<p>if a group obey axiom (1,2,3,4) and the axiom of commutatativity(<span class="math notranslate nohighlight">\(a+b=b+a\)</span>), it is a Abelian Group</p>
+</div>
+<div class="section" id="Field">
+<h2>Field<a class="headerlink" href="#Field" title="Permalink to this headline">¶</a></h2>
+<p>Concrete Implementation: <code class="docutils literal notranslate"><span class="pre">klefki.types.algebra.abstract.Field</span></code></p>
+<p>A field is any set of elements that satisfies the field axioms for both addition and multiplication and is a commutative division algebra.</p>
+<p>Field Axioms:nbsphinx-math:<cite>cite{FieldAxioms}</cite> are generally written in additive and multiplication pairs:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\((a+b)+c=a+(b+c)\)</span>; <span class="math notranslate nohighlight">\((a b) c = a(b c)\)</span> (associativity)</p></li>
+<li><p><span class="math notranslate nohighlight">\(a + b = b + a\)</span>; $ a b = b a$ (Commutativity)</p></li>
+<li><p><span class="math notranslate nohighlight">\(a(b+c) = ab + ac\)</span>; <span class="math notranslate nohighlight">\((a+b)c=ac+bc\)</span> (distributivity)</p></li>
+<li><p><span class="math notranslate nohighlight">\(a + 0=a=0+1\)</span>; <span class="math notranslate nohighlight">\((a.1=a=1.a)\)</span> (identity)</p></li>
+<li><p><span class="math notranslate nohighlight">\(a+(-a)=0=(-a)+a\)</span>; <span class="math notranslate nohighlight">\(aa^{-1}=1=a^{-1}a if a \neq 0\)</span> (inverses)</p></li>
+</ol>
+</div>
+<div class="section" id="The-Finite-Field">
+<h2>The Finite Field<a class="headerlink" href="#The-Finite-Field" title="Permalink to this headline">¶</a></h2>
+<p>Concrete Implementation: <code class="docutils literal notranslate"><span class="pre">klefki.types.algebra.fields.FiniteField</span></code></p>
+<p>A finite field is, A set with a finite number of elements. An example of inite field is the set of integers modulo <span class="math notranslate nohighlight">\(p\)</span>, where <span class="math notranslate nohighlight">\(p\)</span> is a prime number, which can be generally note as <span class="math notranslate nohighlight">\(\mathbb{Z}/p\)</span>, <span class="math notranslate nohighlight">\(GF(p)\)</span> or <span class="math notranslate nohighlight">\(\mathbb{F}_p\)</span>.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">klefki</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Abstract Algebra Types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Group">Group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Field">Field</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#The-Finite-Field">The Finite Field</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="From ZK to Bulletproofs.html">From ZK to Bulletproofsproof via Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Paillier's encryption Scheme.html">Paillier’s encryption Scheme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Shamir's secret sharing scheme.html">Shamir’s secret sharing scheme</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to klefki’s!</a></li>
+      <li>Next: <a href="From ZK to Bulletproofs.html" title="next chapter">From ZK to Bulletproofsproof via Python</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Ryan Kung.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/Abstract Algebra Types.ipynb.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,854 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "<center><h1>POD-Mini and POD-AS</h1></center>\n",
+    "<center><h2>implemented via Python</h2><center>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# I Intro"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "%load_ext autoreload\n",
+    "%autoreload 2 "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "This is a Python implementaton of Pod-Mini of [zkPod](https://github.com/sec-bit/zkPoD-node) via klefki, for more details, just check the [technial Paper](https://github.com/sec-bit/zkPoD-node)."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from klefki.types.algebra.concrete import (\n",
+    "    EllipticCurveGroupSecp256k1 as ECG,\n",
+    "    EllipticCurveCyclicSubgroupSecp256k1 as CG,\n",
+    "    FiniteFieldSecp256k1 as F,\n",
+    "    FiniteFieldCyclicSecp256k1 as CF\n",
+    ")\n",
+    "\n",
+    "from operator import add\n",
+    "G = CG.G"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import random\n",
+    "\n",
+    "N = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141\n",
+    "random_f = lambda: CF(random.randint(1, N) % CF.P)\n",
+    "\n",
+    "q = random_f()\n",
+    "H = G @ q\n",
+    "    "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from hashlib import sha256\n",
+    "\n",
+    "hash = lambda x, y: CF(int(sha256(str(x.value + y).encode()).hexdigest(), 16) % N)\n",
+    "hash2 = lambda x, y, z: CF(int(sha256(str(x.value + y + z).encode()).hexdigest(), 16) % N)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# II POD-Mini"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Initializer Phase"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "data = 123456789\n",
+    "tag = 6"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "m = CF(data)\n",
+    "o = CF(tag)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "sigma = G @ m + H @ o"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Deliver Phase"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "k_w = random_f()\n",
+    "\n",
+    "k = hash(k_w, 1)\n",
+    "k_ = hash(k_w, 2)\n",
+    "k0 = hash(k_w, 3)\n",
+    "k0_ = hash(k_w, 4)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(EllipticCurveGroupSecp256k1::(FiniteFieldSecp256k1::60833088545442599426394672598201640952972051730298604958359191447690851122096, FiniteFieldSecp256k1::48051097886287326595482477027746542056422212554885787335326880757550380565553),\n",
+       " EllipticCurveGroupSecp256k1::(FiniteFieldSecp256k1::109757020878345036275695788298328814894135468587935766610813179219963914817284, FiniteFieldSecp256k1::3503186752654184182707842700539194665709151565486434874163610016019483430925))"
+      ]
+     },
+     "execution_count": 9,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "K = G @ k + H @ k_\n",
+    "K0 = G @ k0 + H @ k0_\n",
+    "(K, K0)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "* $S \\rightarrow R$: $(K, K_0)$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "c = random_f()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "* $R \\rightarrow S$: $c$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(FiniteFieldCyclicSecp256k1::4188847662850428514190277999937279562610735694457763843035367735100439750049,\n",
+       " FiniteFieldCyclicSecp256k1::113829453438446661247390864254644542435892738603979657221855887955677525600276,\n",
+       " FiniteFieldCyclicSecp256k1::108203930121791436016800137198409918309056563447049654576428359618878344960306,\n",
+       " FiniteFieldCyclicSecp256k1::83764309071589516840408152095024667788508464591543119082668639417611269829753)"
+      ]
+     },
+     "execution_count": 11,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "m_ = k + c * m\n",
+    "o_ = k_ + c * o\n",
+    "z = k0 + c * k\n",
+    "z_ = k0_ + c * k_\n",
+    "(m_, o_, z, z_)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "* $S \\rightarrow R: (\\bar{m}, \\bar{o}, z, z')$\n",
+    "\n",
+    "R should verify that:\n",
+    "\n",
+    "$$\n",
+    "Com(m; o)^c \\cdot Com(k_0;k'_0) \\stackrel{?}{=} Com(\\bar{m}; \\bar{o})\\\\\n",
+    "Com(k_0;k'_0) \\cdot Com(k;k')^c \\stackrel{?}{=} Com(z;z')\n",
+    "$$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "assert sigma @ c + K == G @ m_ + H @ o_"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "assert K0 + (K @ c) == G @ z + H @ z_"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Reveal-phase\n",
+    "\n",
+    "* $R \\rightarrow J: \\rho$\n",
+    "* $S \\rightarrow J: k_{\\omega}$\n",
+    "\n",
+    "$$\n",
+    "z \\stackrel{?}{=} H(k_{\\omega}, 3) + c \\cdot H(k_{\\omega}, 1)\n",
+    "$$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "assert z == hash(k_w, 3) + c @ hash(k_w, 1)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "assert m == (m_ - hash(k_w, 1)) / c"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "FiniteFieldCyclicSecp256k1::123456789"
+      ]
+     },
+     "execution_count": 16,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "(m_ - hash(k_w, 1)) / c"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# POD-AS"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from IPython.display import Image"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "f = Image(\"lena-mini.jpg\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Init Phase"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "In the init-phase, the data file is splitted into a block matrix of $n × s$ . Each row of the matrix is called a $block$, which consists of $s$ slices. The initializer adds one additional column of random slices $m_{0i}$ to the matrix for padding. The slices of $m_{0i}$ are used for blind factors as o in PoD-Mini."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import numpy as np"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "image/jpeg": "/9j/4AAQSkZJRgABAQAASABIAAD/4QCMRXhpZgAATU0AKgAAAAgABQESAAMAAAABAAEAAAEaAAUAAAABAAAASgEbAAUAAAABAAAAUgEoAAMAAAABAAIAAIdpAAQAAAABAAAAWgAAAAAAAABIAAAAAQAAAEgAAAABAAOgAQADAAAAAQABAACgAgAEAAAAAQAAAAqgAwAEAAAAAQAAAAoAAAAA/+0AOFBob3Rvc2hvcCAzLjAAOEJJTQQEAAAAAAAAOEJJTQQlAAAAAAAQ1B2M2Y8AsgTpgAmY7PhCfv/AABEIAAoACgMBEQACEQEDEQH/xAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv/xAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQ1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4eLj5OXm5+jp6vHy8/T19vf4+fr/xAAfAQADAQEBAQEBAQEBAAAAAAAAAQIDBAUGBwgJCgv/xAC1EQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/3QAEAAL/2gAMAwEAAhEDEQA/APGfDninR9O1fxFFd6Uuq30NubqNprgwTfaRsZfJZQdi/vEDuQQN2ADzj4ylhIOmpVlpLb0V+vTY+2qYmo5NUn8O/nfpbqejR/sjXeuxrqU5u3mvALiRl1pYgWf5iQm8beT0xx0rleL5XaK09EYWp9ZO/qz/0PB/hMo/4Xx4sGB/ryn/AAE2YyPocDj2FfJVW+bDq/V/+3H19BJqu/T9DhtW1a+k1W9Zry4ZmmcljKxJO4+9VQpwdKDaWy/IznKSk0mf/9k=\n",
+      "text/plain": [
+       "<IPython.core.display.Image object>"
+      ]
+     },
+     "execution_count": 20,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "Image(f.data)\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 21,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "M = np.array(list(map(CF, f.data))).reshape(-1, 5)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(205, 5)"
+      ]
+     },
+     "execution_count": 22,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "M.shape"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "w, h = M.shape"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 24,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "Pad = np.matrix([random_f() for _ in range(0, h)])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 25,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "Pm = np.concatenate((Pad.T, M.T), axis=1).T.tolist()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 26,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "n, s = np.matrix(Pm).shape"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 27,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(206, 5)"
+      ]
+     },
+     "execution_count": 27,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "np.matrix(Pm).shape"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "$$\n",
+    "u_j \\stackrel{$}{\\leftarrow} \\mathbb{G}, j \\in [0, s] \\\\\n",
+    "m_{i0} \\stackrel{$}{\\leftarrow}\\mathbb{G}, i \\in [1, n]\\\\\n",
+    "\\sigma_i = \\prod_{j=0}^s u_j^{m_{ij}}, i\\in[1,n]\n",
+    "$$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The initializer needs to generate $s + 1$ group elements randomly."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 28,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "U = [G @ random_f() for _ in range(0, s)]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 29,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from functools import reduce \n",
+    "\n",
+    "def v_multi(g: [ECG], a: [CF]) -> [ECG]:\n",
+    "    return reduce(lambda x,y: x+y,\n",
+    "                  list(map(lambda a: a[0] @ a[1], zip(g, a))))\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "$$\\sigma_i = Com(m_{i1}, ...,m_{i,s};m_{i0}) = u_0^{m_{i0}} \\cdot \\prod_{j=1}^s u_j^{m_{ij}}$$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 30,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "sigma = [v_multi(U, Pm[i]) for i in range(0, n)]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Deliver Phase"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "$$\n",
+    "k_{\\omega} \\stackrel{$}{\\leftarrow} \\mathbb{Z}_p \\\\\n",
+    "$$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 31,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "kw = random_f()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "$$\n",
+    "k_{i,j} \\leftarrow H(k_{\\omega}, i,j)\n",
+    "$$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 32,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "k = [[hash2(kw, i, j) for j in range(0, s+1)] for i in range(0, n+1)]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 33,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "assert np.matrix(k).shape == (n + 1, s + 1)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The topmost row $k_{0j}$ is for hiding keys in the same column, the leftmost $k_{i0}$ is for encrypting padding slices."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Then $S$ constructs commitments $K$ i to $i$-th row of keys, including the leftmost key $k_{i0}$ on each row."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "$$\n",
+    "K_i = \\prod_{j=0}^s u_j^{k_{ij}}; i\\in[0,n]\n",
+    "$$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 34,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "K = [reduce(add, [U[j]@k[i][j] for j in range(0, s)]) for i in range(0, n)]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "$S \\rightarrow R: \\mathbf{K}_[0, n]$\n",
+    "\n",
+    "$R \\rightarrow S: c$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 35,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "c = random_f()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "$$\n",
+    "\\bar{m}_{ij}=k_{ij}+m_{ij}\\cdot c^i; i\\in[1,n], j\\in[0,s] \\\\\n",
+    "$$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 36,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "M_ = [[k[i][j] + Pm[i][j]*(c**i) for j in range(0, s)] for i in range(1, n)]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 37,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "True"
+      ]
+     },
+     "execution_count": 37,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "np.matrix(M_).shape == (n - 1, s)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "$$\n",
+    "z_j=\\sum_{i=0}^n k_{ij}\\cdot c^i; j \\in[0,s]\n",
+    "$$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 38,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "z = [reduce(add, [k[i][j] * c**i for i in range(0, n)]) for j in range(0, s)]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "$S \\rightarrow R: \\bar{m}_{[1,n][0,s]}, z_{[0,s]}$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "$$\n",
+    "\\prod_{i=1}^n (\\sigma_i^{c^i} \\cdot K_i) \\stackrel{?}{=} \\prod_{i=1}^n \\left(\\prod_{j=0}^s u_j^{\\bar{m}_{ij}} \\right)\n",
+    "$$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 39,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "assert reduce(add, [sigma[i] @ CF(c ** i) + K[i] for i in range(1, n)]) == \\\n",
+    "        reduce(add, [v_multi(U, M_[i]) for i in range(0, n - 1)])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "$$\n",
+    "\\prod_{i=0}^n K_i^{(c^i)} \\stackrel{?}{=} \\prod_{i=0}^su_j^{zj}\n",
+    "$$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 40,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "assert reduce(add, [K[i] @ CF(c ** i) for i in range(0, n)]) == \\\n",
+    "    reduce(add, [U[j] @ z[j] for j in range (0, s)])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "If $R$ accepts the keys and data, he has to submit a delivery receipt to $J$ $(\\mathbf{z},c)$, where $\\mathbf{z}$ is the aggregation of $z_{[0,s]}$ :"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "$$\n",
+    "\\mathbf{z}=\\sum_{i=0}^s z_j\n",
+    "$$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "$R \\rightarrow J: \\rho(\\mathbf{z}, c)$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 41,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "Z = reduce(add, z)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "$$\n",
+    "\\rho  \\stackrel{?}{=} (\\prod_{j=0}^s z_j, c)\n",
+    "$$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 42,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "assert (Z, c) == (reduce(add, z), c)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "$f \\rightarrow R: k_{\\omega}$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "$$\n",
+    "k_{ij} \\leftarrow H(k_{\\omega}, i, j); i\\in[0,n],j\\in[1,s]\\\\\n",
+    "$$\n",
+    "\n",
+    "$$\n",
+    "\\bar{m}_{ij}=k_{ij}+m_{ij}\\cdot c^i; i\\in[1,n], j\\in[0,s] \\\\\n",
+    "$$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "$$\n",
+    "m_{ij} = \\frac{\\bar{m}_{ij} - k_{ij}}{c^i} ; i\\in[0,n],j\\in[1,s]\\\\\n",
+    "$$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 43,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "Data = [[(M_[i][j] - k[i+1][j])/(c**(i+1)) for j in range(0, s)] for i in range(0, n-1)]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 44,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "assert Data == Pm[1:]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 45,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "image/jpeg": "/9j/4AAQSkZJRgABAQAASABIAAD/4QCMRXhpZgAATU0AKgAAAAgABQESAAMAAAABAAEAAAEaAAUAAAABAAAASgEbAAUAAAABAAAAUgEoAAMAAAABAAIAAIdpAAQAAAABAAAAWgAAAAAAAABIAAAAAQAAAEgAAAABAAOgAQADAAAAAQABAACgAgAEAAAAAQAAAAqgAwAEAAAAAQAAAAoAAAAA/+0AOFBob3Rvc2hvcCAzLjAAOEJJTQQEAAAAAAAAOEJJTQQlAAAAAAAQ1B2M2Y8AsgTpgAmY7PhCfv/AABEIAAoACgMBEQACEQEDEQH/xAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv/xAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQ1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4eLj5OXm5+jp6vHy8/T19vf4+fr/xAAfAQADAQEBAQEBAQEBAAAAAAAAAQIDBAUGBwgJCgv/xAC1EQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/3QAEAAL/2gAMAwEAAhEDEQA/APGfDninR9O1fxFFd6Uuq30NubqNprgwTfaRsZfJZQdi/vEDuQQN2ADzj4ylhIOmpVlpLb0V+vTY+2qYmo5NUn8O/nfpbqejR/sjXeuxrqU5u3mvALiRl1pYgWf5iQm8beT0xx0rleL5XaK09EYWp9ZO/qz/0PB/hMo/4Xx4sGB/ryn/AAE2YyPocDj2FfJVW+bDq/V/+3H19BJqu/T9DhtW1a+k1W9Zry4ZmmcljKxJO4+9VQpwdKDaWy/IznKSk0mf/9k=\n",
+      "text/plain": [
+       "<IPython.core.display.Image object>"
+      ]
+     },
+     "execution_count": 45,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "Image(reduce(add, (map(lambda x: bytes([x.value]), reduce(add, Data)))))"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.3"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}

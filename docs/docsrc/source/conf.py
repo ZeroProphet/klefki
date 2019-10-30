@@ -12,7 +12,7 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../notes'))
+sys.path.insert(0, os.path.abspath('../../'))
 
 
 # -- Project information -----------------------------------------------------
@@ -34,6 +34,7 @@ extensions = ['sphinx.ext.todo',
               'sphinx.ext.mathjax',
               'sphinx.ext.viewcode',
               'sphinx.ext.autodoc',
+              'sphinx.ext.autosectionlabel',
               'recommonmark',
               'nbsphinx']
 
@@ -51,6 +52,7 @@ templates_path = ['_templates']
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = ['_build', '**.ipynb_checkpoints']
 source_suffix = ['.rst', '.md', '.ipynb']
+
 
 autosectionlabel_prefix_document = True
 enable_auto_toc_tree = True

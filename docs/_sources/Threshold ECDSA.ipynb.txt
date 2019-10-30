@@ -1,0 +1,272 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Threshold signature schemes enable sharing signing power amongst n parties such that any subset of t + 1 can jointly sign, but any smaller subset cannot.\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Model, Deﬁnitions and Tools"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### **Communication Model**\n",
+    "\n",
+    "We assume that our computation model is composed of a set of $n$ players $P_1,\\cdots, P_n$ connected by a complete network of point-to-point channels and a broadcast channel.\n",
+    "\n",
+    "### **The Adversary**\n",
+    "\n",
+    "We assume that an adversary, $A$, can corrupt up to $t$ of the $n$ players in the network. $A$ learns all the information stored at the corrupted nodes, and hears all the broadcasted messages. We consider two type of adver saries:"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### **Signature Scheme**\n",
+    "\n",
+    "A signature scheme $S$ is a triple of eﬃcient randomized algorithms $(Key-Gen, Sig, Ver)$.\n",
+    "\n",
+    "* **Key-Gen** is the key generator algorithm.\n",
+    "\n",
+    "    on input the security parameter $1^\\lambda$ , it outputs a pair $(y, x)$, such that $y$ is the public key and $x$ is the secret key of the signature scheme.\n",
+    "\n",
+    "* **Sig** is the signing algorithm: \n",
+    "\n",
+    "    on input a message m and the secret key $x$, it outputs $sig$, a signature of the message $m$. \n",
+    "\n",
+    "    Since $Sig$ can be a randomized algorithm there might be several valid signatures $sig$ of a message $m$ under the key $x$; with $Sig(m, x)$ we will denote the set of such signatures\n",
+    "\n",
+    "* **Ver** is the veriﬁcation algorithm.\n",
+    "    \n",
+    "    On input a message $m$, the public key $y$, and a string $sig$, it checks whether $sig$ is a proper signature of $m$, i.e. if $sig \\in Sig(m, x)$."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Threshold secret sharing"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Given a secret value $x$ we say that the values $(x_1 , \\cdots , x_n)$ constitute a $(t, n)$-threshold secret sharing of $x$ if $t$ (or less) of these values reveal no information about $x$, and if there is an eﬃcient algorithm that outputs $x$ having $t + 1$ of the values $x_i$ as inputs."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Threshold signature schemes."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Let $S=(Key-Gen, Sig, Ver)$ be a signature scheme. A $(t, n)$-threshold signature scheme $TS$ for $S$ is a pair of protocols $(Thresh-Key-Gen, Thresh-Sig)$ for the set of players $P_1 , \\cdots, P_n$ ."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "* **Thresh-Key-Gen** is a distributed key generation protocol used by the players to jointly generate a pair $(y, x)$ of public/private keys on input a security parameter $1^\\lambda$ .\n",
+    "\n",
+    "* **Thresh-Sig** is the distributed signature protocol. The private input of $P_i$ is the value $x_i$ . The public inputs consist of a message m and the public key $y$. The output of the protocol is a value $sig \\in Sig(m, x)$."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from klefki.types.algebra.concrete import (\n",
+    "    EllipticCurveGroupSecp256k1 as ECG,\n",
+    "    EllipticCurveCyclicSubgroupSecp256k1 as CG,\n",
+    "    FiniteFieldSecp256k1 as F,\n",
+    "    FiniteFieldCyclicSecp256k1 as CF\n",
+    ")\n",
+    "\n",
+    "from operator import add\n",
+    "G = CG.G\n",
+    "N = CG.N\n",
+    "\n",
+    "import random\n",
+    "\n",
+    "random_f = lambda: CF(random.randint(1, N) % CF.P)\n",
+    "from klefki.numbers import lcm"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Threshold signatures, the situation is a bit different because we only have one public key, one secret key, and only one signature. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Additively homomorphic encryption"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "$$\n",
+    "\\alpha +_E \\beta = E(\\alpha + \\beta \\ mod\\ N)\n",
+    "$$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "$$\n",
+    "x\\times_E \\alpha = E(x\\alpha \\ mod \\ N)\n",
+    "$$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "$$\n",
+    "\\oplus_{i=1}^{t+1}a_i = a_1 +_E a_2 +_E \\cdots +_E a_{t+1}\n",
+    "$$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Paillier's encryption Scheme"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Protocol"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Setup Phase"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from functools import partial\n",
+    "\n",
+    "from klefki.zkp.pedersen import commitment\n",
+    "\n",
+    "H = G^random_f()\n",
+    "r = random_f()\n",
+    "\n",
+    "com = partial(commitment, G=G, H=H, r=r)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "com(CF(2)) + com(CF(3)) == com(CF(5), r=r*CF(2))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Round 1"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "p = random_f()\n",
+    "u = G@p + H@r"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Ref:\n",
+    "\n",
+    "* Antonio Salazar Cardozo, Threshold ECDSA — Safer, more private multi-signatures, https://blog.keep.network/threshold-ecdsa-safer-more-private-multi-signatures-51153f3e9ed2\n",
+    "\n",
+    "* Gennaro, Rosario, Steven Goldfeder, and Arvind Narayanan. “Threshold-Optimal DSA/ECDSA Signatures and an Application to Bitcoin Wallet Security.” In Applied Cryptography and Network Security, edited by Mark Manulis, Ahmad-Reza Sadeghi, and Steve Schneider, 9696:156–74. Cham: Springer International Publishing, 2016. https://doi.org/10.1007/978-3-319-39555-5_9.\n"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.3"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}
