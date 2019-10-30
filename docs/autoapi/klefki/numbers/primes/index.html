@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>klefki.numbers.primes &#8212; klefki 0.7 documentation</title>
+    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-klefki.numbers.primes">
+<span id="klefki-numbers-primes"></span><h1><a class="reference internal" href="#module-klefki.numbers.primes" title="klefki.numbers.primes"><code class="xref py py-mod docutils literal notranslate"><span class="pre">klefki.numbers.primes</span></code></a><a class="headerlink" href="#module-klefki.numbers.primes" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="klefki.numbers.primes.ipow">
+<code class="sig-prename descclassname">klefki.numbers.primes.</code><code class="sig-name descname">ipow</code><span class="sig-paren">(</span><em class="sig-param">a</em>, <em class="sig-param">b</em>, <em class="sig-param">n</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/klefki/numbers/primes.html#ipow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.numbers.primes.ipow" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculates (a**b) % n via binary exponentiation, yielding itermediate
+results as Rabin-Miller requires</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="klefki.numbers.primes.rabin_miller_witness">
+<code class="sig-prename descclassname">klefki.numbers.primes.</code><code class="sig-name descname">rabin_miller_witness</code><span class="sig-paren">(</span><em class="sig-param">test</em>, <em class="sig-param">possible</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/klefki/numbers/primes.html#rabin_miller_witness"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.numbers.primes.rabin_miller_witness" title="Permalink to this definition">¶</a></dt>
+<dd><p>Using Rabin-Miller witness test, will return True if possible is
+definitely not prime (composite), False if it may be prime.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="klefki.numbers.primes.smallprimes">
+<code class="sig-prename descclassname">klefki.numbers.primes.</code><code class="sig-name descname">smallprimes</code><em class="property"> = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]</em><a class="reference internal" href="../../../../_modules/klefki/numbers/primes.html#smallprimes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.numbers.primes.smallprimes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="klefki.numbers.primes.default_k">
+<code class="sig-prename descclassname">klefki.numbers.primes.</code><code class="sig-name descname">default_k</code><span class="sig-paren">(</span><em class="sig-param">bits</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/klefki/numbers/primes.html#default_k"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.numbers.primes.default_k" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="klefki.numbers.primes.is_probably_prime">
+<code class="sig-prename descclassname">klefki.numbers.primes.</code><code class="sig-name descname">is_probably_prime</code><span class="sig-paren">(</span><em class="sig-param">possible</em>, <em class="sig-param">k=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/klefki/numbers/primes.html#is_probably_prime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.numbers.primes.is_probably_prime" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="klefki.numbers.primes.generate_prime">
+<code class="sig-prename descclassname">klefki.numbers.primes.</code><code class="sig-name descname">generate_prime</code><span class="sig-paren">(</span><em class="sig-param">bits</em>, <em class="sig-param">k=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/klefki/numbers/primes.html#generate_prime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.numbers.primes.generate_prime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Will generate an integer of b bits that is probably prime
+(after k trials). Reasonably fast on current hardware for
+values of up to around 512 bits.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../index.html">klefki</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Ryan Kung.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../../../_sources/autoapi/klefki/numbers/primes/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

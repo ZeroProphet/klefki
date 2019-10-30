@@ -1,0 +1,12 @@
+:mod:`tests.types.test_structure`
+=================================
+
+.. py:module:: tests.types.test_structure
+
+
+Module Contents
+---------------
+
+.. function:: test_mktree()
+
+

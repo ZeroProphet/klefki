@@ -1,0 +1,53 @@
+:mod:`klefki.types.algebra.fields`
+==================================
+
+.. py:module:: klefki.types.algebra.fields
+
+
+Module Contents
+---------------
+
+.. py:class:: FiniteField
+
+   Bases: :class:`klefki.types.algebra.abstract.Field`
+
+   .. attribute:: P
+      
+
+      
+
+   .. method:: fmap(self, o)
+
+
+
+   .. method:: identity(self)
+      :property:
+
+
+
+   .. method:: sec_identity(self)
+      :property:
+
+
+
+   .. method:: inverse(self)
+
+
+
+   .. method:: mod(self, a, b)
+
+
+
+   .. method:: sec_inverse(self)
+
+
+
+   .. method:: op(self, g)
+
+
+
+   .. method:: sec_op(self, g)
+
+
+
+

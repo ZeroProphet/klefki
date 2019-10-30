@@ -1,0 +1,17 @@
+:mod:`tests.types`
+==================
+
+.. py:module:: tests.types
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   test_ecg/index.rst
+   test_field/index.rst
+   test_structure/index.rst
+
+

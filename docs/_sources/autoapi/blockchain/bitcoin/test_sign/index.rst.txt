@@ -1,0 +1,18 @@
+:mod:`blockchain.bitcoin.test_sign`
+===================================
+
+.. py:module:: blockchain.bitcoin.test_sign
+
+
+Module Contents
+---------------
+
+.. function:: test_sign()
+
+
+.. function:: test_recover()
+
+
+.. function:: test_sign_btc()
+
+

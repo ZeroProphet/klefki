@@ -1,0 +1,132 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>klefki.crypto.ssss &#8212; klefki 0.7 documentation</title>
+    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-klefki.crypto.ssss">
+<span id="klefki-crypto-ssss"></span><h1><a class="reference internal" href="#module-klefki.crypto.ssss" title="klefki.crypto.ssss"><code class="xref py py-mod docutils literal notranslate"><span class="pre">klefki.crypto.ssss</span></code></a><a class="headerlink" href="#module-klefki.crypto.ssss" title="Permalink to this headline">¶</a></h1>
+<p><ul class="simple">
+<li><p>ref <a class="reference external" href="https://en.wikipedia.org/wiki/Shamir%27s_Secret_Sharing">https://en.wikipedia.org/wiki/Shamir%27s_Secret_Sharing</a></p></li>
+</ul>
+<p>The essential idea of Adi Shamir’s threshold scheme is that 2 points are sufficient to define a line, 3 points are sufficient to define a parabola, 4 points to define a cubic curve and so forth. That is, it takes $k$ points to define a polynomial of degree $k-1$.</p>
+</p>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="klefki.crypto.ssss.SSSS">
+<em class="property">class </em><code class="sig-prename descclassname">klefki.crypto.ssss.</code><code class="sig-name descname">SSSS</code><span class="sig-paren">(</span><em class="sig-param">F: FiniteField</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/klefki/crypto/ssss.html#SSSS"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.crypto.ssss.SSSS" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="klefki.crypto.ssss.SSSS.setup">
+<code class="sig-name descname">setup</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">Secret</em>, <em class="sig-param">k</em>, <em class="sig-param">n</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/klefki/crypto/ssss.html#SSSS.setup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.crypto.ssss.SSSS.setup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="klefki.crypto.ssss.SSSS.join">
+<code class="sig-name descname">join</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/klefki/crypto/ssss.html#SSSS.join"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.crypto.ssss.SSSS.join" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="klefki.crypto.ssss.SSSS.decrypt">
+<code class="sig-name descname">decrypt</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">priv</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/klefki/crypto/ssss.html#SSSS.decrypt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.crypto.ssss.SSSS.decrypt" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../index.html">klefki</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Ryan Kung.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../../../_sources/autoapi/klefki/crypto/ssss/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

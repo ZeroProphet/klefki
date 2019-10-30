@@ -1,0 +1,77 @@
+:mod:`klefki.numbers`
+=====================
+
+.. py:module:: klefki.numbers
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   primes/index.rst
+
+
+Package Contents
+----------------
+
+.. function:: fn_lambda(n)
+
+   Carmichael Function
+   A number n is said to be a Carmichael number if
+   it satisfies the following modular arithmetic condition:
+   power(b, n-1) MOD n = 1,
+   for all b ranging from 1 to n such that b and
+   n are relatively prime, i.e, gcd(b, n) = 1
+
+
+.. function:: fn_phi(n)
+
+   Eulers Totient Function
+   https://stackoverflow.com/questions/18114138/computing-eulers-totient-function
+
+
+.. data:: carmichael
+   
+
+   
+
+.. data:: totient
+   
+
+   
+
+.. function:: lcm(a, b)
+
+
+.. function:: length(n, base=10)
+
+
+.. function:: Blength(n, base=2)
+
+
+.. function:: Dlength(n, base=10)
+
+
+.. function:: power(base, exp)
+
+   Fast power calculation using repeated squaring 
+
+
+.. function:: invmod(a, p, maxiter=1000000)
+
+   The multiplicitive inverse of a in the integers modulo p:
+     a * b == 1 mod p
+   Returns b.
+   (http://code.activestate.com/recipes/576737-inverse-modulo-p/)
+
+
+.. function:: modpow(base, exponent, modulus)
+
+   Modular exponent:
+     c = b ^ e mod m
+   Returns c.
+   (http://www.programmish.com/?p=34)
+
+

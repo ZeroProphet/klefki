@@ -1,0 +1,25 @@
+:mod:`tests`
+============
+
+.. py:module:: tests
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   blockchain/index.rst
+   types/index.rst
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   test_client/index.rst
+
+

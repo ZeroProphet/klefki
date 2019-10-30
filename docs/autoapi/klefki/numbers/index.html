@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>klefki.numbers &#8212; klefki 0.7 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-klefki.numbers">
+<span id="klefki-numbers"></span><h1><a class="reference internal" href="#module-klefki.numbers" title="klefki.numbers"><code class="xref py py-mod docutils literal notranslate"><span class="pre">klefki.numbers</span></code></a><a class="headerlink" href="#module-klefki.numbers" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="primes/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">klefki.numbers.primes</span></code></a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="package-contents">
+<h2>Package Contents<a class="headerlink" href="#package-contents" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="klefki.numbers.fn_lambda">
+<code class="sig-prename descclassname">klefki.numbers.</code><code class="sig-name descname">fn_lambda</code><span class="sig-paren">(</span><em class="sig-param">n</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/klefki/numbers.html#fn_lambda"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.numbers.fn_lambda" title="Permalink to this definition">¶</a></dt>
+<dd><p>Carmichael Function
+A number n is said to be a Carmichael number if
+it satisfies the following modular arithmetic condition:
+power(b, n-1) MOD n = 1,
+for all b ranging from 1 to n such that b and
+n are relatively prime, i.e, gcd(b, n) = 1</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="klefki.numbers.fn_phi">
+<code class="sig-prename descclassname">klefki.numbers.</code><code class="sig-name descname">fn_phi</code><span class="sig-paren">(</span><em class="sig-param">n</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/klefki/numbers.html#fn_phi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.numbers.fn_phi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Eulers Totient Function
+<a class="reference external" href="https://stackoverflow.com/questions/18114138/computing-eulers-totient-function">https://stackoverflow.com/questions/18114138/computing-eulers-totient-function</a></p>
+</dd></dl>
+
+<dl class="data">
+<dt id="klefki.numbers.carmichael">
+<code class="sig-prename descclassname">klefki.numbers.</code><code class="sig-name descname">carmichael</code><a class="reference internal" href="../../../_modules/klefki/numbers.html#carmichael"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.numbers.carmichael" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="klefki.numbers.totient">
+<code class="sig-prename descclassname">klefki.numbers.</code><code class="sig-name descname">totient</code><a class="reference internal" href="../../../_modules/klefki/numbers.html#totient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.numbers.totient" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="klefki.numbers.lcm">
+<code class="sig-prename descclassname">klefki.numbers.</code><code class="sig-name descname">lcm</code><span class="sig-paren">(</span><em class="sig-param">a</em>, <em class="sig-param">b</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/klefki/numbers.html#lcm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.numbers.lcm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="klefki.numbers.length">
+<code class="sig-prename descclassname">klefki.numbers.</code><code class="sig-name descname">length</code><span class="sig-paren">(</span><em class="sig-param">n</em>, <em class="sig-param">base=10</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/klefki/numbers.html#length"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.numbers.length" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="klefki.numbers.Blength">
+<code class="sig-prename descclassname">klefki.numbers.</code><code class="sig-name descname">Blength</code><span class="sig-paren">(</span><em class="sig-param">n</em>, <em class="sig-param">base=2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/klefki/numbers.html#Blength"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.numbers.Blength" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="klefki.numbers.Dlength">
+<code class="sig-prename descclassname">klefki.numbers.</code><code class="sig-name descname">Dlength</code><span class="sig-paren">(</span><em class="sig-param">n</em>, <em class="sig-param">base=10</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/klefki/numbers.html#Dlength"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.numbers.Dlength" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="klefki.numbers.power">
+<code class="sig-prename descclassname">klefki.numbers.</code><code class="sig-name descname">power</code><span class="sig-paren">(</span><em class="sig-param">base</em>, <em class="sig-param">exp</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/klefki/numbers.html#power"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.numbers.power" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fast power calculation using repeated squaring</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="klefki.numbers.invmod">
+<code class="sig-prename descclassname">klefki.numbers.</code><code class="sig-name descname">invmod</code><span class="sig-paren">(</span><em class="sig-param">a</em>, <em class="sig-param">p</em>, <em class="sig-param">maxiter=1000000</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/klefki/numbers.html#invmod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.numbers.invmod" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>The multiplicitive inverse of a in the integers modulo p:</dt><dd><p>a * b == 1 mod p</p>
+</dd>
+</dl>
+<p>Returns b.
+(<a class="reference external" href="http://code.activestate.com/recipes/576737-inverse-modulo-p/">http://code.activestate.com/recipes/576737-inverse-modulo-p/</a>)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="klefki.numbers.modpow">
+<code class="sig-prename descclassname">klefki.numbers.</code><code class="sig-name descname">modpow</code><span class="sig-paren">(</span><em class="sig-param">base</em>, <em class="sig-param">exponent</em>, <em class="sig-param">modulus</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/klefki/numbers.html#modpow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.numbers.modpow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Modular exponent:</dt><dd><p>c = b ^ e mod m</p>
+</dd>
+</dl>
+<p>Returns c.
+(<a class="reference external" href="http://www.programmish.com/?p=34">http://www.programmish.com/?p=34</a>)</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">klefki</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Ryan Kung.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../../_sources/autoapi/klefki/numbers/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

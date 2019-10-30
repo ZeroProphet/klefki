@@ -1,0 +1,18 @@
+:mod:`klefki.zkp.pedersen`
+==========================
+
+.. py:module:: klefki.zkp.pedersen
+
+
+Module Contents
+---------------
+
+.. function:: commitment(x: Field, r: Field, H: Group, G: Group) -> Group
+
+
+.. function:: vertex_commitment(x: [Field], r: Field, H: Group, G: [Group]) -> Group
+
+
+.. function:: com(x, r, H, G) -> Group
+
+

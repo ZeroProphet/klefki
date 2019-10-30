@@ -1,0 +1,31 @@
+:mod:`klefki.crypto.ssss`
+=========================
+
+.. py:module:: klefki.crypto.ssss
+
+.. autoapi-nested-parse::
+
+   * ref https://en.wikipedia.org/wiki/Shamir%27s_Secret_Sharing
+   The essential idea of Adi Shamir's threshold scheme is that 2 points are sufficient to define a line, 3 points are sufficient to define a parabola, 4 points to define a cubic curve and so forth. That is, it takes $k$ points to define a polynomial of degree $k-1$.
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: SSSS(F: FiniteField)
+
+   .. method:: setup(self, Secret, k, n)
+
+
+
+   .. method:: join(self)
+
+
+
+   .. method:: decrypt(self, priv)
+
+
+
+

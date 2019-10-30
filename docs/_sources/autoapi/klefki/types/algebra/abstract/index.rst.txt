@@ -1,0 +1,215 @@
+:mod:`klefki.types.algebra.abstract`
+====================================
+
+.. py:module:: klefki.types.algebra.abstract
+
+
+Module Contents
+---------------
+
+.. py:class:: Functor(v)
+
+   .. attribute:: __slots__
+      :annotation: = ['value']
+
+      
+
+   .. method:: fmap(self, o)
+
+
+
+   .. method:: functor(self)
+      :property:
+
+
+
+   .. method:: id(self)
+
+
+
+
+.. py:class:: Groupoid
+
+   Bases: :class:`klefki.types.algebra.abstract.Functor`
+
+   .. attribute:: __slots__
+      :annotation: = []
+
+      
+
+   .. method:: op(self, g: Group)
+      :abstractmethod:
+
+
+
+   .. method:: __eq__(self, b)
+
+
+
+   .. method:: __lt__(self, b)
+
+
+
+   .. method:: __le__(self, b)
+
+
+
+   .. method:: __gt__(self, b)
+
+
+
+   .. method:: __ge__(self, b)
+
+
+
+   .. method:: __add__(self, g: Group)
+
+
+      Allowing call associativity operator via A + B
+      Strict limit arg `g` and ret `res` should be subtype of Group,
+      For obeying axiom `closure` (1)
+
+
+   .. method:: __mul__(self, g: Group)
+
+
+
+   .. method:: __repr__(self)
+
+
+
+   .. method:: __str__(self)
+
+
+
+
+.. py:class:: SemiGroup
+
+   Bases: :class:`klefki.types.algebra.abstract.Groupoid`
+
+   .. attribute:: __slots__
+      :annotation: = []
+
+      
+
+   .. method:: op(self, g: Group)
+      :abstractmethod:
+
+
+      The Operator for obeying axiom `associativity` (2)
+
+
+
+.. py:class:: Monoid
+
+   Bases: :class:`klefki.types.algebra.abstract.SemiGroup`
+
+   .. attribute:: __slots__
+      :annotation: = []
+
+      
+
+   .. method:: identity(self)
+      :property:
+
+
+      The value for obeying axiom `identity` (3)
+
+
+   .. method:: __not__(self)
+
+
+
+   .. method:: scalar(self, times)
+
+
+
+   .. method:: __matmul__(self, times)
+
+
+
+   .. method:: __pow__(self, times)
+
+
+
+   .. method:: __xor__(self, times)
+
+
+
+
+.. py:class:: Group
+
+   Bases: :class:`klefki.types.algebra.abstract.Monoid`
+
+   .. attribute:: __slots__
+      :annotation: = []
+
+      
+
+   .. method:: inverse(self: Group)
+      :abstractmethod:
+
+
+      Implement for axiom `inverse`
+
+
+   .. method:: __sub__(self, g: Group)
+
+
+      Allow to reverse op via a - b
+
+
+   .. method:: __neg__(self)
+
+
+
+
+.. py:class:: Field
+
+   Bases: :class:`klefki.types.algebra.abstract.Group`
+
+   .. attribute:: __slots__
+      :annotation: = []
+
+      
+
+   .. method:: sec_op(self, g: Field)
+      :abstractmethod:
+
+
+      The Operator for obeying axiom `associativity` (2)
+
+
+   .. method:: sec_inverse(self)
+      :abstractmethod:
+
+
+      Implement for axiom `inverse`
+
+
+   .. method:: sec_identity(self)
+      :abstractmethod:
+
+
+
+   .. method:: __invert__(self)
+
+
+
+   .. method:: __mul__(self, g: Field)
+
+
+      Allowing call associativity operator via A * B
+      Strict limit arg `g` and ret `res` should be subtype of Group,
+      For obeying axiom `closure` (1)
+
+
+   .. method:: __pow__(self, b, m=None)
+
+
+
+   .. method:: __truediv__(self, g: Field)
+
+
+
+

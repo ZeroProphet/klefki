@@ -1,0 +1,25 @@
+:mod:`klefki.crypto`
+====================
+
+.. py:module:: klefki.crypto
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   ecdsa/index.rst
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   paillier/index.rst
+   ssss/index.rst
+
+

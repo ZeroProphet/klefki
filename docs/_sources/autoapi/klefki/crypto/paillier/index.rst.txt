@@ -1,0 +1,34 @@
+:mod:`klefki.crypto.paillier`
+=============================
+
+.. py:module:: klefki.crypto.paillier
+
+
+Module Contents
+---------------
+
+.. py:class:: Paillier(P, Q)
+
+   .. method:: encrypt(cls, m, pub)
+      :classmethod:
+
+
+
+   .. method:: decrypt(cls, c, priv, pub)
+      :classmethod:
+
+
+
+   .. method:: E(self, m, pub=None)
+
+
+
+   .. method:: D(self, c, priv=None, pub=None)
+
+
+
+   .. method:: test(self)
+
+
+
+
