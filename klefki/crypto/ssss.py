@@ -16,17 +16,29 @@ from klefki.types.algebra.utils import randfield
 class SSSS:
     def __init__(self, F: FiniteField):
         self.F = F
+        self.node_count=0
 
-    def encrypt(self, Secret, k):
+    def setup(self, Secret, k, n):
+        self.k = k
+        self.n = n
         a = [randfield(self.F) for _ in range(k - 1)]
-        f = lambda x: Secret + reduce(
+        self.f = lambda x: Secret + reduce(
             add, [a[i] * (x ** i) for i in range(1, k - 1 )])
-        return f
+        return self
+
+    def join(self):
+        assert self.node_count < self.n
+        self.node_count += 1
+        x = randfield(self.F)
+        if not hasattr(self, 'f'):
+            raise Exception("Needs to encrypt first")
+        return (x, self.f(x))
 
 
-    def decrypt(self, f, x):
-        k = len(x)
+    def decrypt(self, priv):
+        x, fx = zip(*priv)
+        k = len(fx)
         return reduce(add,
-                      [f(x[j]) * reduce(
+                      [fx[j] * reduce(
                           mul,
-                          [x[m] / (x[m]-x[j])for m in range(k-1) if m != j]) for j in range(k-1)])
+                          [x[m] / (x[m]-x[j]) for m in range(k-1) if m != j]) for j in range(k-1)])
