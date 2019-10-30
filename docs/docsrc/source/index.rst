@@ -1,5 +1,5 @@
 
-Welcome to klefki's!
+Welcome to klefki!
 ==================================
 
 Klefki is a playground for researching elliptic curve group based cryptocoins, such as Bitcoin and Ethereum. All data types & structures are based on mathematical defination of abstract algebra.
