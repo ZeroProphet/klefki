@@ -4,6 +4,14 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
+    "Homomorphic Encryption\n",
+    "====================="
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
     "# History"
    ]
   },

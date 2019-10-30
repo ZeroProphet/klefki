@@ -20,6 +20,7 @@ Academic Notes
    :glob:
 
    Abstract Algebra Types
+   Homomorphic Encryption
    From ZK to Bulletproofs
    Paillier's encryption Scheme
    Shamir's secret sharing scheme
