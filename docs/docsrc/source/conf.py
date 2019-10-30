@@ -12,7 +12,7 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../..'))
+sys.path.insert(0, os.path.abspath('../notes'))
 
 
 # -- Project information -----------------------------------------------------
@@ -30,8 +30,15 @@ release = '0.7'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode', 'sphinx.ext.autodoc', 'recommonmark']
+extensions = ['sphinx.ext.todo',
+              'sphinx.ext.mathjax',
+              'sphinx.ext.viewcode',
+              'sphinx.ext.autodoc',
+              'recommonmark',
+              'nbsphinx']
+
 extensions.append('autoapi.extension')
+
 
 autoapi_type = 'python'
 autoapi_dirs = ['../../../klefki']
@@ -42,8 +49,13 @@ templates_path = ['_templates']
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = []
+exclude_patterns = ['_build', '**.ipynb_checkpoints']
+source_suffix = ['.rst', '.md', '.ipynb']
 
+autosectionlabel_prefix_document = True
+enable_auto_toc_tree = True
+auto_toc_tree_section = True
+enable_inline_math = True
 
 # -- Options for HTML output -------------------------------------------------
 

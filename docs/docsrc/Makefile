@@ -21,5 +21,6 @@ help:
 
 
 github:
+	cd source; ln -fs ../../../notes/* ./
 	make html
 	cp -r ./build/html/* ../
