@@ -41,6 +41,9 @@ class EllipticCurveGroupSecp256k1(EllipticCurveGroup):
         return self.value[1]
 
 
+
+
+
 class JacobianGroupSecp256k1(JacobianGroup):
     __slots__ = ()
     A = const.SECP256K1_A

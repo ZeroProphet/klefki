@@ -45,7 +45,6 @@ class FiniteField(Field):
         return self.__class__(x % self.P)
 
     def op(self, g):
-
         return self.__class__(
             self.mod(
                 (self.value + g.value), self.P

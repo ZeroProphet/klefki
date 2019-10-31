@@ -1,6 +1,7 @@
 from abc import ABCMeta, abstractmethod, abstractproperty
 from klefki.algorithms import double_and_add_algorithm
 from klefki.algorithms import complex_truediv_algorithm
+from klefki.numbers import modular_sqrt
 
 
 class Functor(metaclass=ABCMeta):
@@ -170,6 +171,9 @@ class Field(Group):
     def __pow__(self, b, m=None):
         if hasattr(b, "value"):
             b = b.value
+
+        if b == (1/2):
+            return self.__class__(modular_sqrt(self.value, self.P))
 
         if hasattr(self, "P"):
             m = self.P

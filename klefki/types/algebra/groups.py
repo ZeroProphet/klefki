@@ -50,6 +50,13 @@ class EllipticCurveGroup(Group):
         return self.__class__(0)
 
 
+    @classmethod
+    def lift_x(cls, x: FiniteField):
+        F = x.__class__
+        y = (x**3 + F(cls.A) * x + F(cls.B))**(1/2)
+        return cls((x, y))
+
+
 class CyclicGroup(Group):
     '''
     With Lagrange's therem
