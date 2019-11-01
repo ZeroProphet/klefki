@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Model, Deﬁnitions and Tools &#8212; klefki 0.7 documentation</title>
+    <title>Threshold ECDSA &#8212; klefki 0.7 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -34,209 +34,13 @@
 
           <div class="body" role="main">
             
-  
-<style>
-/* CSS for nbsphinx extension */
-
-/* remove conflicting styling from Sphinx themes */
-div.nbinput,
-div.nbinput div.prompt,
-div.nbinput div.input_area,
-div.nbinput div[class*=highlight],
-div.nbinput div[class*=highlight] pre,
-div.nboutput,
-div.nbinput div.prompt,
-div.nbinput div.output_area,
-div.nboutput div[class*=highlight],
-div.nboutput div[class*=highlight] pre {
-    background: none;
-    border: none;
-    padding: 0 0;
-    margin: 0;
-    box-shadow: none;
-}
-
-/* avoid gaps between output lines */
-div.nboutput div[class*=highlight] pre {
-    line-height: normal;
-}
-
-/* input/output containers */
-div.nbinput,
-div.nboutput {
-    display: -webkit-flex;
-    display: flex;
-    align-items: flex-start;
-    margin: 0;
-    width: 100%;
-}
-@media (max-width: 540px) {
-    div.nbinput,
-    div.nboutput {
-        flex-direction: column;
-    }
-}
-
-/* input container */
-div.nbinput {
-    padding-top: 5px;
-}
-
-/* last container */
-div.nblast {
-    padding-bottom: 5px;
-}
-
-/* input prompt */
-div.nbinput div.prompt pre {
-    color: #307FC1;
-}
-
-/* output prompt */
-div.nboutput div.prompt pre {
-    color: #BF5B3D;
-}
-
-/* all prompts */
-div.nbinput div.prompt,
-div.nboutput div.prompt {
-    min-width: 5ex;
-    padding-top: 0.4em;
-    padding-right: 0.4em;
-    text-align: right;
-    flex: 0;
-}
-@media (max-width: 540px) {
-    div.nbinput div.prompt,
-    div.nboutput div.prompt {
-        text-align: left;
-        padding: 0.4em;
-    }
-    div.nboutput div.prompt.empty {
-        padding: 0;
-    }
-}
-
-/* disable scrollbars on prompts */
-div.nbinput div.prompt pre,
-div.nboutput div.prompt pre {
-    overflow: hidden;
-}
-
-/* input/output area */
-div.nbinput div.input_area,
-div.nboutput div.output_area {
-    padding: 0.4em;
-    -webkit-flex: 1;
-    flex: 1;
-    overflow: auto;
-}
-@media (max-width: 540px) {
-    div.nbinput div.input_area,
-    div.nboutput div.output_area {
-        width: 100%;
-    }
-}
-
-/* input area */
-div.nbinput div.input_area {
-    border: 1px solid #e0e0e0;
-    border-radius: 2px;
-    background: #f5f5f5;
-}
-
-/* override MathJax center alignment in output cells */
-div.nboutput div[class*=MathJax] {
-    text-align: left !important;
-}
-
-/* override sphinx.ext.imgmath center alignment in output cells */
-div.nboutput div.math p {
-    text-align: left;
-}
-
-/* standard error */
-div.nboutput div.output_area.stderr {
-    background: #fdd;
-}
-
-/* ANSI colors */
-.ansi-black-fg { color: #3E424D; }
-.ansi-black-bg { background-color: #3E424D; }
-.ansi-black-intense-fg { color: #282C36; }
-.ansi-black-intense-bg { background-color: #282C36; }
-.ansi-red-fg { color: #E75C58; }
-.ansi-red-bg { background-color: #E75C58; }
-.ansi-red-intense-fg { color: #B22B31; }
-.ansi-red-intense-bg { background-color: #B22B31; }
-.ansi-green-fg { color: #00A250; }
-.ansi-green-bg { background-color: #00A250; }
-.ansi-green-intense-fg { color: #007427; }
-.ansi-green-intense-bg { background-color: #007427; }
-.ansi-yellow-fg { color: #DDB62B; }
-.ansi-yellow-bg { background-color: #DDB62B; }
-.ansi-yellow-intense-fg { color: #B27D12; }
-.ansi-yellow-intense-bg { background-color: #B27D12; }
-.ansi-blue-fg { color: #208FFB; }
-.ansi-blue-bg { background-color: #208FFB; }
-.ansi-blue-intense-fg { color: #0065CA; }
-.ansi-blue-intense-bg { background-color: #0065CA; }
-.ansi-magenta-fg { color: #D160C4; }
-.ansi-magenta-bg { background-color: #D160C4; }
-.ansi-magenta-intense-fg { color: #A03196; }
-.ansi-magenta-intense-bg { background-color: #A03196; }
-.ansi-cyan-fg { color: #60C6C8; }
-.ansi-cyan-bg { background-color: #60C6C8; }
-.ansi-cyan-intense-fg { color: #258F8F; }
-.ansi-cyan-intense-bg { background-color: #258F8F; }
-.ansi-white-fg { color: #C5C1B4; }
-.ansi-white-bg { background-color: #C5C1B4; }
-.ansi-white-intense-fg { color: #A1A6B2; }
-.ansi-white-intense-bg { background-color: #A1A6B2; }
-
-.ansi-default-inverse-fg { color: #FFFFFF; }
-.ansi-default-inverse-bg { background-color: #000000; }
-
-.ansi-bold { font-weight: bold; }
-.ansi-underline { text-decoration: underline; }
-
-/* Some additional styling taken form the Jupyter notebook CSS */
-div.rendered_html table {
-  border: none;
-  border-collapse: collapse;
-  border-spacing: 0;
-  color: black;
-  font-size: 12px;
-  table-layout: fixed;
-}
-div.rendered_html thead {
-  border-bottom: 1px solid black;
-  vertical-align: bottom;
-}
-div.rendered_html tr,
-div.rendered_html th,
-div.rendered_html td {
-  text-align: right;
-  vertical-align: middle;
-  padding: 0.5em 0.5em;
-  line-height: normal;
-  white-space: normal;
-  max-width: none;
-  border: none;
-}
-div.rendered_html th {
-  font-weight: bold;
-}
-div.rendered_html tbody tr:nth-child(odd) {
-  background: #f5f5f5;
-}
-div.rendered_html tbody tr:hover {
-  background: rgba(66, 165, 245, 0.2);
-}
-</style>
+  <div class="section" id="Threshold-ECDSA">
+<h1>Threshold ECDSA<a class="headerlink" href="#Threshold-ECDSA" title="Permalink to this headline">¶</a></h1>
 <p>Threshold signature schemes enable sharing signing power amongst n parties such that any subset of t + 1 can jointly sign, but any smaller subset cannot.</p>
-<div class="section" id="Model,-Deﬁnitions-and-Tools">
-<h1>Model, Deﬁnitions and Tools<a class="headerlink" href="#Model,-Deﬁnitions-and-Tools" title="Permalink to this headline">¶</a></h1>
+<p>## I Model, Definitions and Tools</p>
+<div class="section" id="1.1-Model">
+<h2>1.1 Model<a class="headerlink" href="#1.1-Model" title="Permalink to this headline">¶</a></h2>
+</div>
 <div class="section" id="Communication-Model">
 <h2><strong>Communication Model</strong><a class="headerlink" href="#Communication-Model" title="Permalink to this headline">¶</a></h2>
 <p>We assume that our computation model is composed of a set of <span class="math notranslate nohighlight">\(n\)</span> players <span class="math notranslate nohighlight">\(P_1,\cdots, P_n\)</span> connected by a complete network of point-to-point channels and a broadcast channel.</p>
@@ -245,8 +49,10 @@ div.rendered_html tbody tr:hover {
 <h2><strong>The Adversary</strong><a class="headerlink" href="#The-Adversary" title="Permalink to this headline">¶</a></h2>
 <p>We assume that an adversary, <span class="math notranslate nohighlight">\(A\)</span>, can corrupt up to <span class="math notranslate nohighlight">\(t\)</span> of the <span class="math notranslate nohighlight">\(n\)</span> players in the network. <span class="math notranslate nohighlight">\(A\)</span> learns all the information stored at the corrupted nodes, and hears all the broadcasted messages. We consider two type of adver saries:</p>
 </div>
+<div class="section" id="1.2-Deﬁnitions">
+<h2>1.2 Deﬁnitions<a class="headerlink" href="#1.2-Deﬁnitions" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="Signature-Scheme">
-<h2><strong>Signature Scheme</strong><a class="headerlink" href="#Signature-Scheme" title="Permalink to this headline">¶</a></h2>
+<h3><strong>Signature Scheme</strong><a class="headerlink" href="#Signature-Scheme" title="Permalink to this headline">¶</a></h3>
 <p>A signature scheme <span class="math notranslate nohighlight">\(S\)</span> is a triple of eﬃcient randomized algorithms <span class="math notranslate nohighlight">\((Key-Gen, Sig, Ver)\)</span>.</p>
 <ul>
 <li><p><strong>Key-Gen</strong> is the key generator algorithm.</p>
@@ -262,131 +68,97 @@ div.rendered_html tbody tr:hover {
 </ul>
 </div>
 <div class="section" id="Threshold-secret-sharing">
-<h2>Threshold secret sharing<a class="headerlink" href="#Threshold-secret-sharing" title="Permalink to this headline">¶</a></h2>
+<h3>Threshold secret sharing<a class="headerlink" href="#Threshold-secret-sharing" title="Permalink to this headline">¶</a></h3>
 <p>Given a secret value <span class="math notranslate nohighlight">\(x\)</span> we say that the values <span class="math notranslate nohighlight">\((x_1 , \cdots , x_n)\)</span> constitute a <span class="math notranslate nohighlight">\((t, n)\)</span>-threshold secret sharing of <span class="math notranslate nohighlight">\(x\)</span> if <span class="math notranslate nohighlight">\(t\)</span> (or less) of these values reveal no information about <span class="math notranslate nohighlight">\(x\)</span>, and if there is an eﬃcient algorithm that outputs <span class="math notranslate nohighlight">\(x\)</span> having <span class="math notranslate nohighlight">\(t + 1\)</span> of the values <span class="math notranslate nohighlight">\(x_i\)</span> as inputs.</p>
 </div>
 <div class="section" id="Threshold-signature-schemes.">
-<h2>Threshold signature schemes.<a class="headerlink" href="#Threshold-signature-schemes." title="Permalink to this headline">¶</a></h2>
+<h3>Threshold signature schemes.<a class="headerlink" href="#Threshold-signature-schemes." title="Permalink to this headline">¶</a></h3>
 <p>Let <span class="math notranslate nohighlight">\(S=(Key-Gen, Sig, Ver)\)</span> be a signature scheme. A <span class="math notranslate nohighlight">\((t, n)\)</span>-threshold signature scheme <span class="math notranslate nohighlight">\(TS\)</span> for <span class="math notranslate nohighlight">\(S\)</span> is a pair of protocols <span class="math notranslate nohighlight">\((Thresh-Key-Gen, Thresh-Sig)\)</span> for the set of players <span class="math notranslate nohighlight">\(P_1 , \cdots, P_n\)</span> .</p>
 <ul class="simple">
 <li><p><strong>Thresh-Key-Gen</strong> is a distributed key generation protocol used by the players to jointly generate a pair <span class="math notranslate nohighlight">\((y, x)\)</span> of public/private keys on input a security parameter <span class="math notranslate nohighlight">\(1^\lambda\)</span> .</p></li>
 <li><p><strong>Thresh-Sig</strong> is the distributed signature protocol. The private input of <span class="math notranslate nohighlight">\(P_i\)</span> is the value <span class="math notranslate nohighlight">\(x_i\)</span> . The public inputs consist of a message m and the public key <span class="math notranslate nohighlight">\(y\)</span>. The output of the protocol is a value <span class="math notranslate nohighlight">\(sig \in Sig(m, x)\)</span>.</p></li>
 </ul>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
-</pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">klefki.types.algebra.concrete</span> <span class="k">import</span> <span class="p">(</span>
-    <span class="n">EllipticCurveGroupSecp256k1</span> <span class="k">as</span> <span class="n">ECG</span><span class="p">,</span>
-    <span class="n">EllipticCurveCyclicSubgroupSecp256k1</span> <span class="k">as</span> <span class="n">CG</span><span class="p">,</span>
-    <span class="n">FiniteFieldSecp256k1</span> <span class="k">as</span> <span class="n">F</span><span class="p">,</span>
-    <span class="n">FiniteFieldCyclicSecp256k1</span> <span class="k">as</span> <span class="n">CF</span>
-<span class="p">)</span>
-
-<span class="kn">from</span> <span class="nn">operator</span> <span class="k">import</span> <span class="n">add</span>
-<span class="n">G</span> <span class="o">=</span> <span class="n">CG</span><span class="o">.</span><span class="n">G</span>
-<span class="n">N</span> <span class="o">=</span> <span class="n">CG</span><span class="o">.</span><span class="n">N</span>
-
-<span class="kn">import</span> <span class="nn">random</span>
-
-<span class="n">random_f</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">CF</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span> <span class="o">%</span> <span class="n">CF</span><span class="o">.</span><span class="n">P</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">klefki.numbers</span> <span class="k">import</span> <span class="n">lcm</span>
-</pre></div>
-</div>
-</div>
-<p>Threshold signatures, the situation is a bit different because we only have one public key, one secret key, and only one signature.</p>
-</div>
-<div class="section" id="Additively-homomorphic-encryption">
-<h2>Additively homomorphic encryption<a class="headerlink" href="#Additively-homomorphic-encryption" title="Permalink to this headline">¶</a></h2>
-<div class="math notranslate nohighlight">
-\[\alpha +_E \beta = E(\alpha + \beta \ mod\ N)\]</div>
-<div class="math notranslate nohighlight">
-\[x\times_E \alpha = E(x\alpha \ mod \ N)\]</div>
+<div class="section" id="1.3-Tools">
+<h2>1.3 Tools<a class="headerlink" href="#1.3-Tools" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Additively-Homomorphic-Encryption">
+<h3>Additively Homomorphic Encryption<a class="headerlink" href="#Additively-Homomorphic-Encryption" title="Permalink to this headline">¶</a></h3>
+<p>We assume the existence of an encryption scheme E which is additively homo- morphic modulo a large integer <span class="math notranslate nohighlight">\(N\)</span>, One instantiation of a scheme with these properties is <strong>Paillier’s encryption scheme</strong>.</p>
+<p>ref: <a class="reference external" href="https://ryankung.github.io/klefki/Paillier's%20encryption%20Scheme.html">Paillier’s encryption scheme</a></p>
+<p>With <span class="math notranslate nohighlight">\(\oplus_{i=1}^{t+1}\)</span>a_i, we denote the summation over the addition operation <span class="math notranslate nohighlight">\(+_E\)</span> of the encryption scheme:</p>
 <div class="math notranslate nohighlight">
 \[\oplus_{i=1}^{t+1}a_i = a_1 +_E a_2 +_E \cdots +_E a_{t+1}\]</div>
-<div class="section" id="Paillier's-encryption-Scheme">
-<h3>Paillier’s encryption Scheme<a class="headerlink" href="#Paillier's-encryption-Scheme" title="Permalink to this headline">¶</a></h3>
 </div>
+<div class="section" id="Threshold-Cryptosystems">
+<h3>Threshold Cryptosystems<a class="headerlink" href="#Threshold-Cryptosystems" title="Permalink to this headline">¶</a></h3>
+<p>In a <span class="math notranslate nohighlight">\((t, n)\)</span>-threshold cryptosystem, there is a public key <span class="math notranslate nohighlight">\(pk\)</span> with a matching secret key <span class="math notranslate nohighlight">\(sk\)</span> which is shared among <span class="math notranslate nohighlight">\(n\)</span> players with a <span class="math notranslate nohighlight">\((t, n)\)</span>-secret sharing.</p>
+<p>When a message <span class="math notranslate nohighlight">\(m\)</span> is encrypted under <span class="math notranslate nohighlight">\(pk\)</span>, <span class="math notranslate nohighlight">\(t+1\)</span> players can decrypt it via a communication protocol that does not expose the secret key.</p>
+<p>More formally, a public key cryptosystem <span class="math notranslate nohighlight">\(\epsilon\)</span> is deﬁned by three eﬃcient algorithms:</p>
+<ul class="simple">
+<li><p>key generation <strong>Enc-Key-Gen</strong> that takes as input a security parameter <span class="math notranslate nohighlight">\(λ\)</span>, and outputs a public key <span class="math notranslate nohighlight">\(pk\)</span> and a secret key <span class="math notranslate nohighlight">\(sk\)</span>.</p></li>
+<li><p>An encryption algorithm <strong>Enc</strong> that takes as input the public key <span class="math notranslate nohighlight">\(pk\)</span> and a message <span class="math notranslate nohighlight">\(m\)</span>, and outputs a ciphertext <span class="math notranslate nohighlight">\(c\)</span>. Since <strong>Enc</strong> is a randomized algorithm, there will be several valid encryptions of a message <span class="math notranslate nohighlight">\(m\)</span> under the key <span class="math notranslate nohighlight">\(pk\)</span>; with <span class="math notranslate nohighlight">\(Enc(m, pk)\)</span> we will denote the set of such ciphertexts.</p></li>
+<li><p>And a decryption algorithm Dec which is run on input <span class="math notranslate nohighlight">\(c\)</span>, <span class="math notranslate nohighlight">\(sk\)</span> and outputs <span class="math notranslate nohighlight">\(m\)</span>, such that <span class="math notranslate nohighlight">\(c \in Enc(m, pk)\)</span>.</p></li>
+</ul>
+<p>A <span class="math notranslate nohighlight">\((t, n)\)</span> threshold cryptosystem <span class="math notranslate nohighlight">\(T\epsilon\)</span>, consists of the following protocols for <span class="math notranslate nohighlight">\(n\)</span> players <span class="math notranslate nohighlight">\(P_1 , \cdots , P_n\)</span>.</p>
+<ul class="simple">
+<li><p>A key generation protocol <strong>TEnc-Key-Gen</strong> that takes as input a security parameter <span class="math notranslate nohighlight">\(\lambda\)</span>, and the parameter <span class="math notranslate nohighlight">\(t, n\)</span>, and it outputs a public key <span class="math notranslate nohighlight">\(pk\)</span> and a vector of secret keys <span class="math notranslate nohighlight">\((sk_1, \cdots, sk_n)\)</span> where <span class="math notranslate nohighlight">\(sk_i\)</span> is private to player <span class="math notranslate nohighlight">\(P_i\)</span> . This protocol could be obtained by having a trusted party run Enc-Key-Gen and sharing sk among the players.</p></li>
+<li><p>A threshold decryption protocol <strong>TDec</strong>, which is run on public input a ciphertext <span class="math notranslate nohighlight">\(c\)</span> and private input the share <span class="math notranslate nohighlight">\(sk_i\)</span> . The output is <span class="math notranslate nohighlight">\(m\)</span>, such that <span class="math notranslate nohighlight">\(c\in Enc(m, pk)\)</span>.</p></li>
+</ul>
+<p>Threshold variations of Paillier’s scheme have been presented in the literature:</p>
+<ul class="simple">
+<li><ol class="upperalpha simple" start="15">
+<li><p>Baudron, P.-A. Fouque, D. Pointcheval, G. Poupard and J. Stern. Practical Multi-Candidate Election System. PODC’01</p></li>
+</ol>
+</li>
+<li><ol class="upperroman simple">
+<li><p>Damg˚ard and M. Jurik. A Generalisation, a Simpliﬁcation and Some Appli- cations of Paillier’s Probabilistic Public-Key System. PKC’01, LNCS Vol.1992, pp.119–136</p></li>
+</ol>
+</li>
+<li><ol class="upperroman simple">
+<li><p>Damg˚ard, M. Koprowski: Practical Threshold RSA Signatures without a Trusted Dealer. EUROCRYPT 2001: LNCS Vol.2045, pp. 152-165</p></li>
+</ol>
+</li>
+<li><ol class="upperalpha simple" start="3">
+<li><p>Hazay, G.L. Mikkelsen, T. Rabin, T. Toft. and A.A. Nicolosi: Eﬃcient RSA key generation and threshold Paillier in the two-party setting.</p></li>
+</ol>
+</li>
+</ul>
 </div>
-</div>
-<div class="section" id="Protocol">
-<h1>Protocol<a class="headerlink" href="#Protocol" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="Setup-Phase">
-<h2>Setup Phase<a class="headerlink" href="#Setup-Phase" title="Permalink to this headline">¶</a></h2>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">partial</span>
-
-<span class="kn">from</span> <span class="nn">klefki.zkp.pedersen</span> <span class="k">import</span> <span class="n">commitment</span>
-
-<span class="n">H</span> <span class="o">=</span> <span class="n">G</span><span class="o">^</span><span class="n">random_f</span><span class="p">()</span>
-<span class="n">r</span> <span class="o">=</span> <span class="n">random_f</span><span class="p">()</span>
-
-<span class="n">com</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">commitment</span><span class="p">,</span> <span class="n">G</span><span class="o">=</span><span class="n">G</span><span class="p">,</span> <span class="n">H</span><span class="o">=</span><span class="n">H</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="n">r</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">com</span><span class="p">(</span><span class="n">CF</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="n">com</span><span class="p">(</span><span class="n">CF</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span> <span class="o">==</span> <span class="n">com</span><span class="p">(</span><span class="n">CF</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="n">r</span><span class="o">=</span><span class="n">r</span><span class="o">*</span><span class="n">CF</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="section" id="Round-1">
-<h2>Round 1<a class="headerlink" href="#Round-1" title="Permalink to this headline">¶</a></h2>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">p</span> <span class="o">=</span> <span class="n">random_f</span><span class="p">()</span>
-<span class="n">u</span> <span class="o">=</span> <span class="n">G</span><span class="nd">@p</span> <span class="o">+</span> <span class="n">H</span><span class="nd">@r</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
+<div class="section" id="Independent-Trapdoor-Commitments">
+<h3>Independent Trapdoor Commitments<a class="headerlink" href="#Independent-Trapdoor-Commitments" title="Permalink to this headline">¶</a></h3>
+<p>A trapdoor commitment scheme allows a sender to commit to a message with information-theoretic privacy.</p>
+<p>A (non-interactive) <strong>trapdoor commitment scheme</strong> consists of four algorithms <span class="math notranslate nohighlight">\(KG, Com, Ver, Equiv\)</span> with the following properties:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(KG\)</span> is the key generation algorithm, on input the security parameter it outputs a pair <span class="math notranslate nohighlight">\(pk, tk\)</span> where <span class="math notranslate nohighlight">\(pk\)</span> is the public key associated with the commitment scheme, and <span class="math notranslate nohighlight">\(tk\)</span> is called the <strong>trapdoor</strong>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(Com\)</span> is the commitment algorithm. On input pk and a message M it outputs <span class="math notranslate nohighlight">\([C(M), D(M)] = Com(pk, M, R)\)</span> where <span class="math notranslate nohighlight">\(r\)</span> are the coin tosses. <span class="math notranslate nohighlight">\(C(M)\)</span> is the commitment string, while <span class="math notranslate nohighlight">\(D(M)\)</span> is the decommitment string which is kept secret until opening time.</p></li>
+<li><p><span class="math notranslate nohighlight">\(Ver\)</span> is the veriﬁcation algorithm. On input <span class="math notranslate nohighlight">\(C, D\)</span> and <span class="math notranslate nohighlight">\(pk\)</span> it either outputs a message M or <span class="math notranslate nohighlight">\(\bot\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(Equiv\)</span> is the algorithm that opens a commitment in any possible way given the trapdoor information. It takes as input <span class="math notranslate nohighlight">\(pk\)</span>, strings <span class="math notranslate nohighlight">\(M, R\)</span> with <span class="math notranslate nohighlight">\([C(M), D(M)] = Com(pk, M, R)\)</span>, a message <span class="math notranslate nohighlight">\(M' \neq M\)</span> and a string <span class="math notranslate nohighlight">\(T\)</span>. If <span class="math notranslate nohighlight">\(T = tk\)</span> then <span class="math notranslate nohighlight">\(Equiv\)</span> outputs <span class="math notranslate nohighlight">\(D'\)</span> such that <span class="math notranslate nohighlight">\(Ver(pk, C(M), D') = M'\)</span> .</p></li>
+</ul>
+<p>We note that if the sender refuses to open a commitment we can set <span class="math notranslate nohighlight">\(D = \bot\)</span> and <span class="math notranslate nohighlight">\(Ver(pk, C, \bot) = \bot\)</span>. Trapdoor commitments must satisfy the following properties:</p>
+<ul>
+<li><p><strong>Correctness:</strong></p>
+<p>If <span class="math notranslate nohighlight">\([C(M), D(M)] = Com(pk, M, R)\)</span> then <span class="math notranslate nohighlight">\(Ver(pk, C(M), D(M)) = M\)</span>.</p>
+</li>
+<li><p><strong>Information Theoretic Security:</strong></p>
+<p>For every message pair <span class="math notranslate nohighlight">\(M, M'\)</span> the distributions <span class="math notranslate nohighlight">\(C(M\)</span>) and <span class="math notranslate nohighlight">\(C(M')\)</span> are statistically close.</p>
+</li>
+<li><p><strong>Secure Binding:</strong></p>
+<p>We say that an adversary <span class="math notranslate nohighlight">\(A\)</span> wins if it outputs <span class="math notranslate nohighlight">\(C, D, D'\)</span> such that <span class="math notranslate nohighlight">\(Ver(pk, C, D) = M, Ver(pk, C, D') = M'\)</span> and <span class="math notranslate nohighlight">\(M \neq M'\)</span> . We require that for all eﬃcient algorithms <span class="math notranslate nohighlight">\(A\)</span>, the probability that <span class="math notranslate nohighlight">\(A\)</span> wins is negligible in the security parameter.</p>
+</li>
+<li><p><strong>Independence:</strong></p>
+<p>if the honest parties open their commitments in diﬀerent ways using the trapdoor, the adversary cannot change the way he opens his commitments C_j based on the honest parties’ opening.</p>
+</li>
+</ul>
 <div class="section" id="Ref:">
-<h1>Ref:<a class="headerlink" href="#Ref:" title="Permalink to this headline">¶</a></h1>
+<h4>Ref:<a class="headerlink" href="#Ref:" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p>Antonio Salazar Cardozo, Threshold ECDSA — Safer, more private multi-signatures, <a class="reference external" href="https://blog.keep.network/threshold-ecdsa-safer-more-private-multi-signatures-51153f3e9ed2">https://blog.keep.network/threshold-ecdsa-safer-more-private-multi-signatures-51153f3e9ed2</a></p></li>
 <li><p>Gennaro, Rosario, Steven Goldfeder, and Arvind Narayanan. “Threshold-Optimal DSA/ECDSA Signatures and an Application to Bitcoin Wallet Security.” In Applied Cryptography and Network Security, edited by Mark Manulis, Ahmad-Reza Sadeghi, and Steve Schneider, 9696:156–74. Cham: Springer International Publishing, 2016. <a class="reference external" href="https://doi.org/10.1007/978-3-319-39555-5_9">https://doi.org/10.1007/978-3-319-39555-5_9</a>.</p></li>
 </ul>
+</div>
+</div>
+</div>
 </div>
 
 
@@ -416,6 +188,7 @@ div.rendered_html tbody tr:hover {
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="Abstract Algebra Types.html">Abstract Algebra Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Homomorphic Encryption.html">Homomorphic Encryption</a></li>
 <li class="toctree-l1"><a class="reference internal" href="From ZK to Bulletproofs.html">From ZK to Bulletproofsproof via Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Paillier's encryption Scheme.html">Paillier’s encryption Scheme</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Shamir's secret sharing scheme.html">Shamir’s secret sharing scheme</a></li>

@@ -53,7 +53,8 @@ class EllipticCurveGroup(Group):
     @classmethod
     def lift_x(cls, x: FiniteField):
         F = x.__class__
-        y = (x**3 + F(cls.A) * x + F(cls.B))**(1/2)
+#        y = (x**3 + F(cls.A) * x + F(cls.B))**(1/2)
+        y = (x**3 + x*F(cls.A) + F(cls.B))**(1/2)
         return cls((x, y))
 
 

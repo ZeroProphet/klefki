@@ -4,6 +4,14 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
+    "Threshold ECDSA\n",
+    "====================="
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
     "Threshold signature schemes enable sharing signing power amongst n parties such that any subset of t + 1 can jointly sign, but any smaller subset cannot.\n",
     "\n"
    ]
@@ -12,7 +20,14 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Model, Deﬁnitions and Tools"
+    " ## I Model, Definitions and Tools"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 1.1 Model"
    ]
   },
   {
@@ -32,7 +47,14 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "### **Signature Scheme**\n",
+    "### 1.2 Deﬁnitions"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### **Signature Scheme**\n",
     "\n",
     "A signature scheme $S$ is a triple of eﬃcient randomized algorithms $(Key-Gen, Sig, Ver)$.\n",
     "\n",
@@ -55,7 +77,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "### Threshold secret sharing"
+    "#### Threshold secret sharing"
    ]
   },
   {
@@ -69,7 +91,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "### Threshold signature schemes."
+    "#### Threshold signature schemes."
    ]
   },
   {
@@ -89,72 +111,33 @@
    ]
   },
   {
-   "cell_type": "code",
-   "execution_count": null,
+   "cell_type": "markdown",
    "metadata": {},
-   "outputs": [],
-   "source": []
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": []
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 4,
-   "metadata": {},
-   "outputs": [],
    "source": [
-    "from klefki.types.algebra.concrete import (\n",
-    "    EllipticCurveGroupSecp256k1 as ECG,\n",
-    "    EllipticCurveCyclicSubgroupSecp256k1 as CG,\n",
-    "    FiniteFieldSecp256k1 as F,\n",
-    "    FiniteFieldCyclicSecp256k1 as CF\n",
-    ")\n",
+    "### 1.3 Tools"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Additively Homomorphic Encryption"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "We assume the existence of an encryption scheme E which is additively homo- morphic modulo a large integer $N$, One instantiation of a scheme with these properties is **Paillier’s encryption scheme**.\n",
     "\n",
-    "from operator import add\n",
-    "G = CG.G\n",
-    "N = CG.N\n",
-    "\n",
-    "import random\n",
-    "\n",
-    "random_f = lambda: CF(random.randint(1, N) % CF.P)\n",
-    "from klefki.numbers import lcm"
+    "ref: [Paillier’s encryption scheme](https://ryankung.github.io/klefki/Paillier's%20encryption%20Scheme.html)"
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "Threshold signatures, the situation is a bit different because we only have one public key, one secret key, and only one signature. "
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "### Additively homomorphic encryption"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "$$\n",
-    "\\alpha +_E \\beta = E(\\alpha + \\beta \\ mod\\ N)\n",
-    "$$"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "$$\n",
-    "x\\times_E \\alpha = E(x\\alpha \\ mod \\ N)\n",
-    "$$"
+    "With $\\oplus_{i=1}^{t+1}$a_i, we denote the summation over the addition operation $+_E$ of the encryption scheme:"
    ]
   },
   {
@@ -170,71 +153,138 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "#### Paillier's encryption Scheme"
+    "#### Threshold Cryptosystems"
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Protocol"
+    "In a $(t, n)$-threshold cryptosystem, there is a public key $pk$ with a matching secret key $sk$ which is shared among $n$ players with a $(t, n)$-secret sharing.\n",
+    "\n",
+    "When a message $m$ is encrypted under $pk$, $t+1$ players can decrypt it via a communication protocol that does not expose the secret key."
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "### Setup Phase"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "from functools import partial\n",
+    "More formally, a public key cryptosystem $\\epsilon$ is deﬁned by three eﬃcient algorithms:\n",
     "\n",
-    "from klefki.zkp.pedersen import commitment\n",
+    "- key generation **Enc-Key-Gen** that takes as input a security parameter $λ$, and outputs a public key $pk$ and a secret key $sk$.\n",
     "\n",
-    "H = G^random_f()\n",
-    "r = random_f()\n",
     "\n",
-    "com = partial(commitment, G=G, H=H, r=r)"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "com(CF(2)) + com(CF(3)) == com(CF(5), r=r*CF(2))"
+    "- An encryption algorithm **Enc** that takes as input the public key $pk$ and a message $m$, and outputs a ciphertext $c$. Since **Enc** is a randomized algorithm, there will be several valid encryptions of a message $m$ under the key $pk$; with $Enc(m, pk)$ we will denote the set of such ciphertexts.\n",
+    "\n",
+    "\n",
+    "- And a decryption algorithm Dec which is run on input $c$, $sk$ and outputs $m$, such that $c \\in Enc(m, pk)$."
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "### Round 1"
+    "A $(t, n)$ threshold cryptosystem $T\\epsilon$, consists of the following protocols for $n$ players $P_1 , \\cdots , P_n$."
    ]
   },
   {
-   "cell_type": "code",
-   "execution_count": null,
+   "cell_type": "markdown",
    "metadata": {},
-   "outputs": [],
    "source": [
-    "p = random_f()\n",
-    "u = G@p + H@r"
+    "- A key generation protocol **TEnc-Key-Gen** that takes as input a security parameter $\\lambda$, and the parameter $t, n$, and it outputs a public key $pk$ and a vector of secret keys $(sk_1, \\cdots, sk_n)$ where $sk_i$ is private to player $P_i$ . This protocol could be obtained by having a trusted party run Enc-Key-Gen and sharing sk among the players.\n",
+    "\n",
+    "\n",
+    "- A threshold decryption protocol **TDec**, which is run on public input a ciphertext $c$ and private input the share $sk_i$ . The output is $m$, such that $c\\in Enc(m, pk)$."
    ]
   },
   {
-   "cell_type": "code",
-   "execution_count": null,
+   "cell_type": "markdown",
    "metadata": {},
-   "outputs": [],
-   "source": []
+   "source": [
+    "Threshold variations of Paillier’s scheme have been presented in the literature:\n",
+    "\n",
+    "* O. Baudron, P.-A. Fouque, D. Pointcheval, G. Poupard and J. Stern. Practical Multi-Candidate Election System. PODC’01\n",
+    "\n",
+    "* I. Damg˚ard and M. Jurik. A Generalisation, a Simpliﬁcation and Some Appli- cations of Paillier’s Probabilistic Public-Key System. PKC’01, LNCS Vol.1992, pp.119–136\n",
+    "\n",
+    "* I. Damg˚ard, M. Koprowski: Practical Threshold RSA Signatures without a Trusted Dealer. EUROCRYPT 2001: LNCS Vol.2045, pp. 152-165\n",
+    "\n",
+    "* C. Hazay, G.L. Mikkelsen, T. Rabin, T. Toft. and A.A. Nicolosi: Eﬃcient RSA key generation and threshold Paillier in the two-party setting."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Independent Trapdoor Commitments"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "A trapdoor commitment scheme allows a sender to commit to a message with information-theoretic privacy."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "A (non-interactive) **trapdoor commitment scheme** consists of four algorithms $KG, Com, Ver, Equiv$ with the following properties:"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "- $KG$ is the key generation algorithm, on input the security parameter it outputs a pair $pk, tk$ where $pk$ is the public key associated with the commitment scheme, and $tk$ is called the **trapdoor**."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "- $Com$ is the commitment algorithm. On input pk and a message M it outputs $[C(M), D(M)] = Com(pk, M, R)$ where $r$ are the coin tosses. $C(M)$ is the commitment string, while $D(M)$ is the decommitment string which is kept secret until opening time."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "* $Ver$ is the veriﬁcation algorithm. On input $C, D$ and $pk$ it either outputs a message M or $\\bot$."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "* $Equiv$ is the algorithm that opens a commitment in any possible way given the trapdoor information. It takes as input $pk$, strings $M, R$ with $[C(M), D(M)] = Com(pk, M, R)$, a message $M' \\neq M$ and a string $T$. If $T = tk$ then $Equiv$ outputs $D'$ such that $Ver(pk, C(M), D') = M'$ ."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "We note that if the sender refuses to open a commitment we can set $D = \\bot$ and $Ver(pk, C, \\bot) = \\bot$. Trapdoor commitments must satisfy the following properties:\n",
+    "\n",
+    "* **Correctness:**\n",
+    "\n",
+    "     If $[C(M), D(M)] = Com(pk, M, R)$ then $Ver(pk, C(M), D(M)) = M$.\n",
+    "\n",
+    "\n",
+    "* **Information Theoretic Security:**\n",
+    "\n",
+    "     For every message pair $M, M'$ the distributions $C(M$) and $C(M')$ are statistically close.\n",
+    "\n",
+    "\n",
+    "* **Secure Binding:**\n",
+    "\n",
+    "    We say that an adversary $A$ wins if it outputs $C, D, D'$ such that $Ver(pk, C, D) = M, Ver(pk, C, D') = M'$ and $M \\neq M'$ . We require that for all eﬃcient algorithms $A$, the probability that $A$ wins is negligible in the security parameter.\n",
+    "    \n",
+    "* **Independence:**\n",
+    "\n",
+    "    if the honest parties open their commitments in diﬀerent ways using the trapdoor, the adversary cannot change the way he opens his commitments C_j based on the honest parties’ opening."
+   ]
   },
   {
    "cell_type": "markdown",

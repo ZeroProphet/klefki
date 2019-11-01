@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>A morphism f : X → Y in a category is an isomorphism if it admits a two-sided inverse. &#8212; klefki 0.7 documentation</title>
+    <title>Square Root of FiniteField &#8212; klefki 0.7 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -234,154 +234,37 @@ div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
 </style>
-<div class="section" id="A-morphism-f-:-X-→-Y-in-a-category-is-an-isomorphism-if-it-admits-a-two-sided-inverse.">
-<h1>A morphism f : X → Y in a category is an isomorphism if it admits a two-sided inverse.<a class="headerlink" href="#A-morphism-f-:-X-→-Y-in-a-category-is-an-isomorphism-if-it-admits-a-two-sided-inverse." title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Square-Root-of-FiniteField">
+<h1>Square Root of FiniteField<a class="headerlink" href="#Square-Root-of-FiniteField" title="Permalink to this headline">¶</a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">klefki.types.algebra.isomorphism</span> <span class="k">import</span> <span class="n">Isomorphism</span><span class="p">,</span> <span class="n">bijection</span>
+<span></span><span class="kn">from</span> <span class="nn">klefki.types.algebra.concrete</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">EllipticCurveGroupSecp256k1</span> <span class="k">as</span> <span class="n">ECG</span><span class="p">,</span>
+    <span class="n">EllipticCurveCyclicSubgroupSecp256k1</span> <span class="k">as</span> <span class="n">CG</span><span class="p">,</span>
+    <span class="n">FiniteFieldSecp256k1</span> <span class="k">as</span> <span class="n">F</span><span class="p">,</span>
+    <span class="n">FiniteFieldCyclicSecp256k1</span> <span class="k">as</span> <span class="n">CF</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="k">def</span> <span class="nf">inv</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">a</span> <span class="o">-</span> <span class="mi">1</span>
-
-<span class="nd">@Isomorphism</span>
-<span class="nd">@bijection</span><span class="p">(</span><span class="n">inv</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">a</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span>
-
-<span class="nd">@Isomorphism</span>
-<span class="nd">@bijection</span><span class="p">(</span><span class="n">inv</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">b</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span>
-
-<span class="nd">@Isomorphism</span>
-<span class="nd">@bijection</span><span class="p">(</span><span class="n">inv</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">c</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="k">assert</span> <span class="p">(</span><span class="n">a</span> <span class="o">&lt;&lt;</span> <span class="n">b</span> <span class="o">&lt;&lt;</span> <span class="n">c</span><span class="p">)((</span><span class="n">a</span> <span class="o">&gt;&gt;</span> <span class="n">b</span> <span class="o">&gt;&gt;</span> <span class="n">c</span><span class="p">)(</span><span class="mi">1</span><span class="p">))</span> <span class="o">==</span> <span class="mi">1</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="Example">
-<h2>Example<a class="headerlink" href="#Example" title="Permalink to this headline">¶</a></h2>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">klefki.types.algebra.isomorphism</span> <span class="k">import</span> <span class="n">bijection</span><span class="p">,</span> <span class="n">do</span>
-<span class="kn">from</span> <span class="nn">klefki.asn</span> <span class="k">import</span> <span class="n">signature</span> <span class="k">as</span> <span class="n">sig</span>
-<span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">partial</span>
-<span class="kn">import</span> <span class="nn">base58</span>
-<span class="kn">from</span> <span class="nn">pyasn1.codec.der.encoder</span> <span class="k">import</span> <span class="n">encode</span>
-<span class="kn">from</span> <span class="nn">pyasn1.codec.der.decoder</span> <span class="k">import</span> <span class="n">decode</span>
-
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">b58encoder</span> <span class="o">=</span> <span class="n">bijection</span><span class="p">(</span><span class="n">base58</span><span class="o">.</span><span class="n">b58decode</span><span class="p">)(</span><span class="n">base58</span><span class="o">.</span><span class="n">b58encode</span><span class="p">)</span>
-<span class="n">asn1encoder</span> <span class="o">=</span> <span class="n">bijection</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="n">decode</span><span class="p">,</span> <span class="n">asn1Spec</span><span class="o">=</span><span class="n">sig</span><span class="o">.</span><span class="n">ECDSA_Sig_Value</span><span class="p">()))(</span><span class="n">encode</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">data</span> <span class="o">=</span> <span class="n">sig</span><span class="o">.</span><span class="n">ECDSA_Sig_Value</span><span class="p">()</span>
-<span class="n">data</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">123</span>
-<span class="n">data</span><span class="p">[</span><span class="s1">&#39;s&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">234</span>
-<span class="n">data</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
-</pre></div>
-</div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>ECDSA_Sig_Value().setComponentByPosition(0, Integer(123)).setComponentByPosition(1, Integer(234))
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">process</span> <span class="o">=</span> <span class="n">do</span><span class="p">(</span><span class="n">asn1encoder</span><span class="p">,</span> <span class="n">b58encoder</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">process</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
-</pre></div>
-</div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>&#39;cTVygpHoWBNR&#39;
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="p">(</span><span class="o">~</span><span class="n">process</span><span class="p">)(</span><span class="n">process</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
-</pre></div>
-</div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>(ECDSA_Sig_Value().setComponentByPosition(0, Integer(123)).setComponentByPosition(1, Integer(234)),
- b&#39;&#39;)
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
-</pre></div>
-</div>
-</div>
+<p>In number theory, an integer q is called a quadratic residue modulo n if it is congruent to a perfect square modulo n; i.e., if there exists an integer x such that:</p>
+<div class="math notranslate nohighlight">
+\[x^{2}\equiv q{\pmod {n}}\]</div>
+<p>Otherwise, q is called a quadratic nonresidue modulo n.</p>
+<div class="section" id="The-Legendre-symbol">
+<h2>The Legendre symbol<a class="headerlink" href="#The-Legendre-symbol" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left(\frac{a}{p}\right) =
+\left\{
+\begin{aligned}
+&amp;0\ if \ p \mid a \\
+&amp;1\ if\ p \nmid a\ \text{and a is a quadratic residue mod p} \\
+&amp;-1\ \text{if a is quadratic none-residue mod p}
+\end{aligned}
+\right.\end{split}\]</div>
 </div>
 </div>
 
@@ -458,7 +341,7 @@ div.rendered_html tbody tr:hover {
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
-      <a href="_sources/Isomorphism.ipynb.txt"
+      <a href="_sources/Square Root of FiniteField.ipynb.txt"
           rel="nofollow">Page source</a>
     </div>
 

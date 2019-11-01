@@ -122,6 +122,34 @@ n are relatively prime, i.e, gcd(b, n) = 1</p>
 (<a class="reference external" href="http://www.programmish.com/?p=34">http://www.programmish.com/?p=34</a>)</p>
 </dd></dl>
 
+<dl class="function">
+<dt id="klefki.numbers.modular_sqrt">
+<code class="sig-prename descclassname">klefki.numbers.</code><code class="sig-name descname">modular_sqrt</code><span class="sig-paren">(</span><em class="sig-param">a</em>, <em class="sig-param">p</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/klefki/numbers.html#modular_sqrt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.numbers.modular_sqrt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find a quadratic residue (mod p) of ‘a’. p
+must be an odd prime.
+Solve the congruence of the form:
+x^2 = a (mod p)
+And returns x. Note that p - x is also a root.
+0 is returned is no square root exists for
+these a and p.
+The Tonelli-Shanks algorithm is used (except
+for some simple cases in which the solution
+is known from an identity). This algorithm
+runs in polynomial time (unless the
+generalized Riemann hypothesis is false).</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="klefki.numbers.legendre_symbol">
+<code class="sig-prename descclassname">klefki.numbers.</code><code class="sig-name descname">legendre_symbol</code><span class="sig-paren">(</span><em class="sig-param">a</em>, <em class="sig-param">p</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/klefki/numbers.html#legendre_symbol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.numbers.legendre_symbol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the Legendre symbol a|p using
+Euler’s criterion. p is a prime, a is
+relatively prime to p (if p divides
+a, then a|p = 0)
+Returns 1 if a has a square root modulo
+p, -1 otherwise.</p>
+</dd></dl>
+
 </div>
 </div>
 

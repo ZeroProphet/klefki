@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Play MimbleWimble with klefki &#8212; klefki 0.7 documentation</title>
+    <title>Trapdoor Commitment Schemes &#8212; klefki 0.7 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -234,8 +234,53 @@ div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
 </style>
-<div class="section" id="Play-MimbleWimble-with-klefki">
-<h1>Play MimbleWimble with klefki<a class="headerlink" href="#Play-MimbleWimble-with-klefki" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Trapdoor-Commitment-Schemes">
+<h1>Trapdoor Commitment Schemes<a class="headerlink" href="#Trapdoor-Commitment-Schemes" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="I-Introduction">
+<h2>I Introduction<a class="headerlink" href="#I-Introduction" title="Permalink to this headline">¶</a></h2>
+<p>Trapdoors in commitment protocols have already been considered and constructed in the past; they are also called <strong>equivocable commitment schemes</strong> or <strong>chameleon blobs</strong> in the literature.</p>
+<div class="section" id="Commitment">
+<h3>Commitment<a class="headerlink" href="#Commitment" title="Permalink to this headline">¶</a></h3>
+<p>Instructively, one can describe a commitment scheme with a lockable steely box. In the so-called commitment phase, one party, the sender, puts a message into a box, locks the box and gives it to the other party, the receiver. On one hand, the receiver cannot open the box to learn the message, and on the other side, the sender cannot change the message anymore.</p>
+</div>
+<div class="section" id="non-malleable-commitments">
+<h3>non-malleable commitments<a class="headerlink" href="#non-malleable-commitments" title="Permalink to this headline">¶</a></h3>
+<p>a commitment scheme is non-malleable if giving the adversary the original commitment of the honest party does not signiﬁcantly increase his success probability of ﬁnding a commitment of a related message (e.g., a higher bid), compared to the case that the adversary does not have access to the honest party’s commitment at all.</p>
+</div>
+<div class="section" id="trapdoors-commitment">
+<h3>trapdoors commitment<a class="headerlink" href="#trapdoors-commitment" title="Permalink to this headline">¶</a></h3>
+<p>These are commitment schemes for which knowledge of a special information, the trapdoor, allows to overcome the binding property and to open a commitment ambiguously.</p>
+<p>Ambiguous decommitments are only possible given this special information; without, a commitment is still solidly binding.</p>
+<p><strong>E.g.</strong></p>
+<p>On the bid auction case:</p>
+<p>the adversary ﬁrst sees the commitment of the other sender and is supposed to output his commitment to a higher bid afterwards.</p>
+<p>Assume that the honest sender’s commitment contains a trapdoor but the adversary’s commitment does not. Then, on one hand, the honest party’s bid can still be altered by the trapdoor property in principle, even after the adversary has submitted his value. On the other hand, the adversary’s commitment does not have a trapdoor and his value thenceforth is pinned down due to the binding property.</p>
+</div>
+</div>
+<div class="section" id="II-Notation">
+<h2>II Notation<a class="headerlink" href="#II-Notation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Turing-Machine">
+<h3>Turing Machine<a class="headerlink" href="#Turing-Machine" title="Permalink to this headline">¶</a></h3>
+<p>Let A be a probabilistic algorithm, or more formally, a Turing machine with a random tape. We say that A is polynomial-time if there exists a polynomial <span class="math notranslate nohighlight">\(p(n)\)</span> such that A takes at most <span class="math notranslate nohighlight">\(p(n)\)</span> steps on inputs of length <span class="math notranslate nohighlight">\(n\)</span>.</p>
+<p>Algorithm A runs in expected polynomial-time if A is polynomial-time on the average, the expectation taken over the internal random coins.</p>
+<p>For a <strong>deterministic algorithm</strong> <span class="math notranslate nohighlight">\(A\)</span> let <strong>a = A(x)</strong> be the output a of A on input x.</p>
+<p>If A is a <strong>probabilistic algorithm</strong> then we denote by <strong>A(x)</strong> the random variable that describes the output of A on input x.</p>
+<p>The probability space is deﬁned by the internal coin tosses of A. In this case, we write <span class="math notranslate nohighlight">\([A(x)]\)</span> for the support of A on input x.</p>
+<p>By <span class="math notranslate nohighlight">\(a\leftarrow A(x)\)</span> we denote the process of sampling an output a of A on input x.</p>
+<p><span class="math notranslate nohighlight">\(A(x, r)\)</span> is the output of algorithm <span class="math notranslate nohighlight">\(A\)</span> on input <span class="math notranslate nohighlight">\(x\)</span> with random bits <span class="math notranslate nohighlight">\(r\)</span></p>
+</div>
+<div class="section" id="circuit">
+<h3>circuit<a class="headerlink" href="#circuit" title="Permalink to this headline">¶</a></h3>
+<p>A polynomial-size circuit family is a sequence <span class="math notranslate nohighlight">\(C=(C_n)_{n\in \mathbb{N}}\)</span> of circuits <span class="math notranslate nohighlight">\(C_n\)</span> with the property that the total number of gates of <span class="math notranslate nohighlight">\(C_n\)</span>, including the input gates, is polynomially bounded in <span class="math notranslate nohighlight">\(n\)</span>.</p>
+</div>
+</div>
+<div class="section" id="III-Trapdoor-Commitment-Schemes">
+<h2>III Trapdoor Commitment Schemes<a class="headerlink" href="#III-Trapdoor-Commitment-Schemes" title="Permalink to this headline">¶</a></h2>
+<p>The discrete-logarithm scheme includes a trapdoor.</p>
+<p>Let the simulator pick <span class="math notranslate nohighlight">\(p, q\)</span> and <span class="math notranslate nohighlight">\(g\)</span> as the trusted party, and let it generate <span class="math notranslate nohighlight">\(h = g^x \mod p\)</span> for random <span class="math notranslate nohighlight">\(x \in Z_q\)</span> . The simulator publishes these values.</p>
+<p>Basically, the value x, or more q precisely, the inverse <span class="math notranslate nohighlight">\(x^{-1}\)</span> in, is the trapdoor. because if the simulator commits <span class="math notranslate nohighlight">\(q\)</span> on behalf of the sender to some message <span class="math notranslate nohighlight">\(m_0\)</span> by sending <span class="math notranslate nohighlight">\(M = g^{m_0}h^{r_0}\)</span> for random <span class="math notranslate nohighlight">\(r_0 \in Z_q\)</span>, then the simulator can open this commitment with any message <span class="math notranslate nohighlight">\(m \in Z_q\)</span> by computing <span class="math notranslate nohighlight">\(r = r_0 - (m - m_0)x^{−1}\)</span>. In this case</p>
+<div class="math notranslate nohighlight">
+\[M = g^{m0}h^{r0}=g^{m0}h^{r+(m-m_0)x^{-1}}=g^{m_0}h^rg^{m-m_0}=g^mh^r\]</div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -248,156 +293,80 @@ div.rendered_html tbody tr:hover {
     <span class="n">FiniteFieldCyclicSecp256k1</span> <span class="k">as</span> <span class="n">CF</span>
 <span class="p">)</span>
 <span class="kn">import</span> <span class="nn">random</span>
-<span class="kn">import</span> <span class="nn">hashlib</span>
-<span class="kn">from</span> <span class="nn">klefki.utils</span> <span class="k">import</span> <span class="n">to_sha256int</span>
+
 <span class="n">N</span> <span class="o">=</span> <span class="mh">0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141</span>
 <span class="k">def</span> <span class="nf">random_cf</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">CF</span><span class="p">:</span> <span class="k">return</span> <span class="n">CF</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span> <span class="o">%</span> <span class="n">F</span><span class="o">.</span><span class="n">P</span><span class="p">)</span>
 <span class="n">G</span> <span class="o">=</span> <span class="n">CG</span><span class="o">.</span><span class="n">G</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">random_cf</span><span class="p">()</span>
+<span class="n">H</span> <span class="o">=</span> <span class="n">G</span><span class="o">^</span><span class="n">x</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">x</span> <span class="o">=</span> <span class="n">to_sha256int</span><span class="p">(</span>
-    <span class="s2">&quot;0479be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8&quot;</span>
-<span class="p">)</span>
+<span></span><span class="n">m0</span> <span class="p">,</span> <span class="n">r0</span> <span class="o">=</span> <span class="n">random_cf</span><span class="p">(),</span> <span class="n">random_cf</span><span class="p">()</span>
+<span class="n">M</span> <span class="o">=</span> <span class="n">G</span><span class="o">**</span><span class="n">m0</span> <span class="o">*</span> <span class="n">H</span><span class="o">**</span><span class="n">r0</span>
 
-<span class="c1"># ref https://www.grin-forum.org/t/definition-of-h-and-g/209</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">H</span> <span class="o">=</span> <span class="n">ECG</span><span class="o">.</span><span class="n">lift_x</span><span class="p">(</span><span class="n">F</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span></span><span class="n">m</span> <span class="o">=</span> <span class="n">random_cf</span><span class="p">()</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">r0</span> <span class="o">-</span> <span class="p">(</span><span class="n">m</span> <span class="o">-</span> <span class="n">m0</span><span class="p">)</span> <span class="o">*</span> <span class="o">~</span><span class="n">x</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="Transacting-with-MimbleWimble">
-<h2>Transacting with MimbleWimble<a class="headerlink" href="#Transacting-with-MimbleWimble" title="Permalink to this headline">¶</a></h2>
-<p>The validation of MimbleWimble transactions relies on two basic properties:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">M</span> <span class="o">==</span> <span class="n">G</span><span class="o">**</span><span class="n">m0</span> <span class="o">*</span> <span class="n">H</span><span class="o">**</span><span class="n">r0</span> <span class="o">==</span> <span class="n">G</span><span class="o">**</span><span class="n">m0</span> <span class="o">*</span> <span class="n">H</span><span class="o">**</span><span class="p">(</span><span class="n">r</span><span class="o">+</span><span class="p">((</span><span class="n">m</span><span class="o">-</span><span class="n">m0</span><span class="p">)</span><span class="o">*~</span><span class="n">x</span><span class="p">))</span> <span class="o">==</span> <span class="n">G</span><span class="o">**</span><span class="n">m</span> <span class="o">*</span> <span class="n">H</span><span class="o">**</span><span class="n">r</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>True
+</pre></div>
+</div>
+</div>
+<p>Formally, we deﬁne all values necessary to adapt the decommitment as the trap- door, i.e., here <span class="math notranslate nohighlight">\((x, m_0 , r_0)\)</span> form the trapdoor.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+<p>A trapdoor function is a function that is easy to compute in one direction, yet difficult to compute in the opposite direction</p>
+</div>
+<div class="section" id="Ref">
+<h2>Ref<a class="headerlink" href="#Ref" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Verification of zero sums.</p></li>
+<li><p>Trapdoor function <a class="reference external" href="https://en.wikipedia.org/wiki/Trapdoor_function">https://en.wikipedia.org/wiki/Trapdoor_function</a></p></li>
+<li><p>Fischlin, Marc. (2001). Trapdoor Commitment Schemes and Their Applications.</p></li>
 </ul>
-<p>The sum of outputs minus inputs always equals zero, proving that the transaction did not create new funds, without revealing the actual amounts.</p>
-<ul class="simple">
-<li><p>Possession of private keys.</p></li>
-</ul>
-<p>Like with most other cryptocurrencies, ownership of transaction outputs is guaranteed by the possession of ECC private keys. However, the proof that an entity owns those private keys is not achieved by directly signing the transaction.</p>
-<div class="section" id="Balance">
-<h3>Balance<a class="headerlink" href="#Balance" title="Permalink to this headline">¶</a></h3>
-<p>If v is the value of a transaction input or output and H a point on the elliptic curve C, we can simply embed <span class="math notranslate nohighlight">\(H^v\)</span> instead of v in a transaction. This works because using the ECC operations, we can still validate that the sum of the outputs of a transaction equals the sum of inputs:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span> <span class="o">=</span> <span class="n">random_cf</span><span class="p">(),</span> <span class="n">random_cf</span><span class="p">()</span>
+<span></span>
 </pre></div>
 </div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">v3</span> <span class="o">=</span> <span class="n">v1</span> <span class="o">+</span> <span class="n">v2</span>
-<span class="n">H</span><span class="nd">@v3</span> <span class="o">==</span> <span class="n">H</span><span class="nd">@v1</span> <span class="o">+</span> <span class="n">H</span><span class="nd">@v2</span>
-</pre></div>
-</div>
-</div>
-<p>An input or output value in a transaction can then be expressed as:</p>
-<div class="math notranslate nohighlight">
-\[rG + vH\]</div>
-<p>Where:</p>
-<p><span class="math notranslate nohighlight">\(r\)</span> is a private key used as a blinding factor.</p>
-<p><span class="math notranslate nohighlight">\(v\)</span> is the value of an input or output and H is another point on the elliptic curve C</p>
-<p>As an example, let’s assume we want to build a transaction with two inputs and one output. We have (ignoring fees):</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(vi1\)</span> and <span class="math notranslate nohighlight">\(vi2\)</span> as input values</p></li>
-<li><p><span class="math notranslate nohighlight">\(vo3\)</span> as output value.</p></li>
-</ul>
-<p>Such that:</p>
-<div class="math notranslate nohighlight">
-\[vi1 + vi2 = vo3\]</div>
-<p>Generating a private key as a blinding factor for each input value and replacing each value with their respective Pedersen Commitments in the previous equation, we obtain:</p>
-<div class="math notranslate nohighlight">
-\[(ri1G + vi1H) + (ri2G + vi2H) = (ro3G + vo3H)\]</div>
-<p>Which as a consequence requires that:</p>
-<div class="math notranslate nohighlight">
-\[ri1 + ri2 = ro3\]</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">v1</span> <span class="o">=</span> <span class="n">CF</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">v2</span> <span class="o">=</span> <span class="n">CF</span><span class="p">(</span><span class="mi">97</span><span class="p">)</span>
-<span class="n">v3</span> <span class="o">=</span> <span class="n">CF</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
-
-<span class="k">assert</span> <span class="n">v1</span> <span class="o">+</span> <span class="n">v2</span> <span class="o">==</span> <span class="n">v3</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">r1</span><span class="p">,</span> <span class="n">r2</span> <span class="o">=</span> <span class="n">random_cf</span><span class="p">(),</span> <span class="n">random_cf</span><span class="p">()</span>
-
-<span class="n">r3</span> <span class="o">=</span> <span class="n">r1</span> <span class="o">+</span> <span class="n">r2</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">G</span><span class="nd">@r1</span> <span class="o">+</span> <span class="n">H</span><span class="nd">@v1</span> <span class="o">+</span> <span class="n">G</span><span class="nd">@r2</span> <span class="o">+</span> <span class="n">H</span><span class="nd">@v2</span> <span class="o">==</span> <span class="n">G</span><span class="nd">@r3</span> <span class="o">+</span> <span class="n">H</span><span class="nd">@v3</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>    <span class="c1"># for y^2 = x^3 + 7</span>
-
-<span class="n">G</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">==</span> <span class="n">G</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="n">F</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">math</span>
-<span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">G</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="n">F</span><span class="p">(</span><span class="mi">7</span><span class="p">))</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">G</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="section" id="Ref:">
-<h3>Ref:<a class="headerlink" href="#Ref:" title="Permalink to this headline">¶</a></h3>
-<p>[1] Intro (Grin) <a class="reference external" href="https://github.com/mimblewimble/grin/blob/master/doc/intro.md">https://github.com/mimblewimble/grin/blob/master/doc/intro.md</a></p>
 </div>
 </div>
 </div>
@@ -475,7 +444,7 @@ div.rendered_html tbody tr:hover {
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
-      <a href="_sources/MimbleWimble.ipynb.txt"
+      <a href="_sources/Trapdoor Commitment Schemes.ipynb.txt"
           rel="nofollow">Page source</a>
     </div>
 

@@ -38,6 +38,11 @@ Module Contents
 
 
 
+   .. method:: lift_x(cls, x: FiniteField)
+      :classmethod:
+
+
+
 
 .. py:class:: CyclicGroup
 

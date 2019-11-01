@@ -21,6 +21,7 @@ Academic Notes
 
    Abstract Algebra Types
    Homomorphic Encryption
+   Play MimbleWimble with klefki
    From ZK to Bulletproofs
    Paillier's encryption Scheme
    Shamir's secret sharing scheme
