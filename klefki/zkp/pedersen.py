@@ -1,5 +1,7 @@
+from klefki.zkp.commitment import Commitment, Sigma
 from klefki.types.algebra.abstract import Group, Field
-from functools import reduce
+from klefki.types.algebra.meta import field
+from functools import reduce, partial
 from typing import Iterator
 from operator import add
 
@@ -36,3 +38,58 @@ def com(x, r, H, G) -> Group:
             return matrix_commitment(x, r, H, G)
         return vertex_commitment(x, r, H, G)
     return commitment(x, r, H, G)
+
+
+class PedersonCommitment(Commitment):
+    def __init__(self, G, H):
+        '''
+        G, H <- ECC
+        '''
+        self.G = G
+        self.H = H
+        self.com = partial(com, G=G,H=H)
+
+    def commit(self, secret, k, r):
+        self.x = secret
+        self.k = k
+        self.r = r
+        self.A = self.com(secret, r)
+        self.B = self.com(k, r)
+        self.c = (self.A, self.B)
+        return self.commit
+
+    def trapdoor(self, new_secret, x):
+        '''
+        x is trapdoor
+        '''
+        r_ = self.r - (new_secret - self.x) * ~x
+        self.A = self.com(new_secret, r_)
+
+    def callange(self, e):
+        '''
+        e is the random callange
+        '''
+        self.e = e
+        self.response = (
+            self.x * self.e  + self.k,
+            self.r * self.e + self.r
+        )
+        return self.response
+
+
+    def proof(self):
+        (A, B), e, s = self.transcript
+        assert self.com(*s) == B * (A ** e)
+        return True
+
+    @property
+    def transcript(self):
+        return (self.c, self.e, self.response)
+
+    @property
+    def C(self):
+        return self.c
+
+    @property
+    def D(self):
+        return (self.x, self.r)

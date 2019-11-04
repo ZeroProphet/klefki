@@ -1,0 +1,25 @@
+from abc import ABCMeta, abstractmethod, abstractproperty
+
+class Sigma(metaclass=ABCMeta):
+
+    @abstractproperty
+    def commit(self, m, r):
+        return
+
+
+    @abstractproperty
+    def callange(self, e):
+        return
+
+    @abstractproperty
+    def proof(self):
+        return
+
+
+class Commitment(Sigma):
+    C = abstractproperty()
+    D = abstractproperty()
+
+
+class TrapdoorCommitment(Commitment):
+    trapdoor = abstractproperty()
