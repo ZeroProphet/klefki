@@ -18,3 +18,43 @@ Module Contents
    Com(x, r) = xG + rH
 
 
+.. py:class:: PedersonCommitment(G, H)
+
+   Bases: :class:`klefki.zkp.commitment.Commitment`
+
+   .. method:: commit(self, secret, k, r)
+
+
+
+   .. method:: trapdoor(self, new_secret, x)
+
+
+      x is trapdoor
+
+
+   .. method:: callange(self, e)
+
+
+      e is the random callange
+
+
+   .. method:: proof(self)
+
+
+
+   .. method:: transcript(self)
+      :property:
+
+
+
+   .. method:: C(self)
+      :property:
+
+
+
+   .. method:: D(self)
+      :property:
+
+
+
+
