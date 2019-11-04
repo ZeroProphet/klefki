@@ -5,7 +5,7 @@ from functools import reduce, partial
 from typing import Iterator
 from operator import add
 
-__all__ = ['commitment', 'vertex_commitment', 'com']
+__all__ = ['commitment', 'vertex_commitment', 'com', 'PedersonCommitment']
 
 def v_multi(g: [Group], a: [Field]) -> [Group]:
     return reduce(lambda x,y: x+y,
