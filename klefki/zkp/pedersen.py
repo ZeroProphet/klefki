@@ -65,7 +65,7 @@ class PedersonCommitment(Commitment):
         r_ = self.r - (new_secret - self.x) * ~x
         self.A = self.com(new_secret, r_)
 
-    def callange(self, e):
+    def challenge(self, e):
         '''
         e is the random callange
         '''

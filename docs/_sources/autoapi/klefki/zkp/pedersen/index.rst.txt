@@ -32,7 +32,7 @@ Module Contents
       x is trapdoor
 
 
-   .. method:: callange(self, e)
+   .. method:: challenge(self, e)
 
 
       e is the random callange

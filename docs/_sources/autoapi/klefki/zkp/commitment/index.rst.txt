@@ -14,7 +14,7 @@ Module Contents
 
 
 
-   .. method:: callange(self, e)
+   .. method:: challenge(self, e)
       :property:
 
 

@@ -8,7 +8,7 @@ class Sigma(metaclass=ABCMeta):
 
 
     @abstractproperty
-    def callange(self, e):
+    def challenge(self, e):
         return
 
     @abstractproperty
