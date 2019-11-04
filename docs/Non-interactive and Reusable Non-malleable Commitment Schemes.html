@@ -291,14 +291,14 @@ adversary specify the mes- sages rather than ﬁrst forming commitments and then
 <h2>III A Non-malleable Commitment Scheme<a class="headerlink" href="#III-A-Non-malleable-Commitment-Scheme" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="Key-Generation:">
 <h3>Key Generation:<a class="headerlink" href="#Key-Generation:" title="Permalink to this headline">¶</a></h3>
-<p>We choose a key <span class="math notranslate nohighlight">\(pk\)</span> for a statistically hiding honest sender commitment scheme. Then we generate a public key <span class="math notranslate nohighlight">\(vk\)</span> for the signature scheme. We select a universal one-way hash function <span class="math notranslate nohighlight">\(h : C_pk \rightarrow A_vk\)</span>.</p>
+<p>We choose a key <span class="math notranslate nohighlight">\(pk\)</span> for a statistically hiding honest sender commitment scheme. Then we generate a public key <span class="math notranslate nohighlight">\(vk\)</span> for the signature scheme. We select a universal one-way hash function <span class="math notranslate nohighlight">\(h : C_{pk} \rightarrow A_{vk}\)</span>.</p>
 <p>The signature scheme must be known message attack secure with the message distribution given as hashes of honest sender commitments with side information that is openings of the honest sender commit- ments.</p>
 <p>The public key is</p>
 <div class="math notranslate nohighlight">
 \[PK = (pk, vk, h)\]</div>
 <hr class="docutils" />
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -312,7 +312,7 @@ adversary specify the mes- sages rather than ﬁrst forming commitments and then
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -329,7 +329,7 @@ adversary specify the mes- sages rather than ﬁrst forming commitments and then
 <p>To commit to a <span class="math notranslate nohighlight">\(k\)</span>-bit message m we choose a key <span class="math notranslate nohighlight">\(ak\)</span> for the message authentication scheme. We set <span class="math notranslate nohighlight">\((c, d) = HScommit_{pk}(ak)\)</span>, and compute <span class="math notranslate nohighlight">\(α = h(c)\)</span>. Now we simulate a proof of knowledge of a signature on <span class="math notranslate nohighlight">\(\alpha\)</span> with challenge <span class="math notranslate nohighlight">\(m\)</span>. We set <span class="math notranslate nohighlight">\((a, m, z) = S((vk, α), m)\)</span>. Finally, we compute <span class="math notranslate nohighlight">\(mac = MAC_{ak} (a)\)</span>.</p>
 <p>The commitment to <span class="math notranslate nohighlight">\(m\)</span> is <span class="math notranslate nohighlight">\(C = (c, a, mac)\)</span>, while the decommitment information is <span class="math notranslate nohighlight">\(D = (m, d, z)\)</span>.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[117]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -344,29 +344,29 @@ adversary specify the mes- sages rather than ﬁrst forming commitments and then
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[118]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">ak</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">CF</span><span class="p">)</span>
-<span class="n">c</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">G</span> <span class="o">**</span> <span class="n">pk</span><span class="p">,</span> <span class="n">G</span> <span class="o">**</span> <span class="n">ak</span>
+<span class="n">c</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="p">(</span><span class="n">G</span> <span class="o">**</span> <span class="n">pk</span><span class="p">,</span> <span class="n">G</span> <span class="o">**</span> <span class="n">ak</span><span class="p">),</span> <span class="p">(</span><span class="n">pk</span><span class="p">,</span> <span class="n">ak</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[119]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># Now we simulate a proof of knowledge of a signature on 𝛼 with challenge 𝑚</span>
 <span class="n">m</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">CF</span><span class="p">)</span>
-<span class="n">alpha</span> <span class="o">=</span> <span class="n">to_sha256int</span><span class="p">(</span><span class="n">gen_address</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>
+<span class="n">r2</span> <span class="o">=</span> <span class="n">to_sha256int</span><span class="p">(</span><span class="n">gen_address</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
 <span class="n">a</span> <span class="o">=</span> <span class="n">G</span> <span class="o">**</span> <span class="n">r2</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[120]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -375,7 +375,7 @@ adversary specify the mes- sages rather than ﬁrst forming commitments and then
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[121]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -389,7 +389,7 @@ adversary specify the mes- sages rather than ﬁrst forming commitments and then
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[122]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -403,16 +403,16 @@ adversary specify the mes- sages rather than ﬁrst forming commitments and then
 <h3>Decommitment:<a class="headerlink" href="#Decommitment:" title="Permalink to this headline">¶</a></h3>
 <p>We open the honest sender commitment to get the authentication key. We compute <span class="math notranslate nohighlight">\(\alpha\)</span> as above. We verify the message authentication code. Finally, we verify the proof. If everything goes well we output <span class="math notranslate nohighlight">\(m\)</span>. Otherwise, we output <span class="math notranslate nohighlight">\(⊥\)</span>.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[116]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">G</span> <span class="o">**</span> <span class="n">z</span> <span class="o">==</span> <span class="n">d</span> <span class="o">+</span> <span class="n">c</span> <span class="o">**</span> <span class="n">m</span>
+<span></span><span class="n">G</span> <span class="o">**</span> <span class="n">z</span> <span class="o">==</span> <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">**</span> <span class="n">m</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[116]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -421,16 +421,16 @@ adversary specify the mes- sages rather than ﬁrst forming commitments and then
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[101]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">G</span> <span class="o">@</span> <span class="n">to_sha256int</span><span class="p">(</span><span class="n">gen_address</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>  <span class="o">==</span> <span class="n">a</span>
+<span></span><span class="n">G</span> <span class="o">@</span> <span class="n">to_sha256int</span><span class="p">(</span><span class="n">gen_address</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>  <span class="o">==</span> <span class="n">a</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[101]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -439,22 +439,76 @@ adversary specify the mes- sages rather than ﬁrst forming commitments and then
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[103]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">mac</span> <span class="o">==</span> <span class="n">hmac</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ak</span><span class="o">.</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span> <span class="n">encode_pubkey</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+<span></span><span class="n">mac</span> <span class="o">==</span> <span class="n">hmac</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span> <span class="n">encode_pubkey</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[103]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
 <span></span>True
 </pre></div>
 </div>
+</div>
+</div>
+</div>
+<div class="section" id="Implementation-in-Klefki">
+<h2>Implementation in Klefki<a class="headerlink" href="#Implementation-in-Klefki" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">klefki.zkp</span> <span class="k">import</span> <span class="n">gorth03</span> <span class="k">as</span> <span class="n">g</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">ECC</span><span class="o">.</span><span class="n">G</span>
+<span class="n">H</span> <span class="o">=</span> <span class="n">Cruve</span><span class="o">.</span><span class="n">lift_x</span><span class="p">(</span><span class="n">CF</span><span class="p">(</span><span class="n">to_sha256int</span><span class="p">(</span><span class="s2">&quot;hello NIRNCS&quot;</span><span class="p">)))</span>
+
+
+<span class="n">key</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">keygen</span><span class="p">(</span><span class="n">CF</span><span class="p">)</span>
+<span class="n">ak</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">CF</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pk</span><span class="p">,</span> <span class="n">vk</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">key</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">c</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">commitment</span><span class="p">(</span><span class="n">CF</span><span class="p">(</span><span class="n">to_sha256int</span><span class="p">(</span><span class="s2">&quot;hello klefki&quot;</span><span class="p">)),</span> <span class="n">key</span><span class="p">,</span> <span class="n">ak</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">g</span><span class="o">.</span><span class="n">decommitment</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">==</span> <span class="n">CF</span><span class="p">(</span><span class="n">to_sha256int</span><span class="p">(</span><span class="s2">&quot;hello klefki&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>True
+</pre></div>
 </div>
 </div>
 </div>

@@ -139,7 +139,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "We choose a key $pk$ for a statistically hiding honest sender commitment scheme. Then we generate a public key $vk$ for the signature scheme. We select a universal one-way hash function $h : C_pk \\rightarrow A_vk$.\n",
+    "We choose a key $pk$ for a statistically hiding honest sender commitment scheme. Then we generate a public key $vk$ for the signature scheme. We select a universal one-way hash function $h : C_{pk} \\rightarrow A_{vk}$.\n",
     "\n",
     "The signature scheme must be known message attack secure with the message distribution given as hashes of honest sender commitments with side information that is openings of the honest sender commit- ments.\n",
     "\n",
@@ -159,7 +159,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 18,
+   "execution_count": 1,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -173,7 +173,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 12,
+   "execution_count": 2,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -201,7 +201,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 117,
+   "execution_count": 3,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -216,29 +216,29 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 118,
+   "execution_count": 4,
    "metadata": {},
    "outputs": [],
    "source": [
     "ak = randfield(CF)\n",
-    "c, d = G ** pk, G ** ak"
+    "c, d = (G ** pk, G ** ak), (pk, ak)"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 119,
+   "execution_count": 5,
    "metadata": {},
    "outputs": [],
    "source": [
     "# Now we simulate a proof of knowledge of a signature on 𝛼 with challenge 𝑚\n",
     "m = randfield(CF)\n",
-    "alpha = to_sha256int(gen_address(c))\n",
+    "r2 = to_sha256int(gen_address(c[0] + c[1]))\n",
     "a = G ** r2"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 120,
+   "execution_count": 6,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -247,7 +247,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 121,
+   "execution_count": 7,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -261,7 +261,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 122,
+   "execution_count": 8,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -285,7 +285,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 116,
+   "execution_count": 9,
    "metadata": {},
    "outputs": [
     {
@@ -294,18 +294,18 @@
        "True"
       ]
      },
-     "execution_count": 116,
+     "execution_count": 9,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
-    "G ** z == d + c ** m"
+    "G ** z == c[1] + c[0] ** m"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 101,
+   "execution_count": 10,
    "metadata": {},
    "outputs": [
     {
@@ -314,18 +314,18 @@
        "True"
       ]
      },
-     "execution_count": 101,
+     "execution_count": 10,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
-    "G @ to_sha256int(gen_address(c))  == a"
+    "G @ to_sha256int(gen_address(c[0]+c[1]))  == a"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 103,
+   "execution_count": 11,
    "metadata": {},
    "outputs": [
     {
@@ -334,13 +334,73 @@
        "True"
       ]
      },
-     "execution_count": 103,
+     "execution_count": 11,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
-    "mac == hmac.new(str(ak.value).encode(), encode_pubkey(a).encode()).hexdigest()"
+    "mac == hmac.new(str(d[1].value).encode(), encode_pubkey(a).encode()).hexdigest()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Implementation in Klefki"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from klefki.zkp import gorth03 as g\n",
+    "G = ECC.G\n",
+    "H = Cruve.lift_x(CF(to_sha256int(\"hello NIRNCS\")))\n",
+    "\n",
+    "\n",
+    "key = g.keygen(CF)\n",
+    "ak = randfield(CF)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "pk, vk, h = key"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "c = g.commitment(CF(to_sha256int(\"hello klefki\")), key, ak)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "True"
+      ]
+     },
+     "execution_count": 15,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "g.decommitment(c) == CF(to_sha256int(\"hello klefki\"))"
    ]
   },
   {

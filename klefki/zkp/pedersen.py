@@ -1,4 +1,4 @@
-from klefki.zkp.commitment import Commitment, Sigma
+from klefki.zkp.commitment import Commitment
 from klefki.types.algebra.abstract import Group, Field
 from klefki.types.algebra.meta import field
 from functools import reduce, partial

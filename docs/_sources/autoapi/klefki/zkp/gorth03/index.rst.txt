@@ -4,3 +4,25 @@
 .. py:module:: klefki.zkp.gorth03
 
 
+Module Contents
+---------------
+
+.. data:: G
+   
+
+   
+
+.. data:: H
+   
+
+   
+
+.. function:: keygen(F)
+
+
+.. function:: commitment(m, key, ak)
+
+
+.. function:: decommitment(c)
+
+

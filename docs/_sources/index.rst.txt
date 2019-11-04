@@ -20,6 +20,7 @@ Academic Notes
    :glob:
 
    Non-interactive and Reusable Non-malleable Commitment Schemes
+   Pedersen Commitment
    Abstract Algebra Types
    Homomorphic Encryption
    Play MimbleWimble with klefki
