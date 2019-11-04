@@ -56,7 +56,7 @@ class PedersonCommitment(Commitment):
         self.A = self.com(secret, r)
         self.B = self.com(k, r)
         self.c = (self.A, self.B)
-        return self.commit
+        return self.c
 
     def trapdoor(self, new_secret, x):
         '''
