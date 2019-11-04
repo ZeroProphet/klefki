@@ -15,4 +15,6 @@ Module Contents
 
 .. function:: com(x, r, H, G) -> Group
 
+   Com(x, r) = xG + rH
+
 

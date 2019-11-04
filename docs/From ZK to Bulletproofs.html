@@ -565,7 +565,7 @@ the aforementioned single bit.</p>
 <h4>E.g. : Schnorr’s identity protocol<a class="headerlink" href="#E.g.-:-Schnorr’s-identity-protocol" title="Permalink to this headline">¶</a></h4>
 <p>Prover starts with a public key P and a corresponding private key <span class="math notranslate nohighlight">\(x\)</span> s.t. <span class="math notranslate nohighlight">\(P = xG\)</span>. Prover wishes to prove in zero knowledge, that he knows <span class="math notranslate nohighlight">\(x\)</span>.</p>
 <ol class="arabic simple">
-<li><p><span class="math notranslate nohighlight">\(P\rightarrow V:xG\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(P\rightarrow V:P=xG\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(P\rightarrow V:R\)</span> (a new random curve point, but <span class="math notranslate nohighlight">\(P\)</span> knows <span class="math notranslate nohighlight">\(k\)</span> s.t. <span class="math notranslate nohighlight">\(R=kG\)</span>)</p></li>
 <li><p><span class="math notranslate nohighlight">\(V\rightarrow P:e\)</span> (a random scalar)</p></li>
 <li><p><span class="math notranslate nohighlight">\(P\rightarrow V:s\)</span> (which <span class="math notranslate nohighlight">\(P\)</span> calcuated from the quation <span class="math notranslate nohighlight">\(s=k+ex\)</span>)</p></li>
@@ -1067,19 +1067,13 @@ t_zH+ (\mathbf{f}_x \cdot \mathbf{f}_y)G &amp;\stackrel{?}{=}e^2C_z + eC_1 + C_0
 <li class="toctree-l1"><a class="reference internal" href="README.html#docs">Docs</a></li>
 </ul>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Non-interactive and Reusable Non-malleable Commitment Schemes.html">Non-interactive and Reusable Non-malleable Commitment Schemes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Abstract Algebra Types.html">Abstract Algebra Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Homomorphic Encryption.html">Homomorphic Encryption</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">From ZK to Bulletproofsproof via Python</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#I-Motivation">I Motivation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#II-Commitments">II Commitments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#III-Homorphic-and-Pedersen">III Homorphic and Pedersen</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#IV-Zero-Knowledge-argument-of-knowledge-set-of-vectors">IV Zero Knowledge argument of knowledge set of vectors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#V-An-inner-product-proof">V An inner product proof</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#VI-Ref:">VI Ref:</a></li>
-</ul>
-</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">From ZK to Bulletproofsproof via Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Paillier's encryption Scheme.html">Paillier’s encryption Scheme</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Shamir's secret sharing scheme.html">Shamir’s secret sharing scheme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Trapdoor Commitment Schemes.html">Discrete-Logarithm-Based Trapdoor Commitment Schemes</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>

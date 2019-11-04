@@ -59,6 +59,9 @@
     <span class="k">return</span> <span class="n">vertex_commitment</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">reduce</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="n">r</span><span class="p">)</span>
 
 <div class="viewcode-block" id="com"><a class="viewcode-back" href="../../../autoapi/klefki/zkp/pedersen/index.html#klefki.zkp.pedersen.com">[docs]</a><span class="k">def</span> <span class="nf">com</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">G</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Group</span><span class="p">:</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Com(x, r) = xG + rH</span>
+<span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span>
             <span class="n">Iterator</span><span class="p">,</span>
             <span class="nb">list</span>
@@ -97,6 +100,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../README.html#docs">Docs</a></li>
 </ul>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Non-interactive and Reusable Non-malleable Commitment Schemes.html">Non-interactive and Reusable Non-malleable Commitment Schemes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Abstract Algebra Types.html">Abstract Algebra Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Homomorphic Encryption.html">Homomorphic Encryption</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../From ZK to Bulletproofs.html">From ZK to Bulletproofsproof via Python</a></li>

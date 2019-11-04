@@ -22,6 +22,9 @@ def matrix_commitment(x: [[Field]], r: Field, H: Group, G: [Group]) -> Group:
     return vertex_commitment(G, H, reduce(add, x), r)
 
 def com(x, r, H, G) -> Group:
+    '''
+    Com(x, r) = xG + rH
+    '''
     if type(x) in [
             Iterator,
             list

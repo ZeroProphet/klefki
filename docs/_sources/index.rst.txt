@@ -16,9 +16,10 @@ Usage
 Academic Notes
 ---------------------
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :glob:
 
+   Non-interactive and Reusable Non-malleable Commitment Schemes
    Abstract Algebra Types
    Homomorphic Encryption
    Play MimbleWimble with klefki
