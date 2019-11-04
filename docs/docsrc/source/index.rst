@@ -25,6 +25,7 @@ Academic Notes
    From ZK to Bulletproofs
    Paillier's encryption Scheme
    Shamir's secret sharing scheme
+   Trapdoor Commitment Schemes
 
 Documents
 ------------------
