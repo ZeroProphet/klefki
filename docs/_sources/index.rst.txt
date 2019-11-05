@@ -21,6 +21,7 @@ Academic Notes
 
    Non-interactive and Reusable Non-malleable Commitment Schemes
    Pedersen Commitment
+   On Sigma Protocols
    Abstract Algebra Types
    Homomorphic Encryption
    Play MimbleWimble with klefki
