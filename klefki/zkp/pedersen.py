@@ -41,20 +41,20 @@ def com(x, r, H, G) -> Group:
 
 
 class PedersonCommitment(Commitment):
-    def __init__(self, G, H):
+    def __init__(self, G, H, privkey):
         '''
         G, H <- ECC
         '''
         self.G = G
         self.H = H
+        self.priv = privkey
         self.com = partial(com, G=G,H=H)
 
-    def commit(self, secret, k, r):
+    def commit(self, secret, r):
         self.x = secret
-        self.k = k
         self.r = r
         self.A = self.com(secret, r)
-        self.B = self.com(k, r)
+        self.B = self.com(self.priv, r)
         self.c = (self.A, self.B)
         return self.c
 
@@ -71,14 +71,16 @@ class PedersonCommitment(Commitment):
         '''
         self.e = e
         self.response = (
-            self.x * self.e  + self.k,
+            self.x * self.e + self.priv,
             self.r * self.e + self.r
         )
         return self.response
 
 
-    def proof(self):
-        (A, B), e, s = self.transcript
+    def proof(self, trans=None):
+        if not trans:
+            trans = self.transcript
+        (A, B), e, s = trans
         assert self.com(*s) == B * (A ** e)
         return True
 
