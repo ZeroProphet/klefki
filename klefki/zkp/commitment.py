@@ -16,7 +16,7 @@ class Sigma(metaclass=ABCMeta):
         return
 
 
-class Commitment(Sigma):
+class Commitment(metaclass=ABCMeta):
     C = abstractproperty()
     D = abstractproperty()
 

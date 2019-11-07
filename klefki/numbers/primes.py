@@ -1,3 +1,6 @@
+#
+# https://github.com/mikeivanov/paillier/blob/master/paillier/primes.py
+
 import random
 import sys
 

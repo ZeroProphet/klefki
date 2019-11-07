@@ -1,4 +1,4 @@
-from klefki.zkp.commitment import Commitment
+from klefki.zkp.commitment import TrapdoorCommitment
 from klefki.types.algebra.abstract import Group, Field
 from klefki.types.algebra.meta import field
 from functools import reduce, partial
@@ -40,22 +40,26 @@ def com(x, r, H, G) -> Group:
     return commitment(x, r, H, G)
 
 
-class PedersonCommitment(Commitment):
-    def __init__(self, G, H, privkey):
+class PedersonCommitment(TrapdoorCommitment):
+
+
+    def __init__(self, G, H, x, r):
         '''
         G, H <- ECC
         '''
         self.G = G
         self.H = H
-        self.priv = privkey
         self.com = partial(com, G=G,H=H)
-
-    def commit(self, secret, r):
-        self.x = secret
+        self.x = x
         self.r = r
-        self.A = self.com(secret, r)
-        self.B = self.com(self.priv, r)
-        self.c = (self.A, self.B)
+        self.A = self.com(self.x, self.r)
+
+
+    def commit(self, y, s):
+        self.B = self.com(y, s)
+        self.c = self.B
+        self.y = y
+        self.s = s
         return self.c
 
     def trapdoor(self, new_secret, x):
@@ -71,8 +75,8 @@ class PedersonCommitment(Commitment):
         '''
         self.e = e
         self.response = (
-            self.x * self.e + self.priv,
-            self.r * self.e + self.r
+            self.y * self.e + self.x,
+            self.s * self.e + self.r
         )
         return self.response
 
@@ -80,8 +84,8 @@ class PedersonCommitment(Commitment):
     def proof(self, trans=None):
         if not trans:
             trans = self.transcript
-        (A, B), e, s = trans
-        assert self.com(*s) == B * (A ** e)
+        B, e, s = trans
+        assert self.com(*s) == self.A * (self.B ** e)
         return True
 
     @property
@@ -90,8 +94,14 @@ class PedersonCommitment(Commitment):
 
     @property
     def C(self):
-        return self.c
+        return self.A
 
     @property
     def D(self):
         return (self.x, self.r)
+
+
+    @staticmethod
+    def verify(H, G, C, D):
+        if C == com(*D, H=H, G=G):
+            return D[1]
