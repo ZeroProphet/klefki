@@ -30,6 +30,7 @@ Academic Notes
    Shamir's secret sharing scheme
    Trapdoor Commitment Schemes
    Threshold ECDSA
+   POD-Mini and POD-AS
 
 
 Documents
