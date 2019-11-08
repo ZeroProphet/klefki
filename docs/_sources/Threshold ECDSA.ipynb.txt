@@ -367,39 +367,6 @@
    ]
   },
   {
-   "cell_type": "code",
-   "execution_count": 7,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "from klefki.types.algebra.concrete import EllipticCurveCyclicSubgroupSecp256k1 as ECC\n",
-    "from klefki.types.algebra.concrete import EllipticCurveGroupSecp256k1 as Cruve\n",
-    "from klefki.types.algebra.concrete import FiniteFieldCyclicSecp256k1 as CF\n",
-    "from klefki.types.algebra.concrete import FiniteFieldSecp256k1 as F\n",
-    "from klefki.types.algebra.utils import randfield\n",
-    "from klefki.bitcoin.address import gen_address"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 9,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "G = ECC.G"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 13,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "KG = lambda: (randfield(CF), randfield(CF))\n",
-    "Com = lambda pk, M, R: (G**pk**m, G**R)"
-   ]
-  },
-  {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
@@ -408,24 +375,703 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 1,
    "metadata": {},
    "outputs": [],
-   "source": []
+   "source": [
+    "from klefki.types.algebra.concrete import EllipticCurveCyclicSubgroupSecp256k1 as ECC\n",
+    "from klefki.types.algebra.concrete import EllipticCurveGroupSecp256k1 as Cruve\n",
+    "from klefki.types.algebra.concrete import FiniteFieldCyclicSecp256k1 as CF\n",
+    "from klefki.types.algebra.concrete import FiniteFieldSecp256k1 as F\n",
+    "from klefki.zkp.pedersen import PedersonCommitment\n",
+    "from klefki.types.algebra.utils import randfield\n",
+    "from klefki.bitcoin.address import gen_address"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Here we describe how the players can jointly generate a DSA key pair $(x, y = g_x)$ with $y$ public and $x$ shared among the players."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The idea is to generate a public key $E$ for an additively $(\\mod N)$ homomorphic encryption scheme $E$, together with the secret key $D$ in shared form among the players."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The value $N$ is is chosen to be larger than $q^8$"
+   ]
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 2,
    "metadata": {},
    "outputs": [],
-   "source": []
+   "source": [
+    "from klefki.crypto.paillier import Paillier\n",
+    "from klefki.zkp.pedersen import PedersonCommitment, com as commit\n",
+    "from functools import partial\n",
+    "from klefki.types.algebra.concrete import FiniteFieldCyclicSecp256k1 as CF\n",
+    "from klefki.numbers.primes import generate_prime\n",
+    "from functools import reduce\n",
+    "from operator import mul, add"
+   ]
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 21,
    "metadata": {},
    "outputs": [],
-   "source": []
+   "source": [
+    "q = CF(CF.P)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "P = generate_prime(1024)\n",
+    "Q = generate_prime(1024)\n",
+    "Pai = Paillier(P, Q)\n",
+    "E, D = Pai.E, Pai.D"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Then a value $x$ is generated, and encrypted with E, with the value $α = E(x)$ made public.\n",
+    "\n",
+    "Note that this is an implicit $(t, n)$ secret sharing of $x$, since the decryption key of $E$ is shared among the players."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "- Each player $P_i$ selects a random value $x_i ∈ Z_q$ , computes $y_i$ = $g_{x_i} ∈ G$ and $[C_i , D_i ] = Com(y_i)$;"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "G = ECC.G\n",
+    "n = 3\n",
+    "xs = [randfield(CF) for _ in range(n)]\n",
+    "ys = [G ** x for x in xs]\n",
+    "\n",
+    "trap = randfield(CF)\n",
+    "H = G ** trap\n",
+    "com = partial(PedersonCommitment, H=H, G=G)\n",
+    "\n",
+    "coms = [com(x=y.value[0], r=y.value[1]) for y in ys]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "x = reduce(add, xs)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "- Each player $P_i$ broadcast $C_i$\n",
+    "    * $D_i$ which allows everybody to compute $y_i = Ver(C_i , D_i )$\n",
+    "    * $\\alpha_i=E(x_i);$\n",
+    "    * a ZK argument $\\Pi_i$ that states\n",
+    "        * $\\exists \\mu=y_i$\n",
+    "        * $D(a_i)=\\mu$\n",
+    "        \n",
+    "      If any of the ZK arguments fails, the protocol terminates."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "True"
+      ]
+     },
+     "execution_count": 7,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "all([c.C == commit(H=H, G=G, *c.D) for c in coms])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from operator import mul\n",
+    "from klefki.types.algebra.meta import field"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from operator import add\n",
+    "from functools import reduce\n",
+    "\n",
+    "alpha = reduce(mul, [E(x.value) for x in xs])\n",
+    "y = reduce(add, ys)\n",
+    "FN = alpha.functor"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "* proof"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "assert CF(D(alpha)) == reduce(add, xs) == x\n",
+    "assert G ** CF(D(alpha)) == y"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "- The players compute $\\alpha=\\oplus_{i=1}^{t+1}a_i$ and $y=\\sum_{i=1}^{t+1}y_i$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Signature Generation"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The signature generation protocol is run on input $m$ (the hash of the message $M$ being signed)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "\n",
+    "from klefki.utils import to_sha256int\n",
+    "\n",
+    "m = CF(to_sha256int(\"Hello Threshold ECDSA\"))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "##### Round 1\n",
+    "\n",
+    "Each player $P_i$\n",
+    "    \n",
+    "1. choose $\\rho_i \\leftarrow Z_q$\n",
+    "\n",
+    "2. compute $u_i=E(\\rho_i)$ and $v_i=p_i \\times_E\\alpha = E(\\rho_ix)$\n",
+    "\n",
+    "3. compute $[C_{1,i}, D_{i,i}]=Com([u_i, v_i])$ and broadcast $C_{1,i}$\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "ps = [randfield(CF) for _ in range(n)]\n",
+    "us = [E(p) for p in ps]\n",
+    "vs = [alpha ** p for p in ps]\n",
+    "\n",
+    "coms1 = [com(x=t[0], r=t[1]) for t in zip(us, vs)]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "##### Round 2"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Each player $P_i$ broadcasts:\n",
+    "   \n",
+    "* $D_{1,i}$. This allow everybody to compute $[u_i, v_i]=Ver(C_{1,i}, D_{1,i})$\n",
+    "\n",
+    "* a zero-knowledge argument $\\Pi_{1,i}$ which states\n",
+    "\n",
+    "    - $\\exists \\eta \\in [-q^3,q^3]$ such that\n",
+    "    \n",
+    "        $D(u_i)=\\eta$\n",
+    "        \n",
+    "        $D(v_i)=\\eta D(E(x)$\n",
+    "        \n",
+    "        \n",
+    "Players compute $u=\\oplus_{i=1}^{t+1}u_i=E(\\rho)$ and $v=\\oplus_{i=1}^{t+1}v_i=E(\\rho x)$, where $\\rho=\\sum_{i=1}^{1+1}\\rho_i$\n",
+    "        "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "True"
+      ]
+     },
+     "execution_count": 13,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "all([c.C == commit(H=H, G=G, *c.D) for c in coms1])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "u = reduce(mul, us)\n",
+    "v = reduce(mul, vs)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "* proof"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "assert CF(D(u)) == reduce(add, (ps))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "metadata": {
+    "scrolled": true
+   },
+   "outputs": [],
+   "source": [
+    "assert CF(D(alpha ** ps[1])) == x * ps[1]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "assert CF(D(alpha ** ps[0] * alpha ** ps[1] * alpha ** ps[2])) == x * (ps[0] + ps[1] + ps[2]) == CF(D(v))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "assert CF(D(v)) == CF(D(E(reduce(add, ps) * x)))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Round 3"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Each player $P_i$\n",
+    "\n",
+    "- choose $k_i \\in Z_q$ and $c_i \\in R[-q^6, q^6]$\n",
+    "- computes $r_i=g^{k_i}$ and $w_i=(k_i\\times_E u) +_E E(c_iq)=E(k_i\\rho+c_iq))$\n",
+    "- computes $[C_{2,i},D_{2_i}=Com(r_i,w_i)$ and broadcast $C_{2i}$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "ks = [randfield(CF) for _ in range(n)]\n",
+    "rs = [G**k for k in ks]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "cs = [randfield(CF) for _ in range(n)]\n",
+    "ws = [(u ** k) * E(c*q) for c, k in zip(cs, ks)]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "coms2 = [com(x=c, r=w) for c, w in zip(cs, ws)]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 24,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "dcoms2 = [c.D for c in coms]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "* Proof"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 25,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "True"
+      ]
+     },
+     "execution_count": 25,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "CF(D(u ** ks[0])) == reduce(add, (ps)) * ks[0]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 26,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "True"
+      ]
+     },
+     "execution_count": 26,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "CF(D(u ** ks[0] * E(cs[0] * q))) == CF(D(u ** ks[0]) + D(E(cs[0] * q))) \\\n",
+    "                                 == reduce(add, (ps)) * ks[0] + cs[0] * q"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Round 4"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Each player P_i broadcasts\n",
+    "\n",
+    "1. $D_{2,i}$, which allows everybody to compute $[r_i , w_i ]$ = $Ver(C_{2,i} , D_{2,i} )$\n",
+    "    \n",
+    "2. a zero-knowledge argument $Π_{(2,i)}$\n",
+    "    \n",
+    "Players compute $w=\\oplus_{i=1}^{t+1}w_i=E(k\\rho + cq)$ where $k=\\sum_{i=1}^{t+1}k_i$ and $c=\\sum_{i=1}^{t+1}c_i$. Players also compute $R=\\Pi_i^{t+1}r_i=g^k$ and $r=H'(R)\\in Z_q$\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 27,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "True"
+      ]
+     },
+     "execution_count": 27,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "all([c.C == commit(H=H, G=G, *c.D) for c in coms2])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 28,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "w = reduce(mul, ws)\n",
+    "R = reduce(mul, rs)\n",
+    "r = CF(R.x)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "* Proof"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 29,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "True"
+      ]
+     },
+     "execution_count": 29,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "R == G ** reduce(add, ks)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 30,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "True"
+      ]
+     },
+     "execution_count": 30,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "CF(D(w)) == reduce(add, (ps)) * reduce(add, ks) + reduce(add, cs) * q"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Round 5\n",
+    "\n",
+    "players jointly decrypt $w$ using **TDec** to learn the value $\\tau ∈ [−q^7 , q^7]$ such that $\\tau = kρ \\mod q$ and $ψ = η ^{−1} \\mod q$\n",
+    "\n",
+    "Each player computes:\n",
+    "\n",
+    "\n",
+    "\\begin{align}\n",
+    "\\sigma &= \\psi \\times_E [m\\times_E u]+_E(r\\times_E v)]\\\\\n",
+    "&= \\psi \\times_E [E(m\\rho) +_E E(r \\rho x)]\\\\\n",
+    "&= (k^{-1\\rho^{-1}}\\times_E [E(\\rho (m+xr)) \\\\\n",
+    "&=E(k^{-1}(m+xr))\\\\\n",
+    "&=E(s)\n",
+    "\\end{align}"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 31,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "psi = CF(D(w))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 32,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "pai = ~psi"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 33,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "sigma = ((u**m) * (v**r)) ** pai"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "* Proof"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 34,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "x = reduce(add, xs)\n",
+    "p = reduce(add, ps)\n",
+    "k = reduce(add, ks)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 35,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "assert CF(D(u**m)) == m * p\n",
+    "assert CF(D(v**r)) == r * p * x\n",
+    "assert CF(D(u**m)) + CF(D(v**r)) == p * (m + x * r)\n",
+    "assert CF(D((u**m) * (v**r))) == p * (m + x * r)\n",
+    "assert CF(D(((u**m) * (v**r)) ** pai)) == (m + x * r)/k"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 36,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "assert CF(D(sigma)) == (m + x * r)/k\n",
+    "assert (G ** k).x == r"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Round 6\n",
+    "\n",
+    "The players invoke distributed decryption protocol TDec over the ciphertext $σ$. Let $s = D(σ) mod q$. The players output $(r, s)$ as the signature for $m$.\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 37,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "r, s = r, CF(D(sigma))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Verify"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 38,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from klefki.crypto.ecdsa.secp256k1 import verify"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 39,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "True"
+      ]
+     },
+     "execution_count": 39,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "verify(pub=y, sig=(r, s), msg=\"Hello Threshold ECDSA\")"
+   ]
   },
   {
    "cell_type": "markdown",
@@ -437,6 +1083,20 @@
     "\n",
     "* Gennaro, Rosario, Steven Goldfeder, and Arvind Narayanan. “Threshold-Optimal DSA/ECDSA Signatures and an Application to Bitcoin Wallet Security.” In Applied Cryptography and Network Security, edited by Mark Manulis, Ahmad-Reza Sadeghi, and Steve Schneider, 9696:156–74. Cham: Springer International Publishing, 2016. https://doi.org/10.1007/978-3-319-39555-5_9.\n"
    ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
   }
  ],
  "metadata": {

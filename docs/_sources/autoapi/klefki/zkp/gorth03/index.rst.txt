@@ -20,9 +20,26 @@ Module Contents
 .. function:: keygen(F)
 
 
-.. function:: commitment(m, key, ak)
+.. py:class:: NMCommitment(G, H, key=None)
+
+   Bases: :class:`klefki.zkp.commitment.Commitment`
+
+   .. method:: commit(self, m, ak)
 
 
-.. function:: decommitment(c)
+
+   .. method:: C(self)
+      :property:
+
+
+
+   .. method:: D(self)
+      :property:
+
+
+
+   .. method:: open(self)
+
+
 
 

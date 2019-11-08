@@ -56,6 +56,7 @@
     "from klefki.types.algebra.concrete import FiniteFieldCyclicSecp256k1 as CF\n",
     "from klefki.types.algebra.concrete import FiniteFieldSecp256k1 as F\n",
     "from klefki.types.algebra.utils import randfield\n",
+    "from klefki.utils import to_sha256int\n",
     "\n",
     "G = ECC.G\n",
     "H = Curve.lift_x(F(1234567))\n"
@@ -204,12 +205,12 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "m = randfield(CF)\n",
-    "r = randfield(CF)\n",
+    "#priv = randfield(CF)\n",
+    "secret = CF(73570390403507240989674623545632060650466613362119649500108200592951986722161)\n",
     "\n",
-    "s = randfield(CF)\n",
+    "r = randfield(CF)\n",
     "e = randfield(CF)\n",
-    "P = PedersonCommitment(G, G@x)"
+    "P = PedersonCommitment(G, G@x, secret, r)"
    ]
   },
   {
@@ -220,8 +221,7 @@
     {
      "data": {
       "text/plain": [
-       "(EllipticCurveGroupSecp256k1::(FiniteFieldSecp256k1::95771222117816217708881718807102509821103072166124819222082477513876662725682, FiniteFieldSecp256k1::53661793544851906685934263011221278489726293543098276914896008858465175439843),\n",
-       " EllipticCurveGroupSecp256k1::(FiniteFieldSecp256k1::107315303072799722099306478109414610521287886973667896909794767258433800028050, FiniteFieldSecp256k1::65312734962547475331689058599869986212444955695058691182448999284027641641400))"
+       "EllipticCurveGroupSecp256k1::(FiniteFieldSecp256k1::91958955717359388208542478944370361716254965936090085987507316561943720817853, FiniteFieldSecp256k1::35944189139569896164384495058484249049999039450507307656562740379781386245053)"
       ]
      },
      "execution_count": 9,
@@ -230,22 +230,26 @@
     }
    ],
    "source": [
-    "P.commit(m, s, r)"
+    "m = randfield(CF)\n",
+    "s = randfield(CF)\n",
+    "\n",
+    "\n",
+    "P.commit(m, s)"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 11,
+   "execution_count": 10,
    "metadata": {},
    "outputs": [
     {
      "data": {
       "text/plain": [
-       "(FiniteFieldCyclicSecp256k1::23643352095792902942260486383647479275018271565072204755251354959235782403354,\n",
-       " FiniteFieldCyclicSecp256k1::79992057350724792021210372166131167454666993855658342235582282000606307835950)"
+       "(FiniteFieldCyclicSecp256k1::84253794591609383410691939592927056153302076690673991993639785763012138005793,\n",
+       " FiniteFieldCyclicSecp256k1::91592766882790668836854998962808066060615310035407545187287328919881095824502)"
       ]
      },
-     "execution_count": 11,
+     "execution_count": 10,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -256,7 +260,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 12,
+   "execution_count": 11,
    "metadata": {},
    "outputs": [
     {
@@ -265,7 +269,7 @@
        "True"
       ]
      },
-     "execution_count": 12,
+     "execution_count": 11,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -276,7 +280,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 13,
+   "execution_count": 12,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -288,7 +292,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 15,
+   "execution_count": 13,
    "metadata": {},
    "outputs": [
     {
@@ -297,7 +301,7 @@
        "True"
       ]
      },
-     "execution_count": 15,
+     "execution_count": 13,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -305,6 +309,16 @@
    "source": [
     "P.challenge(e)\n",
     "P.proof()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Ref:\n",
+    "\n",
+    "* Eﬃcient Zero-Knowledge Proof Systems, Jonathan Bottle, ..., UCL\n",
+    "* Zero-Knowledge Proof and Cryptographic Commitment https://www.cs.purdue.edu/homes/ninghui/courses/555_Spring12/handouts/555_Spring12_topic23.pdf"
    ]
   },
   {

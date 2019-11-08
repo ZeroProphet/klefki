@@ -27,8 +27,6 @@ Module Contents
 
 .. py:class:: Commitment
 
-   Bases: :class:`klefki.zkp.commitment.Sigma`
-
    .. attribute:: C
       
 

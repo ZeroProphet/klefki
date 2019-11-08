@@ -17,6 +17,7 @@
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Threshold ECDSA" href="Threshold ECDSA.html" />
     <link rel="prev" title="Shamir’s secret sharing scheme" href="Shamir&#39;s secret sharing scheme.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -365,7 +366,7 @@ view_{S(comm, m_n), R*(comm), \tau ^{1^n}}\end{split}\]</div>
 <p>An identity-based commitment takes an aditional identiﬁer as input besides the message, typically this is a random bit string. Speciﬁcally, we assume that there is an eﬃciently samplable sequence <span class="math notranslate nohighlight">\(ID=(ID_n);n \in \mathbb{N}\)</span> of random variables <span class="math notranslate nohighlight">\(ID_n\)</span> over <span class="math notranslate nohighlight">\(s(n)\)</span>-bit strings. For pa- rameter n we let the sender use some of the random bits for the commitment to sample an identiﬁer $id_n <span class="math">\leftarrow `ID\_nB, and let the sender append this sample :math:`id_n</span> to
 the commitment in clear.</p>
 <p>We remark that the commitment itself may also depend on <span class="math notranslate nohighlight">\(id_n\)</span>. Then the deﬁnitions of statistically-binding and statistically-secret commit- ment schemes carry over to such <strong>identity-based (ID, M)-commitment schemes</strong>.</p>
-<p>we return to the commitment scheme based on the discrete-logarithm problem. the trusted party announces three gener- ators <span class="math notranslate nohighlight">\(g_1 , g_2\)</span> and <span class="math notranslate nohighlight">\(h\)</span>. A sender with identity <span class="math notranslate nohighlight">\(id ∈ {0, 1} s ⊆ Z_q\)</span>, computes his commitment to <span class="math notranslate nohighlight">\(m ∈ Z_q\)</span> by</p>
+<p>we return to the commitment scheme based on the discrete-logarithm problem. the trusted party announces three gener ators <span class="math notranslate nohighlight">\(g_1 , g_2\)</span> and <span class="math notranslate nohighlight">\(h\)</span>. A sender with identity <span class="math notranslate nohighlight">\(id ∈ {0, 1} s ⊆ Z_q\)</span>, computes his commitment to <span class="math notranslate nohighlight">\(m ∈ Z_q\)</span> by</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}M = (g_1^{id}g_2 )^m h^r\\
 g := g_1^{id} g_2\\
@@ -373,7 +374,7 @@ h:= g^x\end{split}\]</div>
 <p>and sends <span class="math notranslate nohighlight">\((id, M)\)</span> to the receiver.</p>
 <hr class="docutils" />
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -400,7 +401,7 @@ h:= g^x\end{split}\]</div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -410,7 +411,7 @@ h:= g^x\end{split}\]</div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -421,7 +422,7 @@ h:= g^x\end{split}\]</div>
 <hr class="docutils" />
 <p>Instructively, the identity determines the generator <span class="math notranslate nohighlight">\(g := g_1^{id} g_2\)</span> and the parties run the well-known protocol on the generators <span class="math notranslate nohighlight">\(g\)</span> and <span class="math notranslate nohighlight">\(h\)</span>.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -430,7 +431,7 @@ h:= g^x\end{split}\]</div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -440,7 +441,7 @@ h:= g^x\end{split}\]</div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -480,7 +481,7 @@ M &amp;= (g^{id}g')^m h^r \\
 \end{align}</div><p>Let <span class="math notranslate nohighlight">\(r'=m'x-mx\)</span></p>
 <hr class="docutils" />
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -505,7 +506,7 @@ M &amp;= (g^{id}g')^m h^r \\
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -514,7 +515,7 @@ M &amp;= (g^{id}g')^m h^r \\
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -523,7 +524,7 @@ M &amp;= (g^{id}g')^m h^r \\
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -532,16 +533,16 @@ M &amp;= (g^{id}g')^m h^r \\
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">r_</span> <span class="o">=</span> <span class="n">r</span> <span class="o">+</span> <span class="n">m</span><span class="o">*</span><span class="n">x</span> <span class="o">-</span> <span class="n">m_</span><span class="o">*</span><span class="n">x</span>
+<span></span><span class="n">r_</span> <span class="o">=</span> <span class="n">m</span><span class="o">*</span><span class="n">x</span> <span class="o">-</span> <span class="n">m_</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="n">r</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -550,25 +551,7 @@ M &amp;= (g^{id}g')^m h^r \\
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
-</pre></div>
-</div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>True
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">M</span> <span class="o">==</span> <span class="p">(</span><span class="n">G</span><span class="o">**</span><span class="nb">id</span> <span class="o">*</span> <span class="n">G_</span><span class="p">)</span> <span class="o">**</span> <span class="n">m_</span> <span class="o">*</span> <span class="n">H</span> <span class="o">**</span> <span class="n">r_</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -582,15 +565,6 @@ M &amp;= (g^{id}g')^m h^r \\
 <ul class="simple">
 <li><p>Fischlin, Marc. (2001). Trapdoor Commitment Schemes and Their Applications.</p></li>
 </ul>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
-</pre></div>
-</div>
-</div>
 </div>
 </div>
 
@@ -620,19 +594,16 @@ M &amp;= (g^{id}g')^m h^r \\
 <li class="toctree-l1"><a class="reference internal" href="README.html#docs">Docs</a></li>
 </ul>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Non-interactive and Reusable Non-malleable Commitment Schemes.html">Non-interactive and Reusable Non-malleable Commitment Schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pedersen Commitment.html">Pedersen Commitment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="On Sigma Protocols.html"><span class="math notranslate nohighlight">\(\Sigma\)</span> Protocols</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Abstract Algebra Types.html">Abstract Algebra Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Homomorphic Encryption.html">Homomorphic Encryption</a></li>
 <li class="toctree-l1"><a class="reference internal" href="From ZK to Bulletproofs.html">From ZK to Bulletproofsproof via Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Paillier's encryption Scheme.html">Paillier’s encryption Scheme</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Shamir's secret sharing scheme.html">Shamir’s secret sharing scheme</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Discrete-Logarithm-Based Trapdoor Commitment Schemes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#I-Introduction">I Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#II-Notation">II Notation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#III-Trapdoor-Commitment-Schemes">III Trapdoor Commitment Schemes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#IV-Identity-Based-Trapdoor-Commitments">IV Identity-Based Trapdoor Commitments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Ref">Ref</a></li>
-</ul>
-</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Discrete-Logarithm-Based Trapdoor Commitment Schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Threshold ECDSA.html">Threshold ECDSA</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
@@ -643,6 +614,7 @@ M &amp;= (g^{id}g')^m h^r \\
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="Shamir&#39;s secret sharing scheme.html" title="previous chapter">Shamir’s secret sharing scheme</a></li>
+      <li>Next: <a href="Threshold ECDSA.html" title="next chapter">Threshold ECDSA</a></li>
   </ul></li>
 </ul>
 </div>

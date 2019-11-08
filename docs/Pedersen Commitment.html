@@ -258,6 +258,7 @@ ck:=(\mathbb{G}, p, g, h)\end{split}\]</div>
 <span class="kn">from</span> <span class="nn">klefki.types.algebra.concrete</span> <span class="k">import</span> <span class="n">FiniteFieldCyclicSecp256k1</span> <span class="k">as</span> <span class="n">CF</span>
 <span class="kn">from</span> <span class="nn">klefki.types.algebra.concrete</span> <span class="k">import</span> <span class="n">FiniteFieldSecp256k1</span> <span class="k">as</span> <span class="n">F</span>
 <span class="kn">from</span> <span class="nn">klefki.types.algebra.utils</span> <span class="k">import</span> <span class="n">randfield</span>
+<span class="kn">from</span> <span class="nn">klefki.utils</span> <span class="k">import</span> <span class="n">to_sha256int</span>
 
 <span class="n">G</span> <span class="o">=</span> <span class="n">ECC</span><span class="o">.</span><span class="n">G</span>
 <span class="n">H</span> <span class="o">=</span> <span class="n">Curve</span><span class="o">.</span><span class="n">lift_x</span><span class="p">(</span><span class="n">F</span><span class="p">(</span><span class="mi">1234567</span><span class="p">))</span>
@@ -360,12 +361,12 @@ ck:=(\mathbb{G}, p, g, h)\end{split}\]</div>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">m</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">CF</span><span class="p">)</span>
-<span class="n">r</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">CF</span><span class="p">)</span>
+<span></span><span class="c1">#priv = randfield(CF)</span>
+<span class="n">secret</span> <span class="o">=</span> <span class="n">CF</span><span class="p">(</span><span class="mi">73570390403507240989674623545632060650466613362119649500108200592951986722161</span><span class="p">)</span>
 
-<span class="n">s</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">CF</span><span class="p">)</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">CF</span><span class="p">)</span>
 <span class="n">e</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">CF</span><span class="p">)</span>
-<span class="n">P</span> <span class="o">=</span> <span class="n">PedersonCommitment</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">G</span><span class="nd">@x</span><span class="p">)</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">PedersonCommitment</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">G</span><span class="nd">@x</span><span class="p">,</span> <span class="n">secret</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -374,7 +375,11 @@ ck:=(\mathbb{G}, p, g, h)\end{split}\]</div>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">P</span><span class="o">.</span><span class="n">commit</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+<span></span><span class="n">m</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">CF</span><span class="p">)</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">CF</span><span class="p">)</span>
+
+
+<span class="n">P</span><span class="o">.</span><span class="n">commit</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -383,13 +388,12 @@ ck:=(\mathbb{G}, p, g, h)\end{split}\]</div>
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>(EllipticCurveGroupSecp256k1::(FiniteFieldSecp256k1::95771222117816217708881718807102509821103072166124819222082477513876662725682, FiniteFieldSecp256k1::53661793544851906685934263011221278489726293543098276914896008858465175439843),
- EllipticCurveGroupSecp256k1::(FiniteFieldSecp256k1::107315303072799722099306478109414610521287886973667896909794767258433800028050, FiniteFieldSecp256k1::65312734962547475331689058599869986212444955695058691182448999284027641641400))
+<span></span>EllipticCurveGroupSecp256k1::(FiniteFieldSecp256k1::91958955717359388208542478944370361716254965936090085987507316561943720817853, FiniteFieldSecp256k1::35944189139569896164384495058484249049999039450507307656562740379781386245053)
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -398,17 +402,17 @@ ck:=(\mathbb{G}, p, g, h)\end{split}\]</div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>(FiniteFieldCyclicSecp256k1::23643352095792902942260486383647479275018271565072204755251354959235782403354,
- FiniteFieldCyclicSecp256k1::79992057350724792021210372166131167454666993855658342235582282000606307835950)
+<span></span>(FiniteFieldCyclicSecp256k1::84253794591609383410691939592927056153302076690673991993639785763012138005793,
+ FiniteFieldCyclicSecp256k1::91592766882790668836854998962808066060615310035407545187287328919881095824502)
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -417,7 +421,7 @@ ck:=(\mathbb{G}, p, g, h)\end{split}\]</div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -426,7 +430,7 @@ ck:=(\mathbb{G}, p, g, h)\end{split}\]</div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -438,7 +442,7 @@ ck:=(\mathbb{G}, p, g, h)\end{split}\]</div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -448,7 +452,7 @@ ck:=(\mathbb{G}, p, g, h)\end{split}\]</div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -456,6 +460,13 @@ ck:=(\mathbb{G}, p, g, h)\end{split}\]</div>
 </pre></div>
 </div>
 </div>
+</div>
+<div class="section" id="Ref:">
+<h2>Ref:<a class="headerlink" href="#Ref:" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Eﬃcient Zero-Knowledge Proof Systems, Jonathan Bottle, …, UCL</p></li>
+<li><p>Zero-Knowledge Proof and Cryptographic Commitment <a class="reference external" href="https://www.cs.purdue.edu/homes/ninghui/courses/555_Spring12/handouts/555_Spring12_topic23.pdf">https://www.cs.purdue.edu/homes/ninghui/courses/555_Spring12/handouts/555_Spring12_topic23.pdf</a></p></li>
+</ul>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -503,6 +514,7 @@ ck:=(\mathbb{G}, p, g, h)\end{split}\]</div>
 <li class="toctree-l1"><a class="reference internal" href="Paillier's encryption Scheme.html">Paillier’s encryption Scheme</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Shamir's secret sharing scheme.html">Shamir’s secret sharing scheme</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Trapdoor Commitment Schemes.html">Discrete-Logarithm-Based Trapdoor Commitment Schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Threshold ECDSA.html">Threshold ECDSA</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>

@@ -35,7 +35,10 @@
           <div class="body" role="main">
             
   <h1>Source code for klefki.numbers.primes</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">random</span>
+<span></span><span class="c1">#</span>
+<span class="c1"># https://github.com/mikeivanov/paillier/blob/master/paillier/primes.py</span>
+
+<span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
 <div class="viewcode-block" id="ipow"><a class="viewcode-back" href="../../../autoapi/klefki/numbers/primes/index.html#klefki.numbers.primes.ipow">[docs]</a><span class="k">def</span> <span class="nf">ipow</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
@@ -60,7 +63,7 @@
 <div class="viewcode-block" id="rabin_miller_witness"><a class="viewcode-back" href="../../../autoapi/klefki/numbers/primes/index.html#klefki.numbers.primes.rabin_miller_witness">[docs]</a><span class="k">def</span> <span class="nf">rabin_miller_witness</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">possible</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Using Rabin-Miller witness test, will return True if possible is</span>
 <span class="sd">       definitely not prime (composite), False if it may be prime.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="mi">1</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ipow</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">possible</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">possible</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="mi">1</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ipow</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">possible</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">possible</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="smallprimes"><a class="viewcode-back" href="../../../autoapi/klefki/numbers/primes/index.html#klefki.numbers.primes.smallprimes">[docs]</a><span class="n">smallprimes</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="mi">19</span><span class="p">,</span><span class="mi">23</span><span class="p">,</span><span class="mi">29</span><span class="p">,</span><span class="mi">31</span><span class="p">,</span><span class="mi">37</span><span class="p">,</span><span class="mi">41</span><span class="p">,</span><span class="mi">43</span><span class="p">,</span>
                <span class="mi">47</span><span class="p">,</span><span class="mi">53</span><span class="p">,</span><span class="mi">59</span><span class="p">,</span><span class="mi">61</span><span class="p">,</span><span class="mi">67</span><span class="p">,</span><span class="mi">71</span><span class="p">,</span><span class="mi">73</span><span class="p">,</span><span class="mi">79</span><span class="p">,</span><span class="mi">83</span><span class="p">,</span><span class="mi">89</span><span class="p">,</span><span class="mi">97</span><span class="p">)</span></div>
@@ -83,6 +86,7 @@
         <span class="k">if</span> <span class="n">rabin_miller_witness</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">possible</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">False</span>
     <span class="k">return</span> <span class="kc">True</span></div>
+
 
 <div class="viewcode-block" id="generate_prime"><a class="viewcode-back" href="../../../autoapi/klefki/numbers/primes/index.html#klefki.numbers.primes.generate_prime">[docs]</a><span class="k">def</span> <span class="nf">generate_prime</span><span class="p">(</span><span class="n">bits</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Will generate an integer of b bits that is probably prime</span>
@@ -133,6 +137,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../Paillier's encryption Scheme.html">Paillier’s encryption Scheme</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Shamir's secret sharing scheme.html">Shamir’s secret sharing scheme</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Trapdoor Commitment Schemes.html">Discrete-Logarithm-Based Trapdoor Commitment Schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Threshold ECDSA.html">Threshold ECDSA</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../autoapi/index.html">API Reference</a></li>

@@ -29,6 +29,7 @@ Academic Notes
    Paillier's encryption Scheme
    Shamir's secret sharing scheme
    Trapdoor Commitment Schemes
+   Threshold ECDSA
 
 
 Documents

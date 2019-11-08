@@ -26,7 +26,7 @@ def ipow(a, b, n):
 def rabin_miller_witness(test, possible):
     """Using Rabin-Miller witness test, will return True if possible is
        definitely not prime (composite), False if it may be prime."""
-    return 1 not in ipow(test, possible-1, possible)
+    return 1 not in ipow(test, possible - 1, possible)
 
 smallprimes = (2,3,5,7,11,13,17,19,23,29,31,37,41,43,
                47,53,59,61,67,71,73,79,83,89,97)
@@ -49,6 +49,7 @@ def is_probably_prime(possible, k=None):
         if rabin_miller_witness(test, possible):
             return False
     return True
+
 
 def generate_prime(bits, k=None):
     """Will generate an integer of b bits that is probably prime

@@ -35,7 +35,7 @@
           <div class="body" role="main">
             
   <h1>Source code for klefki.zkp.pedersen</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">klefki.zkp.commitment</span> <span class="k">import</span> <span class="n">Commitment</span>
+<span></span><span class="kn">from</span> <span class="nn">klefki.zkp.commitment</span> <span class="k">import</span> <span class="n">TrapdoorCommitment</span>
 <span class="kn">from</span> <span class="nn">klefki.types.algebra.abstract</span> <span class="k">import</span> <span class="n">Group</span><span class="p">,</span> <span class="n">Field</span>
 <span class="kn">from</span> <span class="nn">klefki.types.algebra.meta</span> <span class="k">import</span> <span class="n">field</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">reduce</span><span class="p">,</span> <span class="n">partial</span>
@@ -77,22 +77,26 @@
     <span class="k">return</span> <span class="n">commitment</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">G</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="PedersonCommitment"><a class="viewcode-back" href="../../../autoapi/klefki/zkp/pedersen/index.html#klefki.zkp.pedersen.PedersonCommitment">[docs]</a><span class="k">class</span> <span class="nc">PedersonCommitment</span><span class="p">(</span><span class="n">Commitment</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">H</span><span class="p">):</span>
+<div class="viewcode-block" id="PedersonCommitment"><a class="viewcode-back" href="../../../autoapi/klefki/zkp/pedersen/index.html#klefki.zkp.pedersen.PedersonCommitment">[docs]</a><span class="k">class</span> <span class="nc">PedersonCommitment</span><span class="p">(</span><span class="n">TrapdoorCommitment</span><span class="p">):</span>
+
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        G, H &lt;- ECC</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">G</span> <span class="o">=</span> <span class="n">G</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">H</span> <span class="o">=</span> <span class="n">H</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">com</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">G</span><span class="o">=</span><span class="n">G</span><span class="p">,</span><span class="n">H</span><span class="o">=</span><span class="n">H</span><span class="p">)</span>
-
-<div class="viewcode-block" id="PedersonCommitment.commit"><a class="viewcode-back" href="../../../autoapi/klefki/zkp/pedersen/index.html#klefki.zkp.pedersen.PedersonCommitment.commit">[docs]</a>    <span class="k">def</span> <span class="nf">commit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">secret</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">secret</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">=</span> <span class="n">k</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">r</span> <span class="o">=</span> <span class="n">r</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">A</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">com</span><span class="p">(</span><span class="n">secret</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">B</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">com</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">A</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">B</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">A</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">com</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">r</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="PedersonCommitment.commit"><a class="viewcode-back" href="../../../autoapi/klefki/zkp/pedersen/index.html#klefki.zkp.pedersen.PedersonCommitment.commit">[docs]</a>    <span class="k">def</span> <span class="nf">commit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">B</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">com</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">B</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">s</span> <span class="o">=</span> <span class="n">s</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span></div>
 
 <div class="viewcode-block" id="PedersonCommitment.trapdoor"><a class="viewcode-back" href="../../../autoapi/klefki/zkp/pedersen/index.html#klefki.zkp.pedersen.PedersonCommitment.trapdoor">[docs]</a>    <span class="k">def</span> <span class="nf">trapdoor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_secret</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
@@ -108,15 +112,17 @@
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="o">=</span> <span class="n">e</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">response</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">e</span>  <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">r</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">r</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">s</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">r</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">response</span></div>
 
 
-<div class="viewcode-block" id="PedersonCommitment.proof"><a class="viewcode-back" href="../../../autoapi/klefki/zkp/pedersen/index.html#klefki.zkp.pedersen.PedersonCommitment.proof">[docs]</a>    <span class="k">def</span> <span class="nf">proof</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">),</span> <span class="n">e</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transcript</span>
-        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">com</span><span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="n">B</span> <span class="o">*</span> <span class="p">(</span><span class="n">A</span> <span class="o">**</span> <span class="n">e</span><span class="p">)</span>
+<div class="viewcode-block" id="PedersonCommitment.proof"><a class="viewcode-back" href="../../../autoapi/klefki/zkp/pedersen/index.html#klefki.zkp.pedersen.PedersonCommitment.proof">[docs]</a>    <span class="k">def</span> <span class="nf">proof</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trans</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">trans</span><span class="p">:</span>
+            <span class="n">trans</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transcript</span>
+        <span class="n">B</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">trans</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">com</span><span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">A</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">B</span> <span class="o">**</span> <span class="n">e</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">True</span></div>
 
     <span class="nd">@property</span>
@@ -125,11 +131,17 @@
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="PedersonCommitment.C"><a class="viewcode-back" href="../../../autoapi/klefki/zkp/pedersen/index.html#klefki.zkp.pedersen.PedersonCommitment.C">[docs]</a>    <span class="k">def</span> <span class="nf">C</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">A</span></div>
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="PedersonCommitment.D"><a class="viewcode-back" href="../../../autoapi/klefki/zkp/pedersen/index.html#klefki.zkp.pedersen.PedersonCommitment.D">[docs]</a>    <span class="k">def</span> <span class="nf">D</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">r</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">r</span><span class="p">)</span></div>
+
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="PedersonCommitment.verify"><a class="viewcode-back" href="../../../autoapi/klefki/zkp/pedersen/index.html#klefki.zkp.pedersen.PedersonCommitment.verify">[docs]</a>    <span class="k">def</span> <span class="nf">verify</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">D</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">C</span> <span class="o">==</span> <span class="n">com</span><span class="p">(</span><span class="o">*</span><span class="n">D</span><span class="p">,</span> <span class="n">H</span><span class="o">=</span><span class="n">H</span><span class="p">,</span> <span class="n">G</span><span class="o">=</span><span class="n">G</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">D</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div></div>
 </pre></div>
 
           </div>
@@ -166,6 +178,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../Paillier's encryption Scheme.html">Paillier’s encryption Scheme</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Shamir's secret sharing scheme.html">Shamir’s secret sharing scheme</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Trapdoor Commitment Schemes.html">Discrete-Logarithm-Based Trapdoor Commitment Schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Threshold ECDSA.html">Threshold ECDSA</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../autoapi/index.html">API Reference</a></li>

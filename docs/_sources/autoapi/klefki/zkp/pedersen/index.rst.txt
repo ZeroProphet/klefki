@@ -18,11 +18,11 @@ Module Contents
    Com(x, r) = xG + rH
 
 
-.. py:class:: PedersonCommitment(G, H)
+.. py:class:: PedersonCommitment(G, H, x, r)
 
-   Bases: :class:`klefki.zkp.commitment.Commitment`
+   Bases: :class:`klefki.zkp.commitment.TrapdoorCommitment`
 
-   .. method:: commit(self, secret, k, r)
+   .. method:: commit(self, y, s)
 
 
 
@@ -38,7 +38,7 @@ Module Contents
       e is the random callange
 
 
-   .. method:: proof(self)
+   .. method:: proof(self, trans=None)
 
 
 
@@ -54,6 +54,11 @@ Module Contents
 
    .. method:: D(self)
       :property:
+
+
+
+   .. method:: verify(H, G, C, D)
+      :staticmethod:
 
 
 

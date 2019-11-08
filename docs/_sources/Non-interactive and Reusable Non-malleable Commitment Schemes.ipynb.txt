@@ -168,7 +168,8 @@
     "from klefki.types.algebra.concrete import FiniteFieldCyclicSecp256k1 as CF\n",
     "from klefki.types.algebra.concrete import FiniteFieldSecp256k1 as F\n",
     "from klefki.types.algebra.utils import randfield\n",
-    "from klefki.bitcoin.address import gen_address"
+    "from klefki.bitcoin.address import gen_address\n",
+    "from klefki.utils import to_sha256int\n"
    ]
   },
   {
@@ -178,7 +179,7 @@
    "outputs": [],
    "source": [
     "pk = randfield(CF)\n",
-    "vk = ECC.G ** pk\n",
+    "vk = CF(to_sha256int(str(pk.value)))\n",
     "h = gen_address\n",
     "PK = (pk, vk, h)"
    ]
@@ -206,12 +207,21 @@
    "outputs": [],
    "source": [
     "from klefki.zkp.pedersen import com as commit\n",
-    "from klefki.utils import to_sha256int\n",
+    "from klefki.zkp.pedersen import PedersonCommitment\n",
     "from functools import partial\n",
     "\n",
     "G = ECC.G\n",
-    "H = Cruve.lift_x(CF(to_sha256int(\"hello NIRNCS\")))\n",
-    "com = partial(commit, H=H, G=G)"
+    "H = G ** CF(to_sha256int(\"hello NIRNCS\"))\n",
+    "#com = partial(commit, H=H, G=G)\n",
+    "ak = randfield(CF)\n",
+    "com = PedersonCommitment(H, G, pk, ak)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "$(𝑐,𝑑)=𝐻𝑆𝑐𝑜𝑚𝑚𝑖𝑡𝑝𝑘(𝑎𝑘)$"
    ]
   },
   {
@@ -220,8 +230,15 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "ak = randfield(CF)\n",
-    "c, d = (G ** pk, G ** ak), (pk, ak)"
+    "c, d = com.C, com.D\n",
+    "#c, d = (G ** pk, G ** ak), (pk, ak)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "$α=ℎ(𝑐)$"
    ]
   },
   {
@@ -230,19 +247,51 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "# Now we simulate a proof of knowledge of a signature on 𝛼 with challenge 𝑚\n",
-    "m = randfield(CF)\n",
-    "r2 = to_sha256int(gen_address(c[0] + c[1]))\n",
-    "a = G ** r2"
+    "alpha = CF(to_sha256int(gen_address(c)))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now we simulate a proof of knowledge of a signature on 𝛼 with challenge 𝑚\n"
    ]
   },
   {
    "cell_type": "code",
    "execution_count": 6,
    "metadata": {},
-   "outputs": [],
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(EllipticCurveGroupSecp256k1::(FiniteFieldSecp256k1::65305324377188005782377700178028737401788663470526826050130238405561434306803, FiniteFieldSecp256k1::51756740416389774025916908316567670088786641308875261052677258404830697308940),\n",
+       " FiniteFieldCyclicSecp256k1::56646854059851268980329769907295932795576099875142914434658624564702613382143,\n",
+       " (FiniteFieldCyclicSecp256k1::109522999716473413521340105218466435927129271893586930248571930167452858230042,\n",
+       "  FiniteFieldCyclicSecp256k1::21392565710504642859385122496656030560953184631209595551121610056043363985695))"
+      ]
+     },
+     "execution_count": 6,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
    "source": [
-    "z = ak + m * pk"
+    "m = randfield(CF)\n",
+    "S = PedersonCommitment(G, H, vk, alpha)\n",
+    "r1 = randfield(CF)\n",
+    "r2 = randfield(CF)\n",
+    "a = S.commit(r1, r2)\n",
+    "z = S.challenge(m)\n",
+    "S.proof()\n",
+    "(a, m, z)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Finally, we compute 𝑚𝑎𝑐=𝑀𝐴𝐶𝑎𝑘(𝑎)."
    ]
   },
   {
@@ -284,48 +333,53 @@
    ]
   },
   {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "For the Pedersen Example, we got:\n",
+    "\n",
+    "$$\n",
+    "Z = u, v\\\\\n",
+    "u = pk.m + ak\\\\\n",
+    "v = ak.m + \\alpha\n",
+    "$$"
+   ]
+  },
+  {
    "cell_type": "code",
    "execution_count": 9,
    "metadata": {},
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "True"
-      ]
-     },
-     "execution_count": 9,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
+   "outputs": [],
    "source": [
-    "G ** z == c[1] + c[0] ** m"
+    "alpha = CF(to_sha256int(gen_address(c)))"
    ]
   },
   {
    "cell_type": "code",
    "execution_count": 10,
    "metadata": {},
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "True"
-      ]
-     },
-     "execution_count": 10,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
+   "outputs": [],
    "source": [
-    "G @ to_sha256int(gen_address(c[0]+c[1]))  == a"
+    "S1 = PedersonCommitment(G, H, vk, alpha)"
    ]
   },
   {
    "cell_type": "code",
    "execution_count": 11,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "r1 = randfield(CF)\n",
+    "r2 = randfield(CF)\n",
+    "\n",
+    "S.commit(r1, r2)\n",
+    "S.challenge(m)\n",
+    "assert S.proof()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
    "metadata": {},
    "outputs": [
     {
@@ -334,7 +388,7 @@
        "True"
       ]
      },
-     "execution_count": 11,
+     "execution_count": 12,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -342,6 +396,13 @@
    "source": [
     "mac == hmac.new(str(d[1].value).encode(), encode_pubkey(a).encode()).hexdigest()"
    ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
   },
   {
    "cell_type": "markdown",
@@ -352,26 +413,19 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 12,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "from klefki.zkp import gorth03 as g\n",
-    "G = ECC.G\n",
-    "H = Cruve.lift_x(CF(to_sha256int(\"hello NIRNCS\")))\n",
-    "\n",
-    "\n",
-    "key = g.keygen(CF)\n",
-    "ak = randfield(CF)"
-   ]
-  },
-  {
-   "cell_type": "code",
    "execution_count": 13,
    "metadata": {},
    "outputs": [],
    "source": [
-    "pk, vk, h = key"
+    "from klefki.zkp.gorth03 import NMCommitment, keygen\n",
+    "G = ECC.G\n",
+    "H = Cruve.lift_x(CF(to_sha256int(\"hello NIRNCS\")))\n",
+    "\n",
+    "\n",
+    "key = keygen(CF)\n",
+    "\n",
+    "\n",
+    "com = NMCommitment(G, H, key)"
    ]
   },
   {
@@ -380,12 +434,21 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "c = g.commitment(CF(to_sha256int(\"hello klefki\")), key, ak)"
+    "pk, vk, h = key"
    ]
   },
   {
    "cell_type": "code",
    "execution_count": 15,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "c = com.commit(CF(to_sha256int(\"hello klefki\")), ak)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
    "metadata": {},
    "outputs": [
     {
@@ -394,13 +457,13 @@
        "True"
       ]
      },
-     "execution_count": 15,
+     "execution_count": 16,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
-    "g.decommitment(c) == CF(to_sha256int(\"hello klefki\"))"
+    "com.open() == CF(to_sha256int(\"hello klefki\"))"
    ]
   },
   {
@@ -413,6 +476,13 @@
     "\n",
     "* Common reference string model https://en.wikipedia.org/wiki/Common_reference_string_model"
    ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
   },
   {
    "cell_type": "code",

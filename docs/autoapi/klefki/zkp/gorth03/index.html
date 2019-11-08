@@ -53,15 +53,31 @@
 <code class="sig-prename descclassname">klefki.zkp.gorth03.</code><code class="sig-name descname">keygen</code><span class="sig-paren">(</span><em class="sig-param">F</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/klefki/zkp/gorth03.html#keygen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.zkp.gorth03.keygen" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="function">
-<dt id="klefki.zkp.gorth03.commitment">
-<code class="sig-prename descclassname">klefki.zkp.gorth03.</code><code class="sig-name descname">commitment</code><span class="sig-paren">(</span><em class="sig-param">m</em>, <em class="sig-param">key</em>, <em class="sig-param">ak</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/klefki/zkp/gorth03.html#commitment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.zkp.gorth03.commitment" title="Permalink to this definition">¶</a></dt>
+<dl class="class">
+<dt id="klefki.zkp.gorth03.NMCommitment">
+<em class="property">class </em><code class="sig-prename descclassname">klefki.zkp.gorth03.</code><code class="sig-name descname">NMCommitment</code><span class="sig-paren">(</span><em class="sig-param">G</em>, <em class="sig-param">H</em>, <em class="sig-param">key=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/klefki/zkp/gorth03.html#NMCommitment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.zkp.gorth03.NMCommitment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../commitment/index.html#klefki.zkp.commitment.Commitment" title="klefki.zkp.commitment.Commitment"><code class="xref py py-class docutils literal notranslate"><span class="pre">klefki.zkp.commitment.Commitment</span></code></a></p>
+<dl class="method">
+<dt id="klefki.zkp.gorth03.NMCommitment.commit">
+<code class="sig-name descname">commit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">m</em>, <em class="sig-param">ak</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/klefki/zkp/gorth03.html#NMCommitment.commit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.zkp.gorth03.NMCommitment.commit" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="function">
-<dt id="klefki.zkp.gorth03.decommitment">
-<code class="sig-prename descclassname">klefki.zkp.gorth03.</code><code class="sig-name descname">decommitment</code><span class="sig-paren">(</span><em class="sig-param">c</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/klefki/zkp/gorth03.html#decommitment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.zkp.gorth03.decommitment" title="Permalink to this definition">¶</a></dt>
+<dl class="method">
+<dt id="klefki.zkp.gorth03.NMCommitment.C">
+<em class="property">property </em><code class="sig-name descname">C</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/klefki/zkp/gorth03.html#NMCommitment.C"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.zkp.gorth03.NMCommitment.C" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="method">
+<dt id="klefki.zkp.gorth03.NMCommitment.D">
+<em class="property">property </em><code class="sig-name descname">D</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/klefki/zkp/gorth03.html#NMCommitment.D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.zkp.gorth03.NMCommitment.D" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="klefki.zkp.gorth03.NMCommitment.open">
+<code class="sig-name descname">open</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/klefki/zkp/gorth03.html#NMCommitment.open"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.zkp.gorth03.NMCommitment.open" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
 
 </div>
 </div>
@@ -101,6 +117,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../Paillier's encryption Scheme.html">Paillier’s encryption Scheme</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../Shamir's secret sharing scheme.html">Shamir’s secret sharing scheme</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../Trapdoor Commitment Schemes.html">Discrete-Logarithm-Based Trapdoor Commitment Schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Threshold ECDSA.html">Threshold ECDSA</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../index.html">API Reference</a></li>

@@ -17,6 +17,7 @@
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Discrete-Logarithm-Based Trapdoor Commitment Schemes" href="Trapdoor Commitment Schemes.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -381,9 +382,12 @@ div.rendered_html tbody tr:hover {
 <h2>Initialization phase<a class="headerlink" href="#Initialization-phase" title="Permalink to this headline">¶</a></h2>
 <p>In this phase, a common reference string containing the public information <span class="math notranslate nohighlight">\(pk\)</span> for an independent trapdoor commitment <span class="math notranslate nohighlight">\(KG\)</span>, <span class="math notranslate nohighlight">\(Com\)</span>, <span class="math notranslate nohighlight">\(Ver\)</span>, <span class="math notranslate nohighlight">\(Equiv\)</span> is selected and published. This could be accomplished by a trusted third party, who can be assumed to erase any secret information (i.e. the trapdoor of the commitment) after selection.</p>
 <p>The common parameters <span class="math notranslate nohighlight">\(G, g, q\)</span> for the DSA scheme are assumed to be known.</p>
+</div>
 <hr class="docutils" />
+<div class="section" id="Key-generation-protocol">
+<h2>Key generation protocol<a class="headerlink" href="#Key-generation-protocol" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -391,8 +395,123 @@ div.rendered_html tbody tr:hover {
 <span class="kn">from</span> <span class="nn">klefki.types.algebra.concrete</span> <span class="k">import</span> <span class="n">EllipticCurveGroupSecp256k1</span> <span class="k">as</span> <span class="n">Cruve</span>
 <span class="kn">from</span> <span class="nn">klefki.types.algebra.concrete</span> <span class="k">import</span> <span class="n">FiniteFieldCyclicSecp256k1</span> <span class="k">as</span> <span class="n">CF</span>
 <span class="kn">from</span> <span class="nn">klefki.types.algebra.concrete</span> <span class="k">import</span> <span class="n">FiniteFieldSecp256k1</span> <span class="k">as</span> <span class="n">F</span>
+<span class="kn">from</span> <span class="nn">klefki.zkp.pedersen</span> <span class="k">import</span> <span class="n">PedersonCommitment</span>
 <span class="kn">from</span> <span class="nn">klefki.types.algebra.utils</span> <span class="k">import</span> <span class="n">randfield</span>
 <span class="kn">from</span> <span class="nn">klefki.bitcoin.address</span> <span class="k">import</span> <span class="n">gen_address</span>
+</pre></div>
+</div>
+</div>
+<p>Here we describe how the players can jointly generate a DSA key pair <span class="math notranslate nohighlight">\((x, y = g_x)\)</span> with <span class="math notranslate nohighlight">\(y\)</span> public and <span class="math notranslate nohighlight">\(x\)</span> shared among the players.</p>
+<p>The idea is to generate a public key <span class="math notranslate nohighlight">\(E\)</span> for an additively <span class="math notranslate nohighlight">\((\mod N)\)</span> homomorphic encryption scheme <span class="math notranslate nohighlight">\(E\)</span>, together with the secret key <span class="math notranslate nohighlight">\(D\)</span> in shared form among the players.</p>
+<p>The value <span class="math notranslate nohighlight">\(N\)</span> is is chosen to be larger than <span class="math notranslate nohighlight">\(q^8\)</span></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">klefki.crypto.paillier</span> <span class="k">import</span> <span class="n">Paillier</span>
+<span class="kn">from</span> <span class="nn">klefki.zkp.pedersen</span> <span class="k">import</span> <span class="n">PedersonCommitment</span><span class="p">,</span> <span class="n">com</span> <span class="k">as</span> <span class="n">commit</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">partial</span>
+<span class="kn">from</span> <span class="nn">klefki.types.algebra.concrete</span> <span class="k">import</span> <span class="n">FiniteFieldCyclicSecp256k1</span> <span class="k">as</span> <span class="n">CF</span>
+<span class="kn">from</span> <span class="nn">klefki.numbers.primes</span> <span class="k">import</span> <span class="n">generate_prime</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">reduce</span>
+<span class="kn">from</span> <span class="nn">operator</span> <span class="k">import</span> <span class="n">mul</span><span class="p">,</span> <span class="n">add</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">q</span> <span class="o">=</span> <span class="n">CF</span><span class="p">(</span><span class="n">CF</span><span class="o">.</span><span class="n">P</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">P</span> <span class="o">=</span> <span class="n">generate_prime</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+<span class="n">Q</span> <span class="o">=</span> <span class="n">generate_prime</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+<span class="n">Pai</span> <span class="o">=</span> <span class="n">Paillier</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">Q</span><span class="p">)</span>
+<span class="n">E</span><span class="p">,</span> <span class="n">D</span> <span class="o">=</span> <span class="n">Pai</span><span class="o">.</span><span class="n">E</span><span class="p">,</span> <span class="n">Pai</span><span class="o">.</span><span class="n">D</span>
+</pre></div>
+</div>
+</div>
+<p>Then a value <span class="math notranslate nohighlight">\(x\)</span> is generated, and encrypted with E, with the value <span class="math notranslate nohighlight">\(α = E(x)\)</span> made public.</p>
+<p>Note that this is an implicit <span class="math notranslate nohighlight">\((t, n)\)</span> secret sharing of <span class="math notranslate nohighlight">\(x\)</span>, since the decryption key of <span class="math notranslate nohighlight">\(E\)</span> is shared among the players.</p>
+<ul class="simple">
+<li><p>Each player <span class="math notranslate nohighlight">\(P_i\)</span> selects a random value <span class="math notranslate nohighlight">\(x_i ∈ Z_q\)</span> , computes <span class="math notranslate nohighlight">\(y_i\)</span> = <span class="math notranslate nohighlight">\(g_{x_i} ∈ G\)</span> and <span class="math notranslate nohighlight">\([C_i , D_i ] = Com(y_i)\)</span>;</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">G</span> <span class="o">=</span> <span class="n">ECC</span><span class="o">.</span><span class="n">G</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">xs</span> <span class="o">=</span> <span class="p">[</span><span class="n">randfield</span><span class="p">(</span><span class="n">CF</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+<span class="n">ys</span> <span class="o">=</span> <span class="p">[</span><span class="n">G</span> <span class="o">**</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">xs</span><span class="p">]</span>
+
+<span class="n">trap</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">CF</span><span class="p">)</span>
+<span class="n">H</span> <span class="o">=</span> <span class="n">G</span> <span class="o">**</span> <span class="n">trap</span>
+<span class="n">com</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">PedersonCommitment</span><span class="p">,</span> <span class="n">H</span><span class="o">=</span><span class="n">H</span><span class="p">,</span> <span class="n">G</span><span class="o">=</span><span class="n">G</span><span class="p">)</span>
+
+<span class="n">coms</span> <span class="o">=</span> <span class="p">[</span><span class="n">com</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">y</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">r</span><span class="o">=</span><span class="n">y</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">ys</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="n">xs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<ul>
+<li><p>Each player <span class="math notranslate nohighlight">\(P_i\)</span> broadcast <span class="math notranslate nohighlight">\(C_i\)</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(D_i\)</span> which allows everybody to compute <span class="math notranslate nohighlight">\(y_i = Ver(C_i , D_i )\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\alpha_i=E(x_i);\)</span></p></li>
+<li><p>a ZK argument <span class="math notranslate nohighlight">\(\Pi_i\)</span> that states</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\exists \mu=y_i\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(D(a_i)=\mu\)</span></p></li>
+</ul>
+</li>
+</ul>
+<p>If any of the ZK arguments fails, the protocol terminates.</p>
+</li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">all</span><span class="p">([</span><span class="n">c</span><span class="o">.</span><span class="n">C</span> <span class="o">==</span> <span class="n">commit</span><span class="p">(</span><span class="n">H</span><span class="o">=</span><span class="n">H</span><span class="p">,</span> <span class="n">G</span><span class="o">=</span><span class="n">G</span><span class="p">,</span> <span class="o">*</span><span class="n">c</span><span class="o">.</span><span class="n">D</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">coms</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>True
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">operator</span> <span class="k">import</span> <span class="n">mul</span>
+<span class="kn">from</span> <span class="nn">klefki.types.algebra.meta</span> <span class="k">import</span> <span class="n">field</span>
 </pre></div>
 </div>
 </div>
@@ -401,47 +520,426 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">G</span> <span class="o">=</span> <span class="n">ECC</span><span class="o">.</span><span class="n">G</span>
+<span></span><span class="kn">from</span> <span class="nn">operator</span> <span class="k">import</span> <span class="n">add</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">reduce</span>
+
+<span class="n">alpha</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="n">mul</span><span class="p">,</span> <span class="p">[</span><span class="n">E</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">xs</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="n">ys</span><span class="p">)</span>
+<span class="n">FN</span> <span class="o">=</span> <span class="n">alpha</span><span class="o">.</span><span class="n">functor</span>
 </pre></div>
 </div>
 </div>
+<ul class="simple">
+<li><p>proof</p></li>
+</ul>
 <div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">assert</span> <span class="n">CF</span><span class="p">(</span><span class="n">D</span><span class="p">(</span><span class="n">alpha</span><span class="p">))</span> <span class="o">==</span> <span class="n">reduce</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="n">xs</span><span class="p">)</span> <span class="o">==</span> <span class="n">x</span>
+<span class="k">assert</span> <span class="n">G</span> <span class="o">**</span> <span class="n">CF</span><span class="p">(</span><span class="n">D</span><span class="p">(</span><span class="n">alpha</span><span class="p">))</span> <span class="o">==</span> <span class="n">y</span>
+</pre></div>
+</div>
+</div>
+<ul class="simple">
+<li><p>The players compute <span class="math notranslate nohighlight">\(\alpha=\oplus_{i=1}^{t+1}a_i\)</span> and <span class="math notranslate nohighlight">\(y=\sum_{i=1}^{t+1}y_i\)</span></p></li>
+</ul>
+</div>
+<div class="section" id="Signature-Generation">
+<h2>Signature Generation<a class="headerlink" href="#Signature-Generation" title="Permalink to this headline">¶</a></h2>
+<p>The signature generation protocol is run on input <span class="math notranslate nohighlight">\(m\)</span> (the hash of the message <span class="math notranslate nohighlight">\(M\)</span> being signed)</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+
+<span></span><span class="kn">from</span> <span class="nn">klefki.utils</span> <span class="k">import</span> <span class="n">to_sha256int</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="n">CF</span><span class="p">(</span><span class="n">to_sha256int</span><span class="p">(</span><span class="s2">&quot;Hello Threshold ECDSA&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<p>Each player <span class="math notranslate nohighlight">\(P_i\)</span></p>
+<ol class="arabic simple">
+<li><p>choose <span class="math notranslate nohighlight">\(\rho_i \leftarrow Z_q\)</span></p></li>
+<li><p>compute <span class="math notranslate nohighlight">\(u_i=E(\rho_i)\)</span> and <span class="math notranslate nohighlight">\(v_i=p_i \times_E\alpha = E(\rho_ix)\)</span></p></li>
+<li><p>compute <span class="math notranslate nohighlight">\([C_{1,i}, D_{i,i}]=Com([u_i, v_i])\)</span> and broadcast <span class="math notranslate nohighlight">\(C_{1,i}\)</span></p></li>
+</ol>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">ps</span> <span class="o">=</span> <span class="p">[</span><span class="n">randfield</span><span class="p">(</span><span class="n">CF</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+<span class="n">us</span> <span class="o">=</span> <span class="p">[</span><span class="n">E</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ps</span><span class="p">]</span>
+<span class="n">vs</span> <span class="o">=</span> <span class="p">[</span><span class="n">alpha</span> <span class="o">**</span> <span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ps</span><span class="p">]</span>
+
+<span class="n">coms1</span> <span class="o">=</span> <span class="p">[</span><span class="n">com</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">r</span><span class="o">=</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">us</span><span class="p">,</span> <span class="n">vs</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<p>Each player <span class="math notranslate nohighlight">\(P_i\)</span> broadcasts:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(D_{1,i}\)</span>. This allow everybody to compute <span class="math notranslate nohighlight">\([u_i, v_i]=Ver(C_{1,i}, D_{1,i})\)</span></p></li>
+<li><p>a zero-knowledge argument <span class="math notranslate nohighlight">\(\Pi_{1,i}\)</span> which states</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\exists \eta \in [-q^3,q^3]\)</span> such that</p>
+<p><span class="math notranslate nohighlight">\(D(u_i)=\eta\)</span></p>
+<p><span class="math notranslate nohighlight">\(D(v_i)=\eta D(E(x)\)</span></p>
+</li>
+</ul>
+</li>
+</ul>
+<p>Players compute <span class="math notranslate nohighlight">\(u=\oplus_{i=1}^{t+1}u_i=E(\rho)\)</span> and <span class="math notranslate nohighlight">\(v=\oplus_{i=1}^{t+1}v_i=E(\rho x)\)</span>, where <span class="math notranslate nohighlight">\(\rho=\sum_{i=1}^{1+1}\rho_i\)</span></p>
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">KG</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="p">(</span><span class="n">randfield</span><span class="p">(</span><span class="n">CF</span><span class="p">),</span> <span class="n">randfield</span><span class="p">(</span><span class="n">CF</span><span class="p">))</span>
-<span class="n">Com</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">pk</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">R</span><span class="p">:</span> <span class="p">(</span><span class="n">G</span><span class="o">**</span><span class="n">pk</span><span class="o">**</span><span class="n">m</span><span class="p">,</span> <span class="n">G</span><span class="o">**</span><span class="n">R</span><span class="p">)</span>
+<span></span><span class="nb">all</span><span class="p">([</span><span class="n">c</span><span class="o">.</span><span class="n">C</span> <span class="o">==</span> <span class="n">commit</span><span class="p">(</span><span class="n">H</span><span class="o">=</span><span class="n">H</span><span class="p">,</span> <span class="n">G</span><span class="o">=</span><span class="n">G</span><span class="p">,</span> <span class="o">*</span><span class="n">c</span><span class="o">.</span><span class="n">D</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">coms1</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
-</div>
-<div class="section" id="Key-generation-protocol">
-<h2>Key generation protocol<a class="headerlink" href="#Key-generation-protocol" title="Permalink to this headline">¶</a></h2>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>True
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
+<span></span><span class="n">u</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="n">mul</span><span class="p">,</span> <span class="n">us</span><span class="p">)</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="n">mul</span><span class="p">,</span> <span class="n">vs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<ul class="simple">
+<li><p>proof</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">assert</span> <span class="n">CF</span><span class="p">(</span><span class="n">D</span><span class="p">(</span><span class="n">u</span><span class="p">))</span> <span class="o">==</span> <span class="n">reduce</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="p">(</span><span class="n">ps</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
+<span></span><span class="k">assert</span> <span class="n">CF</span><span class="p">(</span><span class="n">D</span><span class="p">(</span><span class="n">alpha</span> <span class="o">**</span> <span class="n">ps</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span> <span class="o">==</span> <span class="n">x</span> <span class="o">*</span> <span class="n">ps</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">assert</span> <span class="n">CF</span><span class="p">(</span><span class="n">D</span><span class="p">(</span><span class="n">alpha</span> <span class="o">**</span> <span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">alpha</span> <span class="o">**</span> <span class="n">ps</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">alpha</span> <span class="o">**</span> <span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span> <span class="o">==</span> <span class="n">x</span> <span class="o">*</span> <span class="p">(</span><span class="n">ps</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">ps</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">==</span> <span class="n">CF</span><span class="p">(</span><span class="n">D</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">assert</span> <span class="n">CF</span><span class="p">(</span><span class="n">D</span><span class="p">(</span><span class="n">v</span><span class="p">))</span> <span class="o">==</span> <span class="n">CF</span><span class="p">(</span><span class="n">D</span><span class="p">(</span><span class="n">E</span><span class="p">(</span><span class="n">reduce</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="n">ps</span><span class="p">)</span> <span class="o">*</span> <span class="n">x</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Round-3">
+<h3>Round 3<a class="headerlink" href="#Round-3" title="Permalink to this headline">¶</a></h3>
+<p>Each player <span class="math notranslate nohighlight">\(P_i\)</span></p>
+<ul class="simple">
+<li><p>choose <span class="math notranslate nohighlight">\(k_i \in Z_q\)</span> and <span class="math notranslate nohighlight">\(c_i \in R[-q^6, q^6]\)</span></p></li>
+<li><p>computes <span class="math notranslate nohighlight">\(r_i=g^{k_i}\)</span> and <span class="math notranslate nohighlight">\(w_i=(k_i\times_E u) +_E E(c_iq)=E(k_i\rho+c_iq))\)</span></p></li>
+<li><p>computes <span class="math notranslate nohighlight">\([C_{2,i},D_{2_i}=Com(r_i,w_i)\)</span> and broadcast <span class="math notranslate nohighlight">\(C_{2i}\)</span></p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">ks</span> <span class="o">=</span> <span class="p">[</span><span class="n">randfield</span><span class="p">(</span><span class="n">CF</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+<span class="n">rs</span> <span class="o">=</span> <span class="p">[</span><span class="n">G</span><span class="o">**</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">ks</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">cs</span> <span class="o">=</span> <span class="p">[</span><span class="n">randfield</span><span class="p">(</span><span class="n">CF</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+<span class="n">ws</span> <span class="o">=</span> <span class="p">[(</span><span class="n">u</span> <span class="o">**</span> <span class="n">k</span><span class="p">)</span> <span class="o">*</span> <span class="n">E</span><span class="p">(</span><span class="n">c</span><span class="o">*</span><span class="n">q</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">cs</span><span class="p">,</span> <span class="n">ks</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">coms2</span> <span class="o">=</span> <span class="p">[</span><span class="n">com</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="n">w</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">cs</span><span class="p">,</span> <span class="n">ws</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">dcoms2</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">D</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">coms</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Proof</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">CF</span><span class="p">(</span><span class="n">D</span><span class="p">(</span><span class="n">u</span> <span class="o">**</span> <span class="n">ks</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="o">==</span> <span class="n">reduce</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="p">(</span><span class="n">ps</span><span class="p">))</span> <span class="o">*</span> <span class="n">ks</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>True
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">CF</span><span class="p">(</span><span class="n">D</span><span class="p">(</span><span class="n">u</span> <span class="o">**</span> <span class="n">ks</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">E</span><span class="p">(</span><span class="n">cs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">q</span><span class="p">)))</span> <span class="o">==</span> <span class="n">CF</span><span class="p">(</span><span class="n">D</span><span class="p">(</span><span class="n">u</span> <span class="o">**</span> <span class="n">ks</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="n">D</span><span class="p">(</span><span class="n">E</span><span class="p">(</span><span class="n">cs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">q</span><span class="p">)))</span> \
+                                 <span class="o">==</span> <span class="n">reduce</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="p">(</span><span class="n">ps</span><span class="p">))</span> <span class="o">*</span> <span class="n">ks</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">cs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">q</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Round-4">
+<h3>Round 4<a class="headerlink" href="#Round-4" title="Permalink to this headline">¶</a></h3>
+<p>Each player P_i broadcasts</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(D_{2,i}\)</span>, which allows everybody to compute <span class="math notranslate nohighlight">\([r_i , w_i ]\)</span> = <span class="math notranslate nohighlight">\(Ver(C_{2,i} , D_{2,i} )\)</span></p></li>
+<li><p>a zero-knowledge argument <span class="math notranslate nohighlight">\(Π_{(2,i)}\)</span></p></li>
+</ol>
+<p>Players compute <span class="math notranslate nohighlight">\(w=\oplus_{i=1}^{t+1}w_i=E(k\rho + cq)\)</span> where <span class="math notranslate nohighlight">\(k=\sum_{i=1}^{t+1}k_i\)</span> and <span class="math notranslate nohighlight">\(c=\sum_{i=1}^{t+1}c_i\)</span>. Players also compute <span class="math notranslate nohighlight">\(R=\Pi_i^{t+1}r_i=g^k\)</span> and <span class="math notranslate nohighlight">\(r=H'(R)\in Z_q\)</span></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">all</span><span class="p">([</span><span class="n">c</span><span class="o">.</span><span class="n">C</span> <span class="o">==</span> <span class="n">commit</span><span class="p">(</span><span class="n">H</span><span class="o">=</span><span class="n">H</span><span class="p">,</span> <span class="n">G</span><span class="o">=</span><span class="n">G</span><span class="p">,</span> <span class="o">*</span><span class="n">c</span><span class="o">.</span><span class="n">D</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">coms2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>True
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">w</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="n">mul</span><span class="p">,</span> <span class="n">ws</span><span class="p">)</span>
+<span class="n">R</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="n">mul</span><span class="p">,</span> <span class="n">rs</span><span class="p">)</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">CF</span><span class="p">(</span><span class="n">R</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Proof</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">R</span> <span class="o">==</span> <span class="n">G</span> <span class="o">**</span> <span class="n">reduce</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="n">ks</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>True
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">CF</span><span class="p">(</span><span class="n">D</span><span class="p">(</span><span class="n">w</span><span class="p">))</span> <span class="o">==</span> <span class="n">reduce</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="p">(</span><span class="n">ps</span><span class="p">))</span> <span class="o">*</span> <span class="n">reduce</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="n">ks</span><span class="p">)</span> <span class="o">+</span> <span class="n">reduce</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="n">cs</span><span class="p">)</span> <span class="o">*</span> <span class="n">q</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Round-5">
+<h3>Round 5<a class="headerlink" href="#Round-5" title="Permalink to this headline">¶</a></h3>
+<p>players jointly decrypt <span class="math notranslate nohighlight">\(w\)</span> using <strong>TDec</strong> to learn the value <span class="math notranslate nohighlight">\(\tau ∈ [−q^7 , q^7]\)</span> such that <span class="math notranslate nohighlight">\(\tau = kρ \mod q\)</span> and <span class="math notranslate nohighlight">\(ψ = η ^{−1} \mod q\)</span></p>
+<p>Each player computes:</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+\sigma &amp;= \psi \times_E [m\times_E u]+_E(r\times_E v)]\\
+&amp;= \psi \times_E [E(m\rho) +_E E(r \rho x)]\\
+&amp;= (k^{-1\rho^{-1}}\times_E [E(\rho (m+xr)) \\
+&amp;=E(k^{-1}(m+xr))\\
+&amp;=E(s)
+\end{align}</div><div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">psi</span> <span class="o">=</span> <span class="n">CF</span><span class="p">(</span><span class="n">D</span><span class="p">(</span><span class="n">w</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pai</span> <span class="o">=</span> <span class="o">~</span><span class="n">psi</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sigma</span> <span class="o">=</span> <span class="p">((</span><span class="n">u</span><span class="o">**</span><span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">v</span><span class="o">**</span><span class="n">r</span><span class="p">))</span> <span class="o">**</span> <span class="n">pai</span>
+</pre></div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Proof</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="n">xs</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="n">ps</span><span class="p">)</span>
+<span class="n">k</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="n">ks</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">assert</span> <span class="n">CF</span><span class="p">(</span><span class="n">D</span><span class="p">(</span><span class="n">u</span><span class="o">**</span><span class="n">m</span><span class="p">))</span> <span class="o">==</span> <span class="n">m</span> <span class="o">*</span> <span class="n">p</span>
+<span class="k">assert</span> <span class="n">CF</span><span class="p">(</span><span class="n">D</span><span class="p">(</span><span class="n">v</span><span class="o">**</span><span class="n">r</span><span class="p">))</span> <span class="o">==</span> <span class="n">r</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">x</span>
+<span class="k">assert</span> <span class="n">CF</span><span class="p">(</span><span class="n">D</span><span class="p">(</span><span class="n">u</span><span class="o">**</span><span class="n">m</span><span class="p">))</span> <span class="o">+</span> <span class="n">CF</span><span class="p">(</span><span class="n">D</span><span class="p">(</span><span class="n">v</span><span class="o">**</span><span class="n">r</span><span class="p">))</span> <span class="o">==</span> <span class="n">p</span> <span class="o">*</span> <span class="p">(</span><span class="n">m</span> <span class="o">+</span> <span class="n">x</span> <span class="o">*</span> <span class="n">r</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">CF</span><span class="p">(</span><span class="n">D</span><span class="p">((</span><span class="n">u</span><span class="o">**</span><span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">v</span><span class="o">**</span><span class="n">r</span><span class="p">)))</span> <span class="o">==</span> <span class="n">p</span> <span class="o">*</span> <span class="p">(</span><span class="n">m</span> <span class="o">+</span> <span class="n">x</span> <span class="o">*</span> <span class="n">r</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">CF</span><span class="p">(</span><span class="n">D</span><span class="p">(((</span><span class="n">u</span><span class="o">**</span><span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">v</span><span class="o">**</span><span class="n">r</span><span class="p">))</span> <span class="o">**</span> <span class="n">pai</span><span class="p">))</span> <span class="o">==</span> <span class="p">(</span><span class="n">m</span> <span class="o">+</span> <span class="n">x</span> <span class="o">*</span> <span class="n">r</span><span class="p">)</span><span class="o">/</span><span class="n">k</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">assert</span> <span class="n">CF</span><span class="p">(</span><span class="n">D</span><span class="p">(</span><span class="n">sigma</span><span class="p">))</span> <span class="o">==</span> <span class="p">(</span><span class="n">m</span> <span class="o">+</span> <span class="n">x</span> <span class="o">*</span> <span class="n">r</span><span class="p">)</span><span class="o">/</span><span class="n">k</span>
+<span class="k">assert</span> <span class="p">(</span><span class="n">G</span> <span class="o">**</span> <span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="n">r</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Round-6">
+<h3>Round 6<a class="headerlink" href="#Round-6" title="Permalink to this headline">¶</a></h3>
+<p>The players invoke distributed decryption protocol TDec over the ciphertext <span class="math notranslate nohighlight">\(σ\)</span>. Let <span class="math notranslate nohighlight">\(s = D(σ) mod q\)</span>. The players output <span class="math notranslate nohighlight">\((r, s)\)</span> as the signature for <span class="math notranslate nohighlight">\(m\)</span>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">r</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">r</span><span class="p">,</span> <span class="n">CF</span><span class="p">(</span><span class="n">D</span><span class="p">(</span><span class="n">sigma</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="Verify">
+<h2>Verify<a class="headerlink" href="#Verify" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">klefki.crypto.ecdsa.secp256k1</span> <span class="k">import</span> <span class="n">verify</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">verify</span><span class="p">(</span><span class="n">pub</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">sig</span><span class="o">=</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">s</span><span class="p">),</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;Hello Threshold ECDSA&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>True
 </pre></div>
 </div>
 </div>
@@ -449,6 +947,24 @@ div.rendered_html tbody tr:hover {
 <li><p>Antonio Salazar Cardozo, Threshold ECDSA — Safer, more private multi-signatures, <a class="reference external" href="https://blog.keep.network/threshold-ecdsa-safer-more-private-multi-signatures-51153f3e9ed2">https://blog.keep.network/threshold-ecdsa-safer-more-private-multi-signatures-51153f3e9ed2</a></p></li>
 <li><p>Gennaro, Rosario, Steven Goldfeder, and Arvind Narayanan. “Threshold-Optimal DSA/ECDSA Signatures and an Application to Bitcoin Wallet Security.” In Applied Cryptography and Network Security, edited by Mark Manulis, Ahmad-Reza Sadeghi, and Steve Schneider, 9696:156–74. Cham: Springer International Publishing, 2016. <a class="reference external" href="https://doi.org/10.1007/978-3-319-39555-5_9">https://doi.org/10.1007/978-3-319-39555-5_9</a>.</p></li>
 </ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 
@@ -477,14 +993,17 @@ div.rendered_html tbody tr:hover {
 <li class="toctree-l1"><a class="reference internal" href="README.html">TL;DR</a></li>
 <li class="toctree-l1"><a class="reference internal" href="README.html#docs">Docs</a></li>
 </ul>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Non-interactive and Reusable Non-malleable Commitment Schemes.html">Non-interactive and Reusable Non-malleable Commitment Schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pedersen Commitment.html">Pedersen Commitment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="On Sigma Protocols.html"><span class="math notranslate nohighlight">\(\Sigma\)</span> Protocols</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Abstract Algebra Types.html">Abstract Algebra Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Homomorphic Encryption.html">Homomorphic Encryption</a></li>
 <li class="toctree-l1"><a class="reference internal" href="From ZK to Bulletproofs.html">From ZK to Bulletproofsproof via Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Paillier's encryption Scheme.html">Paillier’s encryption Scheme</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Shamir's secret sharing scheme.html">Shamir’s secret sharing scheme</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Trapdoor Commitment Schemes.html">Discrete-Logarithm-Based Trapdoor Commitment Schemes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Threshold ECDSA</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
@@ -494,6 +1013,7 @@ div.rendered_html tbody tr:hover {
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="Trapdoor Commitment Schemes.html" title="previous chapter">Discrete-Logarithm-Based Trapdoor Commitment Schemes</a></li>
   </ul></li>
 </ul>
 </div>

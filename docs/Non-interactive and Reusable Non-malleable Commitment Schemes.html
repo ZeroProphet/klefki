@@ -17,7 +17,7 @@
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Abstract Algebra Types" href="Abstract Algebra Types.html" />
+    <link rel="next" title="Pedersen Commitment" href="Pedersen Commitment.html" />
     <link rel="prev" title="TL;DR" href="README.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -308,6 +308,8 @@ adversary specify the mes- sages rather than ﬁrst forming commitments and then
 <span class="kn">from</span> <span class="nn">klefki.types.algebra.concrete</span> <span class="k">import</span> <span class="n">FiniteFieldSecp256k1</span> <span class="k">as</span> <span class="n">F</span>
 <span class="kn">from</span> <span class="nn">klefki.types.algebra.utils</span> <span class="k">import</span> <span class="n">randfield</span>
 <span class="kn">from</span> <span class="nn">klefki.bitcoin.address</span> <span class="k">import</span> <span class="n">gen_address</span>
+<span class="kn">from</span> <span class="nn">klefki.utils</span> <span class="k">import</span> <span class="n">to_sha256int</span>
+
 </pre></div>
 </div>
 </div>
@@ -317,7 +319,7 @@ adversary specify the mes- sages rather than ﬁrst forming commitments and then
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">pk</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">CF</span><span class="p">)</span>
-<span class="n">vk</span> <span class="o">=</span> <span class="n">ECC</span><span class="o">.</span><span class="n">G</span> <span class="o">**</span> <span class="n">pk</span>
+<span class="n">vk</span> <span class="o">=</span> <span class="n">CF</span><span class="p">(</span><span class="n">to_sha256int</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">pk</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
 <span class="n">h</span> <span class="o">=</span> <span class="n">gen_address</span>
 <span class="n">PK</span> <span class="o">=</span> <span class="p">(</span><span class="n">pk</span><span class="p">,</span> <span class="n">vk</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
 </pre></div>
@@ -334,46 +336,68 @@ adversary specify the mes- sages rather than ﬁrst forming commitments and then
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">klefki.zkp.pedersen</span> <span class="k">import</span> <span class="n">com</span> <span class="k">as</span> <span class="n">commit</span>
-<span class="kn">from</span> <span class="nn">klefki.utils</span> <span class="k">import</span> <span class="n">to_sha256int</span>
+<span class="kn">from</span> <span class="nn">klefki.zkp.pedersen</span> <span class="k">import</span> <span class="n">PedersonCommitment</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">partial</span>
 
 <span class="n">G</span> <span class="o">=</span> <span class="n">ECC</span><span class="o">.</span><span class="n">G</span>
-<span class="n">H</span> <span class="o">=</span> <span class="n">Cruve</span><span class="o">.</span><span class="n">lift_x</span><span class="p">(</span><span class="n">CF</span><span class="p">(</span><span class="n">to_sha256int</span><span class="p">(</span><span class="s2">&quot;hello NIRNCS&quot;</span><span class="p">)))</span>
-<span class="n">com</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">commit</span><span class="p">,</span> <span class="n">H</span><span class="o">=</span><span class="n">H</span><span class="p">,</span> <span class="n">G</span><span class="o">=</span><span class="n">G</span><span class="p">)</span>
+<span class="n">H</span> <span class="o">=</span> <span class="n">G</span> <span class="o">**</span> <span class="n">CF</span><span class="p">(</span><span class="n">to_sha256int</span><span class="p">(</span><span class="s2">&quot;hello NIRNCS&quot;</span><span class="p">))</span>
+<span class="c1">#com = partial(commit, H=H, G=G)</span>
+<span class="n">ak</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">CF</span><span class="p">)</span>
+<span class="n">com</span> <span class="o">=</span> <span class="n">PedersonCommitment</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">pk</span><span class="p">,</span> <span class="n">ak</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<p><span class="math notranslate nohighlight">\((𝑐,𝑑)=𝐻𝑆𝑐𝑜𝑚𝑚𝑖𝑡𝑝𝑘(𝑎𝑘)\)</span></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">ak</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">CF</span><span class="p">)</span>
-<span class="n">c</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="p">(</span><span class="n">G</span> <span class="o">**</span> <span class="n">pk</span><span class="p">,</span> <span class="n">G</span> <span class="o">**</span> <span class="n">ak</span><span class="p">),</span> <span class="p">(</span><span class="n">pk</span><span class="p">,</span> <span class="n">ak</span><span class="p">)</span>
+<span></span><span class="n">c</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">C</span><span class="p">,</span> <span class="n">com</span><span class="o">.</span><span class="n">D</span>
+<span class="c1">#c, d = (G ** pk, G ** ak), (pk, ak)</span>
 </pre></div>
 </div>
 </div>
+<p><span class="math notranslate nohighlight">\(α=ℎ(𝑐)\)</span></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># Now we simulate a proof of knowledge of a signature on 𝛼 with challenge 𝑚</span>
-<span class="n">m</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">CF</span><span class="p">)</span>
-<span class="n">r2</span> <span class="o">=</span> <span class="n">to_sha256int</span><span class="p">(</span><span class="n">gen_address</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
-<span class="n">a</span> <span class="o">=</span> <span class="n">G</span> <span class="o">**</span> <span class="n">r2</span>
+<span></span><span class="n">alpha</span> <span class="o">=</span> <span class="n">CF</span><span class="p">(</span><span class="n">to_sha256int</span><span class="p">(</span><span class="n">gen_address</span><span class="p">(</span><span class="n">c</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
+<p>Now we simulate a proof of knowledge of a signature on 𝛼 with challenge 𝑚</p>
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">z</span> <span class="o">=</span> <span class="n">ak</span> <span class="o">+</span> <span class="n">m</span> <span class="o">*</span> <span class="n">pk</span>
+<span></span><span class="n">m</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">CF</span><span class="p">)</span>
+<span class="n">S</span> <span class="o">=</span> <span class="n">PedersonCommitment</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">vk</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span>
+<span class="n">r1</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">CF</span><span class="p">)</span>
+<span class="n">r2</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">CF</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">S</span><span class="o">.</span><span class="n">commit</span><span class="p">(</span><span class="n">r1</span><span class="p">,</span> <span class="n">r2</span><span class="p">)</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">S</span><span class="o">.</span><span class="n">challenge</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<span class="n">S</span><span class="o">.</span><span class="n">proof</span><span class="p">()</span>
+<span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>(EllipticCurveGroupSecp256k1::(FiniteFieldSecp256k1::65305324377188005782377700178028737401788663470526826050130238405561434306803, FiniteFieldSecp256k1::51756740416389774025916908316567670088786641308875261052677258404830697308940),
+ FiniteFieldCyclicSecp256k1::56646854059851268980329769907295932795576099875142914434658624564702613382143,
+ (FiniteFieldCyclicSecp256k1::109522999716473413521340105218466435927129271893586930248571930167452858230042,
+  FiniteFieldCyclicSecp256k1::21392565710504642859385122496656030560953184631209595551121610056043363985695))
+</pre></div>
+</div>
+</div>
+<p>Finally, we compute 𝑚𝑎𝑐=𝑀𝐴𝐶𝑎𝑘(𝑎).</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
@@ -402,44 +426,45 @@ adversary specify the mes- sages rather than ﬁrst forming commitments and then
 <div class="section" id="Decommitment:">
 <h3>Decommitment:<a class="headerlink" href="#Decommitment:" title="Permalink to this headline">¶</a></h3>
 <p>We open the honest sender commitment to get the authentication key. We compute <span class="math notranslate nohighlight">\(\alpha\)</span> as above. We verify the message authentication code. Finally, we verify the proof. If everything goes well we output <span class="math notranslate nohighlight">\(m\)</span>. Otherwise, we output <span class="math notranslate nohighlight">\(⊥\)</span>.</p>
-<div class="nbinput docutils container">
+<p>For the Pedersen Example, we got:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Z = u, v\\
+u = pk.m + ak\\
+v = ak.m + \alpha\end{split}\]</div>
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">G</span> <span class="o">**</span> <span class="n">z</span> <span class="o">==</span> <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">**</span> <span class="n">m</span>
+<span></span><span class="n">alpha</span> <span class="o">=</span> <span class="n">CF</span><span class="p">(</span><span class="n">to_sha256int</span><span class="p">(</span><span class="n">gen_address</span><span class="p">(</span><span class="n">c</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
-</pre></div>
-</div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>True
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">G</span> <span class="o">@</span> <span class="n">to_sha256int</span><span class="p">(</span><span class="n">gen_address</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>  <span class="o">==</span> <span class="n">a</span>
+<span></span><span class="n">S1</span> <span class="o">=</span> <span class="n">PedersonCommitment</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">vk</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
-</pre></div>
-</div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>True
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">r1</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">CF</span><span class="p">)</span>
+<span class="n">r2</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">CF</span><span class="p">)</span>
+
+<span class="n">S</span><span class="o">.</span><span class="n">commit</span><span class="p">(</span><span class="n">r1</span><span class="p">,</span> <span class="n">r2</span><span class="p">)</span>
+<span class="n">S</span><span class="o">.</span><span class="n">challenge</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">S</span><span class="o">.</span><span class="n">proof</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -448,11 +473,20 @@ adversary specify the mes- sages rather than ﬁrst forming commitments and then
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
 <span></span>True
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
 </pre></div>
 </div>
 </div>
@@ -461,26 +495,19 @@ adversary specify the mes- sages rather than ﬁrst forming commitments and then
 <div class="section" id="Implementation-in-Klefki">
 <h2>Implementation in Klefki<a class="headerlink" href="#Implementation-in-Klefki" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">klefki.zkp</span> <span class="k">import</span> <span class="n">gorth03</span> <span class="k">as</span> <span class="n">g</span>
-<span class="n">G</span> <span class="o">=</span> <span class="n">ECC</span><span class="o">.</span><span class="n">G</span>
-<span class="n">H</span> <span class="o">=</span> <span class="n">Cruve</span><span class="o">.</span><span class="n">lift_x</span><span class="p">(</span><span class="n">CF</span><span class="p">(</span><span class="n">to_sha256int</span><span class="p">(</span><span class="s2">&quot;hello NIRNCS&quot;</span><span class="p">)))</span>
-
-
-<span class="n">key</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">keygen</span><span class="p">(</span><span class="n">CF</span><span class="p">)</span>
-<span class="n">ak</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">CF</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">pk</span><span class="p">,</span> <span class="n">vk</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">key</span>
+<span></span><span class="kn">from</span> <span class="nn">klefki.zkp.gorth03</span> <span class="k">import</span> <span class="n">NMCommitment</span><span class="p">,</span> <span class="n">keygen</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">ECC</span><span class="o">.</span><span class="n">G</span>
+<span class="n">H</span> <span class="o">=</span> <span class="n">Cruve</span><span class="o">.</span><span class="n">lift_x</span><span class="p">(</span><span class="n">CF</span><span class="p">(</span><span class="n">to_sha256int</span><span class="p">(</span><span class="s2">&quot;hello NIRNCS&quot;</span><span class="p">)))</span>
+
+
+<span class="n">key</span> <span class="o">=</span> <span class="n">keygen</span><span class="p">(</span><span class="n">CF</span><span class="p">)</span>
+
+
+<span class="n">com</span> <span class="o">=</span> <span class="n">NMCommitment</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -489,21 +516,30 @@ adversary specify the mes- sages rather than ﬁrst forming commitments and then
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">c</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">commitment</span><span class="p">(</span><span class="n">CF</span><span class="p">(</span><span class="n">to_sha256int</span><span class="p">(</span><span class="s2">&quot;hello klefki&quot;</span><span class="p">)),</span> <span class="n">key</span><span class="p">,</span> <span class="n">ak</span><span class="p">)</span>
+<span></span><span class="n">pk</span><span class="p">,</span> <span class="n">vk</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">key</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput docutils container">
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">g</span><span class="o">.</span><span class="n">decommitment</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">==</span> <span class="n">CF</span><span class="p">(</span><span class="n">to_sha256int</span><span class="p">(</span><span class="s2">&quot;hello klefki&quot;</span><span class="p">))</span>
+<span></span><span class="n">c</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">commit</span><span class="p">(</span><span class="n">CF</span><span class="p">(</span><span class="n">to_sha256int</span><span class="p">(</span><span class="s2">&quot;hello klefki&quot;</span><span class="p">)),</span> <span class="n">ak</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">com</span><span class="o">.</span><span class="n">open</span><span class="p">()</span> <span class="o">==</span> <span class="n">CF</span><span class="p">(</span><span class="n">to_sha256int</span><span class="p">(</span><span class="s2">&quot;hello klefki&quot;</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -521,6 +557,15 @@ adversary specify the mes- sages rather than ﬁrst forming commitments and then
 </li>
 <li><p>Common reference string model <a class="reference external" href="https://en.wikipedia.org/wiki/Common_reference_string_model">https://en.wikipedia.org/wiki/Common_reference_string_model</a></p></li>
 </ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -560,12 +605,15 @@ adversary specify the mes- sages rather than ﬁrst forming commitments and then
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Non-interactive and Reusable Non-malleable Commitment Schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pedersen Commitment.html">Pedersen Commitment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="On Sigma Protocols.html"><span class="math notranslate nohighlight">\(\Sigma\)</span> Protocols</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Abstract Algebra Types.html">Abstract Algebra Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Homomorphic Encryption.html">Homomorphic Encryption</a></li>
 <li class="toctree-l1"><a class="reference internal" href="From ZK to Bulletproofs.html">From ZK to Bulletproofsproof via Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Paillier's encryption Scheme.html">Paillier’s encryption Scheme</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Shamir's secret sharing scheme.html">Shamir’s secret sharing scheme</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Trapdoor Commitment Schemes.html">Discrete-Logarithm-Based Trapdoor Commitment Schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Threshold ECDSA.html">Threshold ECDSA</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
@@ -576,7 +624,7 @@ adversary specify the mes- sages rather than ﬁrst forming commitments and then
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="README.html" title="previous chapter">TL;DR</a></li>
-      <li>Next: <a href="Abstract Algebra Types.html" title="next chapter">Abstract Algebra Types</a></li>
+      <li>Next: <a href="Pedersen Commitment.html" title="next chapter">Pedersen Commitment</a></li>
   </ul></li>
 </ul>
 </div>
