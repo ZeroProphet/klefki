@@ -17,6 +17,7 @@
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="POD-Mini and POD-AS" href="POD-Mini and POD-AS.html" />
     <link rel="prev" title="Discrete-Logarithm-Based Trapdoor Commitment Schemes" href="Trapdoor Commitment Schemes.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -238,22 +239,23 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="Threshold-ECDSA">
 <h1>Threshold ECDSA<a class="headerlink" href="#Threshold-ECDSA" title="Permalink to this headline">¶</a></h1>
 <p>Threshold signature schemes enable sharing signing power amongst n parties such that any subset of t + 1 can jointly sign, but any smaller subset cannot.</p>
-<p>## I Model, Definitions and Tools</p>
+<div class="section" id="I-Model,-Definitions-and-Tools">
+<h2>I Model, Definitions and Tools<a class="headerlink" href="#I-Model,-Definitions-and-Tools" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="1.1-Model">
-<h2>1.1 Model<a class="headerlink" href="#1.1-Model" title="Permalink to this headline">¶</a></h2>
+<h3>1.1 Model<a class="headerlink" href="#1.1-Model" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="Communication-Model">
-<h2><strong>Communication Model</strong><a class="headerlink" href="#Communication-Model" title="Permalink to this headline">¶</a></h2>
+<h3><strong>Communication Model</strong><a class="headerlink" href="#Communication-Model" title="Permalink to this headline">¶</a></h3>
 <p>We assume that our computation model is composed of a set of <span class="math notranslate nohighlight">\(n\)</span> players <span class="math notranslate nohighlight">\(P_1,\cdots, P_n\)</span> connected by a complete network of point-to-point channels and a broadcast channel.</p>
 </div>
 <div class="section" id="The-Adversary">
-<h2><strong>The Adversary</strong><a class="headerlink" href="#The-Adversary" title="Permalink to this headline">¶</a></h2>
+<h3><strong>The Adversary</strong><a class="headerlink" href="#The-Adversary" title="Permalink to this headline">¶</a></h3>
 <p>We assume that an adversary, <span class="math notranslate nohighlight">\(A\)</span>, can corrupt up to <span class="math notranslate nohighlight">\(t\)</span> of the <span class="math notranslate nohighlight">\(n\)</span> players in the network. <span class="math notranslate nohighlight">\(A\)</span> learns all the information stored at the corrupted nodes, and hears all the broadcasted messages. We consider two type of adver saries:</p>
 </div>
 <div class="section" id="1.2-Deﬁnitions">
-<h2>1.2 Deﬁnitions<a class="headerlink" href="#1.2-Deﬁnitions" title="Permalink to this headline">¶</a></h2>
+<h3>1.2 Deﬁnitions<a class="headerlink" href="#1.2-Deﬁnitions" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="Signature-Scheme">
-<h3><strong>Signature Scheme</strong><a class="headerlink" href="#Signature-Scheme" title="Permalink to this headline">¶</a></h3>
+<h4><strong>Signature Scheme</strong><a class="headerlink" href="#Signature-Scheme" title="Permalink to this headline">¶</a></h4>
 <p>A signature scheme <span class="math notranslate nohighlight">\(S\)</span> is a triple of eﬃcient randomized algorithms <span class="math notranslate nohighlight">\((Key-Gen, Sig, Ver)\)</span>.</p>
 <ul>
 <li><p><strong>Key-Gen</strong> is the key generator algorithm.</p>
@@ -269,11 +271,11 @@ div.rendered_html tbody tr:hover {
 </ul>
 </div>
 <div class="section" id="Threshold-secret-sharing">
-<h3>Threshold secret sharing<a class="headerlink" href="#Threshold-secret-sharing" title="Permalink to this headline">¶</a></h3>
+<h4>Threshold secret sharing<a class="headerlink" href="#Threshold-secret-sharing" title="Permalink to this headline">¶</a></h4>
 <p>Given a secret value <span class="math notranslate nohighlight">\(x\)</span> we say that the values <span class="math notranslate nohighlight">\((x_1 , \cdots , x_n)\)</span> constitute a <span class="math notranslate nohighlight">\((t, n)\)</span>-threshold secret sharing of <span class="math notranslate nohighlight">\(x\)</span> if <span class="math notranslate nohighlight">\(t\)</span> (or less) of these values reveal no information about <span class="math notranslate nohighlight">\(x\)</span>, and if there is an eﬃcient algorithm that outputs <span class="math notranslate nohighlight">\(x\)</span> having <span class="math notranslate nohighlight">\(t + 1\)</span> of the values <span class="math notranslate nohighlight">\(x_i\)</span> as inputs.</p>
 </div>
 <div class="section" id="Threshold-signature-schemes.">
-<h3>Threshold signature schemes.<a class="headerlink" href="#Threshold-signature-schemes." title="Permalink to this headline">¶</a></h3>
+<h4>Threshold signature schemes.<a class="headerlink" href="#Threshold-signature-schemes." title="Permalink to this headline">¶</a></h4>
 <p>Let <span class="math notranslate nohighlight">\(S=(Key-Gen, Sig, Ver)\)</span> be a signature scheme. A <span class="math notranslate nohighlight">\((t, n)\)</span>-threshold signature scheme <span class="math notranslate nohighlight">\(TS\)</span> for <span class="math notranslate nohighlight">\(S\)</span> is a pair of protocols <span class="math notranslate nohighlight">\((Thresh-Key-Gen, Thresh-Sig)\)</span> for the set of players <span class="math notranslate nohighlight">\(P_1 , \cdots, P_n\)</span> .</p>
 <ul class="simple">
 <li><p><strong>Thresh-Key-Gen</strong> is a distributed key generation protocol used by the players to jointly generate a pair <span class="math notranslate nohighlight">\((y, x)\)</span> of public/private keys on input a security parameter <span class="math notranslate nohighlight">\(1^\lambda\)</span> .</p></li>
@@ -282,9 +284,9 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="section" id="1.3-Tools">
-<h2>1.3 Tools<a class="headerlink" href="#1.3-Tools" title="Permalink to this headline">¶</a></h2>
+<h3>1.3 Tools<a class="headerlink" href="#1.3-Tools" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="Additively-Homomorphic-Encryption">
-<h3>Additively Homomorphic Encryption<a class="headerlink" href="#Additively-Homomorphic-Encryption" title="Permalink to this headline">¶</a></h3>
+<h4>Additively Homomorphic Encryption<a class="headerlink" href="#Additively-Homomorphic-Encryption" title="Permalink to this headline">¶</a></h4>
 <p>We assume the existence of an encryption scheme E which is additively homo- morphic modulo a large integer <span class="math notranslate nohighlight">\(N\)</span>, One instantiation of a scheme with these properties is <strong>Paillier’s encryption scheme</strong>.</p>
 <p>ref: <a class="reference external" href="https://ryankung.github.io/klefki/Paillier's%20encryption%20Scheme.html">Paillier’s encryption scheme</a></p>
 <p>With <span class="math notranslate nohighlight">\(\oplus_{i=1}^{t+1}\)</span>a_i, we denote the summation over the addition operation <span class="math notranslate nohighlight">\(+_E\)</span> of the encryption scheme:</p>
@@ -292,7 +294,7 @@ div.rendered_html tbody tr:hover {
 \[\oplus_{i=1}^{t+1}a_i = a_1 +_E a_2 +_E \cdots +_E a_{t+1}\]</div>
 </div>
 <div class="section" id="Threshold-Cryptosystems">
-<h3>Threshold Cryptosystems<a class="headerlink" href="#Threshold-Cryptosystems" title="Permalink to this headline">¶</a></h3>
+<h4>Threshold Cryptosystems<a class="headerlink" href="#Threshold-Cryptosystems" title="Permalink to this headline">¶</a></h4>
 <p>In a <span class="math notranslate nohighlight">\((t, n)\)</span>-threshold cryptosystem, there is a public key <span class="math notranslate nohighlight">\(pk\)</span> with a matching secret key <span class="math notranslate nohighlight">\(sk\)</span> which is shared among <span class="math notranslate nohighlight">\(n\)</span> players with a <span class="math notranslate nohighlight">\((t, n)\)</span>-secret sharing.</p>
 <p>When a message <span class="math notranslate nohighlight">\(m\)</span> is encrypted under <span class="math notranslate nohighlight">\(pk\)</span>, <span class="math notranslate nohighlight">\(t+1\)</span> players can decrypt it via a communication protocol that does not expose the secret key.</p>
 <p>More formally, a public key cryptosystem <span class="math notranslate nohighlight">\(\epsilon\)</span> is deﬁned by three eﬃcient algorithms:</p>
@@ -327,7 +329,7 @@ div.rendered_html tbody tr:hover {
 </ul>
 </div>
 <div class="section" id="Independent-Trapdoor-Commitments">
-<h3>Independent Trapdoor Commitments<a class="headerlink" href="#Independent-Trapdoor-Commitments" title="Permalink to this headline">¶</a></h3>
+<h4>Independent Trapdoor Commitments<a class="headerlink" href="#Independent-Trapdoor-Commitments" title="Permalink to this headline">¶</a></h4>
 <p>A trapdoor commitment scheme allows a sender to commit to a message with information-theoretic privacy.</p>
 <p>A (non-interactive) <strong>trapdoor commitment scheme</strong> consists of four algorithms <span class="math notranslate nohighlight">\(KG, Com, Ver, Equiv\)</span> with the following properties:</p>
 <ul class="simple">
@@ -351,8 +353,11 @@ div.rendered_html tbody tr:hover {
 <p>if the honest parties open their commitments in diﬀerent ways using the trapdoor, the adversary cannot change the way he opens his commitments C_j based on the honest parties’ opening.</p>
 </li>
 </ul>
+</div>
+</div>
+</div>
 <div class="section" id="II.-The-Digital-Signature-Standard">
-<h4>II. The Digital Signature Standard<a class="headerlink" href="#II.-The-Digital-Signature-Standard" title="Permalink to this headline">¶</a></h4>
+<h2>II. The Digital Signature Standard<a class="headerlink" href="#II.-The-Digital-Signature-Standard" title="Permalink to this headline">¶</a></h2>
 <p>We deﬁne a generic <strong>G-DSA</strong> signature algorithm as follows. The public parameters include a cyclic group <span class="math notranslate nohighlight">\(G\)</span> of prime order <span class="math notranslate nohighlight">\(q\)</span> generated by an element <span class="math notranslate nohighlight">\(g\)</span>, a hash function <span class="math notranslate nohighlight">\(H\)</span> deﬁned from arbitrary strings into <span class="math notranslate nohighlight">\(Z_q\)</span> , and another hash function <span class="math notranslate nohighlight">\(H'\)</span> deﬁned from <span class="math notranslate nohighlight">\(G\)</span> to <span class="math notranslate nohighlight">\(Z_q\)</span>.</p>
 <ul class="simple">
 <li><p>Secret Key <span class="math notranslate nohighlight">\(x\)</span> chosen uniformly at random in <span class="math notranslate nohighlight">\(Z_q\)</span>.</p></li>
@@ -368,24 +373,18 @@ div.rendered_html tbody tr:hover {
 <div class="math notranslate nohighlight">
 \[R' = g^{ms^{-1}}y^{ms^{-1}}\]</div>
 <p>and accepts if <span class="math notranslate nohighlight">\(H'(r')=r.\)</span></p>
-</div>
-</div>
-<div class="section" id="2.1-Threshold-DSA">
-<h3>2.1 Threshold DSA<a class="headerlink" href="#2.1-Threshold-DSA" title="Permalink to this headline">¶</a></h3>
 <p>in a <span class="math notranslate nohighlight">\((t, n)\)</span>-threshold signature scheme the secret key is shared among n servers, in such a way that any <span class="math notranslate nohighlight">\(t\)</span> of them has no information about the secret key, while <span class="math notranslate nohighlight">\(n\)</span> players can sign a message using a communication protocol that does not require the secret key to be reconstructed at a single server. A scheme is threshold-optimal if exactly <span class="math notranslate nohighlight">\(n = t + 1\)</span> honest players can sign.</p>
+</div>
 <div class="section" id="III-scheme">
-<h4>III scheme<a class="headerlink" href="#III-scheme" title="Permalink to this headline">¶</a></h4>
-</div>
-</div>
-</div>
+<h2>III scheme<a class="headerlink" href="#III-scheme" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="Initialization-phase">
-<h2>Initialization phase<a class="headerlink" href="#Initialization-phase" title="Permalink to this headline">¶</a></h2>
+<h3>Initialization phase<a class="headerlink" href="#Initialization-phase" title="Permalink to this headline">¶</a></h3>
 <p>In this phase, a common reference string containing the public information <span class="math notranslate nohighlight">\(pk\)</span> for an independent trapdoor commitment <span class="math notranslate nohighlight">\(KG\)</span>, <span class="math notranslate nohighlight">\(Com\)</span>, <span class="math notranslate nohighlight">\(Ver\)</span>, <span class="math notranslate nohighlight">\(Equiv\)</span> is selected and published. This could be accomplished by a trusted third party, who can be assumed to erase any secret information (i.e. the trapdoor of the commitment) after selection.</p>
 <p>The common parameters <span class="math notranslate nohighlight">\(G, g, q\)</span> for the DSA scheme are assumed to be known.</p>
 </div>
 <hr class="docutils" />
 <div class="section" id="Key-generation-protocol">
-<h2>Key generation protocol<a class="headerlink" href="#Key-generation-protocol" title="Permalink to this headline">¶</a></h2>
+<h3>Key generation protocol<a class="headerlink" href="#Key-generation-protocol" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -547,7 +546,7 @@ div.rendered_html tbody tr:hover {
 </ul>
 </div>
 <div class="section" id="Signature-Generation">
-<h2>Signature Generation<a class="headerlink" href="#Signature-Generation" title="Permalink to this headline">¶</a></h2>
+<h3>Signature Generation<a class="headerlink" href="#Signature-Generation" title="Permalink to this headline">¶</a></h3>
 <p>The signature generation protocol is run on input <span class="math notranslate nohighlight">\(m\)</span> (the hash of the message <span class="math notranslate nohighlight">\(M\)</span> being signed)</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
@@ -661,7 +660,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="section" id="Round-3">
-<h3>Round 3<a class="headerlink" href="#Round-3" title="Permalink to this headline">¶</a></h3>
+<h4>Round 3<a class="headerlink" href="#Round-3" title="Permalink to this headline">¶</a></h4>
 <p>Each player <span class="math notranslate nohighlight">\(P_i\)</span></p>
 <ul class="simple">
 <li><p>choose <span class="math notranslate nohighlight">\(k_i \in Z_q\)</span> and <span class="math notranslate nohighlight">\(c_i \in R[-q^6, q^6]\)</span></p></li>
@@ -748,7 +747,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="section" id="Round-4">
-<h3>Round 4<a class="headerlink" href="#Round-4" title="Permalink to this headline">¶</a></h3>
+<h4>Round 4<a class="headerlink" href="#Round-4" title="Permalink to this headline">¶</a></h4>
 <p>Each player P_i broadcasts</p>
 <ol class="arabic simple">
 <li><p><span class="math notranslate nohighlight">\(D_{2,i}\)</span>, which allows everybody to compute <span class="math notranslate nohighlight">\([r_i , w_i ]\)</span> = <span class="math notranslate nohighlight">\(Ver(C_{2,i} , D_{2,i} )\)</span></p></li>
@@ -825,7 +824,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="section" id="Round-5">
-<h3>Round 5<a class="headerlink" href="#Round-5" title="Permalink to this headline">¶</a></h3>
+<h4>Round 5<a class="headerlink" href="#Round-5" title="Permalink to this headline">¶</a></h4>
 <p>players jointly decrypt <span class="math notranslate nohighlight">\(w\)</span> using <strong>TDec</strong> to learn the value <span class="math notranslate nohighlight">\(\tau ∈ [−q^7 , q^7]\)</span> such that <span class="math notranslate nohighlight">\(\tau = kρ \mod q\)</span> and <span class="math notranslate nohighlight">\(ψ = η ^{−1} \mod q\)</span></p>
 <p>Each player computes:</p>
 <div class="math notranslate nohighlight">
@@ -901,7 +900,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="section" id="Round-6">
-<h3>Round 6<a class="headerlink" href="#Round-6" title="Permalink to this headline">¶</a></h3>
+<h4>Round 6<a class="headerlink" href="#Round-6" title="Permalink to this headline">¶</a></h4>
 <p>The players invoke distributed decryption protocol TDec over the ciphertext <span class="math notranslate nohighlight">\(σ\)</span>. Let <span class="math notranslate nohighlight">\(s = D(σ) mod q\)</span>. The players output <span class="math notranslate nohighlight">\((r, s)\)</span> as the signature for <span class="math notranslate nohighlight">\(m\)</span>.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
@@ -915,7 +914,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="section" id="Verify">
-<h2>Verify<a class="headerlink" href="#Verify" title="Permalink to this headline">¶</a></h2>
+<h3>Verify<a class="headerlink" href="#Verify" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
@@ -943,6 +942,10 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+</div>
+</div>
+<div class="section" id="Ref:">
+<h2>Ref:<a class="headerlink" href="#Ref:" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Antonio Salazar Cardozo, Threshold ECDSA — Safer, more private multi-signatures, <a class="reference external" href="https://blog.keep.network/threshold-ecdsa-safer-more-private-multi-signatures-51153f3e9ed2">https://blog.keep.network/threshold-ecdsa-safer-more-private-multi-signatures-51153f3e9ed2</a></p></li>
 <li><p>Gennaro, Rosario, Steven Goldfeder, and Arvind Narayanan. “Threshold-Optimal DSA/ECDSA Signatures and an Application to Bitcoin Wallet Security.” In Applied Cryptography and Network Security, edited by Mark Manulis, Ahmad-Reza Sadeghi, and Steve Schneider, 9696:156–74. Cham: Springer International Publishing, 2016. <a class="reference external" href="https://doi.org/10.1007/978-3-319-39555-5_9">https://doi.org/10.1007/978-3-319-39555-5_9</a>.</p></li>
@@ -1004,6 +1007,7 @@ div.rendered_html tbody tr:hover {
 <li class="toctree-l1"><a class="reference internal" href="Shamir's secret sharing scheme.html">Shamir’s secret sharing scheme</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Trapdoor Commitment Schemes.html">Discrete-Logarithm-Based Trapdoor Commitment Schemes</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Threshold ECDSA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="POD-Mini and POD-AS.html">POD-Mini and POD-AS</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
@@ -1014,6 +1018,7 @@ div.rendered_html tbody tr:hover {
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="Trapdoor Commitment Schemes.html" title="previous chapter">Discrete-Logarithm-Based Trapdoor Commitment Schemes</a></li>
+      <li>Next: <a href="POD-Mini and POD-AS.html" title="next chapter">POD-Mini and POD-AS</a></li>
   </ul></li>
 </ul>
 </div>
