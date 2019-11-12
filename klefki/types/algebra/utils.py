@@ -20,4 +20,4 @@ def decode(key: str) -> ECG:
 
 
 def randfield(F):
-    return F(randint(0, F.P))
+    return F(randint(0, F.P - 1))
