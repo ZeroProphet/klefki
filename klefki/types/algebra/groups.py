@@ -58,38 +58,23 @@ class EllipticCurveGroup(Group):
         return cls((x, y))
 
 
-class CyclicGroup(Group):
+class EllipicCyclicSubroup(EllipticCurveGroup):
     '''
     With Lagrange's therem
     the order of a subgroup is a divisor of the order of the parent group
     '''
     # The Base Point
-    G = abstractproperty()
+    #G = abstractproperty()
     # Order of subgroup
     N = abstractproperty()
 
-    def fmap(self, o):
-        if isinstance(o, FiniteField):
-            return o.__class__(o.value % self.N)
-        return getattr(o, 'value', o) % self.N
 
-    def op(self, g):
-        '''
-        2 + 3 -> 2G + 3G -> 5G
-        '''
-        if g.value == 0:
-            return self
-        res = self.value + g.value
-        return self.__class__(res % self.N)
+    def scalar(self, times):
+        if hasattr(times, "value"):
+            times = times.value
+        times = times % self.N
+        return super().scalar(times)
 
-    def inverse(self):
-        if self.value == 0:
-            return self
-        return self.__class__(self.N - 1 - self.value)
-
-    @property
-    def identity(self):
-        return self.__class__(0)
 
 
 class JacobianGroup(Group):

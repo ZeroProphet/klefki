@@ -5,7 +5,6 @@ from klefki.types.algebra.concrete import (
     JacobianGroupSecp256k1 as JG,
     FiniteFieldSecp256k1 as F,
     EllipticCurveCyclicSubgroupSecp256k1 as CG,
-    EllipticCurveGroupSecp256k1 as ECG,
     FiniteFieldCyclicSecp256k1 as CF
 )
 
@@ -20,8 +19,8 @@ __all__ = [
 
 N = CG.N
 G = CG.G
-A = ECG.A
-B = ECG.B
+A = CG.A
+B = CG.B
 P = F.P
 
 SigType = Tuple[CF, CF, CF]
@@ -31,8 +30,8 @@ def random_privkey() -> CF:
     return CF(random.randint(1, N))
 
 
-def pubkey(priv: CF) -> ECG:
-    return ECG(JG(G @ priv))
+def pubkey(priv: CF) -> CG:
+    return CG(JG(G @ priv))
 
 
 def sign(priv: CF, m: str) -> SigType:
@@ -51,12 +50,12 @@ def sign(priv: CF, m: str) -> SigType:
     return v, r, s
 
 
-def verify(pub: ECG, sig: tuple, msg: str):
+def verify(pub: CG, sig: tuple, msg: str):
     mhash = to_sha256int(msg)
     return verify_msghash(pub, sig, mhash)
 
 
-def verify_msghash(pub: ECG, sig: tuple, mhash: int):
+def verify_msghash(pub: CG, sig: tuple, mhash: int):
     if len(sig) == 2:
         r, s = sig
     else:
@@ -80,7 +79,7 @@ def recover(sig: tuple, mhash: int):
         print('case 2')
         y = P - beta
     Gz = G @ (F(N) - F(mhash))
-    Xy = ECG((F(x), F(y))) @ s
+    Xy = CG((F(x), F(y))) @ s
     Qr = Gz + Xy
     Q = Qr @ ~CF(r)
     return Q
