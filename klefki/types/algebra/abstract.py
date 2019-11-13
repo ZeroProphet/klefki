@@ -177,10 +177,13 @@ class Field(Group):
             assert root != 0, "ins dont have root"
             return self.__class__(root)
 
+
         if hasattr(self, "P"):
             m = self.P
+            if b < 0:
+                return ~self.__class__(pow(self.value, b * -1, m))
         return self.__class__(pow(self.value, b, m))
-        # if b == 0:
+        # If b == 0:
         #     return self.__class__(1)
         # if 0 < b < 1:
         #     return self.__class__(self.value ** b)
