@@ -1,5 +1,5 @@
 from math import gcd
-from abc import ABCMeta, abstractproperty
+from abc import ABCMeta
 from random import randint
 from klefki.types.algebra.utils import randfield
 from klefki.types.algebra.meta import field
@@ -7,7 +7,7 @@ from klefki.numbers import lcm
 import random
 
 
-class Paillier(metaclass=ABCMeta):
+class Paillier():
 
     def __init__(self, P, Q):
         assert gcd(P * Q, (P - 1) * (Q - 1)) == 1

@@ -173,7 +173,9 @@ class Field(Group):
             b = b.value
 
         if b == (1/2):
-            return self.__class__(modular_sqrt(self.value, self.P))
+            root = modular_sqrt(self.value, self.P)
+            assert root != 0, "ins dont have root"
+            return self.__class__(root)
 
         if hasattr(self, "P"):
             m = self.P
