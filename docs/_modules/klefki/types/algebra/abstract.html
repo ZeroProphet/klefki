@@ -210,7 +210,9 @@
             <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">value</span>
 
         <span class="k">if</span> <span class="n">b</span> <span class="o">==</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">):</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">modular_sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">P</span><span class="p">))</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="n">modular_sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">P</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="n">root</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;ins dont have root&quot;</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;P&quot;</span><span class="p">):</span>
             <span class="n">m</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">P</span>
@@ -263,6 +265,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../Homomorphic Encryption.html">Homomorphic Encryption</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../From ZK to Bulletproofs.html">From ZK to Bulletproofsproof via Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../Paillier's encryption Scheme.html">Paillier’s encryption Scheme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../ElGamal.html">ElGamal</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../Shamir's secret sharing scheme.html">Shamir’s secret sharing scheme</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../Trapdoor Commitment Schemes.html">Discrete-Logarithm-Based Trapdoor Commitment Schemes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../Threshold ECDSA.html">Threshold ECDSA</a></li>

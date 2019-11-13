@@ -1,0 +1,30 @@
+:mod:`klefki.crypto.elgamal`
+============================
+
+.. py:module:: klefki.crypto.elgamal
+
+
+Module Contents
+---------------
+
+.. py:class:: ElGamal(x, g=Curve.G)
+
+   .. method:: encrypt(cls, m, pub)
+      :classmethod:
+
+
+
+   .. method:: decrypt(cls, x, c)
+      :classmethod:
+
+
+
+   .. method:: E(self, m)
+
+
+
+   .. method:: D(self, c)
+
+
+
+

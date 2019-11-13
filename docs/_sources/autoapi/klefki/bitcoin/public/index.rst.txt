@@ -27,10 +27,10 @@ Module Contents
 
    
 
-.. function:: encode_pubkey(pub: ECG) -> str
+.. function:: encode_pubkey(pub: CG) -> str
 
 
-.. function:: decode_pubkey(pub: str) -> ECG
+.. function:: decode_pubkey(pub: str) -> CG
 
 
 .. function:: gen_pub_key(key: CF) -> str

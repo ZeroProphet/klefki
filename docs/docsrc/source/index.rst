@@ -27,6 +27,7 @@ Academic Notes
    Play MimbleWimble with klefki
    From ZK to Bulletproofs
    Paillier's encryption Scheme
+   ElGamal
    Shamir's secret sharing scheme
    Trapdoor Commitment Schemes
    Threshold ECDSA

@@ -11,11 +11,6 @@ Module Contents
 
    Bases: :class:`klefki.types.algebra.fields.FiniteField`
 
-   .. attribute:: __slots__
-      :annotation: = []
-
-      
-
    .. attribute:: P
       
 
@@ -26,23 +21,18 @@ Module Contents
 
    Bases: :class:`klefki.types.algebra.fields.FiniteField`
 
-   .. attribute:: __slots__
-      :annotation: = []
-
-      
-
    .. attribute:: P
       
 
       
 
 
-.. py:class:: EllipticCurveGroupSecp256k1
+.. py:class:: EllipticCurveCyclicSubgroupSecp256k1
 
-   Bases: :class:`klefki.types.algebra.groups.EllipticCurveGroup`
+   Bases: :class:`klefki.types.algebra.groups.EllipicCyclicSubroup`
 
-   .. attribute:: __slots__
-      :annotation: = []
+   .. attribute:: N
+      
 
       
 
@@ -52,6 +42,36 @@ Module Contents
       
 
    .. attribute:: B
+      
+
+      
+
+   .. method:: x(self)
+      :property:
+
+
+
+   .. method:: y(self)
+      :property:
+
+
+
+
+.. py:class:: EllipticCurveGroupSecp256k1
+
+   Bases: :class:`klefki.types.algebra.groups.EllipticCurveGroup`
+
+   .. attribute:: A
+      
+
+      
+
+   .. attribute:: B
+      
+
+      
+
+   .. attribute:: G
       
 
       
@@ -85,36 +105,6 @@ Module Contents
       
 
       
-
-
-.. py:class:: EllipticCurveCyclicSubgroupSecp256k1
-
-   Bases: :class:`klefki.types.algebra.groups.CyclicGroup`
-
-   .. attribute:: __slots__
-      :annotation: = []
-
-      
-
-   .. attribute:: G
-      
-
-      
-
-   .. attribute:: N
-      
-
-      
-
-   .. method:: x(self)
-      :property:
-
-
-
-   .. method:: y(self)
-      :property:
-
-
 
 
 .. py:class:: FiniteFieldSecp256r1
@@ -189,10 +179,45 @@ Module Contents
 
 .. py:class:: EllipticCurveCyclicSubgroupSecp256r1
 
-   Bases: :class:`klefki.types.algebra.groups.CyclicGroup`
+   Bases: :class:`klefki.types.algebra.groups.EllipicCyclicSubroup`
 
-   .. attribute:: __slots__
-      :annotation: = []
+   .. attribute:: N
+      
+
+      
+
+   .. attribute:: A
+      
+
+      
+
+   .. attribute:: B
+      
+
+      
+
+   .. method:: x(self)
+      :property:
+
+
+
+   .. method:: y(self)
+      :property:
+
+
+
+
+.. py:class:: EllipticCurveGroupSecp256r1
+
+   Bases: :class:`klefki.types.algebra.groups.EllipticCurveGroup`
+
+   .. attribute:: A
+      
+
+      
+
+   .. attribute:: B
+      
 
       
 
@@ -201,9 +226,14 @@ Module Contents
 
       
 
-   .. attribute:: N
-      
+   .. method:: x(self)
+      :property:
 
-      
+
+
+   .. method:: y(self)
+      :property:
+
+
 
 

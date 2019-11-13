@@ -42,7 +42,6 @@
     <span class="n">JacobianGroupSecp256r1</span> <span class="k">as</span> <span class="n">JG</span><span class="p">,</span>
     <span class="n">FiniteFieldSecp256r1</span> <span class="k">as</span> <span class="n">F</span><span class="p">,</span>
     <span class="n">EllipticCurveCyclicSubgroupSecp256r1</span> <span class="k">as</span> <span class="n">CG</span><span class="p">,</span>
-    <span class="n">EllipticCurveGroupSecp256r1</span> <span class="k">as</span> <span class="n">ECG</span><span class="p">,</span>
     <span class="n">FiniteFieldCyclicSecp256r1</span> <span class="k">as</span> <span class="n">CF</span>
 <span class="p">)</span>
 
@@ -57,8 +56,8 @@
 
 <span class="n">N</span> <span class="o">=</span> <span class="n">CG</span><span class="o">.</span><span class="n">N</span>
 <span class="n">G</span> <span class="o">=</span> <span class="n">CG</span><span class="o">.</span><span class="n">G</span>
-<span class="n">A</span> <span class="o">=</span> <span class="n">ECG</span><span class="o">.</span><span class="n">A</span>
-<span class="n">B</span> <span class="o">=</span> <span class="n">ECG</span><span class="o">.</span><span class="n">B</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">CG</span><span class="o">.</span><span class="n">A</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">CG</span><span class="o">.</span><span class="n">B</span>
 <span class="n">P</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">P</span>
 
 <span class="n">SigType</span> <span class="o">=</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">CF</span><span class="p">,</span> <span class="n">CF</span><span class="p">,</span> <span class="n">CF</span><span class="p">]</span>
@@ -68,8 +67,8 @@
     <span class="k">return</span> <span class="n">CF</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="pubkey"><a class="viewcode-back" href="../../../../autoapi/klefki/crypto/ecdsa/secp256r1/index.html#klefki.crypto.ecdsa.secp256r1.pubkey">[docs]</a><span class="k">def</span> <span class="nf">pubkey</span><span class="p">(</span><span class="n">priv</span><span class="p">:</span> <span class="n">CF</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ECG</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">ECG</span><span class="p">(</span><span class="n">JG</span><span class="p">(</span><span class="n">G</span> <span class="o">@</span> <span class="n">priv</span><span class="p">))</span></div>
+<div class="viewcode-block" id="pubkey"><a class="viewcode-back" href="../../../../autoapi/klefki/crypto/ecdsa/secp256r1/index.html#klefki.crypto.ecdsa.secp256r1.pubkey">[docs]</a><span class="k">def</span> <span class="nf">pubkey</span><span class="p">(</span><span class="n">priv</span><span class="p">:</span> <span class="n">CF</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CG</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">CG</span><span class="p">(</span><span class="n">JG</span><span class="p">(</span><span class="n">G</span> <span class="o">@</span> <span class="n">priv</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="sign"><a class="viewcode-back" href="../../../../autoapi/klefki/crypto/ecdsa/secp256r1/index.html#klefki.crypto.ecdsa.secp256r1.sign">[docs]</a><span class="k">def</span> <span class="nf">sign</span><span class="p">(</span><span class="n">priv</span><span class="p">:</span> <span class="n">CF</span><span class="p">,</span> <span class="n">m</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SigType</span><span class="p">:</span>
@@ -86,12 +85,12 @@
     <span class="k">return</span> <span class="n">v</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">s</span></div>
 
 
-<div class="viewcode-block" id="verify"><a class="viewcode-back" href="../../../../autoapi/klefki/crypto/ecdsa/secp256r1/index.html#klefki.crypto.ecdsa.secp256r1.verify">[docs]</a><span class="k">def</span> <span class="nf">verify</span><span class="p">(</span><span class="n">pub</span><span class="p">:</span> <span class="n">ECG</span><span class="p">,</span> <span class="n">sig</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<div class="viewcode-block" id="verify"><a class="viewcode-back" href="../../../../autoapi/klefki/crypto/ecdsa/secp256r1/index.html#klefki.crypto.ecdsa.secp256r1.verify">[docs]</a><span class="k">def</span> <span class="nf">verify</span><span class="p">(</span><span class="n">pub</span><span class="p">:</span> <span class="n">CG</span><span class="p">,</span> <span class="n">sig</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
     <span class="n">mhash</span> <span class="o">=</span> <span class="n">to_sha256int</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">verify_msghash</span><span class="p">(</span><span class="n">pub</span><span class="p">,</span> <span class="n">sig</span><span class="p">,</span> <span class="n">mhash</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="verify_msghash"><a class="viewcode-back" href="../../../../autoapi/klefki/crypto/ecdsa/secp256r1/index.html#klefki.crypto.ecdsa.secp256r1.verify_msghash">[docs]</a><span class="k">def</span> <span class="nf">verify_msghash</span><span class="p">(</span><span class="n">pub</span><span class="p">:</span> <span class="n">ECG</span><span class="p">,</span> <span class="n">sig</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">mhash</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<div class="viewcode-block" id="verify_msghash"><a class="viewcode-back" href="../../../../autoapi/klefki/crypto/ecdsa/secp256r1/index.html#klefki.crypto.ecdsa.secp256r1.verify_msghash">[docs]</a><span class="k">def</span> <span class="nf">verify_msghash</span><span class="p">(</span><span class="n">pub</span><span class="p">:</span> <span class="n">CG</span><span class="p">,</span> <span class="n">sig</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">mhash</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sig</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
         <span class="n">r</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">sig</span>
     <span class="k">else</span><span class="p">:</span>
@@ -115,7 +114,7 @@
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;case 2&#39;</span><span class="p">)</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">P</span> <span class="o">-</span> <span class="n">beta</span>
     <span class="n">Gz</span> <span class="o">=</span> <span class="n">G</span> <span class="o">@</span> <span class="p">(</span><span class="n">F</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">-</span> <span class="n">F</span><span class="p">(</span><span class="n">mhash</span><span class="p">))</span>
-    <span class="n">Xy</span> <span class="o">=</span> <span class="n">ECG</span><span class="p">((</span><span class="n">F</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">F</span><span class="p">(</span><span class="n">y</span><span class="p">)))</span> <span class="o">@</span> <span class="n">s</span>
+    <span class="n">Xy</span> <span class="o">=</span> <span class="n">CG</span><span class="p">((</span><span class="n">F</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">F</span><span class="p">(</span><span class="n">y</span><span class="p">)))</span> <span class="o">@</span> <span class="n">s</span>
     <span class="n">Qr</span> <span class="o">=</span> <span class="n">Gz</span> <span class="o">+</span> <span class="n">Xy</span>
     <span class="n">Q</span> <span class="o">=</span> <span class="n">Qr</span> <span class="o">@</span> <span class="o">~</span><span class="n">CF</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">Q</span>
@@ -177,6 +176,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../Homomorphic Encryption.html">Homomorphic Encryption</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../From ZK to Bulletproofs.html">From ZK to Bulletproofsproof via Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../Paillier's encryption Scheme.html">Paillier’s encryption Scheme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../ElGamal.html">ElGamal</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../Shamir's secret sharing scheme.html">Shamir’s secret sharing scheme</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../Trapdoor Commitment Schemes.html">Discrete-Logarithm-Based Trapdoor Commitment Schemes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../Threshold ECDSA.html">Threshold ECDSA</a></li>

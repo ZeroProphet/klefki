@@ -1,0 +1,206 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Threshold Paillier Cryptosystem\n",
+    "============="
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## A Distributed Decryption for Paillier"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The protocol offers a distributive decryption for Paillier with simulation based security against malicious adversaries without randomness extraction. It is comprised of the following two subprotocols:\n",
+    "\n",
+    "1. The parties produce shares of a value d similarly to the **Damgard-Jurik scheme**\n",
+    "\n",
+    "2. The parties run the distributed decryption algorithm using their shares."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "use $g = 1 + N$ as a generator of the subgroup of $Z^∗_{N^2}$ of order $N$. Encryption of a plaintext $m$ with randomness $r$ is then,\n",
+    "\n",
+    "$$\n",
+    "Enc_N(m, r) = (1+N)^m \\cdot r^N \\mod N^2\n",
+    "$$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Generating a Shared Paillier Decryption Key"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "We now present our protocol for generating a shared Paillier decryption key. As stated, similarly to **Damgard and Jurik** , we share a decryption exponent as follows:\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "$$\n",
+    "d \\equiv \\left\\{\n",
+    "\\begin{aligned}\n",
+    "0 \\mod \\phi(N) \\\\\n",
+    "1 \\mod N\n",
+    "\\end{aligned}\n",
+    "\\right\\}\n",
+    "$$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### A distributed generation of a shared Paillier decryption key with passive security:"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "* **Input**:\n",
+    "\n",
+    "A public **RSA** modulus $N=pq$ with unknow factorization, additive shares of $\\phi(N)$:\n",
+    "\n",
+    "$$\n",
+    "sk_0 = N-p_0-q_0+1\\\\\n",
+    "sk_1 = -p_1-q_2\n",
+    "$$\n",
+    "\n",
+    "$sk_0, sk_1$ hold by $P_0, and P_1$ respectively, A public **ElGamel** key $(g,h)$ with secret key shared between the parities. A public Pailler key $N_0>>N^3$ with the secret key hold by $P_0$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from klefki.numbers.primes import generate_prime\n",
+    "from klefki.numbers import lcm"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "P, Q = generate_prime(16), generate_prime(16)\n",
+    "N = P * Q\n",
+    "phi_N = lcm(P-1, Q-1)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "p0, q0 = generate_prime(16), generate_prime(16)\n",
+    "p1, q1 = generate_prime(16), generate_prime(16)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "sk0 = N - p0 - q0 + 1\n",
+    "sk1 = -p1 - q1"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from klefki.crypto.elgamal import ElGamal"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "x = 42\n",
+    "el = ElGamal(x)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "g, h = el.pubkey"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "* **The  protocol**"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Ref:\n",
+    "\n",
+    "* Carmit Hazay, Gert Læssøe Mikkelsen, etc.., Efﬁcient RSA Key Generation and Threshold Paillier in the Two-Party Setting"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.3"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}

@@ -10,7 +10,7 @@ Module Contents
 .. function:: random_privkey() -> CF
 
 
-.. function:: pubkey(priv: CF) -> ECG
+.. function:: pubkey(priv: CF) -> CG
 
 
 .. function:: sign(priv: CF, m: str) -> SigType
@@ -18,9 +18,9 @@ Module Contents
    https://bitcoin.stackexchange.com/questions/38351/ecdsa-v-r-s-what-is-v
 
 
-.. function:: verify(pub: ECG, sig: tuple, msg: str)
+.. function:: verify(pub: CG, sig: tuple, msg: str)
 
 
-.. function:: verify_msghash(pub: ECG, sig: tuple, mhash: int)
+.. function:: verify_msghash(pub: CG, sig: tuple, mhash: int)
 
 

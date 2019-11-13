@@ -35,7 +35,7 @@
           <div class="body" role="main">
             
   <h1>Source code for klefki.types.algebra.concrete</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">.groups</span> <span class="k">import</span> <span class="n">EllipticCurveGroup</span><span class="p">,</span> <span class="n">CyclicGroup</span><span class="p">,</span> <span class="n">JacobianGroup</span>
+<span></span><span class="kn">from</span> <span class="nn">.groups</span> <span class="k">import</span> <span class="n">EllipticCurveGroup</span><span class="p">,</span> <span class="n">EllipicCyclicSubroup</span><span class="p">,</span> <span class="n">JacobianGroup</span>
 <span class="kn">from</span> <span class="nn">.fields</span> <span class="k">import</span> <span class="n">FiniteField</span>
 <span class="kn">import</span> <span class="nn">klefki.const</span> <span class="k">as</span> <span class="nn">const</span>
 
@@ -55,19 +55,36 @@
 
 
 <div class="viewcode-block" id="FiniteFieldSecp256k1"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.FiniteFieldSecp256k1">[docs]</a><span class="k">class</span> <span class="nc">FiniteFieldSecp256k1</span><span class="p">(</span><span class="n">FiniteField</span><span class="p">):</span>
-<div class="viewcode-block" id="FiniteFieldSecp256k1.__slots__"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.FiniteFieldSecp256k1.__slots__">[docs]</a>    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">()</span></div>
 <div class="viewcode-block" id="FiniteFieldSecp256k1.P"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.FiniteFieldSecp256k1.P">[docs]</a>    <span class="n">P</span> <span class="o">=</span> <span class="n">const</span><span class="o">.</span><span class="n">SECP256K1_P</span></div></div>
 
 
 <div class="viewcode-block" id="FiniteFieldCyclicSecp256k1"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.FiniteFieldCyclicSecp256k1">[docs]</a><span class="k">class</span> <span class="nc">FiniteFieldCyclicSecp256k1</span><span class="p">(</span><span class="n">FiniteField</span><span class="p">):</span>
-<div class="viewcode-block" id="FiniteFieldCyclicSecp256k1.__slots__"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.FiniteFieldCyclicSecp256k1.__slots__">[docs]</a>    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">()</span></div>
 <div class="viewcode-block" id="FiniteFieldCyclicSecp256k1.P"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.FiniteFieldCyclicSecp256k1.P">[docs]</a>    <span class="n">P</span> <span class="o">=</span> <span class="n">const</span><span class="o">.</span><span class="n">SECP256K1_N</span></div></div>
 
 
+<div class="viewcode-block" id="EllipticCurveCyclicSubgroupSecp256k1"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveCyclicSubgroupSecp256k1">[docs]</a><span class="k">class</span> <span class="nc">EllipticCurveCyclicSubgroupSecp256k1</span><span class="p">(</span><span class="n">EllipicCyclicSubroup</span><span class="p">):</span>
+<div class="viewcode-block" id="EllipticCurveCyclicSubgroupSecp256k1.N"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveCyclicSubgroupSecp256k1.N">[docs]</a>    <span class="n">N</span> <span class="o">=</span> <span class="n">const</span><span class="o">.</span><span class="n">SECP256K1_N</span></div>
+<div class="viewcode-block" id="EllipticCurveCyclicSubgroupSecp256k1.A"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveCyclicSubgroupSecp256k1.A">[docs]</a>    <span class="n">A</span> <span class="o">=</span> <span class="n">const</span><span class="o">.</span><span class="n">SECP256K1_A</span></div>
+<div class="viewcode-block" id="EllipticCurveCyclicSubgroupSecp256k1.B"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveCyclicSubgroupSecp256k1.B">[docs]</a>    <span class="n">B</span> <span class="o">=</span> <span class="n">const</span><span class="o">.</span><span class="n">SECP256K1_B</span></div>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="EllipticCurveCyclicSubgroupSecp256k1.x"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveCyclicSubgroupSecp256k1.x">[docs]</a>    <span class="k">def</span> <span class="nf">x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="EllipticCurveCyclicSubgroupSecp256k1.y"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveCyclicSubgroupSecp256k1.y">[docs]</a>    <span class="k">def</span> <span class="nf">y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div></div>
+
+
 <div class="viewcode-block" id="EllipticCurveGroupSecp256k1"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveGroupSecp256k1">[docs]</a><span class="k">class</span> <span class="nc">EllipticCurveGroupSecp256k1</span><span class="p">(</span><span class="n">EllipticCurveGroup</span><span class="p">):</span>
-<div class="viewcode-block" id="EllipticCurveGroupSecp256k1.__slots__"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveGroupSecp256k1.__slots__">[docs]</a>    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">()</span></div>
 <div class="viewcode-block" id="EllipticCurveGroupSecp256k1.A"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveGroupSecp256k1.A">[docs]</a>    <span class="n">A</span> <span class="o">=</span> <span class="n">const</span><span class="o">.</span><span class="n">SECP256K1_A</span></div>
 <div class="viewcode-block" id="EllipticCurveGroupSecp256k1.B"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveGroupSecp256k1.B">[docs]</a>    <span class="n">B</span> <span class="o">=</span> <span class="n">const</span><span class="o">.</span><span class="n">SECP256K1_B</span></div>
+<div class="viewcode-block" id="EllipticCurveGroupSecp256k1.G"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveGroupSecp256k1.G">[docs]</a>    <span class="n">G</span> <span class="o">=</span> <span class="n">EllipticCurveCyclicSubgroupSecp256k1</span><span class="p">(</span>
+        <span class="p">(</span>
+            <span class="n">FiniteFieldSecp256k1</span><span class="p">(</span><span class="n">const</span><span class="o">.</span><span class="n">SECP256K1_Gx</span><span class="p">),</span>
+            <span class="n">FiniteFieldSecp256k1</span><span class="p">(</span><span class="n">const</span><span class="o">.</span><span class="n">SECP256K1_Gy</span><span class="p">)</span></div>
+        <span class="p">)</span>
+    <span class="p">)</span>
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="EllipticCurveGroupSecp256k1.x"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveGroupSecp256k1.x">[docs]</a>    <span class="k">def</span> <span class="nf">x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -78,29 +95,13 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div></div>
 
 
+<span class="n">EllipticCurveCyclicSubgroupSecp256k1</span><span class="o">.</span><span class="n">G</span> <span class="o">=</span> <span class="n">EllipticCurveGroupSecp256k1</span><span class="o">.</span><span class="n">G</span>
+
+
 <div class="viewcode-block" id="JacobianGroupSecp256k1"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.JacobianGroupSecp256k1">[docs]</a><span class="k">class</span> <span class="nc">JacobianGroupSecp256k1</span><span class="p">(</span><span class="n">JacobianGroup</span><span class="p">):</span>
 <div class="viewcode-block" id="JacobianGroupSecp256k1.__slots__"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.JacobianGroupSecp256k1.__slots__">[docs]</a>    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">()</span></div>
 <div class="viewcode-block" id="JacobianGroupSecp256k1.A"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.JacobianGroupSecp256k1.A">[docs]</a>    <span class="n">A</span> <span class="o">=</span> <span class="n">const</span><span class="o">.</span><span class="n">SECP256K1_A</span></div>
 <div class="viewcode-block" id="JacobianGroupSecp256k1.B"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.JacobianGroupSecp256k1.B">[docs]</a>    <span class="n">B</span> <span class="o">=</span> <span class="n">const</span><span class="o">.</span><span class="n">SECP256K1_B</span></div></div>
-
-
-<div class="viewcode-block" id="EllipticCurveCyclicSubgroupSecp256k1"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveCyclicSubgroupSecp256k1">[docs]</a><span class="k">class</span> <span class="nc">EllipticCurveCyclicSubgroupSecp256k1</span><span class="p">(</span><span class="n">CyclicGroup</span><span class="p">):</span>
-<div class="viewcode-block" id="EllipticCurveCyclicSubgroupSecp256k1.__slots__"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveCyclicSubgroupSecp256k1.__slots__">[docs]</a>    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">()</span></div>
-<div class="viewcode-block" id="EllipticCurveCyclicSubgroupSecp256k1.G"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveCyclicSubgroupSecp256k1.G">[docs]</a>    <span class="n">G</span> <span class="o">=</span> <span class="n">EllipticCurveGroupSecp256k1</span><span class="p">(</span>
-        <span class="p">(</span>
-            <span class="n">FiniteFieldSecp256k1</span><span class="p">(</span><span class="n">const</span><span class="o">.</span><span class="n">SECP256K1_Gx</span><span class="p">),</span>
-            <span class="n">FiniteFieldSecp256k1</span><span class="p">(</span><span class="n">const</span><span class="o">.</span><span class="n">SECP256K1_Gy</span><span class="p">)</span></div>
-        <span class="p">)</span>
-    <span class="p">)</span>
-<div class="viewcode-block" id="EllipticCurveCyclicSubgroupSecp256k1.N"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveCyclicSubgroupSecp256k1.N">[docs]</a>    <span class="n">N</span> <span class="o">=</span> <span class="n">const</span><span class="o">.</span><span class="n">SECP256K1_N</span></div>
-
-    <span class="nd">@property</span>
-<div class="viewcode-block" id="EllipticCurveCyclicSubgroupSecp256k1.x"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveCyclicSubgroupSecp256k1.x">[docs]</a>    <span class="k">def</span> <span class="nf">x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
-
-    <span class="nd">@property</span>
-<div class="viewcode-block" id="EllipticCurveCyclicSubgroupSecp256k1.y"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveCyclicSubgroupSecp256k1.y">[docs]</a>    <span class="k">def</span> <span class="nf">y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div></div>
 
 
 
@@ -114,10 +115,10 @@
 <div class="viewcode-block" id="FiniteFieldCyclicSecp256r1.P"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.FiniteFieldCyclicSecp256r1.P">[docs]</a>    <span class="n">P</span> <span class="o">=</span> <span class="n">const</span><span class="o">.</span><span class="n">SECP256R1_N</span></div></div>
 
 
-<div class="viewcode-block" id="EllipticCurveGroupSecp256r1"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveGroupSecp256r1">[docs]</a><span class="k">class</span> <span class="nc">EllipticCurveGroupSecp256r1</span><span class="p">(</span><span class="n">EllipticCurveGroup</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">EllipticCurveGroupSecp256r1</span><span class="p">(</span><span class="n">EllipticCurveGroup</span><span class="p">):</span>
 <div class="viewcode-block" id="EllipticCurveGroupSecp256r1.__slots__"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveGroupSecp256r1.__slots__">[docs]</a>    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">()</span></div>
-<div class="viewcode-block" id="EllipticCurveGroupSecp256r1.A"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveGroupSecp256r1.A">[docs]</a>    <span class="n">A</span> <span class="o">=</span> <span class="n">const</span><span class="o">.</span><span class="n">SECP256R1_A</span></div>
-<div class="viewcode-block" id="EllipticCurveGroupSecp256r1.B"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveGroupSecp256r1.B">[docs]</a>    <span class="n">B</span> <span class="o">=</span> <span class="n">const</span><span class="o">.</span><span class="n">SECP256R1_B</span></div></div>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">const</span><span class="o">.</span><span class="n">SECP256R1_A</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">const</span><span class="o">.</span><span class="n">SECP256R1_B</span>
 
 
 <div class="viewcode-block" id="JacobianGroupSecp256r1"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.JacobianGroupSecp256r1">[docs]</a><span class="k">class</span> <span class="nc">JacobianGroupSecp256r1</span><span class="p">(</span><span class="n">JacobianGroup</span><span class="p">):</span>
@@ -126,15 +127,40 @@
 <div class="viewcode-block" id="JacobianGroupSecp256r1.B"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.JacobianGroupSecp256r1.B">[docs]</a>    <span class="n">B</span> <span class="o">=</span> <span class="n">const</span><span class="o">.</span><span class="n">SECP256R1_B</span></div></div>
 
 
-<div class="viewcode-block" id="EllipticCurveCyclicSubgroupSecp256r1"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveCyclicSubgroupSecp256r1">[docs]</a><span class="k">class</span> <span class="nc">EllipticCurveCyclicSubgroupSecp256r1</span><span class="p">(</span><span class="n">CyclicGroup</span><span class="p">):</span>
-<div class="viewcode-block" id="EllipticCurveCyclicSubgroupSecp256r1.__slots__"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveCyclicSubgroupSecp256r1.__slots__">[docs]</a>    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">()</span></div>
-<div class="viewcode-block" id="EllipticCurveCyclicSubgroupSecp256r1.G"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveCyclicSubgroupSecp256r1.G">[docs]</a>    <span class="n">G</span> <span class="o">=</span> <span class="n">EllipticCurveGroupSecp256r1</span><span class="p">(</span>
+<div class="viewcode-block" id="EllipticCurveCyclicSubgroupSecp256r1"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveCyclicSubgroupSecp256r1">[docs]</a><span class="k">class</span> <span class="nc">EllipticCurveCyclicSubgroupSecp256r1</span><span class="p">(</span><span class="n">EllipicCyclicSubroup</span><span class="p">):</span>
+<div class="viewcode-block" id="EllipticCurveCyclicSubgroupSecp256r1.N"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveCyclicSubgroupSecp256r1.N">[docs]</a>    <span class="n">N</span> <span class="o">=</span> <span class="n">const</span><span class="o">.</span><span class="n">SECP256R1_N</span></div>
+<div class="viewcode-block" id="EllipticCurveCyclicSubgroupSecp256r1.A"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveCyclicSubgroupSecp256r1.A">[docs]</a>    <span class="n">A</span> <span class="o">=</span> <span class="n">const</span><span class="o">.</span><span class="n">SECP256R1_A</span></div>
+<div class="viewcode-block" id="EllipticCurveCyclicSubgroupSecp256r1.B"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveCyclicSubgroupSecp256r1.B">[docs]</a>    <span class="n">B</span> <span class="o">=</span> <span class="n">const</span><span class="o">.</span><span class="n">SECP256R1_B</span></div>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="EllipticCurveCyclicSubgroupSecp256r1.x"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveCyclicSubgroupSecp256r1.x">[docs]</a>    <span class="k">def</span> <span class="nf">x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="EllipticCurveCyclicSubgroupSecp256r1.y"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveCyclicSubgroupSecp256r1.y">[docs]</a>    <span class="k">def</span> <span class="nf">y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div></div>
+
+<div class="viewcode-block" id="EllipticCurveGroupSecp256r1"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveGroupSecp256r1">[docs]</a><span class="k">class</span> <span class="nc">EllipticCurveGroupSecp256r1</span><span class="p">(</span><span class="n">EllipticCurveGroup</span><span class="p">):</span>
+<div class="viewcode-block" id="EllipticCurveGroupSecp256r1.A"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveGroupSecp256r1.A">[docs]</a>    <span class="n">A</span> <span class="o">=</span> <span class="n">const</span><span class="o">.</span><span class="n">SECP256R1_A</span></div>
+<div class="viewcode-block" id="EllipticCurveGroupSecp256r1.B"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveGroupSecp256r1.B">[docs]</a>    <span class="n">B</span> <span class="o">=</span> <span class="n">const</span><span class="o">.</span><span class="n">SECP256R1_B</span></div>
+<div class="viewcode-block" id="EllipticCurveGroupSecp256r1.G"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveGroupSecp256r1.G">[docs]</a>    <span class="n">G</span> <span class="o">=</span> <span class="n">EllipticCurveCyclicSubgroupSecp256r1</span><span class="p">(</span>
         <span class="p">(</span>
-            <span class="n">FiniteFieldSecp256r1</span><span class="p">(</span><span class="n">const</span><span class="o">.</span><span class="n">SECP256R1_Gx</span><span class="p">),</span>
-            <span class="n">FiniteFieldSecp256r1</span><span class="p">(</span><span class="n">const</span><span class="o">.</span><span class="n">SECP256R1_Gy</span><span class="p">)</span></div>
+            <span class="n">FiniteFieldSecp256k1</span><span class="p">(</span><span class="n">const</span><span class="o">.</span><span class="n">SECP256R1_Gx</span><span class="p">),</span>
+            <span class="n">FiniteFieldSecp256k1</span><span class="p">(</span><span class="n">const</span><span class="o">.</span><span class="n">SECP256R1_Gy</span><span class="p">)</span></div>
         <span class="p">)</span>
     <span class="p">)</span>
-<div class="viewcode-block" id="EllipticCurveCyclicSubgroupSecp256r1.N"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveCyclicSubgroupSecp256r1.N">[docs]</a>    <span class="n">N</span> <span class="o">=</span> <span class="n">const</span><span class="o">.</span><span class="n">SECP256R1_N</span></div></div>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="EllipticCurveGroupSecp256r1.x"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveGroupSecp256r1.x">[docs]</a>    <span class="k">def</span> <span class="nf">x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="EllipticCurveGroupSecp256r1.y"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/concrete/index.html#klefki.types.algebra.concrete.EllipticCurveGroupSecp256r1.y">[docs]</a>    <span class="k">def</span> <span class="nf">y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div></div>
+
+
+
+<span class="n">EllipticCurveCyclicSubgroupSecp256r1</span><span class="o">.</span><span class="n">G</span> <span class="o">=</span> <span class="n">EllipticCurveGroupSecp256r1</span><span class="o">.</span><span class="n">G</span>
 </pre></div>
 
           </div>
@@ -169,6 +195,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../Homomorphic Encryption.html">Homomorphic Encryption</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../From ZK to Bulletproofs.html">From ZK to Bulletproofsproof via Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../Paillier's encryption Scheme.html">Paillier’s encryption Scheme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../ElGamal.html">ElGamal</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../Shamir's secret sharing scheme.html">Shamir’s secret sharing scheme</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../Trapdoor Commitment Schemes.html">Discrete-Logarithm-Based Trapdoor Commitment Schemes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../Threshold ECDSA.html">Threshold ECDSA</a></li>

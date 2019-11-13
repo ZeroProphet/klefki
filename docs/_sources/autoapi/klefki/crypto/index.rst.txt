@@ -19,7 +19,9 @@ Submodules
    :titlesonly:
    :maxdepth: 1
 
+   elgamal/index.rst
    paillier/index.rst
+   rsa/index.rst
    ssss/index.rst
 
 

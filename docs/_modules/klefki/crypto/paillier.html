@@ -36,7 +36,7 @@
             
   <h1>Source code for klefki.crypto.paillier</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">gcd</span>
-<span class="kn">from</span> <span class="nn">abc</span> <span class="k">import</span> <span class="n">ABCMeta</span><span class="p">,</span> <span class="n">abstractproperty</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="k">import</span> <span class="n">ABCMeta</span>
 <span class="kn">from</span> <span class="nn">random</span> <span class="k">import</span> <span class="n">randint</span>
 <span class="kn">from</span> <span class="nn">klefki.types.algebra.utils</span> <span class="k">import</span> <span class="n">randfield</span>
 <span class="kn">from</span> <span class="nn">klefki.types.algebra.meta</span> <span class="k">import</span> <span class="n">field</span>
@@ -44,7 +44,7 @@
 <span class="kn">import</span> <span class="nn">random</span>
 
 
-<div class="viewcode-block" id="Paillier"><a class="viewcode-back" href="../../../autoapi/klefki/crypto/paillier/index.html#klefki.crypto.paillier.Paillier">[docs]</a><span class="k">class</span> <span class="nc">Paillier</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
+<div class="viewcode-block" id="Paillier"><a class="viewcode-back" href="../../../autoapi/klefki/crypto/paillier/index.html#klefki.crypto.paillier.Paillier">[docs]</a><span class="k">class</span> <span class="nc">Paillier</span><span class="p">():</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">Q</span><span class="p">):</span>
         <span class="k">assert</span> <span class="n">gcd</span><span class="p">(</span><span class="n">P</span> <span class="o">*</span> <span class="n">Q</span><span class="p">,</span> <span class="p">(</span><span class="n">P</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">Q</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">==</span> <span class="mi">1</span>
@@ -130,6 +130,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../Homomorphic Encryption.html">Homomorphic Encryption</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../From ZK to Bulletproofs.html">From ZK to Bulletproofsproof via Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Paillier's encryption Scheme.html">Paillier’s encryption Scheme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ElGamal.html">ElGamal</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Shamir's secret sharing scheme.html">Shamir’s secret sharing scheme</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Trapdoor Commitment Schemes.html">Discrete-Logarithm-Based Trapdoor Commitment Schemes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Threshold ECDSA.html">Threshold ECDSA</a></li>

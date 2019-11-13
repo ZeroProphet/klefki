@@ -17,7 +17,7 @@
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Shamir’s secret sharing scheme" href="Shamir&#39;s secret sharing scheme.html" />
+    <link rel="next" title="ElGamal" href="ElGamal.html" />
     <link rel="prev" title="From ZK to Bulletproofsproof via Python" href="From ZK to Bulletproofs.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -242,7 +242,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="Key-Generation:">
 <h2>Key Generation:<a class="headerlink" href="#Key-Generation:" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
-<li><p>Choose two large prime numbers <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> randomly and indenpendently of each other such that <span class="math notranslate nohighlight">\(gcd(PQ, (P-1)(Q-1))=1\)</span>. This property is assured if both primes are qual lenth.</p></li>
+<li><p>Choose two large prime numbers <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> randomly and indenpendently of each other such that <span class="math notranslate nohighlight">\(gcd(PQ, (P-1)(Q-1))=1\)</span>. This property is assured if both primes are equal lenth.</p></li>
 </ol>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
@@ -338,7 +338,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-PrivKey: 2234634654990432849929004166367641021238215826767191291571707378398254532167475902984296517123225539202576657105730699764493290075143829571044458305451072, 1356243185564225029010976210171438347786848199765720176971849731425668329460806744977319786636662333281711241127905579420465613902848601153635824276504824
+PrivKey: 2234634654990432849929004166367641021238215826767191291571707378398254532167475902984296517123225539202576657105730699764493290075143829571044458305451072, 3552998749514038980137980360709377191288489639485820121715967668306880837055064323001198300976254358621923700473077880966590708603371508026789722641288856
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -355,7 +355,7 @@ PrivKey: 22346346549904328499290041663676410212382158267671912915717073783982545
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-PubKey: 13407807929942597099574024998205846127429294960603147749430244270389527193005087002084253735130200377185477318450090306135904455919285040173416176828872431; 52526344197461374693463843755584898885183186899394408387456821138477739048602700085633956728850633136970009276859213211234624324616524316161274381389724345950793295545660384680202652885935735480380260758901980150116767436061569472257165253950496976009469613931670505025662256321582935275087711079507518765499
+PubKey: 13407807929942597099574024998205846127429294960603147749430244270389527193005087002084253735130200377185477318450090306135904455919285040173416176828872431; 97527252797322665689520638191395398748643006307038201557423023521392279536618476216107167408435514968370762252062139266491687595192757839037971358744023428969341905584987646768067406955682509623019919836472754974667967078834867167323107147105322193580815241651397765113926082497280151782815095414526103656291
 </pre></div></div>
 </div>
 </div>
@@ -376,24 +376,6 @@ PubKey: 134078079299425970995740249982058461274292949606031477494302442703895271
 <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="n">N</span>
 
 <span class="k">assert</span> <span class="n">math</span><span class="o">.</span><span class="n">gcd</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">pow</span><span class="p">(</span><span class="n">DF</span><span class="p">(</span><span class="n">r</span><span class="p">),</span> <span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="nb">pow</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">N</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
-</pre></div>
-</div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>True
 </pre></div>
 </div>
 </div>
@@ -420,7 +402,7 @@ PubKey: 134078079299425970995740249982058461274292949606031477494302442703895271
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Ciphtertext Text: 119073621447419038792605821717735246565693627026599572996505011240281818378929690293753614295637907380978434436615709270776367409892414265163608288171158718805559608658992094768172335437574243644151004647324044247215803192193475153099090700554676296130197788002800002159877788699809901889253924316525271258117
+Ciphtertext Text: 66388851543686555060203462451104423480430236445196097742157279032551098315911278305744657406892626387572141943651201309436400891799766994374751694044696135794809976851696983613676963254326786528710079285331675402629421696041640679536803236059468343655288156310932299693469848371775193655876766185162592379362
 </pre></div></div>
 </div>
 </div>
@@ -502,7 +484,7 @@ m_i \in Z_N\end{split}\]</div>
 <li><p>The product of a ciphertext with a plaintext raising <span class="math notranslate nohighlight">\(g\)</span> will decrypt to the sum of the corresponding plaintexts.</p></li>
 </ul>
 <div class="math notranslate nohighlight">
-\[\begin{split}D(E(m_1, r_1)\circ g^m_2) = m_1+m_2\\\end{split}\]</div>
+\[\begin{split}D(E(m_1, r_1)\circ g^{m_2}) = m_1+m_2\\\end{split}\]</div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
@@ -581,7 +563,17 @@ D(E(m_2, r_2)^{m_1}) = m_1m_2\\\\\end{split}\]</div>
 <li><p>Wikipedia: Pillier Cryptosystem <a class="reference external" href="https://en.wikipedia.org/wiki/Paillier_cryptosystem">https://en.wikipedia.org/wiki/Paillier_cryptosystem</a></p></li>
 <li><p>Encryption Performance Improvementsof the Paillier Cryptosystem <a class="reference external" href="https://eprint.iacr.org/2015/864.pdf">https://eprint.iacr.org/2015/864.pdf</a></p></li>
 <li><p>Stackoverflow - Paillier algorithm encryption <a class="reference external" href="https://stackoverflow.com/questions/29217630/paillier-algorithm-encryption">https://stackoverflow.com/questions/29217630/paillier-algorithm-encryption</a></p></li>
+<li><p>RSA cryptosystem relation between lambda and phi. <a class="reference external" href="https://math.stackexchange.com/questions/3249362/rsa-cryptosystem-relation-between-lambda-and-phi">https://math.stackexchange.com/questions/3249362/rsa-cryptosystem-relation-between-lambda-and-phi</a></p></li>
 </ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 
@@ -618,9 +610,11 @@ D(E(m_2, r_2)^{m_1}) = m_1m_2\\\\\end{split}\]</div>
 <li class="toctree-l1"><a class="reference internal" href="Homomorphic Encryption.html">Homomorphic Encryption</a></li>
 <li class="toctree-l1"><a class="reference internal" href="From ZK to Bulletproofs.html">From ZK to Bulletproofsproof via Python</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Paillier’s encryption Scheme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ElGamal.html">ElGamal</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Shamir's secret sharing scheme.html">Shamir’s secret sharing scheme</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Trapdoor Commitment Schemes.html">Discrete-Logarithm-Based Trapdoor Commitment Schemes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Threshold ECDSA.html">Threshold ECDSA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="POD-Mini and POD-AS.html">POD-Mini and POD-AS</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
@@ -631,7 +625,7 @@ D(E(m_2, r_2)^{m_1}) = m_1m_2\\\\\end{split}\]</div>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="From ZK to Bulletproofs.html" title="previous chapter">From ZK to Bulletproofsproof via Python</a></li>
-      <li>Next: <a href="Shamir&#39;s secret sharing scheme.html" title="next chapter">Shamir’s secret sharing scheme</a></li>
+      <li>Next: <a href="ElGamal.html" title="next chapter">ElGamal</a></li>
   </ul></li>
 </ul>
 </div>

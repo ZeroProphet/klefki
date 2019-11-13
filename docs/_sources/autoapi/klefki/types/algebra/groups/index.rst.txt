@@ -44,39 +44,19 @@ Module Contents
 
 
 
-.. py:class:: CyclicGroup
+.. py:class:: EllipicCyclicSubroup
 
-   Bases: :class:`klefki.types.algebra.abstract.Group`
+   Bases: :class:`klefki.types.algebra.groups.EllipticCurveGroup`
 
    With Lagrange's therem
    the order of a subgroup is a divisor of the order of the parent group
-
-   .. attribute:: G
-      
-
-      
 
    .. attribute:: N
       
 
       
 
-   .. method:: fmap(self, o)
-
-
-
-   .. method:: op(self, g)
-
-
-      2 + 3 -> 2G + 3G -> 5G
-
-
-   .. method:: inverse(self)
-
-
-
-   .. method:: identity(self)
-      :property:
+   .. method:: scalar(self, times)
 
 
 

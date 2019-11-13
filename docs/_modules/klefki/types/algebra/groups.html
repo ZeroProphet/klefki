@@ -95,38 +95,23 @@
         <span class="k">return</span> <span class="bp">cls</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span></div></div>
 
 
-<div class="viewcode-block" id="CyclicGroup"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.CyclicGroup">[docs]</a><span class="k">class</span> <span class="nc">CyclicGroup</span><span class="p">(</span><span class="n">Group</span><span class="p">):</span>
+<div class="viewcode-block" id="EllipicCyclicSubroup"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.EllipicCyclicSubroup">[docs]</a><span class="k">class</span> <span class="nc">EllipicCyclicSubroup</span><span class="p">(</span><span class="n">EllipticCurveGroup</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    With Lagrange&#39;s therem</span>
 <span class="sd">    the order of a subgroup is a divisor of the order of the parent group</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="c1"># The Base Point</span>
-<div class="viewcode-block" id="CyclicGroup.G"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.CyclicGroup.G">[docs]</a>    <span class="n">G</span> <span class="o">=</span> <span class="n">abstractproperty</span><span class="p">()</span></div>
+    <span class="c1">#G = abstractproperty()</span>
     <span class="c1"># Order of subgroup</span>
-<div class="viewcode-block" id="CyclicGroup.N"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.CyclicGroup.N">[docs]</a>    <span class="n">N</span> <span class="o">=</span> <span class="n">abstractproperty</span><span class="p">()</span></div>
+<div class="viewcode-block" id="EllipicCyclicSubroup.N"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.EllipicCyclicSubroup.N">[docs]</a>    <span class="n">N</span> <span class="o">=</span> <span class="n">abstractproperty</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="CyclicGroup.fmap"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.CyclicGroup.fmap">[docs]</a>    <span class="k">def</span> <span class="nf">fmap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">FiniteField</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">o</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">value</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="n">o</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span></div>
 
-<div class="viewcode-block" id="CyclicGroup.op"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.CyclicGroup.op">[docs]</a>    <span class="k">def</span> <span class="nf">op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">g</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        2 + 3 -&gt; 2G + 3G -&gt; 5G</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="n">g</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="n">g</span><span class="o">.</span><span class="n">value</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">res</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">)</span></div>
+<div class="viewcode-block" id="EllipicCyclicSubroup.scalar"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.EllipicCyclicSubroup.scalar">[docs]</a>    <span class="k">def</span> <span class="nf">scalar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">times</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">):</span>
+            <span class="n">times</span> <span class="o">=</span> <span class="n">times</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">times</span> <span class="o">=</span> <span class="n">times</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">scalar</span><span class="p">(</span><span class="n">times</span><span class="p">)</span></div></div>
 
-<div class="viewcode-block" id="CyclicGroup.inverse"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.CyclicGroup.inverse">[docs]</a>    <span class="k">def</span> <span class="nf">inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span></div>
-
-    <span class="nd">@property</span>
-<div class="viewcode-block" id="CyclicGroup.identity"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.CyclicGroup.identity">[docs]</a>    <span class="k">def</span> <span class="nf">identity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="JacobianGroup"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.JacobianGroup">[docs]</a><span class="k">class</span> <span class="nc">JacobianGroup</span><span class="p">(</span><span class="n">Group</span><span class="p">):</span>
@@ -231,6 +216,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../Homomorphic Encryption.html">Homomorphic Encryption</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../From ZK to Bulletproofs.html">From ZK to Bulletproofsproof via Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../Paillier's encryption Scheme.html">Paillier’s encryption Scheme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../ElGamal.html">ElGamal</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../Shamir's secret sharing scheme.html">Shamir’s secret sharing scheme</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../Trapdoor Commitment Schemes.html">Discrete-Logarithm-Based Trapdoor Commitment Schemes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../Threshold ECDSA.html">Threshold ECDSA</a></li>
