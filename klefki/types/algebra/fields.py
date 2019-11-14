@@ -45,6 +45,8 @@ class FiniteField(Field):
         return self.__class__(x % self.P)
 
     def op(self, g):
+        if isinstance(g, int):
+            g = self.functor(g)
         return self.__class__(
             self.mod(
                 (self.value + g.value), self.P
@@ -52,6 +54,8 @@ class FiniteField(Field):
         )
 
     def sec_op(self, g):
+        if isinstance(g, int):
+            g = self.functor(g)
         return self.__class__(
             self.mod(
                 (self.value * g.value), self.P
