@@ -101,3 +101,6 @@ Package Contents
    p, -1 otherwise.
 
 
+.. function:: crt(m, x)
+
+

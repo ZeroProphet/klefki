@@ -32,6 +32,8 @@ Academic Notes
    Trapdoor Commitment Schemes
    Threshold ECDSA
    POD-Mini and POD-AS
+   Damgard-Jurik Scheme of Paillier
+   Threshold Paillier Cryptosystem
 
 
 Documents

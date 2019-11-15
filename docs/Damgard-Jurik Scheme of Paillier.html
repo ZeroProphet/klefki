@@ -1,0 +1,691 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Damgard-Jurik Scheme of Paillier &#8212; klefki 0.7 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Threshold Paillier Cryptosystem" href="Threshold Paillier Cryptosystem.html" />
+    <link rel="prev" title="POD-Mini and POD-AS" href="POD-Mini and POD-AS.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 5ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="section" id="Damgard-Jurik-Scheme-of-Paillier">
+<h1>Damgard-Jurik Scheme of Paillier<a class="headerlink" href="#Damgard-Jurik-Scheme-of-Paillier" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Generalisation">
+<h2>Generalisation<a class="headerlink" href="#Generalisation" title="Permalink to this headline">¶</a></h2>
+<p>The publickey cryptosystem uses computations modulo <span class="math notranslate nohighlight">\(n^{s+1}\)</span> where <span class="math notranslate nohighlight">\(n\)</span> is an <span class="math notranslate nohighlight">\(RSA\)</span> modulus and <span class="math notranslate nohighlight">\(s\)</span> is a natural number. It contains <strong>Paillier’s scheme</strong> as a special case by setting <span class="math notranslate nohighlight">\(s=1\)</span></p>
+<p>We start from the observation that if <span class="math notranslate nohighlight">\(n=pq,p,q\)</span> odd primes, then <span class="math notranslate nohighlight">\(Z^*_{n^{s+1}}\)</span> as a multiplicative group is a direct product <span class="math notranslate nohighlight">\(G\times H\)</span>, where <span class="math notranslate nohighlight">\(G\)</span> ic cyclic of order <span class="math notranslate nohighlight">\(n^s\)</span> and <span class="math notranslate nohighlight">\(H\)</span> is isomorphic to <span class="math notranslate nohighlight">\(Z^*_{n}\)</span>, which follows directly from elementary number theory.</p>
+<p>Thus, the factor group <span class="math notranslate nohighlight">\(\bar{G}=Z*_{n^{s+1}}/H\)</span> is also cyclic of order <span class="math notranslate nohighlight">\(n^s\)</span>. For an arbitary element <span class="math notranslate nohighlight">\(a \in Z_n^{s+1}\)</span>, we let <span class="math notranslate nohighlight">\(\bar{a} H\)</span> we denote the element represented by <span class="math notranslate nohighlight">\(a\)</span> in the factor group <span class="math notranslate nohighlight">\(\bar{G}\)</span>.</p>
+<ul class="simple">
+<li><p>Lemma 1: For any <span class="math notranslate nohighlight">\(s&lt; p, q\)</span>, the element <span class="math notranslate nohighlight">\(n+1\)</span> has order <span class="math notranslate nohighlight">\(n^s\)</span> in <span class="math notranslate nohighlight">\(Z_n^{s+1}\)</span>.</p></li>
+</ul>
+<p>It is easy to compute <span class="math notranslate nohighlight">\(i\)</span> from <span class="math notranslate nohighlight">\((1+n)^i \mod n^{s+1}\)</span>. If we define the function <span class="math notranslate nohighlight">\(L()\)</span> by <span class="math notranslate nohighlight">\(L(b)=(b-1)/n\)</span> then clealy we have:</p>
+<div class="math notranslate nohighlight">
+\[L((1+n)^i \mod n^{n+1}) =(1 + \binom i 2 n + \cdots + \binom i s n ^{s-1} ) \mod n ^s\]</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">klefki.types.algebra.meta</span> <span class="k">import</span> <span class="n">field</span>
+<span class="kn">from</span> <span class="nn">klefki.types.algebra.utils</span> <span class="k">import</span> <span class="n">randfield</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">klefki.numbers.primes</span> <span class="k">import</span> <span class="n">generate_prime</span>
+
+<span class="n">k</span> <span class="o">=</span> <span class="mi">32</span>
+<span class="n">p</span><span class="p">,</span> <span class="n">q</span> <span class="o">=</span> <span class="n">generate_prime</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="n">generate_prime</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># for the pailer case</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="n">p</span> <span class="o">*</span> <span class="n">q</span>
+<span class="n">j</span> <span class="o">=</span> <span class="n">generate_prime</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+
+<span class="n">F</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">n</span><span class="o">**</span><span class="n">s</span><span class="p">)</span> <span class="c1"># n ** s == n if s = 1</span>
+<span class="n">MF</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">n</span> <span class="o">**</span> <span class="p">(</span><span class="n">s</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span> <span class="c1"># n ** (s +1 ) == n2 in pailer case</span>
+<span class="n">H</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Key-Generation">
+<h3>Key Generation<a class="headerlink" href="#Key-Generation" title="Permalink to this headline">¶</a></h3>
+<p>On input the security parameter <span class="math notranslate nohighlight">\(k\)</span>, choose an <span class="math notranslate nohighlight">\(RSA\)</span> modulus <span class="math notranslate nohighlight">\(n=pq\)</span> of length <span class="math notranslate nohighlight">\(k\)</span> bits. Also choose an element <span class="math notranslate nohighlight">\(g\in Z_n^{s+1}\)</span> such that <span class="math notranslate nohighlight">\(g=(1+n)^j\)</span> mod <span class="math notranslate nohighlight">\(n^{s+1}\)</span> for a known <span class="math notranslate nohighlight">\(j\)</span> relatively prime to <span class="math notranslate nohighlight">\(n\)</span> and <span class="math notranslate nohighlight">\(x \in H\)</span>.</p>
+<p>This can be done, <span class="math notranslate nohighlight">\(e.g\)</span>, by choosing <span class="math notranslate nohighlight">\(j, x\)</span> as random first and computing <span class="math notranslate nohighlight">\(g\)</span>;</p>
+<p>Let <span class="math notranslate nohighlight">\(\lambda\)</span> be the <span class="math notranslate nohighlight">\(lcm\)</span> of <span class="math notranslate nohighlight">\(p-1\)</span> and <span class="math notranslate nohighlight">\(q-1\)</span>. By the Chinese Remainder Theorem, choose <span class="math notranslate nohighlight">\(d\)</span> such that <span class="math notranslate nohighlight">\(d\)</span> mod <span class="math notranslate nohighlight">\(n\in Z_n\)</span> and <span class="math notranslate nohighlight">\(d=0\)</span> mod <span class="math notranslate nohighlight">\(\lambda\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}d \equiv \left\{
+\begin{aligned}
+0 &amp;\mod \phi(N) \\
+Z_n &amp;\mod N
+\end{aligned}
+\right\}\end{split}\]</div>
+<p>Any such choice of <span class="math notranslate nohighlight">\(d\)</span> will work in the following.</p>
+<p>Now the pubkey is <span class="math notranslate nohighlight">\(n, g\)</span> while the secret key is <span class="math notranslate nohighlight">\(d\)</span>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">klefki.numbers.primes</span> <span class="k">import</span> <span class="n">generate_prime</span>
+<span class="kn">from</span> <span class="nn">klefki.numbers</span> <span class="k">import</span> <span class="n">lcm</span>
+<span class="kn">from</span> <span class="nn">random</span> <span class="k">import</span> <span class="n">randint</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">gcd</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">j</span> <span class="o">=</span> <span class="n">generate_prime</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">gcd</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">MF</span><span class="p">(</span><span class="n">randfield</span><span class="p">(</span><span class="n">H</span><span class="p">))</span>
+<span class="k">assert</span> <span class="n">x</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;</span> <span class="n">H</span><span class="o">.</span><span class="n">P</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">MF</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span> <span class="o">**</span> <span class="n">j</span> <span class="o">*</span> <span class="n">x</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">lam</span> <span class="o">=</span> <span class="n">lcm</span><span class="p">(</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">q</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">LF</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">lam</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">#d = randint(1, int(n / lam)) * lam</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">lam</span>
+<span class="k">assert</span> <span class="n">d</span> <span class="o">&lt;</span> <span class="n">n</span>
+<span class="k">assert</span> <span class="n">d</span> <span class="o">%</span> <span class="n">lam</span> <span class="o">==</span> <span class="mi">0</span>
+
+<span class="n">pubkey</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">g</span><span class="p">)</span>
+<span class="n">privkey</span> <span class="o">=</span> <span class="n">d</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Encryption">
+<h3>Encryption<a class="headerlink" href="#Encryption" title="Permalink to this headline">¶</a></h3>
+<p>The paintext set is <span class="math notranslate nohighlight">\(Z_{n^s}\)</span>. Given a paintext <span class="math notranslate nohighlight">\(i\)</span>, choose a random <span class="math notranslate nohighlight">\(r \leftarrow Z^*_{n^{s+1}}\)</span>, and lte the cipertext be <span class="math notranslate nohighlight">\(E(i, r) = g^ir^{n^s} \mod n^{s+1}\)</span></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">r</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">MF</span><span class="p">)</span>
+<span class="n">i</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">F</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+<span class="n">e</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">i</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="n">g</span> <span class="o">**</span> <span class="n">i</span> <span class="o">*</span> <span class="n">r</span> <span class="o">**</span> <span class="p">(</span><span class="n">n</span><span class="o">**</span><span class="n">s</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">c</span> <span class="o">=</span> <span class="n">e</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Decryption">
+<h3>Decryption<a class="headerlink" href="#Decryption" title="Permalink to this headline">¶</a></h3>
+<p>Given a ciphertext <span class="math notranslate nohighlight">\(c\)</span>, first compute <span class="math notranslate nohighlight">\(c^d \mod n^{s+1}\)</span>, Clearly, if <span class="math notranslate nohighlight">\(c=E(v, r)\)</span>, we get</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+c^d &amp;= (g^i r^{n^s})^d\\
+&amp;=((1+n)^{ij} x^i r^{n^s})^d\\
+&amp;=(1+n)^{jid \mod n^s}(x^ir^{n^s})^{d \mod \lambda}\\
+&amp;=(1+n)^{jid \mod n^s}
+\end{align}</div><div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">c</span> <span class="o">**</span> <span class="n">d</span> <span class="o">==</span>  <span class="p">(</span><span class="n">g</span> <span class="o">**</span> <span class="n">i</span> <span class="o">*</span> <span class="n">r</span> <span class="o">**</span> <span class="p">(</span><span class="n">n</span><span class="o">**</span><span class="n">s</span><span class="p">))</span><span class="o">**</span><span class="n">d</span> \
+       <span class="o">==</span> <span class="p">((</span><span class="n">MF</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span> <span class="o">**</span> <span class="n">j</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span> <span class="o">**</span> <span class="n">i</span> <span class="o">*</span> <span class="n">r</span> <span class="o">**</span> <span class="p">(</span><span class="n">n</span><span class="o">**</span><span class="n">s</span><span class="p">))</span><span class="o">**</span><span class="n">d</span> \
+       <span class="o">==</span> <span class="p">(</span><span class="n">MF</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="n">j</span> <span class="o">*</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">x</span> <span class="o">**</span> <span class="n">i</span> <span class="o">*</span> <span class="n">r</span> <span class="o">**</span> <span class="p">(</span><span class="n">n</span><span class="o">**</span><span class="n">s</span><span class="p">))</span><span class="o">**</span><span class="n">d</span> \
+       <span class="o">==</span> <span class="n">MF</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="n">j</span> <span class="o">*</span> <span class="n">i</span> <span class="o">*</span> <span class="n">d</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">**</span> <span class="n">i</span> <span class="o">*</span> <span class="n">r</span> <span class="o">**</span> <span class="p">(</span><span class="n">n</span><span class="o">**</span><span class="n">s</span><span class="p">))</span> <span class="o">**</span> <span class="n">d</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>True
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">F</span><span class="p">(</span><span class="n">c</span> <span class="o">**</span> <span class="n">d</span><span class="p">)</span> <span class="o">==</span> <span class="n">F</span><span class="p">(</span><span class="n">MF</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="n">j</span> <span class="o">*</span> <span class="n">i</span> <span class="o">*</span> <span class="n">d</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="Threshold-DJS-of-Paillier">
+<h2>Threshold DJS of Paillier<a class="headerlink" href="#Threshold-DJS-of-Paillier" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">damgard_jurik</span> <span class="k">import</span> <span class="n">keygen</span>
+
+<span class="n">public_key</span><span class="p">,</span> <span class="n">private_key_ring</span> <span class="o">=</span> <span class="n">keygen</span><span class="p">(</span>
+    <span class="n">n_bits</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span>
+    <span class="n">s</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">n_shares</span><span class="o">=</span><span class="mi">300</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">private_key_ring</span><span class="o">.</span><span class="n">i_list</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>[mpz(1),
+ mpz(17),
+ mpz(70),
+ mpz(265),
+ mpz(169),
+ mpz(200),
+ mpz(231),
+ mpz(223),
+ mpz(55),
+ mpz(35),
+ mpz(43),
+ mpz(30),
+ mpz(91),
+ mpz(101),
+ mpz(264),
+ mpz(29),
+ mpz(135),
+ mpz(156),
+ mpz(14),
+ mpz(216),
+ mpz(204),
+ mpz(25),
+ mpz(191),
+ mpz(58),
+ mpz(145),
+ mpz(296),
+ mpz(233),
+ mpz(134),
+ mpz(280),
+ mpz(87),
+ mpz(143),
+ mpz(174),
+ mpz(181),
+ mpz(220),
+ mpz(165),
+ mpz(164),
+ mpz(289),
+ mpz(23),
+ mpz(255),
+ mpz(184),
+ mpz(277),
+ mpz(4),
+ mpz(235),
+ mpz(197),
+ mpz(36),
+ mpz(126),
+ mpz(142),
+ mpz(113),
+ mpz(155),
+ mpz(13),
+ mpz(263),
+ mpz(198),
+ mpz(77),
+ mpz(93),
+ mpz(83),
+ mpz(178),
+ mpz(132),
+ mpz(84),
+ mpz(182),
+ mpz(60),
+ mpz(217),
+ mpz(40),
+ mpz(51),
+ mpz(71),
+ mpz(76),
+ mpz(139),
+ mpz(248),
+ mpz(166),
+ mpz(271),
+ mpz(286),
+ mpz(15),
+ mpz(256),
+ mpz(241),
+ mpz(175),
+ mpz(45),
+ mpz(105),
+ mpz(67),
+ mpz(261),
+ mpz(279),
+ mpz(21),
+ mpz(86),
+ mpz(228),
+ mpz(249),
+ mpz(273),
+ mpz(283),
+ mpz(292),
+ mpz(167),
+ mpz(73),
+ mpz(53),
+ mpz(257),
+ mpz(88),
+ mpz(109),
+ mpz(173),
+ mpz(258),
+ mpz(140),
+ mpz(281),
+ mpz(224),
+ mpz(27),
+ mpz(56),
+ mpz(254)]
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">public_key</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<span class="n">private_key_ring</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>mpz(42)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Ref:">
+<h2>Ref:<a class="headerlink" href="#Ref:" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><ol class="upperroman simple">
+<li><p>Damg˚ard and M. Jurik. A generalisation, a simpliﬁcation and some applications of paillier’s proba- bilistic public-key system. In Public Key Cryptography, pages 119–136, 2001.</p></li>
+</ol>
+</li>
+<li><p>Damgard-Jurik implementation <a class="reference external" href="https://github.com/cryptovoting/damgard-jurik">https://github.com/cryptovoting/damgard-jurik</a></p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <a href="https://github.com/ryankung/klefki">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
+    </a>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">klefki</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="README.html">TL;DR</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html#docs">Docs</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Non-interactive and Reusable Non-malleable Commitment Schemes.html">Non-interactive and Reusable Non-malleable Commitment Schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pedersen Commitment.html">Pedersen Commitment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="On Sigma Protocols.html"><span class="math notranslate nohighlight">\(\Sigma\)</span> Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Abstract Algebra Types.html">Abstract Algebra Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Homomorphic Encryption.html">Homomorphic Encryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="From ZK to Bulletproofs.html">From ZK to Bulletproofsproof via Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Paillier's encryption Scheme.html">Paillier’s encryption Scheme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ElGamal.html">ElGamal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Shamir's secret sharing scheme.html">Shamir’s secret sharing scheme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Trapdoor Commitment Schemes.html">Discrete-Logarithm-Based Trapdoor Commitment Schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Threshold ECDSA.html">Threshold ECDSA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="POD-Mini and POD-AS.html">POD-Mini and POD-AS</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Damgard-Jurik Scheme of Paillier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Threshold Paillier Cryptosystem.html">Threshold Paillier Cryptosystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="POD-Mini and POD-AS.html" title="previous chapter">POD-Mini and POD-AS</a></li>
+      <li>Next: <a href="Threshold Paillier Cryptosystem.html" title="next chapter">Threshold Paillier Cryptosystem</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Ryan Kung.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/Damgard-Jurik Scheme of Paillier.ipynb.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
