@@ -451,9 +451,8 @@ g^d &amp;= ((1 + n)^jx)^d \\
 <div class="section" id="A-Threshold-Variant-of-Paillier">
 <h2>A Threshold Variant of Paillier<a class="headerlink" href="#A-Threshold-Variant-of-Paillier" title="Permalink to this headline">¶</a></h2>
 <p>We can solve our problem by letting the servers help us compute <span class="math notranslate nohighlight">\(E(i, r)^d \mod n^{s+1}\)</span>. Then if we use <span class="math notranslate nohighlight">\(g = n + 1\)</span> and choose d such that <span class="math notranslate nohighlight">\(d = 1 mod n^s\)</span> and <span class="math notranslate nohighlight">\(d = 0 \mod \lambda\)</span>, the remaining part of the decryption is easy to do without knowledge of <span class="math notranslate nohighlight">\(d\)</span>.</p>
-</div>
 <div class="section" id="Key-generation">
-<h2>Key generation<a class="headerlink" href="#Key-generation" title="Permalink to this headline">¶</a></h2>
+<h3>Key generation<a class="headerlink" href="#Key-generation" title="Permalink to this headline">¶</a></h3>
 <p>We find 2 primes <span class="math notranslate nohighlight">\(p\)</span> and <span class="math notranslate nohighlight">\(q\)</span>, that satisifies <span class="math notranslate nohighlight">\(p = 2p' + 1\)</span> and <span class="math notranslate nohighlight">\(q = 2q' + 1\)</span>, where <span class="math notranslate nohighlight">\(p'\)</span> and <span class="math notranslate nohighlight">\(q'\)</span> are primes and different from <span class="math notranslate nohighlight">\(p,q\)</span>. We set <span class="math notranslate nohighlight">\(n = pq\)</span> and <span class="math notranslate nohighlight">\(m = p'q'\)</span>.</p>
 <p>We pick <span class="math notranslate nohighlight">\(d\)</span> to satisfy:</p>
 <div class="math notranslate nohighlight">
@@ -595,7 +594,7 @@ g^d &amp;= ((1 + n)^jx)^d \\
 </div>
 </div>
 <div class="section" id="Encryption">
-<h2>Encryption<a class="headerlink" href="#Encryption" title="Permalink to this headline">¶</a></h2>
+<h3>Encryption<a class="headerlink" href="#Encryption" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
@@ -627,9 +626,8 @@ g^d &amp;= ((1 + n)^jx)^d \\
 </div>
 </div>
 </div>
-</div>
 <div class="section" id="Share-decryption">
-<h1>Share decryption<a class="headerlink" href="#Share-decryption" title="Permalink to this headline">¶</a></h1>
+<h3>Share decryption<a class="headerlink" href="#Share-decryption" title="Permalink to this headline">¶</a></h3>
 <p>The i’th authority will compute <span class="math notranslate nohighlight">\(c_i = c^{2 \Delta s_i}\)</span>, where <span class="math notranslate nohighlight">\(c\)</span> is the ciphertext, <span class="math notranslate nohighlight">\(\Delta = l!\)</span></p>
 <p>If we have the required k (or more) number of shares with a correct proof, we can combine them into the result by taking a subset S of k shares and combine them to</p>
 <div class="math notranslate nohighlight">
@@ -653,6 +651,8 @@ g^d &amp;= ((1 + n)^jx)^d \\
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">sd</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">**</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">l</span><span class="p">))</span><span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">shares</span><span class="p">]</span>
 </pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="Implementation">
@@ -871,7 +871,6 @@ g^d &amp;= ((1 + n)^jx)^d \\
 <li class="toctree-l1"><a class="reference internal" href="Threshold ECDSA.html">Threshold ECDSA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="POD-Mini and POD-AS.html">POD-Mini and POD-AS</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Damgard-Jurik Scheme of Paillier</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#Share-decryption">Share decryption</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Threshold Paillier Cryptosystem.html">Threshold Paillier Cryptosystem</a></li>
 </ul>
 <ul>

@@ -315,7 +315,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Key generation"
+    "### Key generation"
    ]
   },
   {
@@ -473,7 +473,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Encryption"
+    "### Encryption"
    ]
   },
   {
@@ -509,7 +509,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# Share decryption"
+    "### Share decryption"
    ]
   },
   {
