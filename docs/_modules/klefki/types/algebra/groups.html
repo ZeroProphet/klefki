@@ -38,6 +38,7 @@
 <span></span><span class="kn">from</span> <span class="nn">abc</span> <span class="k">import</span> <span class="n">abstractproperty</span>
 <span class="kn">from</span> <span class="nn">.abstract</span> <span class="k">import</span> <span class="n">Group</span>
 <span class="kn">from</span> <span class="nn">.fields</span> <span class="k">import</span> <span class="n">FiniteField</span>
+<span class="kn">from</span> <span class="nn">klefki.numbers</span> <span class="k">import</span> <span class="n">invmod</span>
 
 
 <div class="viewcode-block" id="EllipticCurveGroup"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.EllipticCurveGroup">[docs]</a><span class="k">class</span> <span class="nc">EllipticCurveGroup</span><span class="p">(</span><span class="n">Group</span><span class="p">):</span>
@@ -95,13 +96,39 @@
         <span class="k">return</span> <span class="bp">cls</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span></div></div>
 
 
+<div class="viewcode-block" id="CyclicAddGroup"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.CyclicAddGroup">[docs]</a><span class="k">class</span> <span class="nc">CyclicAddGroup</span><span class="p">(</span><span class="n">Group</span><span class="p">):</span>
+    <span class="c1"># Order of subgroup</span>
+<div class="viewcode-block" id="CyclicAddGroup.N"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.CyclicAddGroup.N">[docs]</a>    <span class="n">N</span> <span class="o">=</span> <span class="n">abstractproperty</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="CyclicAddGroup.fmap"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.CyclicAddGroup.fmap">[docs]</a>    <span class="k">def</span> <span class="nf">fmap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="n">o</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">value</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span></div>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="CyclicAddGroup.identity"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.CyclicAddGroup.identity">[docs]</a>    <span class="k">def</span> <span class="nf">identity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CyclicAddGroup.inverse"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.CyclicAddGroup.inverse">[docs]</a>    <span class="k">def</span> <span class="nf">inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">invmod</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="CyclicAddGroup.op"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.CyclicAddGroup.op">[docs]</a>    <span class="k">def</span> <span class="nf">op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">g</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">g</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">functor</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span>
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="n">g</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span></div>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="CyclicAddGroup.__pow__"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.CyclicAddGroup.__pow__">[docs]</a>    <span class="k">def</span> <span class="nf">__pow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">times</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span>
+            <span class="nb">pow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">)</span></div></div>
+        <span class="p">)</span>
+
+
 <div class="viewcode-block" id="EllipicCyclicSubroup"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.EllipicCyclicSubroup">[docs]</a><span class="k">class</span> <span class="nc">EllipicCyclicSubroup</span><span class="p">(</span><span class="n">EllipticCurveGroup</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    With Lagrange&#39;s therem</span>
 <span class="sd">    the order of a subgroup is a divisor of the order of the parent group</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="c1"># The Base Point</span>
-    <span class="c1">#G = abstractproperty()</span>
     <span class="c1"># Order of subgroup</span>
 <div class="viewcode-block" id="EllipicCyclicSubroup.N"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/groups/index.html#klefki.types.algebra.groups.EllipicCyclicSubroup.N">[docs]</a>    <span class="n">N</span> <span class="o">=</span> <span class="n">abstractproperty</span><span class="p">()</span></div>
 
@@ -222,6 +249,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../Threshold ECDSA.html">Threshold ECDSA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../POD-Mini and POD-AS.html">POD-Mini and POD-AS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../Damgard-Jurik Scheme of Paillier.html">Damgard-Jurik Scheme of Paillier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Damgard-Jurik Scheme of Paillier.html#A-Threshold-Variant-of-Paillier">A Threshold Variant of Paillier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Damgard-Jurik Scheme of Paillier.html#Share-decryption">Share decryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Damgard-Jurik Scheme of Paillier.html#Implementation">Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../Threshold Paillier Cryptosystem.html">Threshold Paillier Cryptosystem</a></li>
 </ul>
 <ul>

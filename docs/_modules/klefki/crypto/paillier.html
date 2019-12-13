@@ -41,7 +41,12 @@
 <span class="kn">from</span> <span class="nn">klefki.types.algebra.utils</span> <span class="k">import</span> <span class="n">randfield</span>
 <span class="kn">from</span> <span class="nn">klefki.types.algebra.meta</span> <span class="k">import</span> <span class="n">field</span>
 <span class="kn">from</span> <span class="nn">klefki.numbers</span> <span class="k">import</span> <span class="n">lcm</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">partial</span>
 <span class="kn">import</span> <span class="nn">random</span>
+
+
+<div class="viewcode-block" id="L"><a class="viewcode-back" href="../../../autoapi/klefki/crypto/paillier/index.html#klefki.crypto.paillier.L">[docs]</a><span class="k">def</span> <span class="nf">L</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="n">n</span></div>
 
 
 <div class="viewcode-block" id="Paillier"><a class="viewcode-back" href="../../../autoapi/klefki/crypto/paillier/index.html#klefki.crypto.paillier.Paillier">[docs]</a><span class="k">class</span> <span class="nc">Paillier</span><span class="p">():</span>
@@ -54,11 +59,9 @@
 
         <span class="n">F</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
         <span class="n">DF</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">N</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-
-        <span class="n">L</span>  <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="n">N</span>
         <span class="n">G</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">DF</span><span class="p">)</span>
 
-        <span class="n">M</span> <span class="o">=</span> <span class="o">~</span><span class="n">F</span><span class="p">(</span><span class="n">L</span><span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">Lam</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+        <span class="n">M</span> <span class="o">=</span> <span class="o">~</span><span class="n">F</span><span class="p">(</span><span class="n">L</span><span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">Lam</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">privkey</span> <span class="o">=</span> <span class="p">(</span><span class="n">Lam</span><span class="p">,</span> <span class="n">M</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pubkey</span> <span class="o">=</span> <span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">G</span><span class="p">)</span>
@@ -81,8 +84,7 @@
         <span class="n">N</span><span class="p">,</span> <span class="n">G</span> <span class="o">=</span> <span class="n">pub</span>
 
         <span class="n">F</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">functor</span>
-        <span class="n">L</span> <span class="o">=</span>  <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="n">N</span>
-        <span class="k">return</span> <span class="n">F</span><span class="p">(</span><span class="n">L</span><span class="p">((</span><span class="n">c</span> <span class="o">**</span> <span class="n">Lam</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">))</span> <span class="o">*</span> <span class="n">M</span></div>
+        <span class="k">return</span> <span class="n">F</span><span class="p">(</span><span class="n">L</span><span class="p">((</span><span class="n">c</span> <span class="o">**</span> <span class="n">Lam</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span> <span class="o">*</span> <span class="n">M</span></div>
 
 <div class="viewcode-block" id="Paillier.E"><a class="viewcode-back" href="../../../autoapi/klefki/crypto/paillier/index.html#klefki.crypto.paillier.Paillier.E">[docs]</a>    <span class="k">def</span> <span class="nf">E</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">pub</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">pub</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">pubkey</span><span class="p">)</span></div>
@@ -136,6 +138,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../Threshold ECDSA.html">Threshold ECDSA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../POD-Mini and POD-AS.html">POD-Mini and POD-AS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Damgard-Jurik Scheme of Paillier.html">Damgard-Jurik Scheme of Paillier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Damgard-Jurik Scheme of Paillier.html#A-Threshold-Variant-of-Paillier">A Threshold Variant of Paillier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Damgard-Jurik Scheme of Paillier.html#Share-decryption">Share decryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Damgard-Jurik Scheme of Paillier.html#Implementation">Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Threshold Paillier Cryptosystem.html">Threshold Paillier Cryptosystem</a></li>
 </ul>
 <ul>

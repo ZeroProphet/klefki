@@ -20,7 +20,7 @@ Module Contents
 
 
 
-   .. method:: join(self)
+   .. method:: join(self, x=None)
 
 
 

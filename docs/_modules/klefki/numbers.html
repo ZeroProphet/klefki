@@ -36,6 +36,8 @@
             
   <h1>Source code for klefki.numbers</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">reduce</span>
+<span class="kn">from</span> <span class="nn">operator</span> <span class="k">import</span> <span class="n">mul</span>
 
 
 <div class="viewcode-block" id="fn_lambda"><a class="viewcode-back" href="../../autoapi/klefki/numbers/index.html#klefki.numbers.fn_lambda">[docs]</a><span class="k">def</span> <span class="nf">fn_lambda</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
@@ -98,25 +100,11 @@
     <span class="k">return</span> <span class="n">ans</span></div>
 
 
-<span class="c1"># from https://github.com/mikeivanov/paillier/blob/master/paillier/paillier.py</span>
+<div class="viewcode-block" id="invmod"><a class="viewcode-back" href="../../autoapi/klefki/numbers/index.html#klefki.numbers.invmod">[docs]</a><span class="k">def</span> <span class="nf">invmod</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">klefki.types.algebra.meta</span> <span class="k">import</span> <span class="n">field</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="o">~</span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">))</span><span class="o">.</span><span class="n">value</span></div>
 
-<div class="viewcode-block" id="invmod"><a class="viewcode-back" href="../../autoapi/klefki/numbers/index.html#klefki.numbers.invmod">[docs]</a><span class="k">def</span> <span class="nf">invmod</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">maxiter</span><span class="o">=</span><span class="mi">1000000</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;The multiplicitive inverse of a in the integers modulo p:</span>
-<span class="sd">         a * b == 1 mod p</span>
-<span class="sd">       Returns b.</span>
-<span class="sd">       (http://code.activestate.com/recipes/576737-inverse-modulo-p/)&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;0 has no inverse mod </span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">p</span><span class="p">)</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="n">a</span>
-    <span class="n">d</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">maxiter</span><span class="p">)):</span>
-        <span class="n">d</span> <span class="o">=</span> <span class="p">((</span><span class="n">p</span> <span class="o">//</span> <span class="n">r</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">d</span><span class="p">)</span> <span class="o">%</span> <span class="n">p</span>
-        <span class="n">r</span> <span class="o">=</span> <span class="p">(</span><span class="n">d</span> <span class="o">*</span> <span class="n">a</span><span class="p">)</span> <span class="o">%</span> <span class="n">p</span>
-        <span class="k">if</span> <span class="n">r</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="k">break</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1"> has no inverse mod </span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">d</span></div>
 
 <div class="viewcode-block" id="modpow"><a class="viewcode-back" href="../../autoapi/klefki/numbers/index.html#klefki.numbers.modpow">[docs]</a><span class="k">def</span> <span class="nf">modpow</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">exponent</span><span class="p">,</span> <span class="n">modulus</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Modular exponent:</span>
@@ -227,70 +215,23 @@
 
 
 
+<div class="viewcode-block" id="crt"><a class="viewcode-back" href="../../autoapi/klefki/numbers/index.html#klefki.numbers.crt">[docs]</a><span class="k">def</span> <span class="nf">crt</span><span class="p">(</span><span class="n">a_list</span><span class="p">,</span> <span class="n">n_list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Applies the Chinese Remainder Theorem to find the unique x such that x = a_i (mod n_i) for all i.</span>
+<span class="sd">    :param a_list: A list of integers a_i in the above equation.</span>
+<span class="sd">    :param n_list: A list of integers b_i in the above equation.</span>
+<span class="sd">    :return: The unique integer x such that x = a_i (mod n_i) for all i.</span>
+<span class="sd">    copy from::</span>
+<span class="sd">    https://github.com/cryptovoting/damgard-jurik/blob/master/damgard_jurik/utils.py#L100</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">a_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">a_i</span> <span class="k">for</span> <span class="n">a_i</span> <span class="ow">in</span> <span class="n">a_list</span><span class="p">]</span>
+    <span class="n">n_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">n_i</span> <span class="k">for</span> <span class="n">n_i</span> <span class="ow">in</span> <span class="n">n_list</span><span class="p">]</span>
 
+    <span class="n">N</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="n">mul</span><span class="p">,</span> <span class="n">n_list</span><span class="p">)</span>
+    <span class="n">y_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">N</span> <span class="o">//</span> <span class="n">n_i</span> <span class="k">for</span> <span class="n">n_i</span> <span class="ow">in</span> <span class="n">n_list</span><span class="p">]</span>
+    <span class="n">z_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">invmod</span><span class="p">(</span><span class="n">y_i</span><span class="p">,</span> <span class="n">n_i</span><span class="p">)</span> <span class="k">for</span> <span class="n">y_i</span><span class="p">,</span> <span class="n">n_i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">y_list</span><span class="p">,</span> <span class="n">n_list</span><span class="p">)]</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">a_i</span> <span class="o">*</span> <span class="n">y_i</span> <span class="o">*</span> <span class="n">z_i</span> <span class="k">for</span> <span class="n">a_i</span><span class="p">,</span> <span class="n">y_i</span><span class="p">,</span> <span class="n">z_i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">a_list</span><span class="p">,</span> <span class="n">y_list</span><span class="p">,</span> <span class="n">z_list</span><span class="p">))</span>
 
-
-<span class="c1"># function implementing Chinese remainder theorem</span>
-<span class="c1"># list m contains all the modulii</span>
-<span class="c1"># list x contains the remainders of the equations</span>
-<span class="c1"># ref https://www.geeksforgeeks.org/using-chinese-remainder-theorem-combine-modular-equations/</span>
-<div class="viewcode-block" id="crt"><a class="viewcode-back" href="../../autoapi/klefki/numbers/index.html#klefki.numbers.crt">[docs]</a><span class="k">def</span> <span class="nf">crt</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-
-    <span class="c1"># function that implements Extended euclidean</span>
-    <span class="c1"># algorithm</span>
-    <span class="k">def</span> <span class="nf">extended_euclidean</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">g</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">extended_euclidean</span><span class="p">(</span><span class="n">b</span> <span class="o">%</span> <span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
-            <span class="k">return</span> <span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">x</span> <span class="o">-</span> <span class="p">(</span><span class="n">b</span> <span class="o">//</span> <span class="n">a</span><span class="p">)</span> <span class="o">*</span> <span class="n">y</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-
-    <span class="c1"># modular inverse driver function</span>
-    <span class="k">def</span> <span class="nf">modinv</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
-        <span class="n">g</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">extended_euclidean</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">x</span> <span class="o">%</span> <span class="n">m</span>
-
-        <span class="c1"># We run this loop while the list of</span>
-        <span class="c1"># remainders has length greater than 1</span>
-    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-
-        <span class="c1"># temp1 will contain the new value</span>
-        <span class="c1"># of A. which is calculated according</span>
-        <span class="c1"># to the equation m1&#39; * m1 * x0 + m0&#39;</span>
-        <span class="c1"># * m0 * x1</span>
-        <span class="n">temp1</span> <span class="o">=</span> <span class="n">modinv</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> \
-                <span class="n">modinv</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">m</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-        <span class="c1"># temp2 contains the value of the modulus</span>
-        <span class="c1"># in the new equation, which will be the</span>
-        <span class="c1"># product of the modulii of the two</span>
-        <span class="c1"># equations that we are combining</span>
-        <span class="n">temp2</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-
-        <span class="c1"># we then remove the first two elements</span>
-        <span class="c1"># from the list of remainders, and replace</span>
-        <span class="c1"># it with the remainder value, which will</span>
-        <span class="c1"># be temp1 % temp2</span>
-        <span class="n">x</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="n">x</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">temp1</span> <span class="o">%</span> <span class="n">temp2</span><span class="p">]</span> <span class="o">+</span> <span class="n">x</span>
-
-        <span class="c1"># we then remove the first two values from</span>
-        <span class="c1"># the list of modulii as we no longer require</span>
-        <span class="c1"># them and simply replace them with the new</span>
-        <span class="c1"># modulii that  we calculated</span>
-        <span class="n">m</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="n">m</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="n">m</span> <span class="o">=</span> <span class="p">[</span><span class="n">temp2</span><span class="p">]</span> <span class="o">+</span> <span class="n">m</span>
-
-        <span class="c1"># once the list has only one element left,</span>
-        <span class="c1"># we can break as it will only  contain</span>
-        <span class="c1"># the value of our final remainder</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="k">break</span>
-
-    <span class="c1"># returns the remainder of the final equation</span>
-    <span class="k">return</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+    <span class="k">return</span> <span class="n">x</span></div>
 </pre></div>
 
           </div>
@@ -331,6 +272,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../Threshold ECDSA.html">Threshold ECDSA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../POD-Mini and POD-AS.html">POD-Mini and POD-AS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Damgard-Jurik Scheme of Paillier.html">Damgard-Jurik Scheme of Paillier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Damgard-Jurik Scheme of Paillier.html#A-Threshold-Variant-of-Paillier">A Threshold Variant of Paillier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Damgard-Jurik Scheme of Paillier.html#Share-decryption">Share decryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Damgard-Jurik Scheme of Paillier.html#Implementation">Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Threshold Paillier Cryptosystem.html">Threshold Paillier Cryptosystem</a></li>
 </ul>
 <ul>

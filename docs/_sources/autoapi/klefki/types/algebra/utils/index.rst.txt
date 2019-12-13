@@ -16,3 +16,6 @@ Module Contents
 .. function:: randfield(F)
 
 
+.. function:: randgroup(G)
+
+

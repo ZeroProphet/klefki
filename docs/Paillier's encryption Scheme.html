@@ -245,7 +245,7 @@ div.rendered_html tbody tr:hover {
 <li><p>Choose two large prime numbers <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> randomly and indenpendently of each other such that <span class="math notranslate nohighlight">\(gcd(PQ, (P-1)(Q-1))=1\)</span>. This property is assured if both primes are equal lenth.</p></li>
 </ol>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -254,7 +254,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -268,7 +268,7 @@ div.rendered_html tbody tr:hover {
 <li><p>Compute <span class="math notranslate nohighlight">\(N=PQ\)</span> and <span class="math notranslate nohighlight">\(\lambda(N)=lcm(P-1, Q-1)\)</span> be the Carmichael function of N.</p></li>
 </ol>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -277,7 +277,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -290,7 +290,7 @@ div.rendered_html tbody tr:hover {
 <li><p>Select random integer <span class="math notranslate nohighlight">\(\Gamma\)</span> where <span class="math notranslate nohighlight">\(\Gamma \in \mathbf{Z}_{n^2}^*\)</span>.</p></li>
 </ol>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -298,8 +298,8 @@ div.rendered_html tbody tr:hover {
 <span class="kn">from</span> <span class="nn">klefki.types.algebra.utils</span> <span class="k">import</span> <span class="n">randfield</span>
 <span class="kn">from</span> <span class="nn">klefki.types.algebra.meta</span> <span class="k">import</span> <span class="n">field</span>
 
-<span class="n">F</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
-<span class="n">DF</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">N</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">F</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="s2">&quot;N&quot;</span><span class="p">)</span>
+<span class="n">DF</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">N</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;N^2&quot;</span><span class="p">)</span>
 <span class="n">G</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">DF</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -313,19 +313,18 @@ div.rendered_html tbody tr:hover {
 <div class="math notranslate nohighlight">
 \[L(x) = \frac{x-1}{N}\]</div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">L</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="n">N</span>
-<span class="n">M</span> <span class="o">=</span> <span class="o">~</span><span class="n">F</span><span class="p">(</span><span class="n">L</span><span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">Lam</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
-<p>The public key is <span class="math notranslate nohighlight">\((N, \Gamma)\)</span> and the secret key is <span class="math notranslate nohighlight">\((\lambda(N), \mu)\)</span></p>
+<p>The public key is <span class="math notranslate nohighlight">\((N, \Gamma)\)</span> and the secret key is <span class="math notranslate nohighlight">\((\lambda(N))\)</span></p>
 <p>If using p,q of equivalent length, a simpler variant of the above key generation steps would be to set <span class="math notranslate nohighlight">\(g = n + 1 , λ = φ ( n )\)</span>, and <span class="math notranslate nohighlight">\(\mu = φ(n)^{-1}\ mod \ n\)</span>, where <span class="math notranslate nohighlight">\(φ(n)=(p-1)(q-1)\)</span></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -338,11 +337,11 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-PrivKey: 2234634654990432849929004166367641021238215826767191291571707378398254532167475902984296517123225539202576657105730699764493290075143829571044458305451072, 3552998749514038980137980360709377191288489639485820121715967668306880837055064323001198300976254358621923700473077880966590708603371508026789722641288856
+PrivKey: 2234634654990432849929004166367641021238215826767191291571707378398254532167475902984296517123225539202576657105730699764493290075143829571044458305451072, 13254261961991812757882623593370608719968741963831589626706600685032842863647858018649160392763883456900854665419073782868631803621254699820464091909193244
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -355,7 +354,7 @@ PrivKey: 22346346549904328499290041663676410212382158267671912915717073783982545
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-PubKey: 13407807929942597099574024998205846127429294960603147749430244270389527193005087002084253735130200377185477318450090306135904455919285040173416176828872431; 97527252797322665689520638191395398748643006307038201557423023521392279536618476216107167408435514968370762252062139266491687595192757839037971358744023428969341905584987646768067406955682509623019919836472754974667967078834867167323107147105322193580815241651397765113926082497280151782815095414526103656291
+PubKey: 13407807929942597099574024998205846127429294960603147749430244270389527193005087002084253735130200377185477318450090306135904455919285040173416176828872431; 1418004544894705853780981082183631706605628720100892930589463971715939123556313159072140977442125436883597020621599490122591247361593333616189985451721293408138901788097550973644296936136229450443228041683309117323399467575692841797938987806744439788129498975768679996833554138933865427237115332314583971968
 </pre></div></div>
 </div>
 </div>
@@ -363,7 +362,7 @@ PubKey: 134078079299425970995740249982058461274292949606031477494302442703895271
 <h2>Encryption:<a class="headerlink" href="#Encryption:" title="Permalink to this headline">¶</a></h2>
 <p>To Encrypt a message <span class="math notranslate nohighlight">\(M \in Z_N\)</span>, select <span class="math notranslate nohighlight">\(R \in_R Z_N^*\)</span> and return <span class="math notranslate nohighlight">\(c=\Gamma^M R^N\ mod \ N^2\)</span>.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -372,24 +371,22 @@ PubKey: 134078079299425970995740249982058461274292949606031477494302442703895271
 <span class="n">m</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
 <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">m</span> <span class="o">&lt;</span> <span class="n">N</span>
 
-<span class="n">r</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
-<span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="n">N</span>
-
-<span class="k">assert</span> <span class="n">math</span><span class="o">.</span><span class="n">gcd</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">DF</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
+<span class="k">assert</span> <span class="n">math</span><span class="o">.</span><span class="n">gcd</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">c</span> <span class="o">=</span> <span class="n">G</span><span class="o">**</span><span class="n">m</span> <span class="o">*</span> <span class="n">DF</span><span class="p">(</span><span class="n">r</span><span class="p">)</span><span class="o">**</span><span class="n">N</span>
+<span></span><span class="n">c</span> <span class="o">=</span> <span class="n">G</span><span class="o">**</span><span class="n">m</span> <span class="o">*</span> <span class="n">r</span><span class="o">**</span><span class="n">N</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -402,7 +399,7 @@ PubKey: 134078079299425970995740249982058461274292949606031477494302442703895271
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Ciphtertext Text: 66388851543686555060203462451104423480430236445196097742157279032551098315911278305744657406892626387572141943651201309436400891799766994374751694044696135794809976851696983613676963254326786528710079285331675402629421696041640679536803236059468343655288156310932299693469848371775193655876766185162592379362
+Ciphtertext Text: 6936262328602563756080515747570611563553123211896797818889894593996301677241298119496358618089226287838684487407077665020081144081946937529352572250639444959941672094132026635786430525489894291370049090782883743061607284310546755266607824777853860280723291571186391547796057074259287936058762591511890696754
 </pre></div></div>
 </div>
 </div>
@@ -412,11 +409,11 @@ Ciphtertext Text: 66388851543686555060203462451104423480430236445196097742157279
 <div class="math notranslate nohighlight">
 \[\frac{L(c^{\lambda(N)}\ mod\ N^2)}{L(\Gamma^{\lambda(N)}\ mod\ N^2)}\ mod\ N\]</div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="k">assert</span> <span class="n">F</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="o">==</span> <span class="n">F</span><span class="p">(</span><span class="n">L</span><span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="n">DF</span><span class="p">(</span><span class="n">c</span><span class="p">),</span> <span class="n">Lam</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">))</span> <span class="o">*</span> <span class="n">M</span>
+<span></span><span class="k">assert</span> <span class="n">F</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="o">==</span> <span class="n">F</span><span class="p">(</span><span class="n">L</span><span class="p">((</span><span class="n">c</span> <span class="o">**</span> <span class="n">Lam</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">))</span> <span class="o">*</span> <span class="o">~</span><span class="n">F</span><span class="p">(</span><span class="n">L</span><span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">Lam</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -429,7 +426,7 @@ m_i \in Z_N\end{split}\]</div>
 <div class="section" id="Homomorphic-addition">
 <h3>Homomorphic addition<a class="headerlink" href="#Homomorphic-addition" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -440,7 +437,7 @@ m_i \in Z_N\end{split}\]</div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -456,7 +453,7 @@ m_i \in Z_N\end{split}\]</div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -472,7 +469,7 @@ m_i \in Z_N\end{split}\]</div>
 </li>
 </ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -486,7 +483,7 @@ m_i \in Z_N\end{split}\]</div>
 <div class="math notranslate nohighlight">
 \[\begin{split}D(E(m_1, r_1)\circ g^{m_2}) = m_1+m_2\\\end{split}\]</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -495,7 +492,7 @@ m_i \in Z_N\end{split}\]</div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -513,7 +510,7 @@ m_i \in Z_N\end{split}\]</div>
 \[\begin{split}D(E(m_1, r_1)^{m_2}) = m_1m_2\\
 D(E(m_2, r_2)^{m_1}) = m_1m_2\\\\\end{split}\]</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -522,7 +519,7 @@ D(E(m_2, r_2)^{m_1}) = m_1m_2\\\\\end{split}\]</div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -534,7 +531,7 @@ D(E(m_2, r_2)^{m_1}) = m_1m_2\\\\\end{split}\]</div>
 <div class="math notranslate nohighlight">
 \[D(E(m, r)^{k}) = km\]</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -547,7 +544,7 @@ D(E(m_2, r_2)^{m_1}) = m_1m_2\\\\\end{split}\]</div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -615,6 +612,11 @@ D(E(m_2, r_2)^{m_1}) = m_1m_2\\\\\end{split}\]</div>
 <li class="toctree-l1"><a class="reference internal" href="Trapdoor Commitment Schemes.html">Discrete-Logarithm-Based Trapdoor Commitment Schemes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Threshold ECDSA.html">Threshold ECDSA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="POD-Mini and POD-AS.html">POD-Mini and POD-AS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Damgard-Jurik Scheme of Paillier.html">Damgard-Jurik Scheme of Paillier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Damgard-Jurik Scheme of Paillier.html#A-Threshold-Variant-of-Paillier">A Threshold Variant of Paillier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Damgard-Jurik Scheme of Paillier.html#Share-decryption">Share decryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Damgard-Jurik Scheme of Paillier.html#Implementation">Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Threshold Paillier Cryptosystem.html">Threshold Paillier Cryptosystem</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>

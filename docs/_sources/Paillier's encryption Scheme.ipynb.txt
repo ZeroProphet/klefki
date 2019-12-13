@@ -31,7 +31,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 1,
+   "execution_count": 22,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -40,7 +40,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 2,
+   "execution_count": 23,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -58,7 +58,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 3,
+   "execution_count": 24,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -67,7 +67,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 4,
+   "execution_count": 25,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -84,7 +84,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 5,
+   "execution_count": 26,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -92,8 +92,8 @@
     "from klefki.types.algebra.utils import randfield\n",
     "from klefki.types.algebra.meta import field\n",
     "\n",
-    "F = field(N)\n",
-    "DF = field(N**2)\n",
+    "F = field(N, \"N\")\n",
+    "DF = field(N**2, \"N^2\")\n",
     "G = randfield(DF)"
    ]
   },
@@ -116,33 +116,32 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 6,
+   "execution_count": 35,
    "metadata": {},
    "outputs": [],
    "source": [
-    "L = lambda x: (x - 1) // N\n",
-    "M = ~F(L(pow(G, Lam).value))"
+    "L = lambda x: (x - 1) // N"
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "The public key is $(N, \\Gamma)$ and the secret key is $(\\lambda(N), \\mu)$\n",
+    "The public key is $(N, \\Gamma)$ and the secret key is $(\\lambda(N))$\n",
     "\n",
     "If using p,q of equivalent length, a simpler variant of the above key generation steps would be to set $g = n + 1 , λ = φ ( n )$, and $\\mu = φ(n)^{-1}\\ mod \\ n$, where $φ(n)=(p-1)(q-1)$"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 7,
+   "execution_count": 36,
    "metadata": {},
    "outputs": [
     {
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "PrivKey: 2234634654990432849929004166367641021238215826767191291571707378398254532167475902984296517123225539202576657105730699764493290075143829571044458305451072, 3552998749514038980137980360709377191288489639485820121715967668306880837055064323001198300976254358621923700473077880966590708603371508026789722641288856\n"
+      "PrivKey: 2234634654990432849929004166367641021238215826767191291571707378398254532167475902984296517123225539202576657105730699764493290075143829571044458305451072, 13254261961991812757882623593370608719968741963831589626706600685032842863647858018649160392763883456900854665419073782868631803621254699820464091909193244\n"
      ]
     }
    ],
@@ -152,14 +151,14 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 8,
+   "execution_count": 37,
    "metadata": {},
    "outputs": [
     {
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "PubKey: 13407807929942597099574024998205846127429294960603147749430244270389527193005087002084253735130200377185477318450090306135904455919285040173416176828872431; 97527252797322665689520638191395398748643006307038201557423023521392279536618476216107167408435514968370762252062139266491687595192757839037971358744023428969341905584987646768067406955682509623019919836472754974667967078834867167323107147105322193580815241651397765113926082497280151782815095414526103656291\n"
+      "PubKey: 13407807929942597099574024998205846127429294960603147749430244270389527193005087002084253735130200377185477318450090306135904455919285040173416176828872431; 1418004544894705853780981082183631706605628720100892930589463971715939123556313159072140977442125436883597020621599490122591247361593333616189985451721293408138901788097550973644296936136229450443228041683309117323399467575692841797938987806744439788129498975768679996833554138933865427237115332314583971968\n"
      ]
     }
    ],
@@ -183,7 +182,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 9,
+   "execution_count": 38,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -192,31 +191,29 @@
     "m = random.randint(0, N)\n",
     "assert 0 <= m < N\n",
     "\n",
-    "r = random.randint(0, N)\n",
-    "assert 0 < r < N\n",
-    "\n",
-    "assert math.gcd(r, N) == 1"
+    "r = DF(random.randint(0, N))\n",
+    "assert math.gcd(r.value, N) == 1"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 11,
+   "execution_count": 39,
    "metadata": {},
    "outputs": [],
    "source": [
-    "c = G**m * DF(r)**N"
+    "c = G**m * r**N"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 12,
+   "execution_count": 40,
    "metadata": {},
    "outputs": [
     {
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "Ciphtertext Text: 66388851543686555060203462451104423480430236445196097742157279032551098315911278305744657406892626387572141943651201309436400891799766994374751694044696135794809976851696983613676963254326786528710079285331675402629421696041640679536803236059468343655288156310932299693469848371775193655876766185162592379362\n"
+      "Ciphtertext Text: 6936262328602563756080515747570611563553123211896797818889894593996301677241298119496358618089226287838684487407077665020081144081946937529352572250639444959941672094132026635786430525489894291370049090782883743061607284310546755266607824777853860280723291571186391547796057074259287936058762591511890696754\n"
      ]
     }
    ],
@@ -244,11 +241,11 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 13,
+   "execution_count": 41,
    "metadata": {},
    "outputs": [],
    "source": [
-    "assert F(m) == F(L(pow(DF(c), Lam).value)) * M"
+    "assert F(m) == F(L((c ** Lam).value)) * ~F(L(pow(G, Lam).value))"
    ]
   },
   {
@@ -277,7 +274,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 14,
+   "execution_count": 13,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -288,7 +285,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 15,
+   "execution_count": 14,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -304,7 +301,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 16,
+   "execution_count": 15,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -323,7 +320,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 17,
+   "execution_count": 16,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -344,7 +341,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 18,
+   "execution_count": 17,
    "metadata": {},
    "outputs": [
     {
@@ -353,7 +350,7 @@
        "True"
       ]
      },
-     "execution_count": 18,
+     "execution_count": 17,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -388,7 +385,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 19,
+   "execution_count": 18,
    "metadata": {},
    "outputs": [
     {
@@ -397,7 +394,7 @@
        "True"
       ]
      },
-     "execution_count": 19,
+     "execution_count": 18,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -419,7 +416,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 20,
+   "execution_count": 19,
    "metadata": {},
    "outputs": [
     {
@@ -428,7 +425,7 @@
        "True"
       ]
      },
-     "execution_count": 20,
+     "execution_count": 19,
      "metadata": {},
      "output_type": "execute_result"
     }

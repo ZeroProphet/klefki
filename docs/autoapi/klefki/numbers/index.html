@@ -102,14 +102,8 @@ n are relatively prime, i.e, gcd(b, n) = 1</p>
 
 <dl class="function">
 <dt id="klefki.numbers.invmod">
-<code class="sig-prename descclassname">klefki.numbers.</code><code class="sig-name descname">invmod</code><span class="sig-paren">(</span><em class="sig-param">a</em>, <em class="sig-param">p</em>, <em class="sig-param">maxiter=1000000</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/klefki/numbers.html#invmod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.numbers.invmod" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="simple">
-<dt>The multiplicitive inverse of a in the integers modulo p:</dt><dd><p>a * b == 1 mod p</p>
-</dd>
-</dl>
-<p>Returns b.
-(<a class="reference external" href="http://code.activestate.com/recipes/576737-inverse-modulo-p/">http://code.activestate.com/recipes/576737-inverse-modulo-p/</a>)</p>
-</dd></dl>
+<code class="sig-prename descclassname">klefki.numbers.</code><code class="sig-name descname">invmod</code><span class="sig-paren">(</span><em class="sig-param">a</em>, <em class="sig-param">p</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/klefki/numbers.html#invmod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.numbers.invmod" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="function">
 <dt id="klefki.numbers.modpow">
@@ -152,8 +146,14 @@ p, -1 otherwise.</p>
 
 <dl class="function">
 <dt id="klefki.numbers.crt">
-<code class="sig-prename descclassname">klefki.numbers.</code><code class="sig-name descname">crt</code><span class="sig-paren">(</span><em class="sig-param">m</em>, <em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/klefki/numbers.html#crt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.numbers.crt" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-prename descclassname">klefki.numbers.</code><code class="sig-name descname">crt</code><span class="sig-paren">(</span><em class="sig-param">a_list</em>, <em class="sig-param">n_list</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="../../../_modules/klefki/numbers.html#crt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.numbers.crt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies the Chinese Remainder Theorem to find the unique x such that x = a_i (mod n_i) for all i.
+:param a_list: A list of integers a_i in the above equation.
+:param n_list: A list of integers b_i in the above equation.
+:return: The unique integer x such that x = a_i (mod n_i) for all i.
+copy from::
+<a class="reference external" href="https://github.com/cryptovoting/damgard-jurik/blob/master/damgard_jurik/utils.py#L100">https://github.com/cryptovoting/damgard-jurik/blob/master/damgard_jurik/utils.py#L100</a></p>
+</dd></dl>
 
 </div>
 </div>
@@ -197,6 +197,9 @@ p, -1 otherwise.</p>
 <li class="toctree-l1"><a class="reference internal" href="../../../Threshold ECDSA.html">Threshold ECDSA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../POD-Mini and POD-AS.html">POD-Mini and POD-AS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Damgard-Jurik Scheme of Paillier.html">Damgard-Jurik Scheme of Paillier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Damgard-Jurik Scheme of Paillier.html#A-Threshold-Variant-of-Paillier">A Threshold Variant of Paillier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Damgard-Jurik Scheme of Paillier.html#Share-decryption">Share decryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Damgard-Jurik Scheme of Paillier.html#Implementation">Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Threshold Paillier Cryptosystem.html">Threshold Paillier Cryptosystem</a></li>
 </ul>
 <ul>

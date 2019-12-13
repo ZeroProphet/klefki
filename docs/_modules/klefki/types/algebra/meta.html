@@ -35,10 +35,13 @@
           <div class="body" role="main">
             
   <h1>Source code for klefki.types.algebra.meta</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">.fields</span> <span class="k">import</span> <span class="n">FiniteField</span>
+<span></span><span class="kn">from</span> <span class="nn">klefki.types.algebra.fields</span> <span class="k">import</span> <span class="n">FiniteField</span>
+
 
 <div class="viewcode-block" id="field"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/meta/index.html#klefki.types.algebra.meta.field">[docs]</a><span class="k">def</span> <span class="nf">field</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;FiniteField&quot;</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="p">(</span><span class="n">FiniteField</span><span class="p">,</span> <span class="p">),</span> <span class="p">{</span><span class="s2">&quot;P&quot;</span><span class="p">:</span> <span class="n">p</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="finite_field"><a class="viewcode-back" href="../../../../autoapi/klefki/types/algebra/meta/index.html#klefki.types.algebra.meta.finite_field">[docs]</a><span class="n">finite_field</span> <span class="o">=</span> <span class="n">field</span></div>
 </pre></div>
 
           </div>
@@ -79,6 +82,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../Threshold ECDSA.html">Threshold ECDSA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../POD-Mini and POD-AS.html">POD-Mini and POD-AS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../Damgard-Jurik Scheme of Paillier.html">Damgard-Jurik Scheme of Paillier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Damgard-Jurik Scheme of Paillier.html#A-Threshold-Variant-of-Paillier">A Threshold Variant of Paillier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Damgard-Jurik Scheme of Paillier.html#Share-decryption">Share decryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Damgard-Jurik Scheme of Paillier.html#Implementation">Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../Threshold Paillier Cryptosystem.html">Threshold Paillier Cryptosystem</a></li>
 </ul>
 <ul>

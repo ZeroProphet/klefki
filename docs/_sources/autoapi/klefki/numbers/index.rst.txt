@@ -59,12 +59,7 @@ Package Contents
    Fast power calculation using repeated squaring 
 
 
-.. function:: invmod(a, p, maxiter=1000000)
-
-   The multiplicitive inverse of a in the integers modulo p:
-     a * b == 1 mod p
-   Returns b.
-   (http://code.activestate.com/recipes/576737-inverse-modulo-p/)
+.. function:: invmod(a, p)
 
 
 .. function:: modpow(base, exponent, modulus)
@@ -101,6 +96,13 @@ Package Contents
    p, -1 otherwise.
 
 
-.. function:: crt(m, x)
+.. function:: crt(a_list, n_list) -> int
+
+   Applies the Chinese Remainder Theorem to find the unique x such that x = a_i (mod n_i) for all i.
+   :param a_list: A list of integers a_i in the above equation.
+   :param n_list: A list of integers b_i in the above equation.
+   :return: The unique integer x such that x = a_i (mod n_i) for all i.
+   copy from::
+   https://github.com/cryptovoting/damgard-jurik/blob/master/damgard_jurik/utils.py#L100
 
 

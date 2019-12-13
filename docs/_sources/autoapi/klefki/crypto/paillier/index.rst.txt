@@ -7,6 +7,9 @@
 Module Contents
 ---------------
 
+.. function:: L(x, n)
+
+
 .. py:class:: Paillier(P, Q)
 
    .. method:: encrypt(cls, m, pub)

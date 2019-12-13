@@ -44,6 +44,37 @@ Module Contents
 
 
 
+.. py:class:: CyclicAddGroup
+
+   Bases: :class:`klefki.types.algebra.abstract.Group`
+
+   .. attribute:: N
+      
+
+      
+
+   .. method:: fmap(self, o)
+
+
+
+   .. method:: identity(self)
+      :property:
+
+
+
+   .. method:: inverse(self)
+
+
+
+   .. method:: op(self, g)
+
+
+
+   .. method:: __pow__(self, times)
+
+
+
+
 .. py:class:: EllipicCyclicSubroup
 
    Bases: :class:`klefki.types.algebra.groups.EllipticCurveGroup`
