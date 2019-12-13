@@ -21,3 +21,6 @@ def decode(key: str) -> ECG:
 
 def randfield(F):
     return F(randint(0, F.P - 1))
+
+def randgroup(G):
+    return G(randint(0, G.N - 1))

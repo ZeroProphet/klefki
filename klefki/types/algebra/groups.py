@@ -1,6 +1,7 @@
 from abc import abstractproperty
 from .abstract import Group
 from .fields import FiniteField
+from klefki.numbers import invmod
 
 
 class EllipticCurveGroup(Group):
@@ -58,13 +59,39 @@ class EllipticCurveGroup(Group):
         return cls((x, y))
 
 
+class CyclicAddGroup(Group):
+    # Order of subgroup
+    N = abstractproperty()
+
+    def fmap(self, o):
+        value = getattr(o, 'value', o)
+        return value % self.N
+
+    @property
+    def identity(self):
+        return self.__class__(0)
+
+    def inverse(self):
+        return self.__class__(invmod(self.value, self.N))
+
+    def op(self, g):
+        if isinstance(g, int):
+            g = self.functor(g)
+        return self.__class__(
+            (self.value + g.value) % self.N
+        )
+
+    def __pow__(self, times):
+        return self.__class__(
+            pow(self.value, times, self.N)
+        )
+
+
 class EllipicCyclicSubroup(EllipticCurveGroup):
     '''
     With Lagrange's therem
     the order of a subgroup is a divisor of the order of the parent group
     '''
-    # The Base Point
-    #G = abstractproperty()
     # Order of subgroup
     N = abstractproperty()
 

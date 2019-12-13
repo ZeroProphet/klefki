@@ -4,7 +4,12 @@ from random import randint
 from klefki.types.algebra.utils import randfield
 from klefki.types.algebra.meta import field
 from klefki.numbers import lcm
+from functools import partial
 import random
+
+
+def L(x, n):
+    return (x - 1) // n
 
 
 class Paillier():
@@ -17,11 +22,9 @@ class Paillier():
 
         F = field(N)
         DF = field(N**2)
-
-        L  = lambda x: (x - 1) // N
         G = randfield(DF)
 
-        M = ~F(L(pow(G, Lam).value))
+        M = ~F(L(pow(G, Lam).value, N))
 
         self.privkey = (Lam, M)
         self.pubkey = (N, G)
@@ -44,8 +47,7 @@ class Paillier():
         N, G = pub
 
         F = M.functor
-        L =  lambda x: (x - 1) // N
-        return F(L((c ** Lam).value)) * M
+        return F(L((c ** Lam).value, N)) * M
 
     def E(self, m, pub=None):
         return self.encrypt(m, pub or self.pubkey)

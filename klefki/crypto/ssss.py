@@ -22,14 +22,15 @@ class SSSS:
         self.k = k
         self.n = n
         a = [randfield(self.F) for _ in range(k - 1)]
-        self.f = lambda x: Secret + reduce(
+        self.f = lambda x: self.F(Secret) + reduce(
             add, [a[i] * (x ** i) for i in range(1, k - 1 )])
         return self
 
-    def join(self):
+    def join(self, x = None):
         assert self.node_count < self.n
         self.node_count += 1
-        x = randfield(self.F)
+        if not x:
+            x = randfield(self.F)
         if not hasattr(self, 'f'):
             raise Exception("Needs to encrypt first")
         return (x, self.f(x))

@@ -52,7 +52,6 @@ class Groupoid(Functor):
         Strict limit arg `g` and ret `res` should be subtype of Group,
         For obeying axiom `closure` (1)
         '''
-        assert isinstance(g, type(self))
         res = self.op(g)
         assert isinstance(res, type(self))
         return res
