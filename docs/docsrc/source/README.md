@@ -116,7 +116,7 @@ def test_to_eos(priv):
 ```
 
 
-## Isomorphism (Bijection Mapping)
+## Bijection
 
 A morphism f : X → Y in a category is an isomorphism if it admits a two-sided inverse.
 
@@ -147,13 +147,3 @@ process(data)
  b'')
 
 ```
-
-
-
-# Docs
-
-[Abstract Algebra Types](https://github.com/RyanKung/klefki/blob/master/docs/Abstract%20Algebra%20Types.ipynb)
-
-[ASN.1](https://github.com/RyanKung/klefki/blob/master/docs/ASN.1.ipynb)
-
-[Isomorphism](https://github.com/RyanKung/klefki/blob/master/docs/Isomorphism.ipynb)
