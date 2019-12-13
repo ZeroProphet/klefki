@@ -448,10 +448,10 @@ g^d &amp;= ((1 + n)^jx)^d \\
 </div>
 </div>
 </div>
-</div>
 <div class="section" id="A-Threshold-Variant-of-Paillier">
-<h1>A Threshold Variant of Paillier<a class="headerlink" href="#A-Threshold-Variant-of-Paillier" title="Permalink to this headline">¶</a></h1>
+<h2>A Threshold Variant of Paillier<a class="headerlink" href="#A-Threshold-Variant-of-Paillier" title="Permalink to this headline">¶</a></h2>
 <p>We can solve our problem by letting the servers help us compute <span class="math notranslate nohighlight">\(E(i, r)^d \mod n^{s+1}\)</span>. Then if we use <span class="math notranslate nohighlight">\(g = n + 1\)</span> and choose d such that <span class="math notranslate nohighlight">\(d = 1 mod n^s\)</span> and <span class="math notranslate nohighlight">\(d = 0 \mod \lambda\)</span>, the remaining part of the decryption is easy to do without knowledge of <span class="math notranslate nohighlight">\(d\)</span>.</p>
+</div>
 <div class="section" id="Key-generation">
 <h2>Key generation<a class="headerlink" href="#Key-generation" title="Permalink to this headline">¶</a></h2>
 <p>We find 2 primes <span class="math notranslate nohighlight">\(p\)</span> and <span class="math notranslate nohighlight">\(q\)</span>, that satisifies <span class="math notranslate nohighlight">\(p = 2p' + 1\)</span> and <span class="math notranslate nohighlight">\(q = 2q' + 1\)</span>, where <span class="math notranslate nohighlight">\(p'\)</span> and <span class="math notranslate nohighlight">\(q'\)</span> are primes and different from <span class="math notranslate nohighlight">\(p,q\)</span>. We set <span class="math notranslate nohighlight">\(n = pq\)</span> and <span class="math notranslate nohighlight">\(m = p'q'\)</span>.</p>
@@ -655,9 +655,8 @@ g^d &amp;= ((1 + n)^jx)^d \\
 </pre></div>
 </div>
 </div>
-</div>
 <div class="section" id="Implementation">
-<h1>Implementation<a class="headerlink" href="#Implementation" title="Permalink to this headline">¶</a></h1>
+<h2>Implementation<a class="headerlink" href="#Implementation" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
@@ -811,6 +810,7 @@ g^d &amp;= ((1 + n)^jx)^d \\
 </pre></div>
 </div>
 </div>
+</div>
 <div class="section" id="Ref:">
 <h2>Ref:<a class="headerlink" href="#Ref:" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -871,9 +871,7 @@ g^d &amp;= ((1 + n)^jx)^d \\
 <li class="toctree-l1"><a class="reference internal" href="Threshold ECDSA.html">Threshold ECDSA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="POD-Mini and POD-AS.html">POD-Mini and POD-AS</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Damgard-Jurik Scheme of Paillier</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#A-Threshold-Variant-of-Paillier">A Threshold Variant of Paillier</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#Share-decryption">Share decryption</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#Implementation">Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Threshold Paillier Cryptosystem.html">Threshold Paillier Cryptosystem</a></li>
 </ul>
 <ul>
