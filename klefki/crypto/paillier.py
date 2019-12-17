@@ -25,7 +25,6 @@ class Paillier():
         G = randfield(DF)
 
         M = ~F(L(pow(G, Lam).value, N))
-
         self.privkey = (Lam, M)
         self.pubkey = (N, G)
 
