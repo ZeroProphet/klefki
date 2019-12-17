@@ -1,0 +1,15 @@
+:mod:`klefki.mpc.secret_sharing`
+================================
+
+.. py:module:: klefki.mpc.secret_sharing
+
+
+Module Contents
+---------------
+
+.. function:: additive_share(secret, F, n)
+
+
+.. function:: additive_reconstruct(shares)
+
+

@@ -1,0 +1,15 @@
+:mod:`klefki.mpc`
+=================
+
+.. py:module:: klefki.mpc
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   secret_sharing/index.rst
+
+
