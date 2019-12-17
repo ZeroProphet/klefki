@@ -16,6 +16,7 @@ Subpackages
    crypto/index.rst
    eos/index.rst
    ethereum/index.rst
+   mpc/index.rst
    numbers/index.rst
    types/index.rst
    zkp/index.rst

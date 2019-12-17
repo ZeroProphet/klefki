@@ -453,7 +453,8 @@ g^d &amp;= ((1 + n)^jx)^d \\
 <p>We can solve our problem by letting the servers help us compute <span class="math notranslate nohighlight">\(E(i, r)^d \mod n^{s+1}\)</span>. Then if we use <span class="math notranslate nohighlight">\(g = n + 1\)</span> and choose d such that <span class="math notranslate nohighlight">\(d = 1 mod n^s\)</span> and <span class="math notranslate nohighlight">\(d = 0 \mod \lambda\)</span>, the remaining part of the decryption is easy to do without knowledge of <span class="math notranslate nohighlight">\(d\)</span>.</p>
 <div class="section" id="Key-generation">
 <h3>Key generation<a class="headerlink" href="#Key-generation" title="Permalink to this headline">¶</a></h3>
-<p>We find 2 primes <span class="math notranslate nohighlight">\(p\)</span> and <span class="math notranslate nohighlight">\(q\)</span>, that satisifies <span class="math notranslate nohighlight">\(p = 2p' + 1\)</span> and <span class="math notranslate nohighlight">\(q = 2q' + 1\)</span>, where <span class="math notranslate nohighlight">\(p'\)</span> and <span class="math notranslate nohighlight">\(q'\)</span> are primes and different from <span class="math notranslate nohighlight">\(p,q\)</span>. We set <span class="math notranslate nohighlight">\(n = pq\)</span> and <span class="math notranslate nohighlight">\(m = p'q'\)</span>.</p>
+<p>We find 2 primes <span class="math notranslate nohighlight">\(p\)</span> and <span class="math notranslate nohighlight">\(q\)</span>, that satisifies <span class="math notranslate nohighlight">\(p = 2p' + 1\)</span> and <span class="math notranslate nohighlight">\(q = 2q' + 1\)</span>, where <span class="math notranslate nohighlight">\(p'\)</span> and <span class="math notranslate nohighlight">\(q'\)</span> are primes and different from <span class="math notranslate nohighlight">\(p,q\)</span>.</p>
+<p>We set <span class="math notranslate nohighlight">\(n = pq\)</span> and <span class="math notranslate nohighlight">\(m = p'q'\)</span>,we decide some <span class="math notranslate nohighlight">\(s&gt;0\)</span>, thus the paintext space will be <span class="math notranslate nohighlight">\(Z_{n^s}\)</span>.</p>
 <p>We pick <span class="math notranslate nohighlight">\(d\)</span> to satisfy:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}d \equiv \left\{
@@ -462,7 +463,7 @@ g^d &amp;= ((1 + n)^jx)^d \\
 1 &amp;\mod n^s
 \end{aligned}
 \right\}\end{split}\]</div>
-<p>And share d with <span class="math notranslate nohighlight">\(SSSS\)</span></p>
+<p>And share d with <span class="math notranslate nohighlight">\(SSSS\)</span>, the secret share of the i’th authority will be <span class="math notranslate nohighlight">\(s_i=f(i)\)</span> for <span class="math notranslate nohighlight">\(1 \le i \le l\)</span>, and the pubkey will be <span class="math notranslate nohighlight">\(n\)</span>.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
@@ -855,7 +856,6 @@ g^d &amp;= ((1 + n)^jx)^d \\
 <h3>Navigation</h3>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="README.html">TL;DR</a></li>
-<li class="toctree-l1"><a class="reference internal" href="README.html#docs">Docs</a></li>
 </ul>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Non-interactive and Reusable Non-malleable Commitment Schemes.html">Non-interactive and Reusable Non-malleable Commitment Schemes</a></li>
