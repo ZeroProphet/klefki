@@ -25,7 +25,7 @@ class Paillier():
         G = randfield(DF)
 
         M = ~F(L(pow(G, Lam).value, N))
-        self.privkey = (Lam, M)
+        self.privkey = Lam
         self.pubkey = (N, G)
 
 
@@ -42,11 +42,11 @@ class Paillier():
 
     @classmethod
     def decrypt(cls, c, priv, pub):
-        Lam, M = priv
+        Lam = priv
         N, G = pub
 
-        F = M.functor
-        return F(L((c ** Lam).value, N)) * M
+        F = field(N, "N")
+        return F(L((c ** Lam).value, N)) * ~F(L(pow(G, Lam).value, N))
 
     def E(self, m, pub=None):
         return self.encrypt(m, pub or self.pubkey)
