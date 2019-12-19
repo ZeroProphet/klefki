@@ -50,12 +50,13 @@ class DJPaillier(Paillier):
 
     def __init__(self, P, Q, s=1):
         N = P * Q
-        Lam = lcm (P-1, Q-1)
+#        Lam = lcm(P-1, Q-1)
+        phi = (P-1) * (Q-1)
         G = field(N**s, "G") # n ** s == n if s = 1
         # multiplicative group
         MG = field(N ** (s+1), "N^{s+1}") # n ** (s +1 ) == n2 in pailer case
         H = field(N, "H")
-        LG = field(Lam, "LCMGroup")
+        LG = field(phi, "PhiGroup")
 
         j = generate_prime(length(P))
         assert gcd(j, N) == 1

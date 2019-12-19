@@ -2,6 +2,12 @@ import math
 from functools import reduce
 from operator import mul
 
+def rsa_lambda(p, q):
+    return lcm(p-1, q-1)
+
+def rsa_phi(p, q):
+    return (p-1) * (q-1)
+
 
 def fn_lambda(n):
     '''
