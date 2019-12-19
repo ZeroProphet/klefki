@@ -125,7 +125,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 7,
+   "execution_count": 4,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -134,7 +134,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 8,
+   "execution_count": 5,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -144,7 +144,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 9,
+   "execution_count": 6,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -155,7 +155,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "* **The  protocol**"
+    "##### **The  protocol**"
    ]
   },
   {
@@ -167,7 +167,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 10,
+   "execution_count": 7,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -176,7 +176,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 11,
+   "execution_count": 8,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -185,7 +185,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 12,
+   "execution_count": 9,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -194,7 +194,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 13,
+   "execution_count": 10,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -203,7 +203,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 14,
+   "execution_count": 11,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -212,7 +212,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 15,
+   "execution_count": 12,
    "metadata": {},
    "outputs": [
     {
@@ -221,7 +221,7 @@
        "True"
       ]
      },
-     "execution_count": 15,
+     "execution_count": 12,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -252,7 +252,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 16,
+   "execution_count": 13,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -263,7 +263,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 17,
+   "execution_count": 14,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -273,7 +273,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 18,
+   "execution_count": 15,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -282,7 +282,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 19,
+   "execution_count": 16,
    "metadata": {},
    "outputs": [
     {
@@ -291,7 +291,7 @@
        "True"
       ]
      },
-     "execution_count": 19,
+     "execution_count": 16,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -302,16 +302,16 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 20,
+   "execution_count": 17,
    "metadata": {},
    "outputs": [
     {
      "data": {
       "text/plain": [
-       "FiniteField::31138173468049718482506454424709426719"
+       "N::121965745993280675060143306922673079191"
       ]
      },
-     "execution_count": 20,
+     "execution_count": 17,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -322,16 +322,16 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 21,
+   "execution_count": 18,
    "metadata": {},
    "outputs": [
     {
      "data": {
       "text/plain": [
-       "FiniteField::31138173468049718482506454424709426719"
+       "N::121965745993280675060143306922673079191"
       ]
      },
-     "execution_count": 21,
+     "execution_count": 18,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -357,7 +357,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 22,
+   "execution_count": 19,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -366,16 +366,16 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 23,
+   "execution_count": 20,
    "metadata": {},
    "outputs": [
     {
      "data": {
       "text/plain": [
-       "1950616923899519679"
+       "7556678062753431861"
       ]
      },
-     "execution_count": 23,
+     "execution_count": 20,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -386,7 +386,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 24,
+   "execution_count": 21,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -395,7 +395,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 25,
+   "execution_count": 22,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -425,7 +425,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 26,
+   "execution_count": 23,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -434,7 +434,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 27,
+   "execution_count": 24,
    "metadata": {},
    "outputs": [
     {
@@ -443,7 +443,7 @@
        "True"
       ]
      },
-     "execution_count": 27,
+     "execution_count": 24,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -454,7 +454,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 28,
+   "execution_count": 25,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -465,7 +465,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 29,
+   "execution_count": 26,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -482,7 +482,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 30,
+   "execution_count": 27,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -493,13 +493,13 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "### Correctness:\n",
+    "##### Correctness:\n",
     "\n"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 31,
+   "execution_count": 28,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -508,7 +508,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 32,
+   "execution_count": 29,
    "metadata": {},
    "outputs": [
     {
@@ -517,7 +517,7 @@
        "True"
       ]
      },
-     "execution_count": 32,
+     "execution_count": 29,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -528,11 +528,124 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 35,
+   "execution_count": 34,
    "metadata": {},
    "outputs": [],
    "source": [
-    "assert d % ((P-1) * (Q-1)) == 0"
+    "assert d % ((P-1) * (Q-1)) == 0\n",
+    "assert d % (P * Q) == 1"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Performing a Joint Paillier Decryption"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "To perform a joint decryption of some ciphertext $c$, both parties need to raise $c$ to their share of the key, $d_0$ or $d_1$ . They then demonstrate that this has been computed correctly using the commitments of the shares. The plaintext is immediately computable from $c^{d_0}$ and $c^{d_1}$ ."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### A distributed Paillier decryption with a shared key:"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Inputs:** A public Paillier key $N=pq$ with unknown factorization and a ciphertext $C=E_N(m,r)$.\n",
+    "\n",
+    "Party $P_i$ hold its share $d_i$ of the secret decryption exponent, $d=d_0+d_1$ where \n",
+    "\n",
+    "$$\n",
+    "d \\equiv 1 \\mod N \\wedge d \\equiv 0 \\mod \\phi(N)\n",
+    "$$\n",
+    "\n",
+    "Finall, the parties hold commitments to (or rather: ElGamal encryptions of) their key-shares."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**The protocol:**"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "1. $P_0$ sends $c_0=c^{sk0} \\mod N^2$ to $P_1$. Moreover, $P_0$ demonstrates that this has been done correctly by executing $\\pi_{EQ}$, i.e., that the committed number equals the discrete log of c 0 with base c and the plaintext encrypted with ElGamal.\n",
+    "\n",
+    "2. $P_1$ sends $c_1=c^{sk2} \\mod N^2$ to $P_0$. Moreover, $P_1$ demonstrates that this has been done correctly by executing $\\pi_{EQ}$, i.e., that the committed number equals the discrete log of c 0 with base c and the plaintext encrypted with ElGamal."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 31,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from klefki.crypto.damgard_jurik import DJPaillier"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 38,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "m = 42\n",
+    "djp = DJPaillier(P, Q)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 42,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "assert djp.D(djp.E(m), priv=d).value == m"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## a protocol for generating a threshold key"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Constructing a threshold key essentially consists of computing a Shamir sharing of this. Our solution consists of two steps: \n",
+    "\n",
+    "* 1) First, compute an additive sharing of $d$. \n",
+    "\n",
+    "* 2) Then, compute Shamir shares of this and decrypt these toward the relevant parties."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "$$\n",
+    "\\phi(N) \\cdot (\\phi(N)^{-1} \\mod N) \\equiv \\left\\{\n",
+    "\\begin{aligned}\n",
+    "0 &\\mod \\phi(N) \\\\\n",
+    "1 &\\mod N\n",
+    "\\end{aligned}\n",
+    "\\right\\}\n",
+    "$$"
    ]
   },
   {
@@ -541,7 +654,33 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "assert d % (P * Q) == 1"
+    "from klefki.numbers.primes import generate_prime\n",
+    "from klefki.types.algebra.meta import field\n",
+    "from klefki.numbers import invmod\n",
+    "from klefki.mpc.secret_sharing import additive_share\n",
+    "from functools import reduce\n",
+    "from operator import add"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 37,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "N = P * Q\n",
+    "phi = (P - 1) * (Q - 1)\n",
+    "inv_phi = invmod(phi, N)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 38,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "assert phi * inv_phi % phi == 0\n",
+    "assert phi * inv_phi % N == 1"
    ]
   },
   {

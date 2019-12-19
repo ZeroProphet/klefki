@@ -294,7 +294,7 @@
     }
    ],
    "source": [
-    "G(damgard_jurik_reduce((c ** d).value, s, n)) * ~G(damgard_jurik_reduce((g ** d).value, s, n))"
+    "G(damgard_jurik_reduce((c ** d).value, n, s)) * ~G(damgard_jurik_reduce((g ** d).value, n, s))"
    ]
   },
   {
@@ -450,7 +450,7 @@
     {
      "data": {
       "text/plain": [
-       "<klefki.crypto.ssss.SSSS at 0x10ef616a0>"
+       "<klefki.crypto.ssss.SSSS at 0x10844b048>"
       ]
      },
      "execution_count": 22,
@@ -539,24 +539,6 @@
    ]
   },
   {
-   "cell_type": "code",
-   "execution_count": 27,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "from math import factorial"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 29,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "sd = [s[1] ** (2 * factorial(l))for s in shares]"
-   ]
-  },
-  {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
@@ -565,13 +547,85 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 24,
+   "execution_count": 27,
    "metadata": {},
    "outputs": [],
    "source": [
-    "from damgard_jurik import keygen\n",
+    "from klefki.crypto.damgard_jurik import DJPaillier\n",
+    "from klefki.numbers.primes import generate_prime\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 28,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "P, Q = generate_prime(256), generate_prime(256)\n",
+    "s = 3"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 29,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "m = 42"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 30,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "djp = DJPaillier(P, Q, s)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 31,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "True"
+      ]
+     },
+     "execution_count": 31,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "djp.D(djp.E(m)).value == m"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Threshold Version"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "* Note that the threshold DJP is imported via https://github.com/cryptovoting/damgard-jurik"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 32,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from klefki.crypto.damgard_jurik import ts_dj\n",
     "\n",
-    "public_key, private_key_ring = keygen(\n",
+    "public_key, private_key_ring = ts_dj.keygen(\n",
     "    n_bits=512,\n",
     "    s=3,\n",
     "    threshold=100,\n",
@@ -581,115 +635,115 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 25,
+   "execution_count": 33,
    "metadata": {},
    "outputs": [
     {
      "data": {
       "text/plain": [
-       "[mpz(262),\n",
-       " mpz(192),\n",
-       " mpz(238),\n",
-       " mpz(281),\n",
-       " mpz(131),\n",
-       " mpz(146),\n",
-       " mpz(36),\n",
-       " mpz(178),\n",
-       " mpz(184),\n",
+       "[mpz(124),\n",
        " mpz(186),\n",
-       " mpz(44),\n",
-       " mpz(88),\n",
-       " mpz(258),\n",
-       " mpz(270),\n",
-       " mpz(112),\n",
-       " mpz(227),\n",
        " mpz(54),\n",
-       " mpz(293),\n",
-       " mpz(82),\n",
-       " mpz(42),\n",
-       " mpz(236),\n",
-       " mpz(128),\n",
-       " mpz(187),\n",
-       " mpz(275),\n",
-       " mpz(176),\n",
-       " mpz(139),\n",
-       " mpz(100),\n",
-       " mpz(269),\n",
-       " mpz(273),\n",
-       " mpz(40),\n",
-       " mpz(123),\n",
-       " mpz(50),\n",
+       " mpz(239),\n",
        " mpz(252),\n",
-       " mpz(18),\n",
-       " mpz(98),\n",
-       " mpz(65),\n",
-       " mpz(297),\n",
-       " mpz(137),\n",
-       " mpz(190),\n",
-       " mpz(122),\n",
-       " mpz(163),\n",
-       " mpz(109),\n",
-       " mpz(194),\n",
-       " mpz(110),\n",
-       " mpz(230),\n",
-       " mpz(135),\n",
-       " mpz(23),\n",
-       " mpz(4),\n",
-       " mpz(20),\n",
-       " mpz(224),\n",
-       " mpz(89),\n",
-       " mpz(246),\n",
-       " mpz(27),\n",
-       " mpz(148),\n",
-       " mpz(292),\n",
-       " mpz(162),\n",
-       " mpz(64),\n",
-       " mpz(171),\n",
-       " mpz(28),\n",
-       " mpz(158),\n",
-       " mpz(17),\n",
-       " mpz(213),\n",
-       " mpz(237),\n",
-       " mpz(174),\n",
-       " mpz(255),\n",
-       " mpz(58),\n",
-       " mpz(63),\n",
-       " mpz(143),\n",
-       " mpz(16),\n",
-       " mpz(188),\n",
-       " mpz(62),\n",
-       " mpz(45),\n",
-       " mpz(191),\n",
-       " mpz(300),\n",
-       " mpz(155),\n",
-       " mpz(22),\n",
-       " mpz(107),\n",
-       " mpz(208),\n",
-       " mpz(232),\n",
-       " mpz(181),\n",
-       " mpz(298),\n",
-       " mpz(210),\n",
-       " mpz(26),\n",
-       " mpz(126),\n",
-       " mpz(284),\n",
-       " mpz(99),\n",
-       " mpz(74),\n",
-       " mpz(125),\n",
+       " mpz(269),\n",
+       " mpz(136),\n",
        " mpz(221),\n",
-       " mpz(147),\n",
-       " mpz(261),\n",
-       " mpz(60),\n",
-       " mpz(287),\n",
+       " mpz(109),\n",
+       " mpz(29),\n",
+       " mpz(74),\n",
+       " mpz(212),\n",
+       " mpz(90),\n",
+       " mpz(259),\n",
+       " mpz(13),\n",
+       " mpz(172),\n",
+       " mpz(231),\n",
+       " mpz(32),\n",
+       " mpz(43),\n",
+       " mpz(194),\n",
+       " mpz(53),\n",
+       " mpz(3),\n",
+       " mpz(176),\n",
+       " mpz(246),\n",
+       " mpz(300),\n",
+       " mpz(37),\n",
+       " mpz(14),\n",
+       " mpz(190),\n",
+       " mpz(125),\n",
+       " mpz(208),\n",
+       " mpz(233),\n",
+       " mpz(297),\n",
+       " mpz(42),\n",
+       " mpz(127),\n",
+       " mpz(30),\n",
+       " mpz(236),\n",
+       " mpz(188),\n",
+       " mpz(290),\n",
        " mpz(248),\n",
-       " mpz(266),\n",
-       " mpz(177),\n",
-       " mpz(286),\n",
-       " mpz(164),\n",
+       " mpz(81),\n",
+       " mpz(211),\n",
+       " mpz(95),\n",
+       " mpz(143),\n",
+       " mpz(187),\n",
+       " mpz(170),\n",
+       " mpz(46),\n",
+       " mpz(110),\n",
+       " mpz(8),\n",
+       " mpz(112),\n",
+       " mpz(150),\n",
+       " mpz(68),\n",
+       " mpz(52),\n",
+       " mpz(79),\n",
+       " mpz(12),\n",
+       " mpz(126),\n",
+       " mpz(103),\n",
+       " mpz(86),\n",
+       " mpz(139),\n",
+       " mpz(93),\n",
+       " mpz(135),\n",
+       " mpz(134),\n",
+       " mpz(18),\n",
+       " mpz(223),\n",
+       " mpz(262),\n",
+       " mpz(104),\n",
+       " mpz(218),\n",
+       " mpz(60),\n",
+       " mpz(10),\n",
+       " mpz(131),\n",
+       " mpz(162),\n",
+       " mpz(261),\n",
+       " mpz(267),\n",
+       " mpz(284),\n",
+       " mpz(44),\n",
+       " mpz(140),\n",
+       " mpz(65),\n",
+       " mpz(33),\n",
+       " mpz(204),\n",
+       " mpz(230),\n",
+       " mpz(282),\n",
        " mpz(39),\n",
-       " mpz(218)]"
+       " mpz(58),\n",
+       " mpz(4),\n",
+       " mpz(203),\n",
+       " mpz(27),\n",
+       " mpz(88),\n",
+       " mpz(106),\n",
+       " mpz(242),\n",
+       " mpz(67),\n",
+       " mpz(210),\n",
+       " mpz(50),\n",
+       " mpz(111),\n",
+       " mpz(173),\n",
+       " mpz(180),\n",
+       " mpz(219),\n",
+       " mpz(59),\n",
+       " mpz(107),\n",
+       " mpz(289),\n",
+       " mpz(57),\n",
+       " mpz(174)]"
       ]
      },
-     "execution_count": 25,
+     "execution_count": 33,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -700,7 +754,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 26,
+   "execution_count": 34,
    "metadata": {},
    "outputs": [
     {
@@ -709,7 +763,7 @@
        "mpz(42)"
       ]
      },
-     "execution_count": 26,
+     "execution_count": 34,
      "metadata": {},
      "output_type": "execute_result"
     }

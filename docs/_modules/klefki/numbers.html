@@ -39,6 +39,14 @@
 <span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">reduce</span>
 <span class="kn">from</span> <span class="nn">operator</span> <span class="k">import</span> <span class="n">mul</span>
 
+<span class="c1"># https://crypto.stackexchange.com/questions/29591/lcm-versus-phi-in-rsa</span>
+
+<div class="viewcode-block" id="rsa_lambda"><a class="viewcode-back" href="../../autoapi/klefki/numbers/index.html#klefki.numbers.rsa_lambda">[docs]</a><span class="k">def</span> <span class="nf">rsa_lambda</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">lcm</span><span class="p">(</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">q</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="rsa_phi"><a class="viewcode-back" href="../../autoapi/klefki/numbers/index.html#klefki.numbers.rsa_phi">[docs]</a><span class="k">def</span> <span class="nf">rsa_phi</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">q</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="fn_lambda"><a class="viewcode-back" href="../../autoapi/klefki/numbers/index.html#klefki.numbers.fn_lambda">[docs]</a><span class="k">def</span> <span class="nf">fn_lambda</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>

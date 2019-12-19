@@ -245,7 +245,7 @@ div.rendered_html tbody tr:hover {
 <li><p>Choose two large prime numbers <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> randomly and indenpendently of each other such that <span class="math notranslate nohighlight">\(gcd(PQ, (P-1)(Q-1))=1\)</span>. This property is assured if both primes are equal lenth.</p></li>
 </ol>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -254,7 +254,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -268,7 +268,7 @@ div.rendered_html tbody tr:hover {
 <li><p>Compute <span class="math notranslate nohighlight">\(N=PQ\)</span> and <span class="math notranslate nohighlight">\(\lambda(N)=lcm(P-1, Q-1)\)</span> be the Carmichael function of N.</p></li>
 </ol>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -277,7 +277,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -290,7 +290,7 @@ div.rendered_html tbody tr:hover {
 <li><p>Select random integer <span class="math notranslate nohighlight">\(\Gamma\)</span> where <span class="math notranslate nohighlight">\(\Gamma \in \mathbf{Z}_{n^2}^*\)</span>.</p></li>
 </ol>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -313,7 +313,7 @@ div.rendered_html tbody tr:hover {
 <div class="math notranslate nohighlight">
 \[L(x) = \frac{x-1}{N}\]</div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -324,11 +324,11 @@ div.rendered_html tbody tr:hover {
 <p>The public key is <span class="math notranslate nohighlight">\((N, \Gamma)\)</span> and the secret key is <span class="math notranslate nohighlight">\((\lambda(N))\)</span></p>
 <p>If using p,q of equivalent length, a simpler variant of the above key generation steps would be to set <span class="math notranslate nohighlight">\(g = n + 1 , λ = φ ( n )\)</span>, and <span class="math notranslate nohighlight">\(\mu = φ(n)^{-1}\ mod \ n\)</span>, where <span class="math notranslate nohighlight">\(φ(n)=(p-1)(q-1)\)</span></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PrivKey: </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">Lam</span><span class="p">,</span> <span class="n">M</span><span class="p">))</span>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PrivKey: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">Lam</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -337,11 +337,11 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-PrivKey: 2234634654990432849929004166367641021238215826767191291571707378398254532167475902984296517123225539202576657105730699764493290075143829571044458305451072, 13254261961991812757882623593370608719968741963831589626706600685032842863647858018649160392763883456900854665419073782868631803621254699820464091909193244
+PrivKey: 2234634654990432849929004166367641021238215826767191291571707378398254532167475902984296517123225539202576657105730699764493290075143829571044458305451072
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -354,7 +354,7 @@ PrivKey: 22346346549904328499290041663676410212382158267671912915717073783982545
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-PubKey: 13407807929942597099574024998205846127429294960603147749430244270389527193005087002084253735130200377185477318450090306135904455919285040173416176828872431; 1418004544894705853780981082183631706605628720100892930589463971715939123556313159072140977442125436883597020621599490122591247361593333616189985451721293408138901788097550973644296936136229450443228041683309117323399467575692841797938987806744439788129498975768679996833554138933865427237115332314583971968
+PubKey: 13407807929942597099574024998205846127429294960603147749430244270389527193005087002084253735130200377185477318450090306135904455919285040173416176828872431; 77035126901414243466593033818616330970366679968094154722572700152333391747783504498549422681480857084131841310916380433218514709109231164061290704333180832878606535936787048649862356920125008479743359336912545136561115652209816489026998639931414361265240792280633335547102958672135420024259094083644382006236
 </pre></div></div>
 </div>
 </div>
@@ -362,7 +362,7 @@ PubKey: 134078079299425970995740249982058461274292949606031477494302442703895271
 <h2>Encryption:<a class="headerlink" href="#Encryption:" title="Permalink to this headline">¶</a></h2>
 <p>To Encrypt a message <span class="math notranslate nohighlight">\(M \in Z_N\)</span>, select <span class="math notranslate nohighlight">\(R \in_R Z_N^*\)</span> and return <span class="math notranslate nohighlight">\(c=\Gamma^M R^N\ mod \ N^2\)</span>.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -377,7 +377,7 @@ PubKey: 134078079299425970995740249982058461274292949606031477494302442703895271
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -386,7 +386,7 @@ PubKey: 134078079299425970995740249982058461274292949606031477494302442703895271
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -399,7 +399,7 @@ PubKey: 134078079299425970995740249982058461274292949606031477494302442703895271
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Ciphtertext Text: 6936262328602563756080515747570611563553123211896797818889894593996301677241298119496358618089226287838684487407077665020081144081946937529352572250639444959941672094132026635786430525489894291370049090782883743061607284310546755266607824777853860280723291571186391547796057074259287936058762591511890696754
+Ciphtertext Text: 7016628710028750763220234799772443961517829663536340494877375384716387806068796190029061065289125116984936899123466377581433183611140917487456099941786219495981415910545327007385914304277320973108642790490995523777576032108671309475901939594111754694043435450378428378425126512315421950443099829027922257557
 </pre></div></div>
 </div>
 </div>
@@ -409,7 +409,7 @@ Ciphtertext Text: 69362623286025637560805157475706115635531232118967978188898945
 <div class="math notranslate nohighlight">
 \[\frac{L(c^{\lambda(N)}\ mod\ N^2)}{L(\Gamma^{\lambda(N)}\ mod\ N^2)}\ mod\ N\]</div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -445,10 +445,10 @@ m_i \in Z_N\end{split}\]</div>
 <span class="n">E</span> <span class="o">=</span> <span class="n">Pai</span><span class="o">.</span><span class="n">E</span>
 <span class="n">D</span> <span class="o">=</span> <span class="n">Pai</span><span class="o">.</span><span class="n">D</span>
 
-<span class="n">Lam</span><span class="p">,</span> <span class="n">M</span> <span class="o">=</span> <span class="n">Pai</span><span class="o">.</span><span class="n">privkey</span>
+<span class="n">Lam</span> <span class="o">=</span> <span class="n">Pai</span><span class="o">.</span><span class="n">privkey</span>
 <span class="n">N</span><span class="p">,</span> <span class="n">G</span> <span class="o">=</span> <span class="n">Pai</span><span class="o">.</span><span class="n">pubkey</span>
 
-<span class="n">F</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">functor</span>
+<span class="n">F</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="s2">&quot;N&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -597,7 +597,6 @@ D(E(m_2, r_2)^{m_1}) = m_1m_2\\\\\end{split}\]</div>
 <h3>Navigation</h3>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="README.html">TL;DR</a></li>
-<li class="toctree-l1"><a class="reference internal" href="README.html#docs">Docs</a></li>
 </ul>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Non-interactive and Reusable Non-malleable Commitment Schemes.html">Non-interactive and Reusable Non-malleable Commitment Schemes</a></li>
@@ -613,9 +612,6 @@ D(E(m_2, r_2)^{m_1}) = m_1m_2\\\\\end{split}\]</div>
 <li class="toctree-l1"><a class="reference internal" href="Threshold ECDSA.html">Threshold ECDSA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="POD-Mini and POD-AS.html">POD-Mini and POD-AS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Damgard-Jurik Scheme of Paillier.html">Damgard-Jurik Scheme of Paillier</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Damgard-Jurik Scheme of Paillier.html#A-Threshold-Variant-of-Paillier">A Threshold Variant of Paillier</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Damgard-Jurik Scheme of Paillier.html#Share-decryption">Share decryption</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Damgard-Jurik Scheme of Paillier.html#Implementation">Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Threshold Paillier Cryptosystem.html">Threshold Paillier Cryptosystem</a></li>
 </ul>
 <ul>

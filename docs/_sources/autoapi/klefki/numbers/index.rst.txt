@@ -16,6 +16,12 @@ Submodules
 Package Contents
 ----------------
 
+.. function:: rsa_lambda(p, q)
+
+
+.. function:: rsa_phi(p, q)
+
+
 .. function:: fn_lambda(n)
 
    Carmichael Function

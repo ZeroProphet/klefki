@@ -433,7 +433,7 @@ g^d &amp;= ((1 + n)^jx)^d \\
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">G</span><span class="p">(</span><span class="n">damgard_jurik_reduce</span><span class="p">((</span><span class="n">c</span> <span class="o">**</span> <span class="n">d</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span> <span class="o">*</span> <span class="o">~</span><span class="n">G</span><span class="p">(</span><span class="n">damgard_jurik_reduce</span><span class="p">((</span><span class="n">g</span> <span class="o">**</span> <span class="n">d</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+<span></span><span class="n">G</span><span class="p">(</span><span class="n">damgard_jurik_reduce</span><span class="p">((</span><span class="n">c</span> <span class="o">**</span> <span class="n">d</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">s</span><span class="p">))</span> <span class="o">*</span> <span class="o">~</span><span class="n">G</span><span class="p">(</span><span class="n">damgard_jurik_reduce</span><span class="p">((</span><span class="n">g</span> <span class="o">**</span> <span class="n">d</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">s</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -580,7 +580,7 @@ g^d &amp;= ((1 + n)^jx)^d \\
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>&lt;klefki.crypto.ssss.SSSS at 0x10ef616a0&gt;
+<span></span>&lt;klefki.crypto.ssss.SSSS at 0x10844b048&gt;
 </pre></div>
 </div>
 </div>
@@ -636,12 +636,28 @@ g^d &amp;= ((1 + n)^jx)^d \\
 <p>Where:</p>
 <div class="math notranslate nohighlight">
 \[\lambda_{0,i}^s=\Delta \prod_{i' \in S;i} \frac{-i}{i-i'} \in Z\]</div>
+</div>
+</div>
+<div class="section" id="Implementation">
+<h2>Implementation<a class="headerlink" href="#Implementation" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">factorial</span>
+<span></span><span class="kn">from</span> <span class="nn">klefki.crypto.damgard_jurik</span> <span class="k">import</span> <span class="n">DJPaillier</span>
+<span class="kn">from</span> <span class="nn">klefki.numbers.primes</span> <span class="k">import</span> <span class="n">generate_prime</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">P</span><span class="p">,</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">generate_prime</span><span class="p">(</span><span class="mi">256</span><span class="p">),</span> <span class="n">generate_prime</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span>
+<span class="n">s</span> <span class="o">=</span> <span class="mi">3</span>
 </pre></div>
 </div>
 </div>
@@ -650,22 +666,48 @@ g^d &amp;= ((1 + n)^jx)^d \\
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sd</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">**</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">l</span><span class="p">))</span><span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">shares</span><span class="p">]</span>
+<span></span><span class="n">m</span> <span class="o">=</span> <span class="mi">42</span>
 </pre></div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="Implementation">
-<h2>Implementation<a class="headerlink" href="#Implementation" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">damgard_jurik</span> <span class="k">import</span> <span class="n">keygen</span>
+<span></span><span class="n">djp</span> <span class="o">=</span> <span class="n">DJPaillier</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">djp</span><span class="o">.</span><span class="n">D</span><span class="p">(</span><span class="n">djp</span><span class="o">.</span><span class="n">E</span><span class="p">(</span><span class="n">m</span><span class="p">))</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">m</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>True
+</pre></div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Note that the threshold DJP is imported via <a class="reference external" href="https://github.com/cryptovoting/damgard-jurik">https://github.com/cryptovoting/damgard-jurik</a></p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">klefki.crypto.damgard_jurik</span> <span class="k">import</span> <span class="n">ts_dj</span>
 
-<span class="n">public_key</span><span class="p">,</span> <span class="n">private_key_ring</span> <span class="o">=</span> <span class="n">keygen</span><span class="p">(</span>
+<span class="n">public_key</span><span class="p">,</span> <span class="n">private_key_ring</span> <span class="o">=</span> <span class="n">ts_dj</span><span class="o">.</span><span class="n">keygen</span><span class="p">(</span>
     <span class="n">n_bits</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span>
     <span class="n">s</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
     <span class="n">threshold</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
@@ -675,7 +717,7 @@ g^d &amp;= ((1 + n)^jx)^d \\
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -684,115 +726,115 @@ g^d &amp;= ((1 + n)^jx)^d \\
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>[mpz(262),
- mpz(192),
- mpz(238),
- mpz(281),
- mpz(131),
- mpz(146),
- mpz(36),
- mpz(178),
- mpz(184),
+<span></span>[mpz(124),
  mpz(186),
- mpz(44),
- mpz(88),
- mpz(258),
- mpz(270),
- mpz(112),
- mpz(227),
  mpz(54),
- mpz(293),
- mpz(82),
- mpz(42),
- mpz(236),
- mpz(128),
- mpz(187),
- mpz(275),
- mpz(176),
- mpz(139),
- mpz(100),
- mpz(269),
- mpz(273),
- mpz(40),
- mpz(123),
- mpz(50),
+ mpz(239),
  mpz(252),
- mpz(18),
- mpz(98),
- mpz(65),
- mpz(297),
- mpz(137),
- mpz(190),
- mpz(122),
- mpz(163),
- mpz(109),
- mpz(194),
- mpz(110),
- mpz(230),
- mpz(135),
- mpz(23),
- mpz(4),
- mpz(20),
- mpz(224),
- mpz(89),
- mpz(246),
- mpz(27),
- mpz(148),
- mpz(292),
- mpz(162),
- mpz(64),
- mpz(171),
- mpz(28),
- mpz(158),
- mpz(17),
- mpz(213),
- mpz(237),
- mpz(174),
- mpz(255),
- mpz(58),
- mpz(63),
- mpz(143),
- mpz(16),
- mpz(188),
- mpz(62),
- mpz(45),
- mpz(191),
- mpz(300),
- mpz(155),
- mpz(22),
- mpz(107),
- mpz(208),
- mpz(232),
- mpz(181),
- mpz(298),
- mpz(210),
- mpz(26),
- mpz(126),
- mpz(284),
- mpz(99),
- mpz(74),
- mpz(125),
+ mpz(269),
+ mpz(136),
  mpz(221),
- mpz(147),
- mpz(261),
- mpz(60),
- mpz(287),
+ mpz(109),
+ mpz(29),
+ mpz(74),
+ mpz(212),
+ mpz(90),
+ mpz(259),
+ mpz(13),
+ mpz(172),
+ mpz(231),
+ mpz(32),
+ mpz(43),
+ mpz(194),
+ mpz(53),
+ mpz(3),
+ mpz(176),
+ mpz(246),
+ mpz(300),
+ mpz(37),
+ mpz(14),
+ mpz(190),
+ mpz(125),
+ mpz(208),
+ mpz(233),
+ mpz(297),
+ mpz(42),
+ mpz(127),
+ mpz(30),
+ mpz(236),
+ mpz(188),
+ mpz(290),
  mpz(248),
- mpz(266),
- mpz(177),
- mpz(286),
- mpz(164),
+ mpz(81),
+ mpz(211),
+ mpz(95),
+ mpz(143),
+ mpz(187),
+ mpz(170),
+ mpz(46),
+ mpz(110),
+ mpz(8),
+ mpz(112),
+ mpz(150),
+ mpz(68),
+ mpz(52),
+ mpz(79),
+ mpz(12),
+ mpz(126),
+ mpz(103),
+ mpz(86),
+ mpz(139),
+ mpz(93),
+ mpz(135),
+ mpz(134),
+ mpz(18),
+ mpz(223),
+ mpz(262),
+ mpz(104),
+ mpz(218),
+ mpz(60),
+ mpz(10),
+ mpz(131),
+ mpz(162),
+ mpz(261),
+ mpz(267),
+ mpz(284),
+ mpz(44),
+ mpz(140),
+ mpz(65),
+ mpz(33),
+ mpz(204),
+ mpz(230),
+ mpz(282),
  mpz(39),
- mpz(218)]
+ mpz(58),
+ mpz(4),
+ mpz(203),
+ mpz(27),
+ mpz(88),
+ mpz(106),
+ mpz(242),
+ mpz(67),
+ mpz(210),
+ mpz(50),
+ mpz(111),
+ mpz(173),
+ mpz(180),
+ mpz(219),
+ mpz(59),
+ mpz(107),
+ mpz(289),
+ mpz(57),
+ mpz(174)]
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -803,7 +845,7 @@ g^d &amp;= ((1 + n)^jx)^d \\
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>

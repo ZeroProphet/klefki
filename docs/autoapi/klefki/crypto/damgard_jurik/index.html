@@ -40,12 +40,43 @@
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="klefki.crypto.damgard_jurik.damgard_jurik_reduce">
-<code class="sig-prename descclassname">klefki.crypto.damgard_jurik.</code><code class="sig-name descname">damgard_jurik_reduce</code><span class="sig-paren">(</span><em class="sig-param">a: int</em>, <em class="sig-param">s: int</em>, <em class="sig-param">n: int</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="../../../../_modules/klefki/crypto/damgard_jurik.html#damgard_jurik_reduce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.crypto.damgard_jurik.damgard_jurik_reduce" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">klefki.crypto.damgard_jurik.</code><code class="sig-name descname">damgard_jurik_reduce</code><span class="sig-paren">(</span><em class="sig-param">a: int</em>, <em class="sig-param">n: int</em>, <em class="sig-param">s=1</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="../../../../_modules/klefki/crypto/damgard_jurik.html#damgard_jurik_reduce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.crypto.damgard_jurik.damgard_jurik_reduce" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes i given a = (1 + n)^i (mod n^(s+1)).
 :param a: The integer a in the above equation.
 :param s: The integer s in the above equation.
 :param n: The integer n in the above equation.
 :return: The integer i in the above equation.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="klefki.crypto.damgard_jurik.DJPaillier">
+<em class="property">class </em><code class="sig-prename descclassname">klefki.crypto.damgard_jurik.</code><code class="sig-name descname">DJPaillier</code><span class="sig-paren">(</span><em class="sig-param">P</em>, <em class="sig-param">Q</em>, <em class="sig-param">s=1</em>, <em class="sig-param">strict=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/klefki/crypto/damgard_jurik.html#DJPaillier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.crypto.damgard_jurik.DJPaillier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../paillier/index.html#klefki.crypto.paillier.Paillier" title="klefki.crypto.paillier.Paillier"><code class="xref py py-class docutils literal notranslate"><span class="pre">klefki.crypto.paillier.Paillier</span></code></a></p>
+<dl class="method">
+<dt id="klefki.crypto.damgard_jurik.DJPaillier.cal_privkey">
+<em class="property">static </em><code class="sig-name descname">cal_privkey</code><span class="sig-paren">(</span><em class="sig-param">P</em>, <em class="sig-param">Q</em>, <em class="sig-param">s=1</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/klefki/crypto/damgard_jurik.html#DJPaillier.cal_privkey"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.crypto.damgard_jurik.DJPaillier.cal_privkey" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="klefki.crypto.damgard_jurik.DJPaillier.encrypt">
+<em class="property">classmethod </em><code class="sig-name descname">encrypt</code><span class="sig-paren">(</span><em class="sig-param">cls</em>, <em class="sig-param">m</em>, <em class="sig-param">pub</em>, <em class="sig-param">s=1</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/klefki/crypto/damgard_jurik.html#DJPaillier.encrypt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.crypto.damgard_jurik.DJPaillier.encrypt" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="klefki.crypto.damgard_jurik.DJPaillier.decrypt">
+<em class="property">classmethod </em><code class="sig-name descname">decrypt</code><span class="sig-paren">(</span><em class="sig-param">cls</em>, <em class="sig-param">c</em>, <em class="sig-param">priv</em>, <em class="sig-param">pub</em>, <em class="sig-param">s=1</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/klefki/crypto/damgard_jurik.html#DJPaillier.decrypt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.crypto.damgard_jurik.DJPaillier.decrypt" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="klefki.crypto.damgard_jurik.DJPaillier.E">
+<code class="sig-name descname">E</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">m</em>, <em class="sig-param">pub=None</em>, <em class="sig-param">s=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/klefki/crypto/damgard_jurik.html#DJPaillier.E"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.crypto.damgard_jurik.DJPaillier.E" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="klefki.crypto.damgard_jurik.DJPaillier.D">
+<code class="sig-name descname">D</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">c</em>, <em class="sig-param">priv=None</em>, <em class="sig-param">pub=None</em>, <em class="sig-param">s=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/klefki/crypto/damgard_jurik.html#DJPaillier.D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.crypto.damgard_jurik.DJPaillier.D" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </div>
