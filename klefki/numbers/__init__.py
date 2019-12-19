@@ -2,6 +2,8 @@ import math
 from functools import reduce
 from operator import mul
 
+# https://crypto.stackexchange.com/questions/29591/lcm-versus-phi-in-rsa
+
 def rsa_lambda(p, q):
     return lcm(p-1, q-1)
 

@@ -1,4 +1,5 @@
 from klefki.numbers import invmod
+from klefki.numbers import rsa_lambda, rsa_phi
 from klefki.numbers import lcm, length
 from klefki.numbers import crt
 from klefki.crypto.paillier import Paillier
@@ -48,7 +49,13 @@ def damgard_jurik_reduce(a: int, n: int, s=1) -> int:
 
 class DJPaillier(Paillier):
 
-    def __init__(self, P, Q, s=1):
+    def __init__(self, P, Q, s=1, strict=False):
+        '''
+        if strict == True:
+           use Carmichael Number
+        else:
+           use Euler Number
+        '''
         N = P * Q
 #        Lam = lcm(P-1, Q-1)
         phi = (P-1) * (Q-1)
@@ -56,7 +63,11 @@ class DJPaillier(Paillier):
         # multiplicative group
         MG = field(N ** (s+1), "N^{s+1}") # n ** (s +1 ) == n2 in pailer case
         H = field(N, "H")
-        LG = field(phi, "PhiGroup")
+        # https://crypto.stackexchange.com/questions/29591/lcm-versus-phi-in-rsa
+        if strict:
+            LG = field(rsa_lambda(P, Q), "PhiGroup")
+        else:
+            LG = field(rsa_phi(P, Q), "PhiGroup")
 
         j = generate_prime(length(P))
         assert gcd(j, N) == 1
