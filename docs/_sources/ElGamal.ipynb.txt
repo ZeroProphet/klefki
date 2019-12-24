@@ -235,7 +235,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "* Key generation\n",
+    "### Key generation\n",
     "\n",
     "The first party, Alice, generates a key pair as follows:\n",
     "\n",
@@ -250,21 +250,21 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 10,
+   "execution_count": 163,
    "metadata": {},
    "outputs": [],
    "source": [
     "G = Curve.G\n",
-    "F = field(G.N)\n",
-    "x = randfield(F).value\n",
-    "h = G ** x\n"
+    "F = field(G.N, \"N\")\n",
+    "sk = randfield(F).value\n",
+    "H = G ** sk\n"
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "* Encryption"
+    "### Encryption"
    ]
   },
   {
@@ -293,7 +293,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 12,
+   "execution_count": 169,
    "metadata": {
     "scrolled": true
    },
@@ -301,46 +301,45 @@
     {
      "data": {
       "text/plain": [
-       "(EllipticCurveCyclicSubgroupSecp256k1::(FiniteFieldSecp256k1::343400373851372023959158801294196447550975838927657867370336948994977140619, FiniteFieldSecp256k1::29483531469090225665513590474354739268572895477533606524029619106182094641294),\n",
-       " (EllipticCurveCyclicSubgroupSecp256k1::(FiniteFieldSecp256k1::9379963255668117837587064288789541202988842789244460362614987556765728024814, FiniteFieldSecp256k1::78307441381795980880833079587093875699325169895477939988481466588419267602039),\n",
-       "  EllipticCurveCyclicSubgroupSecp256k1::(FiniteFieldSecp256k1::106447864651547606544636216041607821713748777402953820147065144781256308249770, FiniteFieldSecp256k1::59429915376919493315025301554394889929997593097441886255999119792319016092862)))"
+       "(EllipticCurveCyclicSubgroupSecp256k1::(FiniteFieldSecp256k1::80927910978145570852379462231301175988272962540619101127514850886352346024868, FiniteFieldSecp256k1::60284358323721871725028290569417492795025393458247474574356929408678527686987),\n",
+       " EllipticCurveCyclicSubgroupSecp256k1::(FiniteFieldSecp256k1::34448317460930500258863235579806447931037517687092390113733872336210169295226, FiniteFieldSecp256k1::47316416264498549844266934147427543476157361786303306372631757708684393968482))"
       ]
      },
-     "execution_count": 12,
+     "execution_count": 169,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
-    "y = randfield(F).value\n",
+    "r = randfield(F).value\n",
     "M = randfield(F)\n",
-    "m = Curve.lift_x(G.x + G.x.functor(M))\n",
-    "s = h ** y\n",
-    "c1 = G ** y\n",
-    "c2 = s * m\n",
+    "m = Curve.lift_x(G.x.functor(M))\n",
     "\n",
-    "m, (c1, c2)"
+    "c1 = G ** r\n",
+    "c2 = H ** r * m\n",
+    "\n",
+    "(c1, c2)"
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "* Decryption"
+    "### Decryption"
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "Alice decrypts a ciphertext $c_1, c_2$ with her private key $x $ as follows: "
+    "Alice decrypts a ciphertext $c_1, c_2$ with her private key $sk$ as follows: "
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "* Compute $s := c_1^x$.\n",
+    "* Compute $s := c_1^{x}$.\n",
     "\n",
     "* Compute $s^{-1}$,  the inverse of $s$ in the group $G$.\n",
     "\n",
@@ -348,26 +347,27 @@
    ]
   },
   {
-   "cell_type": "code",
-   "execution_count": 13,
+   "cell_type": "markdown",
    "metadata": {},
-   "outputs": [],
    "source": [
-    "s = c1 ** x"
+    "\n",
+    "\\begin{align}\n",
+    "m&=\\frac{c_2}{c_1^x}=\\frac{H^{rm}}{G^{xr}}=\\frac{G^{xrm}}{G^{xr}}\n",
+    "\\end{align}\n"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 14,
+   "execution_count": 175,
    "metadata": {},
    "outputs": [],
    "source": [
-    "m = (c2 - s)"
+    "m = (c2 - (c1 ** sk))"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 15,
+   "execution_count": 176,
    "metadata": {},
    "outputs": [
     {
@@ -376,13 +376,13 @@
        "True"
       ]
      },
-     "execution_count": 15,
+     "execution_count": 176,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
-    "m.x - G.x == M"
+    "m.x == M"
    ]
   },
   {
@@ -394,7 +394,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 16,
+   "execution_count": 108,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -403,33 +403,64 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 17,
+   "execution_count": 125,
    "metadata": {},
    "outputs": [],
    "source": [
     "M = randfield(F).value\n",
     "x = randfield(F).value\n",
-    "el = ElGamal(x)"
+    "el = ElGamal(x)\n",
+    "assert el.D(el.E(M)) == M"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 18,
+   "execution_count": 130,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "N = randfield(F).value\n",
+    "assert el.D(el.E(N)) == N"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 138,
    "metadata": {},
    "outputs": [
     {
      "data": {
       "text/plain": [
-       "True"
+       "107828431619898891208325628547172695998046898536703158859435383627005044784389"
       ]
      },
-     "execution_count": 18,
+     "execution_count": 138,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
-    "el.D(el.E(M)) == M"
+    "el.D((el.E(M)[0] * el.E(N)[0], el.E(M)[1] * el.E(N)[1]))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 140,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "111632818774087540364620324845242351619781770467907298221661279526821677995678"
+      ]
+     },
+     "execution_count": 140,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "M + N"
    ]
   },
   {

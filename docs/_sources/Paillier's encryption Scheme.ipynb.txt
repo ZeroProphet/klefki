@@ -240,6 +240,13 @@
    ]
   },
   {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The function $L$ is used to compute $i$ from $(1+n)^i \\mod n^2$"
+   ]
+  },
+  {
    "cell_type": "code",
    "execution_count": 12,
    "metadata": {},

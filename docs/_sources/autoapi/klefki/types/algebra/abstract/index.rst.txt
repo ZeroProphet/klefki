@@ -70,6 +70,10 @@ Module Contents
       For obeying axiom `closure` (1)
 
 
+   .. method:: __radd__(self, g)
+
+
+
    .. method:: __mul__(self, g: Group)
 
 

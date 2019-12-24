@@ -25,7 +25,7 @@ Module Contents
 
 
 
-   .. method:: encrypt(cls, m, pub, s=1)
+   .. method:: encrypt(cls, m, pub, s=1, r=None)
       :classmethod:
 
 
@@ -35,7 +35,7 @@ Module Contents
 
 
 
-   .. method:: E(self, m, pub=None, s=None)
+   .. method:: E(self, m, pub=None, s=None, r=None)
 
 
 

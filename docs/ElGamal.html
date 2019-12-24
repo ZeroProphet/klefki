@@ -394,9 +394,8 @@ K_{AB} &amp;\equiv \alpha^{x_ax_B} \mod p\\
 </pre></div>
 </div>
 </div>
-<ul class="simple">
-<li><p>Key generation</p></li>
-</ul>
+<div class="section" id="Key-generation">
+<h3>Key generation<a class="headerlink" href="#Key-generation" title="Permalink to this headline">¶</a></h3>
 <p>The first party, Alice, generates a key pair as follows:</p>
 <ul class="simple">
 <li><p>Generate an efficient description of a cyclic group <span class="math notranslate nohighlight">\(G\)</span>, of order <span class="math notranslate nohighlight">\(q\)</span> with generator <span class="math notranslate nohighlight">\(g\)</span>. Let <span class="math notranslate nohighlight">\(e\)</span> represent the unit element of <span class="math notranslate nohighlight">\(G\)</span>.</p></li>
@@ -405,21 +404,21 @@ K_{AB} &amp;\equiv \alpha^{x_ax_B} \mod p\\
 <li><p>he public key consists of the values <span class="math notranslate nohighlight">\(( G , q , g , h )\)</span>. Alice publishes this public key and retains <span class="math notranslate nohighlight">\(x\)</span> as her private key, which must be kept secret.</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[163]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">G</span> <span class="o">=</span> <span class="n">Curve</span><span class="o">.</span><span class="n">G</span>
-<span class="n">F</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">N</span><span class="p">)</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">F</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
-<span class="n">h</span> <span class="o">=</span> <span class="n">G</span> <span class="o">**</span> <span class="n">x</span>
+<span class="n">F</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">N</span><span class="p">,</span> <span class="s2">&quot;N&quot;</span><span class="p">)</span>
+<span class="n">sk</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">F</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+<span class="n">H</span> <span class="o">=</span> <span class="n">G</span> <span class="o">**</span> <span class="n">sk</span>
 
 </pre></div>
 </div>
 </div>
-<ul class="simple">
-<li><p>Encryption</p></li>
-</ul>
+</div>
+<div class="section" id="Encryption">
+<h3>Encryption<a class="headerlink" href="#Encryption" title="Permalink to this headline">¶</a></h3>
 <p>A second party, Bob, encrypts a message <span class="math notranslate nohighlight">\(M\)</span> to Alice under her public key <span class="math notranslate nohighlight">\(( G , q , g , h )\)</span> as follows:</p>
 <ul class="simple">
 <li><p>Map the message <span class="math notranslate nohighlight">\(M\)</span> to an element <span class="math notranslate nohighlight">\(m\)</span> of <span class="math notranslate nohighlight">\(G\)</span> using a reversible mapping function.</p></li>
@@ -430,70 +429,63 @@ K_{AB} &amp;\equiv \alpha^{x_ax_B} \mod p\\
 </ul>
 <p>Bob sends the ciphertext <span class="math notranslate nohighlight">\(( c_1 , c_2 )\)</span> to Alice.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[169]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">y</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">F</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+<span></span><span class="n">r</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">F</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
 <span class="n">M</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">F</span><span class="p">)</span>
-<span class="n">m</span> <span class="o">=</span> <span class="n">Curve</span><span class="o">.</span><span class="n">lift_x</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">G</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">functor</span><span class="p">(</span><span class="n">M</span><span class="p">))</span>
-<span class="n">s</span> <span class="o">=</span> <span class="n">h</span> <span class="o">**</span> <span class="n">y</span>
-<span class="n">c1</span> <span class="o">=</span> <span class="n">G</span> <span class="o">**</span> <span class="n">y</span>
-<span class="n">c2</span> <span class="o">=</span> <span class="n">s</span> <span class="o">*</span> <span class="n">m</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">Curve</span><span class="o">.</span><span class="n">lift_x</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">functor</span><span class="p">(</span><span class="n">M</span><span class="p">))</span>
 
-<span class="n">m</span><span class="p">,</span> <span class="p">(</span><span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">)</span>
+<span class="n">c1</span> <span class="o">=</span> <span class="n">G</span> <span class="o">**</span> <span class="n">r</span>
+<span class="n">c2</span> <span class="o">=</span> <span class="n">H</span> <span class="o">**</span> <span class="n">r</span> <span class="o">*</span> <span class="n">m</span>
+
+<span class="p">(</span><span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[169]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>(EllipticCurveCyclicSubgroupSecp256k1::(FiniteFieldSecp256k1::343400373851372023959158801294196447550975838927657867370336948994977140619, FiniteFieldSecp256k1::29483531469090225665513590474354739268572895477533606524029619106182094641294),
- (EllipticCurveCyclicSubgroupSecp256k1::(FiniteFieldSecp256k1::9379963255668117837587064288789541202988842789244460362614987556765728024814, FiniteFieldSecp256k1::78307441381795980880833079587093875699325169895477939988481466588419267602039),
-  EllipticCurveCyclicSubgroupSecp256k1::(FiniteFieldSecp256k1::106447864651547606544636216041607821713748777402953820147065144781256308249770, FiniteFieldSecp256k1::59429915376919493315025301554394889929997593097441886255999119792319016092862)))
+<span></span>(EllipticCurveCyclicSubgroupSecp256k1::(FiniteFieldSecp256k1::80927910978145570852379462231301175988272962540619101127514850886352346024868, FiniteFieldSecp256k1::60284358323721871725028290569417492795025393458247474574356929408678527686987),
+ EllipticCurveCyclicSubgroupSecp256k1::(FiniteFieldSecp256k1::34448317460930500258863235579806447931037517687092390113733872336210169295226, FiniteFieldSecp256k1::47316416264498549844266934147427543476157361786303306372631757708684393968482))
 </pre></div>
 </div>
 </div>
+</div>
+<div class="section" id="Decryption">
+<h3>Decryption<a class="headerlink" href="#Decryption" title="Permalink to this headline">¶</a></h3>
+<p>Alice decrypts a ciphertext <span class="math notranslate nohighlight">\(c_1, c_2\)</span> with her private key <span class="math notranslate nohighlight">\(sk\)</span> as follows:</p>
 <ul class="simple">
-<li><p>Decryption</p></li>
-</ul>
-<p>Alice decrypts a ciphertext <span class="math notranslate nohighlight">\(c_1, c_2\)</span> with her private key $x $ as follows:</p>
-<ul class="simple">
-<li><p>Compute <span class="math notranslate nohighlight">\(s := c_1^x\)</span>.</p></li>
+<li><p>Compute <span class="math notranslate nohighlight">\(s := c_1^{x}\)</span>.</p></li>
 <li><p>Compute <span class="math notranslate nohighlight">\(s^{-1}\)</span>, the inverse of <span class="math notranslate nohighlight">\(s\)</span> in the group <span class="math notranslate nohighlight">\(G\)</span>.</p></li>
 <li><p>Compute <span class="math notranslate nohighlight">\(m:=c_2\cdot s^{-1}\)</span></p></li>
 </ul>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="math notranslate nohighlight">
+\begin{align}
+m&amp;=\frac{c_2}{c_1^x}=\frac{H^{rm}}{G^{xr}}=\frac{G^{xrm}}{G^{xr}}
+\end{align}</div><div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[175]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">s</span> <span class="o">=</span> <span class="n">c1</span> <span class="o">**</span> <span class="n">x</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">m</span> <span class="o">=</span> <span class="p">(</span><span class="n">c2</span> <span class="o">-</span> <span class="n">s</span><span class="p">)</span>
+<span></span><span class="n">m</span> <span class="o">=</span> <span class="p">(</span><span class="n">c2</span> <span class="o">-</span> <span class="p">(</span><span class="n">c1</span> <span class="o">**</span> <span class="n">sk</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[176]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">m</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">G</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="n">M</span>
+<span></span><span class="n">m</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="n">M</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[176]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -502,10 +494,11 @@ K_{AB} &amp;\equiv \alpha^{x_ax_B} \mod p\\
 </div>
 </div>
 </div>
+</div>
 <div class="section" id="Implentmentation-in-klefki">
 <h2>Implentmentation in klefki<a class="headerlink" href="#Implentmentation-in-klefki" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[108]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -514,31 +507,60 @@ K_{AB} &amp;\equiv \alpha^{x_ax_B} \mod p\\
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[125]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">M</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">F</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">F</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
 <span class="n">el</span> <span class="o">=</span> <span class="n">ElGamal</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">el</span><span class="o">.</span><span class="n">D</span><span class="p">(</span><span class="n">el</span><span class="o">.</span><span class="n">E</span><span class="p">(</span><span class="n">M</span><span class="p">))</span> <span class="o">==</span> <span class="n">M</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[130]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">N</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">F</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+<span class="k">assert</span> <span class="n">el</span><span class="o">.</span><span class="n">D</span><span class="p">(</span><span class="n">el</span><span class="o">.</span><span class="n">E</span><span class="p">(</span><span class="n">N</span><span class="p">))</span> <span class="o">==</span> <span class="n">N</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[138]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">el</span><span class="o">.</span><span class="n">D</span><span class="p">(</span><span class="n">el</span><span class="o">.</span><span class="n">E</span><span class="p">(</span><span class="n">M</span><span class="p">))</span> <span class="o">==</span> <span class="n">M</span>
+<span></span><span class="n">el</span><span class="o">.</span><span class="n">D</span><span class="p">((</span><span class="n">el</span><span class="o">.</span><span class="n">E</span><span class="p">(</span><span class="n">M</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">el</span><span class="o">.</span><span class="n">E</span><span class="p">(</span><span class="n">N</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">el</span><span class="o">.</span><span class="n">E</span><span class="p">(</span><span class="n">M</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">el</span><span class="o">.</span><span class="n">E</span><span class="p">(</span><span class="n">N</span><span class="p">)[</span><span class="mi">1</span><span class="p">]))</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[138]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>True
+<span></span>107828431619898891208325628547172695998046898536703158859435383627005044784389
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[140]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">M</span> <span class="o">+</span> <span class="n">N</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[140]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>111632818774087540364620324845242351619781770467907298221661279526821677995678
 </pre></div>
 </div>
 </div>
@@ -588,7 +610,6 @@ K_{AB} &amp;\equiv \alpha^{x_ax_B} \mod p\\
 <h3>Navigation</h3>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="README.html">TL;DR</a></li>
-<li class="toctree-l1"><a class="reference internal" href="README.html#docs">Docs</a></li>
 </ul>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Non-interactive and Reusable Non-malleable Commitment Schemes.html">Non-interactive and Reusable Non-malleable Commitment Schemes</a></li>
@@ -604,9 +625,6 @@ K_{AB} &amp;\equiv \alpha^{x_ax_B} \mod p\\
 <li class="toctree-l1"><a class="reference internal" href="Threshold ECDSA.html">Threshold ECDSA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="POD-Mini and POD-AS.html">POD-Mini and POD-AS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Damgard-Jurik Scheme of Paillier.html">Damgard-Jurik Scheme of Paillier</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Damgard-Jurik Scheme of Paillier.html#A-Threshold-Variant-of-Paillier">A Threshold Variant of Paillier</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Damgard-Jurik Scheme of Paillier.html#Share-decryption">Share decryption</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Damgard-Jurik Scheme of Paillier.html#Implementation">Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Threshold Paillier Cryptosystem.html">Threshold Paillier Cryptosystem</a></li>
 </ul>
 <ul>

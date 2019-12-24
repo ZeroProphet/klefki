@@ -56,6 +56,9 @@ class Groupoid(Functor):
         assert isinstance(res, type(self))
         return res
 
+    def __radd__(self, g):
+        return self.__add__(g)
+
     def __mul__(self, g: 'Group') -> 'Group':
         return self.__add__(g)
 

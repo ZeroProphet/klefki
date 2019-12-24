@@ -86,7 +86,7 @@
     "sk_1 = -p_1-q_2\n",
     "$$\n",
     "\n",
-    "$sk_0, sk_1$ hold by $P_0, and P_1$ respectively, A public **ElGamel** key $(g,h)$ with secret key shared between the parities. A public Pailler key $N_0>>N^3$ with the secret key hold by $P_0$"
+    "$sk_0$, $sk_1$ hold by $P_0$, and $P_1$ respectively, A public **ElGamel** key $(g,h)$ with secret key shared between the parities. A public Pailler key $N_0>>N^3$ with the secret key hold by $P_0$"
    ]
   },
   {
@@ -110,7 +110,7 @@
    "source": [
     "P, Q = generate_prime(32), generate_prime(32)\n",
     "N = P * Q\n",
-    "Lam = (P-1) * (Q-1)\n"
+    "Phi = (P-1) * (Q-1)\n"
    ]
   },
   {
@@ -119,7 +119,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "sk0, sk1 = additive_share(Lam, field(N), 2)\n",
+    "sk0, sk1 = additive_share(Phi, field(N), 2)\n",
     "sk0, sk1 = sk0.value, sk1.value"
    ]
   },
@@ -284,60 +284,9 @@
    "cell_type": "code",
    "execution_count": 16,
    "metadata": {},
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "True"
-      ]
-     },
-     "execution_count": 16,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
+   "outputs": [],
    "source": [
-    "p0.D((p0.E(sk1) * e_sk0) ** r1 * p0.E(N) ** ro) == p0.D(p0.E((sk0+sk1) * r1 + N * ro))"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 17,
-   "metadata": {},
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "N::121965745993280675060143306922673079191"
-      ]
-     },
-     "execution_count": 17,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
-   "source": [
-    "p0.D((p0.E(sk1) * e_sk0) ** r1 * p0.E(N) ** ro)"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 18,
-   "metadata": {},
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "N::121965745993280675060143306922673079191"
-      ]
-     },
-     "execution_count": 18,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
-   "source": [
-    " p0.D(p0.E((sk0+sk1) * r1 + N * ro))"
+    "assert p0.D((p0.E(sk1) * e_sk0) ** r1 * p0.E(N) ** ro) == p0.D(p0.E((sk0+sk1) * r1 + N * ro))"
    ]
   },
   {
@@ -357,7 +306,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 19,
+   "execution_count": 17,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -366,16 +315,16 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 20,
+   "execution_count": 18,
    "metadata": {},
    "outputs": [
     {
      "data": {
       "text/plain": [
-       "7556678062753431861"
+       "1270707545493826762"
       ]
      },
-     "execution_count": 20,
+     "execution_count": 18,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -386,7 +335,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 21,
+   "execution_count": 19,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -395,7 +344,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 22,
+   "execution_count": 20,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -425,7 +374,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 23,
+   "execution_count": 21,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -434,27 +383,16 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 24,
+   "execution_count": 22,
    "metadata": {},
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "True"
-      ]
-     },
-     "execution_count": 24,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
+   "outputs": [],
    "source": [
-    "p0.D(e_d).value == r1 * (P-1) * (Q-1) * (~field(N)(r0)).value"
+    "assert p0.D(e_d).value == r1 * (P-1) * (Q-1) * (~field(N)(r0)).value"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 25,
+   "execution_count": 23,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -465,7 +403,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 26,
+   "execution_count": 24,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -482,7 +420,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 27,
+   "execution_count": 25,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -499,7 +437,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 28,
+   "execution_count": 26,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -508,27 +446,16 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 29,
+   "execution_count": 27,
    "metadata": {},
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "True"
-      ]
-     },
-     "execution_count": 29,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
+   "outputs": [],
    "source": [
-    "p0.D(e_d).value == d1 + d0"
+    "assert p0.D(e_d).value == d1 + d0"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 34,
+   "execution_count": 28,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -583,9 +510,35 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "1. $P_0$ sends $c_0=c^{sk0} \\mod N^2$ to $P_1$. Moreover, $P_0$ demonstrates that this has been done correctly by executing $\\pi_{EQ}$, i.e., that the committed number equals the discrete log of c 0 with base c and the plaintext encrypted with ElGamal.\n",
+    "1. $P_0$ sends $c_0=c^{sk0} \\mod N^2$ to $P_1$. Moreover, $P_0$ demonstrates that this has been done correctly by executing $\\pi_{EQ}$, i.e., that the committed number equals the discrete log of $c_0$ with base c and the plaintext encrypted with ElGamal.\n",
     "\n",
-    "2. $P_1$ sends $c_1=c^{sk2} \\mod N^2$ to $P_0$. Moreover, $P_1$ demonstrates that this has been done correctly by executing $\\pi_{EQ}$, i.e., that the committed number equals the discrete log of c 0 with base c and the plaintext encrypted with ElGamal."
+    "2. $P_1$ sends $c_1=c^{sk2} \\mod N^2$ to $P_0$. Moreover, $P_1$ demonstrates that this has been done correctly by executing $\\pi_{EQ}$, i.e., that the committed number equals the discrete log of $c_0$ with base c and the plaintext encrypted with ElGamal.\n",
+    "\n",
+    "3. Finally, both parties compute the paintext via Function $L$, $m=L(c_0 \\cdot c_1) \\mod N^2)=((c_0 \\cdot c_1) \\mod N^2 -1) / N)$\n",
+    "\n",
+    "$$\n",
+    "L(u) = \\frac{(u-1)}{n}\n",
+    "$$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 29,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from klefki.crypto.damgard_jurik import DJPaillier\n",
+    "from klefki.crypto.paillier import L"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 30,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "m = 31415926\n",
+    "djp = DJPaillier(P, Q, s=3, strict=True)"
    ]
   },
   {
@@ -594,33 +547,109 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "from klefki.crypto.damgard_jurik import DJPaillier"
+    "N, G = djp.pubkey"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 32,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "r = randfield(G.functor)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 33,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "c = djp.E(m, r=r)\n",
+    "assert djp.D(c, priv=d).value == m\n",
+    "assert djp.privkey % lcm((P-1), (Q-1)) == 0\n",
+    "assert djp.privkey % (P * Q) == 1"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 34,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "N, G = djp.pubkey"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 35,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "c0 = c ** d0\n",
+    "c1 = c ** d1\n",
+    "g0 = G ** d0\n",
+    "g1 = G ** d1"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 36,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "assert c0 * c1 == c ** d0 * c ** d1\n",
+    "assert c ** (d0 + d1) == c ** d\n",
+    "assert g0 * g1 == G ** d"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 37,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "N::31415926"
+      ]
+     },
+     "execution_count": 37,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "F = field(N, \"N\")\n",
+    "\n",
+    "F(L((c0 * c1).value, N)) * ~F(L((g0 * g1).value, N))"
    ]
   },
   {
    "cell_type": "code",
    "execution_count": 38,
    "metadata": {},
-   "outputs": [],
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "N::2763856104640951191"
+      ]
+     },
+     "execution_count": 38,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
    "source": [
-    "m = 42\n",
-    "djp = DJPaillier(P, Q)"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 42,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "assert djp.D(djp.E(m), priv=d).value == m"
+    "~F(L((g0 * g1).value, N))"
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## a protocol for generating a threshold key"
+    "## Generating a threshold key"
    ]
   },
   {
@@ -650,7 +679,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 36,
+   "execution_count": 39,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -664,23 +693,201 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 37,
+   "execution_count": 40,
    "metadata": {},
    "outputs": [],
    "source": [
-    "N = P * Q\n",
-    "phi = (P - 1) * (Q - 1)\n",
-    "inv_phi = invmod(phi, N)"
+    "inv_phi = invmod(Phi, N)"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 38,
+   "execution_count": 41,
    "metadata": {},
    "outputs": [],
    "source": [
-    "assert phi * inv_phi % phi == 0\n",
-    "assert phi * inv_phi % N == 1"
+    "assert Phi * inv_phi % Phi == 0\n",
+    "assert Phi * inv_phi % N == 1"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Protocol (the ZK part was ignored):"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "* 1. For $1 \\le i \\le k$, party $P_i$ pick $t_i$, uniformly at random from $Z_N$ and $r_i$ uniformly at random from $Z_{N·k·2^n}$ , where $n$ is a security parameter. Each $P_i$ then broadcasts ElGamal two encryptions, $c_{ti}$ of $t_i$ and $c_ri$ of $r_i$. These will be views as sharings of random values, $t=\\sum_{i=1}^{k}t_i$ and $r=\\sum_{i=1}^kr_i$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 42,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "n = 3\n",
+    "k = 6\n",
+    "F1 = field(N, \"Z_N\")\n",
+    "F2 = field(N*k*2**3, \"Z_N.k.2^n\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 43,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "ts = [randfield(F1) for i in range(k)]\n",
+    "rs = [randfield(F2) for i in range(k)]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "* 2. The parities obtaining shares $u_i, \\cdots, u_n$ of $t \\cdot \\phi(N)$ as well as encryptions $c_{ui}$ of those shares."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 44,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "us = [i*Phi for i in ts]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "* 3. For $1 \\le i \\le k$, party $P_i$ broadcast $u_i+N \\cdot r_i$; the parties then decrypt $c_{ui}.(c_{ri})^N$, The parties compute\n",
+    "\n",
+    "$$\n",
+    "v=\\sum_{i=1}^ku_i+N \\cdot r_i\n",
+    "$$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 45,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from functools import reduce\n",
+    "from operator import add"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 54,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "v = sum([us[i] + rs[i] * N for i in range(k)])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "* 4. Each party locally computes the public value\n",
+    "\n",
+    "$$\n",
+    "\\bar{v} = v^{-1} \\mod N\n",
+    "$$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Thies is then used to compute an additive sharing of $w = t \\cdot \\bar{v}$; $P_i$ locally multiplies $t_i$ by $\\bar{v}$ to compute $w_i$, and all parities raise the encryptions of the $t_i$ to $\\bar{v}$ to opbtain encryption of the $w_i$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 55,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "Z_N::7516726862107618122"
+      ]
+     },
+     "execution_count": 55,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "~v"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 82,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "ws = [t* (~v) for t in ts]\n",
+    "ds = [w.value * Phi for w in ws]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "* 5. Finally, the parities obtaining shares $d_i$ of $d$ along with encryptions $c_{di}$ of the $d_i$.\n",
+    "\n",
+    "The sahred $w=\\sum_{i=1}^kw_i eques$\n",
+    "\n",
+    "\\begin{align}\n",
+    "w=\\left( (t \\cdot \\phi(N) + r \\cdot N)^{-1} \\right) \\cdot t = \\left( \\phi(N)^{-1} \\mod N\\right) + ZN\n",
+    "\\end{align}"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 83,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "w = sum(ws)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "For some integer $z$ of atmost $\\lfloor log_k \\rfloor + \\lfloor logN \\rfloor$ bits. This implies that\n",
+    "\n",
+    "$$\n",
+    "d=( ( \\phi(N)^-1 \\mod N) + zN) \\cdot \\phi(N) = ((\\phi(N)^{-1} \\mod N)\\phi(N) +z\\phi(N)N\n",
+    "$$\n",
+    "\n",
+    "$$\n",
+    "d = w \\cdot Phi(N)\n",
+    "$$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 87,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "assert Phi * w.value % lcm((P-1), (Q-1)) == 0\n",
+    "assert Phi * w.value % (P * Q) == 1\n",
+    "\n",
+    "assert sum(ds) % lcm((P-1), (Q-1)) == 0\n",
+    "assert sum(ds) % (P * Q) == 1"
    ]
   },
   {
@@ -691,27 +898,6 @@
     "\n",
     "* Carmit Hazay, Gert Læssøe Mikkelsen, etc.., Efﬁcient RSA Key Generation and Threshold Paillier in the Two-Party Setting"
    ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": []
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": []
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": []
   }
  ],
  "metadata": {

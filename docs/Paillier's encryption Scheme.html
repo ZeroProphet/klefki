@@ -408,6 +408,7 @@ Ciphtertext Text: 70166287100287507632202347997724439615178296635363404948773753
 <p>To decrypt a ciphertext <span class="math notranslate nohighlight">\(c \in Z_N\)</span>, let <span class="math notranslate nohighlight">\(L\)</span> be a function defined over the set <span class="math notranslate nohighlight">\(\{u\in Z_{N^2}: u=1 \ mod \ N\}\)</span> computed as <span class="math notranslate nohighlight">\(L(u) = \frac{u-1}{N}\)</span>. Then the decryption of <span class="math notranslate nohighlight">\(c\)</span> is computed as</p>
 <div class="math notranslate nohighlight">
 \[\frac{L(c^{\lambda(N)}\ mod\ N^2)}{L(\Gamma^{\lambda(N)}\ mod\ N^2)}\ mod\ N\]</div>
+<p>The function <span class="math notranslate nohighlight">\(L\)</span> is used to compute <span class="math notranslate nohighlight">\(i\)</span> from <span class="math notranslate nohighlight">\((1+n)^i \mod n^2\)</span></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
