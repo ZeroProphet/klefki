@@ -58,7 +58,6 @@ class DJPaillier(Paillier):
         '''
         N = P * Q
 #        Lam = lcm(P-1, Q-1)
-        phi = (P-1) * (Q-1)
         G = field(N**s, "G") # n ** s == n if s = 1
         # multiplicative group
         MG = field(N ** (s+1), "N^{s+1}") # n ** (s +1 ) == n2 in pailer case
@@ -87,13 +86,15 @@ class DJPaillier(Paillier):
         return crt(a_list=[0, 1], n_list=[(P-1) * (Q-1), N ** s])
 
     @classmethod
-    def encrypt(cls, m, pub, s=1):
+    def encrypt(cls, m, pub, s=1, r=None):
         N, G = pub
 
         if hasattr(m, "value"):
             m = m.value
-
-        r = randfield(G.functor)
+        if not r:
+            r = randfield(G.functor)
+        else:
+            r = G.functor(r)
         return G**m * r**(N**s)
 
 
@@ -104,10 +105,10 @@ class DJPaillier(Paillier):
         F = field(N**s, "N^s")
         return F(damgard_jurik_reduce((c ** d).value, N, s)) * ~F(damgard_jurik_reduce((G ** d).value, N, s))
 
-    def E(self, m, pub=None, s=None):
+    def E(self, m, pub=None, s=None, r=None):
         if not s:
             s = self.s or 1
-        return self.encrypt(m, pub or self.pubkey, s=s)
+        return self.encrypt(m, pub or self.pubkey, s=s, r=r)
 
 
     def D(self, c, priv=None, pub=None, s=None):
