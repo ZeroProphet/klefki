@@ -25,5 +25,6 @@ Submodules
    paillier/index.rst
    rsa/index.rst
    ssss/index.rst
+   vss/index.rst
 
 

@@ -356,8 +356,8 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 </div>
-<div class="section" id="II-scheme">
-<h2>II scheme<a class="headerlink" href="#II-scheme" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="II-scheme-of-GG16">
+<h2>II scheme of GG16<a class="headerlink" href="#II-scheme-of-GG16" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="Initialization-phase">
 <h3>Initialization phase<a class="headerlink" href="#Initialization-phase" title="Permalink to this headline">¶</a></h3>
 <p>In this phase, a common reference string containing the public information <span class="math notranslate nohighlight">\(pk\)</span> for an independent trapdoor commitment <span class="math notranslate nohighlight">\(KG\)</span>, <span class="math notranslate nohighlight">\(Com\)</span>, <span class="math notranslate nohighlight">\(Ver\)</span>, <span class="math notranslate nohighlight">\(Equiv\)</span> is selected and published. This could be accomplished by a trusted third party, who can be assumed to erase any secret information (i.e. the trapdoor of the commitment) after selection.</p>
@@ -400,7 +400,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -423,7 +423,7 @@ div.rendered_html tbody tr:hover {
 <p>Then a value <span class="math notranslate nohighlight">\(x\)</span> is generated, and encrypted with E, with the value <span class="math notranslate nohighlight">\(α = E(x)\)</span> made public.</p>
 <p>Note that this is an implicit <span class="math notranslate nohighlight">\((t, n)\)</span> secret sharing of <span class="math notranslate nohighlight">\(x\)</span>, since the decryption key of <span class="math notranslate nohighlight">\(E\)</span> is shared among the players.</p>
 <ul class="simple">
-<li><p>Each player <span class="math notranslate nohighlight">\(P_i\)</span> selects a random value <span class="math notranslate nohighlight">\(x_i ∈ Z_q\)</span> , computes <span class="math notranslate nohighlight">\(y_i\)</span> = <span class="math notranslate nohighlight">\(g_{x_i} ∈ G\)</span> and <span class="math notranslate nohighlight">\([C_i , D_i ] = Com(y_i)\)</span>;</p></li>
+<li><p>Each player <span class="math notranslate nohighlight">\(P_i\)</span> selects a random value <span class="math notranslate nohighlight">\(x_i ∈ Z_q\)</span> , computes <span class="math notranslate nohighlight">\(y_i\)</span> = <span class="math notranslate nohighlight">\(g^{x_i} ∈ G\)</span> and <span class="math notranslate nohighlight">\([C_i , D_i ] = Com(y_i)\)</span>;</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
@@ -541,6 +541,8 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="section" id="Round-1">
+<h4>Round 1<a class="headerlink" href="#Round-1" title="Permalink to this headline">¶</a></h4>
 <p>Each player <span class="math notranslate nohighlight">\(P_i\)</span></p>
 <ol class="arabic simple">
 <li><p>choose <span class="math notranslate nohighlight">\(\rho_i \leftarrow Z_q\)</span></p></li>
@@ -560,6 +562,9 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+</div>
+<div class="section" id="Round-2">
+<h4>Round 2<a class="headerlink" href="#Round-2" title="Permalink to this headline">¶</a></h4>
 <p>Each player <span class="math notranslate nohighlight">\(P_i\)</span> broadcasts:</p>
 <ul>
 <li><p><span class="math notranslate nohighlight">\(D_{1,i}\)</span>. This allow everybody to compute <span class="math notranslate nohighlight">\([u_i, v_i]=Ver(C_{1,i}, D_{1,i})\)</span></p></li>
@@ -640,6 +645,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+</div>
 <div class="section" id="Round-3">
 <h4>Round 3<a class="headerlink" href="#Round-3" title="Permalink to this headline">¶</a></h4>
 <p>Each player <span class="math notranslate nohighlight">\(P_i\)</span></p>
@@ -659,7 +665,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -669,7 +675,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -678,7 +684,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -690,7 +696,7 @@ div.rendered_html tbody tr:hover {
 <li><p>Proof</p></li>
 </ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -699,7 +705,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -708,7 +714,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -718,7 +724,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -736,7 +742,7 @@ div.rendered_html tbody tr:hover {
 </ol>
 <p>Players compute <span class="math notranslate nohighlight">\(w=\oplus_{i=1}^{t+1}w_i=E(k\rho + cq)\)</span> where <span class="math notranslate nohighlight">\(k=\sum_{i=1}^{t+1}k_i\)</span> and <span class="math notranslate nohighlight">\(c=\sum_{i=1}^{t+1}c_i\)</span>. Players also compute <span class="math notranslate nohighlight">\(R=\Pi_i^{t+1}r_i=g^k\)</span> and <span class="math notranslate nohighlight">\(r=H'(R)\in Z_q\)</span></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -745,7 +751,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -754,7 +760,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -768,7 +774,7 @@ div.rendered_html tbody tr:hover {
 <li><p>Proof</p></li>
 </ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -777,7 +783,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -786,7 +792,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -795,7 +801,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -816,7 +822,7 @@ div.rendered_html tbody tr:hover {
 &amp;=E(k^{-1}(m+xr))\\
 &amp;=E(s)
 \end{align}</div><div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -825,7 +831,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -834,7 +840,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -846,7 +852,7 @@ div.rendered_html tbody tr:hover {
 <li><p>Proof</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -857,7 +863,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -870,7 +876,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -884,7 +890,7 @@ div.rendered_html tbody tr:hover {
 <h4>Round 6<a class="headerlink" href="#Round-6" title="Permalink to this headline">¶</a></h4>
 <p>The players invoke distributed decryption protocol TDec over the ciphertext <span class="math notranslate nohighlight">\(σ\)</span>. Let <span class="math notranslate nohighlight">\(s = D(σ) mod q\)</span>. The players output <span class="math notranslate nohighlight">\((r, s)\)</span> as the signature for <span class="math notranslate nohighlight">\(m\)</span>.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -897,7 +903,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="Verify">
 <h3>Verify<a class="headerlink" href="#Verify" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -906,7 +912,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -915,7 +921,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -923,6 +929,65 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+</div>
+</div>
+<div class="section" id="III-Scheme-of-GG18">
+<h2>III Scheme of GG18<a class="headerlink" href="#III-Scheme-of-GG18" title="Permalink to this headline">¶</a></h2>
+<p>The players run on input <span class="math notranslate nohighlight">\(G\)</span>, <span class="math notranslate nohighlight">\(g\)</span> the cyclic group used by the DSA signature scheme. We assume that each player <span class="math notranslate nohighlight">\(P_i\)</span> is associated with a public key <span class="math notranslate nohighlight">\(E_i\)</span> for an additively homomorphic encryption scheme <span class="math notranslate nohighlight">\(E\)</span>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[65]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">21</span>
+<span class="n">t</span> <span class="o">=</span> <span class="mi">14</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">ECC</span><span class="o">.</span><span class="n">G</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">generate_prime</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">generate_prime</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>
+<span class="n">pai</span> <span class="o">=</span> <span class="n">Paillier</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[66]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pai_pks</span> <span class="o">=</span> <span class="p">[</span><span class="n">Paillier</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Key-generation-Protocol">
+<h3>Key generation Protocol<a class="headerlink" href="#Key-generation-Protocol" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><strong>Phase 1</strong>. Each Player <span class="math notranslate nohighlight">\(P_i\)</span> select <span class="math notranslate nohighlight">\(u_i \in_R Z_q\)</span>; computes <span class="math notranslate nohighlight">\([KGC_i, KGD_i]=Com(g^{u_i})\)</span> and broadcast <span class="math notranslate nohighlight">\(KGC_i\)</span>. Each player <span class="math notranslate nohighlight">\(P_i\)</span> broadcast <span class="math notranslate nohighlight">\(E_i\)</span> the public key for Paillier’ cryptosytem</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[67]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">us</span> <span class="o">=</span> <span class="p">[</span><span class="n">randfield</span><span class="p">(</span><span class="n">CF</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[68]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">ys</span> <span class="o">=</span> <span class="p">[</span><span class="n">G</span> <span class="o">**</span> <span class="n">u</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">us</span><span class="p">]</span>
+
+<span class="n">trap</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">CF</span><span class="p">)</span>
+<span class="n">H</span> <span class="o">=</span> <span class="n">G</span> <span class="o">**</span> <span class="n">trap</span>
+<span class="n">com</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">PedersonCommitment</span><span class="p">,</span> <span class="n">H</span><span class="o">=</span><span class="n">H</span><span class="p">,</span> <span class="n">G</span><span class="o">=</span><span class="n">G</span><span class="p">)</span>
+<span class="n">coms</span> <span class="o">=</span> <span class="p">[</span><span class="n">com</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">y</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">r</span><span class="o">=</span><span class="n">y</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">ys</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Phase 2. Each Player <span class="math notranslate nohighlight">\(P_i\)</span> broadcast <span class="math notranslate nohighlight">\(KCD_i\)</span>, let <span class="math notranslate nohighlight">\(y_i\)</span> be the value decommitted by <span class="math notranslate nohighlight">\(P_i\)</span>. The player <span class="math notranslate nohighlight">\(P_i\)</span> performs a <span class="math notranslate nohighlight">\((t, n)\)</span> Feldman-VSS of the value <span class="math notranslate nohighlight">\(u_i\)</span>, with <span class="math notranslate nohighlight">\(y_i\)</span> as the “free term in the exponent”</p></li>
+</ul>
 </div>
 </div>
 <div class="section" id="Ref:">
@@ -975,7 +1040,6 @@ div.rendered_html tbody tr:hover {
 <h3>Navigation</h3>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="README.html">TL;DR</a></li>
-<li class="toctree-l1"><a class="reference internal" href="README.html#docs">Docs</a></li>
 </ul>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Non-interactive and Reusable Non-malleable Commitment Schemes.html">Non-interactive and Reusable Non-malleable Commitment Schemes</a></li>
@@ -991,9 +1055,6 @@ div.rendered_html tbody tr:hover {
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Threshold ECDSA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="POD-Mini and POD-AS.html">POD-Mini and POD-AS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Damgard-Jurik Scheme of Paillier.html">Damgard-Jurik Scheme of Paillier</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Damgard-Jurik Scheme of Paillier.html#A-Threshold-Variant-of-Paillier">A Threshold Variant of Paillier</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Damgard-Jurik Scheme of Paillier.html#Share-decryption">Share decryption</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Damgard-Jurik Scheme of Paillier.html#Implementation">Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Threshold Paillier Cryptosystem.html">Threshold Paillier Cryptosystem</a></li>
 </ul>
 <ul>

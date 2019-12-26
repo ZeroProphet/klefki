@@ -13,22 +13,24 @@ from klefki.types.algebra.fields import FiniteField
 from klefki.types.algebra.meta import field
 from klefki.types.algebra.utils import randfield
 
+
 class SSSS:
     def __init__(self, F: FiniteField):
         self.F = F
-        self.node_count=0
 
-    def setup(self, Secret, k, n):
+    def setup(self, secret, k, n, poly_params = []):
         self.k = k
         self.n = n
-        a = [randfield(self.F) for _ in range(k - 1)]
-        self.f = lambda x: self.F(Secret) + reduce(
-            add, [a[i] * (x ** i) for i in range(1, k - 1 )])
+        if not poly_params:
+            poly_params = [randfield(self.F) for _ in range(k-1)]
+
+        self.f = lambda x: self.F(secret) + reduce(
+            add, [poly_params[i] * (x ** (i + 1)) for i in range(k-1)])
+
         return self
 
-    def join(self, x = None):
-        assert self.node_count < self.n
-        self.node_count += 1
+    def join(self, x=None):
+#        assert self.node_count < self.n
         if not x:
             x = randfield(self.F)
         if not hasattr(self, 'f'):

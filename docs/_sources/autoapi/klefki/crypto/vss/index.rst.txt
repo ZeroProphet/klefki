@@ -1,0 +1,27 @@
+:mod:`klefki.crypto.vss`
+========================
+
+.. py:module:: klefki.crypto.vss
+
+
+Module Contents
+---------------
+
+.. py:class:: VSS(F: FiniteField, G: EllipticCurveGroup)
+
+   Bases: :class:`klefki.crypto.ssss.SSSS`
+
+   .. method:: setup(self, secret, k, n, poly_params=[])
+
+
+
+   .. method:: verify(self, x, y)
+
+
+
+   .. method:: verify_proofs(x, y, proofs, G, k)
+      :staticmethod:
+
+
+
+
