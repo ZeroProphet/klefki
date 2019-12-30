@@ -978,7 +978,8 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<p><strong>1. Alice initiates the protocol by</strong></p>
+<p><strong>Step 1</strong></p>
+<p>Alice initiates the protocol by</p>
 <ul class="simple">
 <li><p>sending <span class="math notranslate nohighlight">\(c_A=E_A(a)\)</span> to Bob.</p></li>
 <li><p>proving in ZK that <span class="math notranslate nohighlight">\(a &lt; K\)</span> via a range proof.</p></li>
@@ -992,7 +993,8 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<p><strong>2. Bob computes the ciphertext :math:`c_B=b times_E c_A +_E E_A(beta’) = E_A(ab + beta’)` where :math:`beta’` is chosen uniformly at random in :math:`Z_N`. Bob sets his share to :math:`beta = -beta’ mod q`. He responds to Alice by</strong></p>
+<p><strong>Step 2</strong></p>
+<p>Bob computes the ciphertext <span class="math notranslate nohighlight">\(c_B=b \times_E c_A +_E E_A(\beta') = E_A(ab + \beta')\)</span> where <span class="math notranslate nohighlight">\(\beta'\)</span> is chosen uniformly at random in <span class="math notranslate nohighlight">\(Z_N\)</span>. Bob sets his share to <span class="math notranslate nohighlight">\(\beta = -\beta' \mod q\)</span>. He responds to Alice by</p>
 <ul class="simple">
 <li><p>sending <span class="math notranslate nohighlight">\(c_B\)</span></p></li>
 <li><p>proving in ZK that <span class="math notranslate nohighlight">\(b &lt; K\)</span></p></li>
@@ -1026,7 +1028,8 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<p><strong>3. Alice decrypts :math:`c_B` to obtain :math:`alpha`</strong></p>
+<p><strong>Step 3</strong></p>
+<p>Alice decrypts <span class="math notranslate nohighlight">\(c_B\)</span> to obtain <span class="math notranslate nohighlight">\(\alpha\)</span></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[205]:
 </pre></div>
