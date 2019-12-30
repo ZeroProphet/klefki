@@ -79,6 +79,8 @@ class DJPaillier(Paillier):
 
         self.s = s
         self.privkey = d
+        self.N = N
+        self.G = g
         self.pubkey = (N, g)
 
     @staticmethod

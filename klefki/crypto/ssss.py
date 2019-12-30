@@ -19,6 +19,9 @@ class SSSS:
         self.F = F
 
     def setup(self, secret, k, n, poly_params = []):
+        '''
+        k: threshold
+        '''
         self.k = k
         self.n = n
         if not poly_params:
@@ -31,6 +34,7 @@ class SSSS:
 
     def join(self, x=None):
 #        assert self.node_count < self.n
+        assert x != 0
         if not x:
             x = randfield(self.F)
         if not hasattr(self, 'f'):
@@ -38,7 +42,8 @@ class SSSS:
         return (x, self.f(x))
 
 
-    def decrypt(self, priv):
+    @staticmethod
+    def decrypt(priv):
         x, fx = zip(*priv)
         k = len(fx)
         return reduce(add,

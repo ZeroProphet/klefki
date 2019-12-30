@@ -19,12 +19,15 @@ Module Contents
    .. method:: setup(self, secret, k, n, poly_params=[])
 
 
+      k: threshold
+
 
    .. method:: join(self, x=None)
 
 
 
-   .. method:: decrypt(self, priv)
+   .. method:: decrypt(priv)
+      :staticmethod:
 
 
 

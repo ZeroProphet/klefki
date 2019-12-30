@@ -56,6 +56,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">F</span> <span class="o">=</span> <span class="n">F</span>
 
 <div class="viewcode-block" id="SSSS.setup"><a class="viewcode-back" href="../../../autoapi/klefki/crypto/ssss/index.html#klefki.crypto.ssss.SSSS.setup">[docs]</a>    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">secret</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">poly_params</span> <span class="o">=</span> <span class="p">[]):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        k: threshold</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">=</span> <span class="n">k</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="n">n</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">poly_params</span><span class="p">:</span>
@@ -68,6 +71,7 @@
 
 <div class="viewcode-block" id="SSSS.join"><a class="viewcode-back" href="../../../autoapi/klefki/crypto/ssss/index.html#klefki.crypto.ssss.SSSS.join">[docs]</a>    <span class="k">def</span> <span class="nf">join</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="c1">#        assert self.node_count &lt; self.n</span>
+        <span class="k">assert</span> <span class="n">x</span> <span class="o">!=</span> <span class="mi">0</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">x</span><span class="p">:</span>
             <span class="n">x</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">F</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;f&#39;</span><span class="p">):</span>
@@ -75,7 +79,8 @@
         <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="SSSS.decrypt"><a class="viewcode-back" href="../../../autoapi/klefki/crypto/ssss/index.html#klefki.crypto.ssss.SSSS.decrypt">[docs]</a>    <span class="k">def</span> <span class="nf">decrypt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">priv</span><span class="p">):</span>
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="SSSS.decrypt"><a class="viewcode-back" href="../../../autoapi/klefki/crypto/ssss/index.html#klefki.crypto.ssss.SSSS.decrypt">[docs]</a>    <span class="k">def</span> <span class="nf">decrypt</span><span class="p">(</span><span class="n">priv</span><span class="p">):</span>
         <span class="n">x</span><span class="p">,</span> <span class="n">fx</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">priv</span><span class="p">)</span>
         <span class="n">k</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">fx</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">reduce</span><span class="p">(</span><span class="n">add</span><span class="p">,</span>

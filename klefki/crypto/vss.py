@@ -14,7 +14,9 @@ class VSS(SSSS):
 
     def setup(self, secret, k, n, poly_params = []):
         if not poly_params:
-            poly_params = [randfield(self.F) for _ in range(k - 1)]
+            self.poly_params = [randfield(self.F) for _ in range(k - 1)]
+        else:
+            self.poly_params = poly_params
 
         self.poly_proofs = [self.G**p for p in [secret] + poly_params]
 
