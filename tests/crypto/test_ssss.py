@@ -13,6 +13,6 @@ def test_ssss():
 
     s.setup(secret, k, n)
 
-    assert s.decrypt([s.join() for _ in range(k - 1)]) != secret
-    assert s.decrypt([s.join() for _ in range(k)]) == secret
-    assert s.decrypt([s.join() for _ in range(k + 1)]) == secret
+    assert s.decrypt([s.join() for _ in range(k-1)]) != secret
+    assert s.decrypt([s.join() for _ in range(k+1)]) == secret
+    assert s.decrypt([s.join() for _ in range(k+2)]) == secret
