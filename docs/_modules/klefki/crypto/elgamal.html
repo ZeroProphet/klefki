@@ -39,6 +39,24 @@
 <span class="kn">from</span> <span class="nn">klefki.types.algebra.concrete</span> <span class="k">import</span> <span class="n">FiniteFieldCyclicSecp256k1</span> <span class="k">as</span> <span class="n">F</span>
 <span class="kn">from</span> <span class="nn">klefki.types.algebra.utils</span> <span class="k">import</span> <span class="n">randfield</span>
 <span class="kn">from</span> <span class="nn">klefki.types.algebra.meta</span> <span class="k">import</span> <span class="n">field</span>
+<span class="kn">from</span> <span class="nn">klefki.types.algebra.isomorphism</span> <span class="k">import</span> <span class="n">bijection</span>
+<span class="kn">from</span> <span class="nn">klefki.utils</span> <span class="k">import</span> <span class="n">int_to_byte</span><span class="p">,</span> <span class="n">byte_to_int</span>
+
+
+<div class="viewcode-block" id="map_to_curve"><a class="viewcode-back" href="../../../autoapi/klefki/crypto/elgamal/index.html#klefki.crypto.elgamal.map_to_curve">[docs]</a><span class="k">def</span> <span class="nf">map_to_curve</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">G</span><span class="o">=</span><span class="n">Curve</span><span class="o">.</span><span class="n">G</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">sm</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="n">m</span><span class="p">))</span>
+        <span class="n">im</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">bias</span><span class="p">)</span> <span class="o">+</span> <span class="n">sm</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">im</span> <span class="o">&gt;</span> <span class="n">G</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">functor</span><span class="o">.</span><span class="n">P</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;secret too large&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Curve</span><span class="o">.</span><span class="n">lift_x</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">functor</span><span class="p">(</span><span class="n">im</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">map_to_curve</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">G</span><span class="o">=</span><span class="n">G</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span></div>
+
+<span class="nd">@bijection</span><span class="p">(</span><span class="n">map_to_curve</span><span class="p">)</span>
+<div class="viewcode-block" id="map_from_curve"><a class="viewcode-back" href="../../../autoapi/klefki/crypto/elgamal/index.html#klefki.crypto.elgamal.map_from_curve">[docs]</a><span class="k">def</span> <span class="nf">map_from_curve</span><span class="p">(</span><span class="n">M</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">value</span><span class="p">)[</span><span class="mi">1</span><span class="p">:])</span></div>
+
 
 
 <div class="viewcode-block" id="ElGamal"><a class="viewcode-back" href="../../../autoapi/klefki/crypto/elgamal/index.html#klefki.crypto.elgamal.ElGamal">[docs]</a><span class="k">class</span> <span class="nc">ElGamal</span><span class="p">():</span>
@@ -52,8 +70,7 @@
 <div class="viewcode-block" id="ElGamal.encrypt"><a class="viewcode-back" href="../../../autoapi/klefki/crypto/elgamal/index.html#klefki.crypto.elgamal.ElGamal.encrypt">[docs]</a>    <span class="k">def</span> <span class="nf">encrypt</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">pub</span><span class="p">):</span>
         <span class="n">g</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">pub</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">field</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">N</span><span class="p">))</span><span class="o">.</span><span class="n">value</span>
-
-        <span class="n">m_</span> <span class="o">=</span> <span class="n">Curve</span><span class="o">.</span><span class="n">lift_x</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">functor</span><span class="p">(</span><span class="n">m</span><span class="p">))</span>
+        <span class="n">m_</span> <span class="o">=</span> <span class="n">map_to_curve</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
         <span class="n">s</span> <span class="o">=</span> <span class="n">h</span> <span class="o">**</span> <span class="n">y</span>
         <span class="n">c1</span> <span class="o">=</span> <span class="n">g</span> <span class="o">**</span> <span class="n">y</span>
         <span class="n">c2</span> <span class="o">=</span> <span class="n">s</span> <span class="o">*</span> <span class="n">m_</span>
@@ -65,7 +82,7 @@
         <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span> <span class="o">=</span> <span class="n">c</span>
         <span class="n">s</span> <span class="o">=</span> <span class="n">c1</span> <span class="o">**</span> <span class="n">x</span>
         <span class="n">m</span> <span class="o">=</span> <span class="p">(</span><span class="n">c2</span> <span class="o">-</span> <span class="n">s</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">value</span></div>
+        <span class="k">return</span> <span class="n">map_from_curve</span><span class="p">(</span><span class="n">m</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ElGamal.E"><a class="viewcode-back" href="../../../autoapi/klefki/crypto/elgamal/index.html#klefki.crypto.elgamal.ElGamal.E">[docs]</a>    <span class="k">def</span> <span class="nf">E</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>

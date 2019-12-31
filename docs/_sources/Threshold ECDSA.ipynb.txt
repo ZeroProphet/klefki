@@ -290,7 +290,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## II  scheme of GG16"
+    "## II  Scheme of GG16"
    ]
   },
   {
@@ -1844,13 +1844,6 @@
     "\n",
     "* Rosario Gennaro and Steven Goldfeder. 2018. Fast Multiparty Threshold ECDSA with Fast Trustless Setup. In Proceedings of the 2018 ACM SIGSAC Conference on Computer and Communications Security (CCS ’18). Association for Computing Machinery, New York, NY, USA, 1179–1194. DOI:https://doi.org/10.1145/3243734.3243859\n"
    ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": []
   }
  ],
  "metadata": {

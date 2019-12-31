@@ -7,6 +7,12 @@
 Module Contents
 ---------------
 
+.. function:: map_to_curve(m, G=Curve.G, bias=1)
+
+
+.. function:: map_from_curve(M)
+
+
 .. py:class:: ElGamal(x, g=Curve.G)
 
    .. method:: encrypt(cls, m, pub)

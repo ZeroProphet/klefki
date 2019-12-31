@@ -17,7 +17,7 @@ Module Contents
 
    
 
-.. function:: int_to_byte(key: int) -> bytes
+.. function:: int_to_byte(key: int, length=32) -> bytes
 
 
 .. function:: byte_to_int(byte: bytes) -> CF
