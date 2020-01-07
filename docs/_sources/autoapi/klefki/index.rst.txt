@@ -11,11 +11,8 @@ Subpackages
    :maxdepth: 3
 
    asn/index.rst
-   bitcoin/index.rst
    client/index.rst
    crypto/index.rst
-   eos/index.rst
-   ethereum/index.rst
    mpc/index.rst
    numbers/index.rst
    types/index.rst
