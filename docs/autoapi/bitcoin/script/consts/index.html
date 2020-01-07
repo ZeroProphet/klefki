@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>klefki.crypto.ssss &#8212; klefki 1.0-rc documentation</title>
+    <title>bitcoin.script.consts &#8212; klefki 1.0-rc documentation</title>
     <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
@@ -34,35 +34,64 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="module-klefki.crypto.ssss">
-<span id="klefki-crypto-ssss"></span><h1><a class="reference internal" href="#module-klefki.crypto.ssss" title="klefki.crypto.ssss"><code class="xref py py-mod docutils literal notranslate"><span class="pre">klefki.crypto.ssss</span></code></a><a class="headerlink" href="#module-klefki.crypto.ssss" title="Permalink to this headline">¶</a></h1>
-<p><ul class="simple">
-<li><p>ref <a class="reference external" href="https://en.wikipedia.org/wiki/Shamir%27s_Secret_Sharing">https://en.wikipedia.org/wiki/Shamir%27s_Secret_Sharing</a></p></li>
-</ul>
-<p>The essential idea of Adi Shamir’s threshold scheme is that 2 points are sufficient to define a line, 3 points are sufficient to define a parabola, 4 points to define a cubic curve and so forth. That is, it takes $k$ points to define a polynomial of degree $k-1$.</p>
-</p>
+  <div class="section" id="module-bitcoin.script.consts">
+<span id="bitcoin-script-consts"></span><h1><a class="reference internal" href="#module-bitcoin.script.consts" title="bitcoin.script.consts"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bitcoin.script.consts</span></code></a><a class="headerlink" href="#module-bitcoin.script.consts" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="klefki.crypto.ssss.SSSS">
-<em class="property">class </em><code class="sig-prename descclassname">klefki.crypto.ssss.</code><code class="sig-name descname">SSSS</code><span class="sig-paren">(</span><em class="sig-param">F: FiniteField</em>, <em class="sig-param">secret=None</em>, <em class="sig-param">k=None</em>, <em class="sig-param">n=None</em>, <em class="sig-param">poly_params=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/klefki/crypto/ssss.html#SSSS"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.crypto.ssss.SSSS" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
-<dt id="klefki.crypto.ssss.SSSS.setup">
-<code class="sig-name descname">setup</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">secret</em>, <em class="sig-param">k</em>, <em class="sig-param">n</em>, <em class="sig-param">poly_params=[]</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/klefki/crypto/ssss.html#SSSS.setup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.crypto.ssss.SSSS.setup" title="Permalink to this definition">¶</a></dt>
-<dd><p>k: threshold</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="klefki.crypto.ssss.SSSS.join">
-<code class="sig-name descname">join</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">x=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/klefki/crypto/ssss.html#SSSS.join"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.crypto.ssss.SSSS.join" title="Permalink to this definition">¶</a></dt>
+<dl class="data">
+<dt id="bitcoin.script.consts.CONSTS">
+<code class="sig-prename descclassname">bitcoin.script.consts.</code><code class="sig-name descname">CONSTS</code><a class="reference internal" href="../../../../_modules/bitcoin/script/consts.html#CONSTS"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bitcoin.script.consts.CONSTS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="klefki.crypto.ssss.SSSS.decrypt">
-<em class="property">static </em><code class="sig-name descname">decrypt</code><span class="sig-paren">(</span><em class="sig-param">priv</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/klefki/crypto/ssss.html#SSSS.decrypt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#klefki.crypto.ssss.SSSS.decrypt" title="Permalink to this definition">¶</a></dt>
+<dl class="data">
+<dt id="bitcoin.script.consts.FLOW_CONTROL">
+<code class="sig-prename descclassname">bitcoin.script.consts.</code><code class="sig-name descname">FLOW_CONTROL</code><a class="reference internal" href="../../../../_modules/bitcoin/script/consts.html#FLOW_CONTROL"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bitcoin.script.consts.FLOW_CONTROL" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-</dd></dl>
+<dl class="data">
+<dt id="bitcoin.script.consts.STACK">
+<code class="sig-prename descclassname">bitcoin.script.consts.</code><code class="sig-name descname">STACK</code><a class="reference internal" href="../../../../_modules/bitcoin/script/consts.html#STACK"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bitcoin.script.consts.STACK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="bitcoin.script.consts.SPLICE">
+<code class="sig-prename descclassname">bitcoin.script.consts.</code><code class="sig-name descname">SPLICE</code><a class="reference internal" href="../../../../_modules/bitcoin/script/consts.html#SPLICE"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bitcoin.script.consts.SPLICE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="bitcoin.script.consts.BITWISE_LOGIC">
+<code class="sig-prename descclassname">bitcoin.script.consts.</code><code class="sig-name descname">BITWISE_LOGIC</code><a class="reference internal" href="../../../../_modules/bitcoin/script/consts.html#BITWISE_LOGIC"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bitcoin.script.consts.BITWISE_LOGIC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="bitcoin.script.consts.ARITHMETIC">
+<code class="sig-prename descclassname">bitcoin.script.consts.</code><code class="sig-name descname">ARITHMETIC</code><a class="reference internal" href="../../../../_modules/bitcoin/script/consts.html#ARITHMETIC"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bitcoin.script.consts.ARITHMETIC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="bitcoin.script.consts.CROPTO">
+<code class="sig-prename descclassname">bitcoin.script.consts.</code><code class="sig-name descname">CROPTO</code><a class="reference internal" href="../../../../_modules/bitcoin/script/consts.html#CROPTO"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bitcoin.script.consts.CROPTO" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="bitcoin.script.consts.LOCKTIME">
+<code class="sig-prename descclassname">bitcoin.script.consts.</code><code class="sig-name descname">LOCKTIME</code><a class="reference internal" href="../../../../_modules/bitcoin/script/consts.html#LOCKTIME"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bitcoin.script.consts.LOCKTIME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="bitcoin.script.consts.PESU_WORDS">
+<code class="sig-prename descclassname">bitcoin.script.consts.</code><code class="sig-name descname">PESU_WORDS</code><a class="reference internal" href="../../../../_modules/bitcoin/script/consts.html#PESU_WORDS"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bitcoin.script.consts.PESU_WORDS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="bitcoin.script.consts.RESERVED_WORDS">
+<code class="sig-prename descclassname">bitcoin.script.consts.</code><code class="sig-name descname">RESERVED_WORDS</code><a class="reference internal" href="../../../../_modules/bitcoin/script/consts.html#RESERVED_WORDS"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bitcoin.script.consts.RESERVED_WORDS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="bitcoin.script.consts.OPS">
+<code class="sig-prename descclassname">bitcoin.script.consts.</code><code class="sig-name descname">OPS</code><a class="reference internal" href="../../../../_modules/bitcoin/script/consts.html#OPS"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bitcoin.script.consts.OPS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </div>
 </div>
@@ -148,7 +177,7 @@
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
-      <a href="../../../../_sources/autoapi/klefki/crypto/ssss/index.rst.txt"
+      <a href="../../../../_sources/autoapi/bitcoin/script/consts/index.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

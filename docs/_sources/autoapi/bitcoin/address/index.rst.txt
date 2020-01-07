@@ -1,0 +1,12 @@
+:mod:`bitcoin.address`
+======================
+
+.. py:module:: bitcoin.address
+
+
+Module Contents
+---------------
+
+.. function:: gen_address(pub: ECG) -> str
+
+

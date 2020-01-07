@@ -7,7 +7,7 @@
 Module Contents
 ---------------
 
-.. py:class:: VSS(F: FiniteField, G: EllipticCurveGroup)
+.. py:class:: VSS(G: EllipticCurveGroup, F: FiniteField, secret=None, k=None, n=None, poly_params=None)
 
    Bases: :class:`klefki.crypto.ssss.SSSS`
 

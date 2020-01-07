@@ -1,0 +1,18 @@
+:mod:`ethereum.address`
+=======================
+
+.. py:module:: ethereum.address
+
+
+Module Contents
+---------------
+
+.. function:: gen_address(pub: ECG) -> str
+
+
+.. function:: gen_address_from_bytes(pub: bytes) -> str
+
+
+.. function:: gen_address_from_priv(priv: CF) -> str
+
+

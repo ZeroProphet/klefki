@@ -14,7 +14,7 @@
 Module Contents
 ---------------
 
-.. py:class:: SSSS(F: FiniteField)
+.. py:class:: SSSS(F: FiniteField, secret=None, k=None, n=None, poly_params=None)
 
    .. method:: setup(self, secret, k, n, poly_params=[])
 
