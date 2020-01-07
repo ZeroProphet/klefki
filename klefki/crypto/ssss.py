@@ -15,8 +15,10 @@ from klefki.types.algebra.utils import randfield
 
 
 class SSSS:
-    def __init__(self, F: FiniteField):
+    def __init__(self, F: FiniteField, secret=None, k=None, n=None, poly_params=None):
         self.F = F
+        if all([secret, k, n]):
+            self.setup(secret, k, n, poly_params)
 
     def setup(self, secret, k, n, poly_params = []):
         '''
@@ -39,7 +41,7 @@ class SSSS:
             x = randfield(self.F)
         if not hasattr(self, 'f'):
             raise Exception("Needs to encrypt first")
-        return (x, self.f(x))
+        return (self.F(x), self.f(x))
 
 
     @staticmethod
