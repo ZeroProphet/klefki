@@ -35,7 +35,6 @@ class SSSS:
         return self
 
     def join(self, x=None):
-#        assert self.node_count < self.n
         assert x != 0
         if not x:
             x = randfield(self.F)
@@ -45,10 +44,14 @@ class SSSS:
 
 
     @staticmethod
-    def decrypt(priv):
-        x, fx = zip(*priv)
+    def decrypt(shares):
+        x, fx = zip(*shares)
         k = len(fx)
         return reduce(add,
                       [fx[j] * reduce(
                           mul,
                           [x[m] / (x[m]-x[j]) for m in range(k-1) if m != j]) for j in range(k-1)])
+
+    @classmethod
+    def combine(cls, shares):
+        return cls.decrypt(shares)
