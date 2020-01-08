@@ -3,5 +3,5 @@ base58==0.2.5
 asn1ate==0.6.0
 pysha3==1.0.2
 assign==1.0.1
-damgard-jurik==0.0.3
+#damgard-jurik==0.0.3
 M2Crypto==0.35.2
