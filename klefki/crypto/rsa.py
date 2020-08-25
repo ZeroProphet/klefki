@@ -1,9 +1,11 @@
 """
 ref: https://www.wikiwand.com/zh-hans/%E8%BC%BE%E8%BD%89%E7%9B%B8%E9%99%A4%E6%B3%95
 """
+from base64 import b64decode
 from klefki.algorithms import extended_euclidean_algorithm
 from klefki.numbers import lcm
-
+from klefki.utils import parse_lv_format
+from klefki.crypto.pkcs import gen_pad
 
 __all__ = (
     "RSA",
@@ -49,8 +51,6 @@ class RSA:
     def private_key(self):
         return self.n, self.d
 
-    def encrypt_with_pub_key(self, block: int):
-        return pow(block, self.e, self.n)
 
     def decrypt_with_pub_key(self, block: int):
         return pow(block, self.e, self.n)
@@ -58,14 +58,37 @@ class RSA:
     def encrypt_with_private_key(self, block: int) -> int:
         return pow(block, self.d, self.n)
 
+    def encrypt_with_pub_key(self, block: int):
+        return pow(block, self.e, self.n)
+
     def decrypt_with_private_key(self, block: int) -> int:
         return pow(block, self.d, self.n)
 
+
+
     encrypt_block = encrypt_with_pub_key
     decrypt_block = decrypt_with_private_key
+
+    @staticmethod
+    def decrypt(msg, e, n):
+        return pow(msg, e, n)
 
     def encrypt_string(self, message: str) -> list:
         return [self.encrypt_with_pub_key(ord(x)) for x in message]
 
     def decrypt_string(self, encrypted: list):
         return ''.join([chr(self.decrypt_with_private_key(x)) for x in encrypted])
+
+    @staticmethod
+    def parse_lv_pubkey(pub):
+        pub = b64decode(pub)
+        prototol, e, n = parse_lv_format(pub)
+        e = int.from_bytes(e, "big")
+        n = int.from_bytes(n, "big")
+        return e, n
+
+    @classmethod
+    def verify_ssh_rsa_sig(cls, sig, msg, pub, alog="SHA256"):
+        e, n = cls.parse_lv_pubkey(pub)
+        padded_msg = gen_pad(n, msg, alog)
+        return cls.decrypt(int(sig, 16), e, n) == int(padded_msg, 16)
