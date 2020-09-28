@@ -80,3 +80,18 @@ class EnumDict(dict):
 
     def __contains__(self, v):
         return v in self.values()
+
+
+def parse_lv_format(b):
+    i = 0
+    j = i + 4
+    ret = []
+    while j <= len(b):
+        l = int.from_bytes(bytes(b[i:j]), "big")
+        i = j
+        j = j + l
+        v = bytes(b[i:j])
+        ret.append(v)
+        i = j
+        j = i + 4
+    return ret
