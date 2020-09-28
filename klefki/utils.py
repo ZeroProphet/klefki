@@ -95,3 +95,7 @@ def parse_lv_format(b):
         i = j
         j = i + 4
     return ret
+
+
+def CF2Bytes(cf, l=32):
+    return cf.value.to_bytes(l, byteorder="big")
