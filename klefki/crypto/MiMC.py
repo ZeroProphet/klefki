@@ -1,3 +1,7 @@
+"""
+Ref: https://byt3bit.github.io/primesym/mimc/
+"""
+
 from klefki.curves.baby_jubjub import FiniteFieldBabyJubjub as F
 from klefki.types.algebra.utils import randfield
 from klefki.utils import to_sha256int
