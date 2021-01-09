@@ -12,15 +12,12 @@ from klefki.types.algebra.groups import EllipicCyclicSubgroup
 class FiniteFieldBabyJubjub(FiniteField):
     P = const.BABYJUBJUB_P
 
-class EllipicCurveSubgroupBabyJubJub(EllipicCyclicSubgroup):
-    A = const.BABYJUBJUB_A
-    B = const.BABYJUBJUB_B
-    N = const.BABYJUBJUB_N
-
 
 class EllipticCurveBabyJubjub(EllipticCurveGroup):
     A = const.BABYJUBJUB_A
     B = const.BABYJUBJUB_B
+    N = const.BABYJUBJUB_N
+
 
     def op(self, g):
         # x3 = (x1*y2 + y1*x2)/(1 + b*x1*x2*y1*y2)
