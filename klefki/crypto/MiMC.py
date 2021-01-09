@@ -27,3 +27,18 @@ class MiMC:
 
     def E(self, *args, **kwargs):
         return self.encrypt(*args, **kwargs)
+
+
+class FeistelMiMC(MiMC):
+
+    @staticmethod
+    def F(x, y, k, c):
+        return (y, x + (y + k + c) ** 3)
+
+    def encrypt(self, x, y, k, r=None):
+        if not r: r = self.r
+        Ks = [(i + self.field(1)) * k for i in range(0, r)]
+        Fs = [partial(self.F, k=k, c=c) for (k, c) in zip(Ks[:r], self.c[:r])]
+        return reduce(
+            lambda x, y: y(*x), Fs[1:], Fs[0](x, y)
+        )
