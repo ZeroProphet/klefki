@@ -50,6 +50,13 @@ class EllipticCurveGroup(Group):
         # The abstract zero of EC Group
         return self.__class__(0)
 
+    @property
+    def x(self):
+        return self.value[0]
+
+    @property
+    def y(self):
+        return self.value[1]
 
     @classmethod
     def lift_x(cls, x: FiniteField):
@@ -87,7 +94,7 @@ class CyclicAddGroup(Group):
         )
 
 
-class EllipicCyclicSubroup(EllipticCurveGroup):
+class EllipicCyclicSubgroup(EllipticCurveGroup):
     '''
     With Lagrange's therem
     the order of a subgroup is a divisor of the order of the parent group
@@ -95,13 +102,11 @@ class EllipicCyclicSubroup(EllipticCurveGroup):
     # Order of subgroup
     N = abstractproperty()
 
-
     def scalar(self, times):
         if hasattr(times, "value"):
             times = times.value
         times = times % self.N
         return super().scalar(times)
-
 
 
 class JacobianGroup(Group):

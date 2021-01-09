@@ -20,6 +20,7 @@ def gen_address_from_bytes(pub: bytes) -> str:
 def gen_address_from_priv(priv: CF) -> str:
     return gen_address(pubkey(priv))
 
+
 def gen_address_from_priv_bytes(priv: bytes) -> str:
     sk = CF(int.from_bytes(priv, "big"))
     return gen_address(pubkey(sk))

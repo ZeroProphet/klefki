@@ -8,10 +8,18 @@ class Functor(metaclass=ABCMeta):
 
     __slots__ = ['value']
 
-    def __init__(self, v):
-        if isinstance(v, self.__class__):
-            self.value = v.value
-        self.value = self.fmap(v)
+    @classmethod
+    def construct(cls, name, **kwargs):
+        return type(name, (cls, ), dict(**kwargs))
+
+    def __init__(self, *args):
+        if len(args) == 1:
+            if isinstance(args[0], self.__class__):
+                self.value = args[0].value
+            else:
+                self.value = self.fmap(args[0])
+        else:
+            self.value = self.fmap(args)
 
     def fmap(self, o):
         return o
