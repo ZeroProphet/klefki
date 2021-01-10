@@ -25,7 +25,7 @@ class MerkleTree:
         hash_fn = lambda x, y: concat(sha256(x).digest(), sha256(y).digest())
     ):
         self.hash_fn = hash_fn
-        self._value = value
+        self._value = list(value)
         if not len(self.value) % 2 == 0:
             self.value.append(self.value[-1])
         self.leaves = map(MerkleLeaf, self.value)
