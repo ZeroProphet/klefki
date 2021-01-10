@@ -1,43 +1,63 @@
 from typing import Iterable, Iterator
 from itertools import starmap
-from klefki.utils import dhash256, concat, trunks
+from hashlib import sha256
+from klefki.utils import concat, trunks
+from collections import namedtuple
 
 __all__ = ['MerkleTree']
 
+class MerkleLeaf:
+    def __init__(self, value, children=None, parent=None):
+        self.value = value
+        self.children = children or []
+        self.parent = parent
 
-class MerkleTree():
-    def __init__(self, data: Iterable, child=None) -> None:
-        data = list(data)
-        if not child and len(data) % 2 != 0:
-            data.append(data[-1])
-        self.data = data
-        self._nodes = None
-        self._parents = None
+    def __repr__(self):
+        return "<MerlkeTree::Leaf(%s)>" % self.value
+
+
+class MerkleTree:
+    def __init__(
+        self,
+        value,
+        is_leaf=False,
+        parent=None,
+        hash_fn = lambda x, y: concat(sha256(x).digest(), sha256(y).digest())
+    ):
+        self.hash_fn = hash_fn
+        self._value = value
+        if not len(self.value) % 2 == 0:
+            self.value.append(self.value[-1])
+        self.leaves = map(MerkleLeaf, self.value)
+        self._build_tree(self.leaves)
+
+    def _build_tree(self, leaves):
+        height = 1
+        while 1:
+            leaves_nl = []
+            for (l, r) in trunks(leaves, 2):
+                leaf = MerkleLeaf(
+                        self.hash_fn(l.value, r.value),
+                        children=[l, r]
+                    )
+                leaves_nl.append(leaf)
+                l.parent = leaf
+                r.parent = leaf
+            leaves = leaves_nl
+            height += 1
+            if len(leaves) == 1:
+                self._root = leaves[0]
+                self._height = height
+                break
 
     @property
-    def nodes(self) -> Iterator:
-        if self._nodes is None:
-            self._nodes = list(map(dhash256, self.data))
-        return self._nodes
-
-    @property
-    def parents(self) -> Iterator:
-        if self._parents is None:
-            self._parents = self.__class__(
-                map(
-                    dhash256,
-                    list(starmap(
-                        concat,
-                        trunks(self.nodes, 2)
-                    ))
-                ),
-                child=self
-            )
-        return self._parents
+    def height(self):
+        return self._height
 
     @property
     def root(self):
-        if len(self.parents.nodes) > 1:
-            return self.parents.root
-        else:
-            return self.parents
+        return self._root
+
+    @property
+    def value(self):
+        return self._value

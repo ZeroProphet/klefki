@@ -1,5 +1,6 @@
 """
 Ref: https://byt3bit.github.io/primesym/mimc/
+Ref: https://eprint.iacr.org/2016/492.pdf
 """
 
 from klefki.curves.baby_jubjub import FiniteFieldBabyJubjub as F
@@ -41,4 +42,4 @@ class FeistelMiMC(MiMC):
         Fs = [partial(self.F, k=k, c=c) for (k, c) in zip(Ks[:r], self.c[:r])]
         return reduce(
             lambda x, y: y(*x), Fs[1:], Fs[0](x, y)
-        )
+        ) + (k, k)
