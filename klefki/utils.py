@@ -17,6 +17,8 @@ b64encode = bijection(base64.b64decode)(base64.b64encode)
 def int_to_byte(key: int, length=32) -> bytes:
     return key.to_bytes(length, byteorder='big')
 
+def int_to_byte64(key: int) -> bytes:
+    return int_to_byte(key, 64)
 
 @bijection(int_to_byte)
 def byte_to_int(byte: bytes) -> CF:

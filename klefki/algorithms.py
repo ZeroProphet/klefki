@@ -1,5 +1,6 @@
 from typing import Tuple, TypeVar, Iterable
-
+from ctypes import c_uint64 as uint64
+from math import log2
 
 __all__ = [
     'extended_euclidean_algorithm',
@@ -8,9 +9,10 @@ __all__ = [
 
 T = TypeVar('T')
 
-def montgomery_multiplication(q):
+def CIOS(a, b, P):
     """
     Ref: https://hackmd.io/@zkteam/modular_multiplication
+         https://www.microsoft.com/en-us/research/wp-content/uploads/1998/06/97Acar.pdf
     The Montgomery multiplication algorithm does not directly compute abmodq.
     Instead it computes abR^{−1} mod q for some carefully chosen number R called the Montgomery radix.
     Typically, R is set to the smallest power of two exceeding q that falls on a computer word boundary.
@@ -28,7 +30,42 @@ def montgomery_multiplication(q):
     The idea is that numbers are always stored in Montgomery form so as to
     avoid costly conversions to and from Montgomery form.
     """
-    pass
+
+    from klefki.types.algebra.fields import FiniteField
+
+    def split(x, words=4):
+        bt = x.to_bytes(words * 8, "big")
+        for i in range(0, int(len(bt) / 8)):
+            yield uint64(int.from_bytes(bt[0 + i * 8: 8 + i* 8], "big"))
+
+    a = list(split(a))
+    b = list(split(b))
+    q = list(split(P))
+    N = len(q)
+    R = 2 ** (N * 64)
+    D = 2 ** 64
+    Field = type("Field", (FiniteField, ), dict(P=R))
+    q_0 = list(split((-(FJ(F.P) ** (-1))).value))[0]
+    t = (uint64 * (N + 2))()
+
+    for i in range(0, N):
+        C = uint64(0)
+        for j in range(0, N):
+            (C, t[j]) = split(t[j] + a[j].value * b[i].value + C.value, 2)
+
+        (t[N + 1], t[N]) = split(t[N] + C.value, 2)
+
+        C = uint64(0)
+        m = (t[0] * q_0.value) % D
+        (C, _) = split(t[0] + m * q_0.value, 2)
+
+        for j in range(1, N):
+            (C, t[j-1]) = split(t[j] + m * q[j].value + C.value, 2)
+
+        (C, t[N-1]) = split(t[N] + C.value, 2)
+        t[N] = t[N+1] + C.value
+
+    return t
 
 
 def complex_truediv_algorithm(x: complex, y: complex, f: T) -> T:
