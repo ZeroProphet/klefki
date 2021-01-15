@@ -1,5 +1,5 @@
 from klefki.types.algebra.concrete import (
-    EllipticCurveCyclicSubgroupSecp256k1 as CG,
+    EllipticCurveGroupSecp256k1 as CG,
     FiniteFieldCyclicSecp256k1 as CF
 )
 

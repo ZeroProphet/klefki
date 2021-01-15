@@ -2,7 +2,7 @@ import base58
 import base64
 from typing import Iterable, Iterator, Callable
 from klefki.types.algebra.isomorphism import bijection
-from klefki.types.algebra.concrete import (
+from klefki.curves.secp256k1 import (
     FiniteFieldCyclicSecp256k1 as CF,
 )
 

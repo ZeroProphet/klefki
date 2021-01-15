@@ -5,7 +5,6 @@ from klefki.crypto.ecdsa.secp256k1 import (
 )
 from klefki.types.algebra.concrete import (
     EllipticCurveGroupSecp256k1 as ECG,
-    EllipticCurveCyclicSubgroupSecp256k1 as CG,
     FiniteFieldSecp256k1 as F
 )
 
@@ -14,7 +13,7 @@ __all__ = [
 ]
 
 
-G = CG.G
+G = ECG.G
 A = ECG.A
 B = ECG.B
 P = F.P

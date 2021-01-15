@@ -4,7 +4,7 @@ from klefki.utils import to_sha256int
 from klefki.types.algebra.concrete import (
     JacobianGroupSecp256k1 as JG,
     FiniteFieldSecp256k1 as F,
-    EllipticCurveCyclicSubgroupSecp256k1 as CG,
+    EllipticCurveGroupSecp256k1 as CG,
     FiniteFieldCyclicSecp256k1 as CF
 )
 

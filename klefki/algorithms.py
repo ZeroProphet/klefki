@@ -8,6 +8,28 @@ __all__ = [
 
 T = TypeVar('T')
 
+def montgomery_multiplication(q):
+    """
+    Ref: https://hackmd.io/@zkteam/modular_multiplication
+    The Montgomery multiplication algorithm does not directly compute abmodq.
+    Instead it computes abR^{−1} mod q for some carefully chosen number R called the Montgomery radix.
+    Typically, R is set to the smallest power of two exceeding q that falls on a computer word boundary.
+    For example, if q is 381 bits then R=26×64=2384 on a 64-bit architecture.
+
+    In order to make use of Montgomery multiplication the numbers a,b must be encoded into Montgomery form:
+    instead of storing a,b, we store the numbers ~a,~b given by
+
+    ~a=aR mod q
+    ~b=bR mod q
+
+    A simple calculation shows that Montgomery multiplication produces the product abmodq,
+    also encoded in Montgomery form:
+    (aR)(bR)R^{−1}=abR mod q
+    The idea is that numbers are always stored in Montgomery form so as to
+    avoid costly conversions to and from Montgomery form.
+    """
+    pass
+
 
 def complex_truediv_algorithm(x: complex, y: complex, f: T) -> T:
     a = f(x.real)

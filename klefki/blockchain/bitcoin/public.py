@@ -4,7 +4,7 @@ from klefki.crypto.ecdsa.secp256k1 import (
 )
 
 from klefki.types.algebra.concrete import (
-    EllipticCurveCyclicSubgroupSecp256k1 as CG,
+    EllipticCurveGroupSecp256k1 as CG,
     FiniteFieldSecp256k1 as F,
     FiniteFieldCyclicSecp256k1 as CF
 )

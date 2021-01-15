@@ -29,6 +29,10 @@ class MiMC:
     def E(self, *args, **kwargs):
         return self.encrypt(*args, **kwargs)
 
+    @property
+    def constants(self):
+        return self.c
+
 
 class FeistelMiMC(MiMC):
 
