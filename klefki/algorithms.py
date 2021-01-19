@@ -1,6 +1,6 @@
 from typing import Tuple, TypeVar, Iterable
-from ctypes import c_uint64 as uint64
-from math import log2
+from klefki.numbers import invmod
+from functools import lru_cache
 
 __all__ = [
     'extended_euclidean_algorithm',
@@ -9,63 +9,94 @@ __all__ = [
 
 T = TypeVar('T')
 
-def CIOS(a, b, P):
-    """
-    Ref: https://hackmd.io/@zkteam/modular_multiplication
-         https://www.microsoft.com/en-us/research/wp-content/uploads/1998/06/97Acar.pdf
-    The Montgomery multiplication algorithm does not directly compute abmodq.
-    Instead it computes abR^{−1} mod q for some carefully chosen number R called the Montgomery radix.
-    Typically, R is set to the smallest power of two exceeding q that falls on a computer word boundary.
-    For example, if q is 381 bits then R=26×64=2384 on a 64-bit architecture.
-
-    In order to make use of Montgomery multiplication the numbers a,b must be encoded into Montgomery form:
-    instead of storing a,b, we store the numbers ~a,~b given by
-
-    ~a=aR mod q
-    ~b=bR mod q
-
-    A simple calculation shows that Montgomery multiplication produces the product abmodq,
-    also encoded in Montgomery form:
-    (aR)(bR)R^{−1}=abR mod q
-    The idea is that numbers are always stored in Montgomery form so as to
-    avoid costly conversions to and from Montgomery form.
-    """
-
-    from klefki.types.algebra.fields import FiniteField
-
-    def split(x, words=4):
+def to_uint64(x, words=4):
+    def f():
         bt = x.to_bytes(words * 8, "big")
         for i in range(0, int(len(bt) / 8)):
             yield uint64(int.from_bytes(bt[0 + i * 8: 8 + i* 8], "big"))
+    return list(f())
 
-    a = list(split(a))
-    b = list(split(b))
-    q = list(split(P))
-    N = len(q)
-    R = 2 ** (N * 64)
-    D = 2 ** 64
-    Field = type("Field", (FiniteField, ), dict(P=R))
-    q_0 = list(split((-(FJ(F.P) ** (-1))).value))[0]
-    t = (uint64 * (N + 2))()
+
+def bytes_mul(a, b, s=32):
+    t = [0] * 2* s
+    a = a.to_bytes(s, "big")[::-1]
+    b = b.to_bytes(s, "big")[::-1]
+
+    for i in range(0, s):
+        C = 0
+        for j in range(0, s):
+            (C, S) = (t[i+j] + a[j] * b[i] + C).to_bytes(2, "big")
+            t[i+j] = S
+        t[i+s] = C
+    return t[::-1]
+
+
+@lru_cache(maxsize=None)
+def montgomery_property(r, n):
+    r_inv = invmod(r, n)
+    return (r * r_inv -1) // n
+
+def mon_pro(a_, b_, r, n, n_):
+    t = a_ * b_
+    m = (t * n_) % r
+    u_ = (t + m * n) // r
+    if u_ >= n:
+        return u_ - n
+    else:
+        return u_
+
+def montgomery_mul(a, b, n):
+    r = 2 ** (n.bit_length() +1)
+    n_ = montgomery_property(r, n)
+    a_ = (a * r) % n
+    b_ = (b * r) % n
+    u_ = mon_pro(a_, b_, r, n, n_)
+    return mon_pro(u_, 1, r, n, n_)
+
+
+
+def CIOS(a, b, P, N=32):
+    """
+    # a[i], b[i], q[i] is the ith word of the numbers a,b,q
+    # N is the number of machine words needed to store the modulus q
+    Ref: https://hackmd.io/@zkteam/modular_multiplication
+         https://www.microsoft.com/en-us/research/wp-content/uploads/1998/06/97Acar.pdf
+    """
+
+    a = a.to_bytes(N, "little")
+    b = b.to_bytes(N, "little")
+    q = P.to_bytes(N, "little")
+    # R is set to the smallest power of two exceeding q that falls on a computer word boundary.
+    # For example, if q is 381 bits then R=2^{6×64}=2^384 on a 64-bit architecture.
+    # For klefki, if q is 256 bits then R=2^{32x8}=2^256 on klefki 8-bit(byte) implementation
+    R = 2 ** (N*8)
+    # D is the word size. For example, on a 64-bit architecture D is 2^64
+    # For bytes, D is 2^8 = 256
+    D = 2 ** 8
+    # q'[0] is the lowest word of the number −q^{−1} mod R.
+    #q_0 = list(int((-P**-1) % R).to_bytes(64, "little"))[0]
+    FieldR = type("Field", (FiniteField, ), dict(P=R))
+    q_0 = ((-(~FieldR(F.P))).value).to_bytes(N, "little")[0]
+    # t is a temporary array of size N+2
+    t = [0] * (N + 2)
 
     for i in range(0, N):
-        C = uint64(0)
+        # cal multi
+        C = 0
         for j in range(0, N):
-            (C, t[j]) = split(t[j] + a[j].value * b[i].value + C.value, 2)
+            (C, t[j]) = (t[j] + a[j] * b[i] + C).to_bytes(2, "big")
+        (t[N+1], t[N]) = (t[N] + C).to_bytes(2, "big")
 
-        (t[N + 1], t[N]) = split(t[N] + C.value, 2)
-
-        C = uint64(0)
-        m = (t[0] * q_0.value) % D
-        (C, _) = split(t[0] + m * q_0.value, 2)
-
+        # cal mod
+        C = 0
+        m = (t[0] * q_0) % D
+        (C, _) = (t[0] + m * q[0]).to_bytes(2, "big")
         for j in range(1, N):
-            (C, t[j-1]) = split(t[j] + m * q[j].value + C.value, 2)
+            (C, t[j-1]) = (t[j] + m * q[j] + C).to_bytes(2, "big")
+        (C, t[N-1]) = (t[N] + C).to_bytes(2, "big")
+        t[N] = t[N+1] + C
+    return int.from_bytes(t, "little")
 
-        (C, t[N-1]) = split(t[N] + C.value, 2)
-        t[N] = t[N+1] + C.value
-
-    return t
 
 
 def complex_truediv_algorithm(x: complex, y: complex, f: T) -> T:
