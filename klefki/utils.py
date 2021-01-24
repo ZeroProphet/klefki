@@ -5,9 +5,9 @@ from klefki.types.algebra.isomorphism import bijection
 from klefki.curves.secp256k1 import (
     FiniteFieldCyclicSecp256k1 as CF,
 )
-
-from hashlib import sha256
+import math
 import hashlib
+from hashlib import sha256
 from functools import reduce
 
 b58encode = bijection(base58.b58decode)(base58.b58encode)
@@ -101,3 +101,29 @@ def parse_lv_format(b):
 
 def CF2Bytes(cf, l=32):
     return cf.value.to_bytes(l, byteorder="big")
+
+
+def to_u32s(a: int, endian="little"):
+    l = math.ceil(a.bit_length() / 8)
+    def split():
+        carry = a
+        while carry != 0:
+            yield carry % 2**32
+            carry = carry // (2 ** 32)
+
+
+    return {
+        "big": list(split())[::-1],
+        "little": list(split())
+    }[endian]
+
+
+def from_u32s(a: list, endian="little"):
+    ret = 0
+    pos = 0
+    if endian == "big":
+        a = a[::-1]
+    for i in a:
+        ret += i * (2**(32*pos))
+        pos += 1
+    return ret
