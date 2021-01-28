@@ -48,10 +48,14 @@ class EllipticCurveGroup(Group):
 
     @property
     def x(self):
+        if self == self.identity:
+            return 0
         return self.value[0]
 
     @property
     def y(self):
+        if self == self.identity:
+            return 0
         return self.value[1]
 
     @classmethod

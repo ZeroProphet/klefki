@@ -5,6 +5,8 @@ import klefki.const as const
 from klefki.types.algebra.fields import FiniteField
 from klefki.types.algebra.groups import EllipticCurveGroup
 from klefki.types.algebra.groups import EllipicCyclicSubgroup
+from klefki.curves.arith import short_weierstrass_form_curve_addition2
+
 
 
 class FiniteFieldBabyJubjub(FiniteField):
@@ -12,6 +14,12 @@ class FiniteFieldBabyJubjub(FiniteField):
 
 
 class EllipticCurveBabyJubjub(EllipticCurveGroup):
+    """
+    Twisted Edwards Form (standard)
+    y^2 = x^3 + Ax^2 + x
+    Montgomery Form
+    By^2 = x^3 + A x^2 + x
+    """
     A = const.BABYJUBJUB_A
     B = const.BABYJUBJUB_B
     N = const.BABYJUBJUB_N
@@ -20,6 +28,7 @@ class EllipticCurveBabyJubjub(EllipticCurveGroup):
     def op(self, g):
         # x3 = (x1*y2 + y1*x2)/(1 + b*x1*x2*y1*y2)
         # y3 = (y1*y2 - a*x1*x2)/(1 - b*x1*x2*y1*y2)
+
         if g.value == 0:
             return self
         if self.value == 0:

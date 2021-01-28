@@ -9,11 +9,9 @@ def short_weierstrass_form_curve_addition2(
     https://core.ac.uk/download/pdf/10898289.pdf
     E_{W,a1a3a2a4a6} = v^2 + a1uv + a3v = u^3 + a2u^2 + a4u + a6
     for k256 curve: v^2 = u^3 + a * u + b
-    a1 = 0
-    a3 = 0
-    a2 = 0
-    a4 = a
-    a6 = b
+    a1,a3,a2,a4,a6 = 0, 0, 0, a, b
+    for baby_jubjub curve: Bv^2 = x^3 + Ax^2 + x
+    a1,a3,a2,a4,a6 = 0, 0, a, 1, 0
 
     """
     if f(u1) == f(0) and f(v1) == f(0): return (u2, v2)
