@@ -94,7 +94,9 @@ def modpow(base, exponent, modulus):
 
 
 def modular_sqrt(a, p):
-    """ Find a quadratic residue (mod p) of 'a'. p
+    """
+    ref: https://gist.github.com/nakov/60d62bdf4067ea72b7832ce9f71ae079
+    Find a quadratic residue (mod p) of 'a'. p
     must be an odd prime.
     Solve the congruence of the form:
     x^2 = a (mod p)
@@ -124,7 +126,7 @@ def modular_sqrt(a, p):
     s = p - 1
     e = 0
     while s % 2 == 0:
-        s /= 2
+        s //= 2
         e += 1
 
     # Find some 'n' with a legendre symbol n|p = -1.
@@ -157,7 +159,7 @@ def modular_sqrt(a, p):
     while True:
         t = b
         m = 0
-        for m in xrange(r):
+        for m in range(r):
             if t == 1:
                 break
             t = pow(t, 2, p)

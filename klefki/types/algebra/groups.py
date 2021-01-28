@@ -25,19 +25,15 @@ class EllipticCurveGroup(Group):
 
         field = self.value[0].__class__
 
-        if self.value[0] != g.value[0]:
-            #  m = \frac{y_1 - y_2}{x_1 - x_2}
-            m = (self.value[1] - g.value[1]) / (self.value[0] - g.value[0])
-
         if self.value[0] == g.value[0]:
             if self.value[1] == -(g.value[1]):
                 return self.identity
+            m = (field(3) * self.value[0] * self.value[0] + field(self.A)) / (field(2) * self.value[1])
+        else:
+             m = (self.value[1] - g.value[1]) / (self.value[0] - g.value[0])
 
-            m = (field(3) * self.value[0] * self.value[0] +
-                 field(self.A)) / (field(2) * self.value[1])
-
-        r_x = (m * m - self.value[0] - g.value[0])
-        r_y = (self.value[1] + m * (r_x - self.value[0]))
+        r_x = m * m - self.value[0] - g.value[0]
+        r_y = self.value[1] + m * (r_x - self.value[0])
         return self.__class__((r_x, -r_y))
 
     def inverse(self):

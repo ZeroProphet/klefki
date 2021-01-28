@@ -127,7 +127,6 @@ def extended_euclidean_algorithm(a: int, b: int) -> Tuple[int, int, int]:
         old_r, r = r, old_r - quoient * r
         old_s, s = s, old_s - quoient * s
         old_t, t = t, old_t - quoient * t
-
     return old_r, old_s, old_t
 
 

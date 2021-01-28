@@ -1,8 +1,6 @@
 """
 DOC: https://eips.ethereum.org/EIPS/eip-2494
-
 """
-
 import klefki.const as const
 from klefki.types.algebra.fields import FiniteField
 from klefki.types.algebra.groups import EllipticCurveGroup
