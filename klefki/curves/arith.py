@@ -1,6 +1,4 @@
 """
-https://eprint.iacr.org/2015/1060.pdf
-https://core.ac.uk/download/pdf/10898289.pdf
 """
 from klefki.types.algebra.fields import FiniteField
 
@@ -8,6 +6,7 @@ def short_weierstrass_form_curve_addition2(
         u1, v1, u2, v2, a1, a3, a2, a4, a6, f: FiniteField
 ) -> (FiniteField, FiniteField):
     """
+    https://core.ac.uk/download/pdf/10898289.pdf
     E_{W,a1a3a2a4a6} = v^2 + a1uv + a3v = u^3 + a2u^2 + a4u + a6
     for k256 curve: v^2 = u^3 + a * u + b
     a1 = 0
@@ -23,7 +22,7 @@ def short_weierstrass_form_curve_addition2(
         if v1 != v2: return (f(0), f(0))
         elif v1*2 + u1 * a1 + a3 == f(0): return (f(0), f(0))
         else:
-            lam= ((u1 ** f(2)) * f(3) + u1 * a2 * f(2) - v1 * a1 + a4) / (v1 * f(2) + u1 * a1 + a3)
+            lam = ((u1 ** f(2)) * f(3) + u1 * a2 * f(2) - v1 * a1 + a4) / (v1 * f(2) + u1 * a1 + a3)
             u3 = lam ** f(2) + lam * a1 - a2 - u2 * f(2)
             v3 = lam * (u1 - u3) - v1 - a1 * u3 - a3
             return (u3, v3)
@@ -37,6 +36,9 @@ def short_weierstrass_form_curve_addition2(
 def short_weierstrass_form_curve_addition3(
         x1, y1, z1, x2, y2, z2, a, b
 ) -> (FiniteField, FiniteField, FiniteField):
+    """
+    https://eprint.iacr.org/2015/1060.pdf
+    """
     # E: Y^2Z = X^3 + zXZ^2 + bZ^3
 
     b3 =  b *  3 # 0
