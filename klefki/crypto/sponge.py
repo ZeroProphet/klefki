@@ -41,8 +41,8 @@ class Sponge:
 
     def squeezed(self, length):
         ret = []
-        for i in range(length // self.r):
+        for i in range((length // self.r)+1):
             ret = ret + self.R
             self.S = self.f(self.S)
         ret = "".join([str(i) for i in ret])
-        return bytes_from_bits_little_endian(ret)
+        return bytes_from_bits_little_endian(ret)[:length]
