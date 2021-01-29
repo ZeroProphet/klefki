@@ -24,7 +24,6 @@ class Sponge:
     @classmethod
     def padding(cls, dataset: bytes, r: int):
         dataset = [int(i) for i in bits_little_endian_from_bytes(dataset)]
-        print(dataset)
         left = len(dataset) % (r)
         if left != 0:
             dataset = list(dataset) + [0] * (r - left)
