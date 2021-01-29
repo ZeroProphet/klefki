@@ -32,7 +32,7 @@ class MerkleTree:
         self._build_tree(self.leaves)
 
     def _build_tree(self, leaves):
-        height = 1
+        height = 0
         while 1:
             leaves_nl = []
             for (l, r) in trunks(leaves, 2):

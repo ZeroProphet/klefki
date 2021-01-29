@@ -9,13 +9,25 @@ __all__ = [
 
 T = TypeVar('T')
 
-def to_uint64(x, words=4):
-    def f():
-        bt = x.to_bytes(words * 8, "big")
-        for i in range(0, int(len(bt) / 8)):
-            yield uint64(int.from_bytes(bt[0 + i * 8: 8 + i* 8], "big"))
-    return list(f())
+def bits(n: int) -> Iterable:
+    """
+    Generates the binary digits of n, starting
+    from the least significant bit.
+    bits(151) -> 1, 1, 1, 0, 1, 0, 0, 1
+    """
+    def _trans(n):
+        while n:
+            yield n & 1
+            n >>= 1
 
+    return list(_trans(n))
+
+
+def bits_little_endian_from_bytes(s):
+    return "".join([bin(ord(x))[2:].rjust(8,'0')[::-1] for x in s.decode()])
+
+def bytes_from_bits_little_endian(s):
+    return bytes([int(s[i:i+8][::-1], 2) for i in range(0, len(s), 8)])
 
 def bytes_mul(a, b, s=32):
     t = [0] * 2* s
@@ -135,15 +147,6 @@ def double_and_add_algorithm(times: int, x: T, init: T) -> T:
     Returns the result of n * x, computed using
     the double and add algorithm.
     """
-    def bits(n: int) -> Iterable:
-        """
-        Generates the binary digits of n, starting
-        from the least significant bit.
-        bits(151) -> 1, 1, 1, 0, 1, 0, 0, 1
-        """
-        while n:
-            yield n & 1
-            n >>= 1
 
     result = init
     addend = x
