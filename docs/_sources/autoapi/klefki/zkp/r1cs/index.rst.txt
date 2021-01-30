@@ -78,22 +78,22 @@ Functions
 .. function:: get_var_placement(inputs, flatcode)
 
 
-.. function:: flatcode_to_r1cs(inputs, flatcode)
+.. function:: flatcode_to_r1cs(inputs, flatcode, field=int)
 
 
 .. function:: grab_var(varz, assignment, var)
 
 
-.. function:: assign_variables(inputs, input_vars, flatcode)
+.. function:: assign_variables(inputs, input_vars, flatcode, field)
 
 
-.. function:: code_to_r1cs_with_inputs(code, input_vars)
+.. function:: code_to_r1cs_with_inputs(code, input_vars, field)
 
 
-.. function:: code_to_r1cs_result(code, input_vars)
+.. function:: code_to_r1cs_result(code, input_vars, field=int)
 
 
-.. function:: code_to_r1cs(code)
+.. function:: code_to_r1cs(code, field)
 
 
 .. function:: mul(a, b)
@@ -101,7 +101,7 @@ Functions
 
 .. py:class:: R1CS
 
-   .. method:: parse(code, input_vals)
+   .. method:: parse(code, input_vals, field=int)
       :staticmethod:
 
 
@@ -109,7 +109,8 @@ Functions
       :staticmethod:
 
 
-   .. method:: r1cs(f)
+   .. method:: r1cs(f, field=int)
+      :staticmethod:
 
 
 

@@ -87,22 +87,22 @@ ref: <a class="reference external" href="https://medium.com/&#64;VitalikButerin/
 <tr class="row-even"><td><p><a class="reference internal" href="#klefki.zkp.r1cs.get_var_placement" title="klefki.zkp.r1cs.get_var_placement"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_var_placement</span></code></a>(inputs, flatcode)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#klefki.zkp.r1cs.flatcode_to_r1cs" title="klefki.zkp.r1cs.flatcode_to_r1cs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">flatcode_to_r1cs</span></code></a>(inputs, flatcode)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#klefki.zkp.r1cs.flatcode_to_r1cs" title="klefki.zkp.r1cs.flatcode_to_r1cs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">flatcode_to_r1cs</span></code></a>(inputs, flatcode, field=int)</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#klefki.zkp.r1cs.grab_var" title="klefki.zkp.r1cs.grab_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grab_var</span></code></a>(varz, assignment, var)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#klefki.zkp.r1cs.assign_variables" title="klefki.zkp.r1cs.assign_variables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assign_variables</span></code></a>(inputs, input_vars, flatcode)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#klefki.zkp.r1cs.assign_variables" title="klefki.zkp.r1cs.assign_variables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assign_variables</span></code></a>(inputs, input_vars, flatcode, field)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#klefki.zkp.r1cs.code_to_r1cs_with_inputs" title="klefki.zkp.r1cs.code_to_r1cs_with_inputs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">code_to_r1cs_with_inputs</span></code></a>(code, input_vars)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#klefki.zkp.r1cs.code_to_r1cs_with_inputs" title="klefki.zkp.r1cs.code_to_r1cs_with_inputs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">code_to_r1cs_with_inputs</span></code></a>(code, input_vars, field)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#klefki.zkp.r1cs.code_to_r1cs_result" title="klefki.zkp.r1cs.code_to_r1cs_result"><code class="xref py py-obj docutils literal notranslate"><span class="pre">code_to_r1cs_result</span></code></a>(code, input_vars)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#klefki.zkp.r1cs.code_to_r1cs_result" title="klefki.zkp.r1cs.code_to_r1cs_result"><code class="xref py py-obj docutils literal notranslate"><span class="pre">code_to_r1cs_result</span></code></a>(code, input_vars, field=int)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#klefki.zkp.r1cs.code_to_r1cs" title="klefki.zkp.r1cs.code_to_r1cs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">code_to_r1cs</span></code></a>(code)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#klefki.zkp.r1cs.code_to_r1cs" title="klefki.zkp.r1cs.code_to_r1cs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">code_to_r1cs</span></code></a>(code, field)</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#klefki.zkp.r1cs.mul" title="klefki.zkp.r1cs.mul"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mul</span></code></a>(a, b)</p></td>
@@ -162,7 +162,7 @@ ref: <a class="reference external" href="https://medium.com/&#64;VitalikButerin/
 
 <dl class="py function">
 <dt id="klefki.zkp.r1cs.flatcode_to_r1cs">
-<code class="sig-prename descclassname">klefki.zkp.r1cs.</code><code class="sig-name descname">flatcode_to_r1cs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">inputs</span></em>, <em class="sig-param"><span class="n">flatcode</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.zkp.r1cs.flatcode_to_r1cs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">klefki.zkp.r1cs.</code><code class="sig-name descname">flatcode_to_r1cs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">inputs</span></em>, <em class="sig-param"><span class="n">flatcode</span></em>, <em class="sig-param"><span class="n">field</span><span class="o">=</span><span class="default_value">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.zkp.r1cs.flatcode_to_r1cs" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
@@ -172,22 +172,22 @@ ref: <a class="reference external" href="https://medium.com/&#64;VitalikButerin/
 
 <dl class="py function">
 <dt id="klefki.zkp.r1cs.assign_variables">
-<code class="sig-prename descclassname">klefki.zkp.r1cs.</code><code class="sig-name descname">assign_variables</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">inputs</span></em>, <em class="sig-param"><span class="n">input_vars</span></em>, <em class="sig-param"><span class="n">flatcode</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.zkp.r1cs.assign_variables" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">klefki.zkp.r1cs.</code><code class="sig-name descname">assign_variables</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">inputs</span></em>, <em class="sig-param"><span class="n">input_vars</span></em>, <em class="sig-param"><span class="n">flatcode</span></em>, <em class="sig-param"><span class="n">field</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.zkp.r1cs.assign_variables" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt id="klefki.zkp.r1cs.code_to_r1cs_with_inputs">
-<code class="sig-prename descclassname">klefki.zkp.r1cs.</code><code class="sig-name descname">code_to_r1cs_with_inputs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">code</span></em>, <em class="sig-param"><span class="n">input_vars</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.zkp.r1cs.code_to_r1cs_with_inputs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">klefki.zkp.r1cs.</code><code class="sig-name descname">code_to_r1cs_with_inputs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">code</span></em>, <em class="sig-param"><span class="n">input_vars</span></em>, <em class="sig-param"><span class="n">field</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.zkp.r1cs.code_to_r1cs_with_inputs" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt id="klefki.zkp.r1cs.code_to_r1cs_result">
-<code class="sig-prename descclassname">klefki.zkp.r1cs.</code><code class="sig-name descname">code_to_r1cs_result</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">code</span></em>, <em class="sig-param"><span class="n">input_vars</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.zkp.r1cs.code_to_r1cs_result" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">klefki.zkp.r1cs.</code><code class="sig-name descname">code_to_r1cs_result</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">code</span></em>, <em class="sig-param"><span class="n">input_vars</span></em>, <em class="sig-param"><span class="n">field</span><span class="o">=</span><span class="default_value">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.zkp.r1cs.code_to_r1cs_result" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt id="klefki.zkp.r1cs.code_to_r1cs">
-<code class="sig-prename descclassname">klefki.zkp.r1cs.</code><code class="sig-name descname">code_to_r1cs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">code</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.zkp.r1cs.code_to_r1cs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">klefki.zkp.r1cs.</code><code class="sig-name descname">code_to_r1cs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">code</span></em>, <em class="sig-param"><span class="n">field</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.zkp.r1cs.code_to_r1cs" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
@@ -200,7 +200,7 @@ ref: <a class="reference external" href="https://medium.com/&#64;VitalikButerin/
 <em class="property">class </em><code class="sig-prename descclassname">klefki.zkp.r1cs.</code><code class="sig-name descname">R1CS</code><a class="headerlink" href="#klefki.zkp.r1cs.R1CS" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="py method">
 <dt id="klefki.zkp.r1cs.R1CS.parse">
-<em class="property">static </em><code class="sig-name descname">parse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">code</span></em>, <em class="sig-param"><span class="n">input_vals</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.zkp.r1cs.R1CS.parse" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="sig-name descname">parse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">code</span></em>, <em class="sig-param"><span class="n">input_vals</span></em>, <em class="sig-param"><span class="n">field</span><span class="o">=</span><span class="default_value">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.zkp.r1cs.R1CS.parse" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -210,7 +210,7 @@ ref: <a class="reference external" href="https://medium.com/&#64;VitalikButerin/
 
 <dl class="py method">
 <dt id="klefki.zkp.r1cs.R1CS.r1cs">
-<code class="sig-name descname">r1cs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">f</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.zkp.r1cs.R1CS.r1cs" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="sig-name descname">r1cs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">f</span></em>, <em class="sig-param"><span class="n">field</span><span class="o">=</span><span class="default_value">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.zkp.r1cs.R1CS.r1cs" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

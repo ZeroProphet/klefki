@@ -56,10 +56,13 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#klefki.zkp.qap.map2field" title="klefki.zkp.qap.map2field"><code class="xref py py-obj docutils literal notranslate"><span class="pre">map2field</span></code></a>(v, field=int)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#klefki.zkp.qap.R1CS2QAP" title="klefki.zkp.qap.R1CS2QAP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">R1CS2QAP</span></code></a>(s, A, B, C, field=int)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#klefki.zkp.qap.R1CS2QAP" title="klefki.zkp.qap.R1CS2QAP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">R1CS2QAP</span></code></a>(a, b, c, x=None, field=int)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#klefki.zkp.qap.verify_qap" title="klefki.zkp.qap.verify_qap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">verify_qap</span></code></a>(A, b, C, Z, H)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#klefki.zkp.qap.proof" title="klefki.zkp.qap.proof"><code class="xref py py-obj docutils literal notranslate"><span class="pre">proof</span></code></a>(s, A, B, C, Z, field=int)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#klefki.zkp.qap.verify" title="klefki.zkp.qap.verify"><code class="xref py py-obj docutils literal notranslate"><span class="pre">verify</span></code></a>(s, A, B, C, Z, H)</p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -81,12 +84,17 @@
 
 <dl class="py function">
 <dt id="klefki.zkp.qap.R1CS2QAP">
-<code class="sig-prename descclassname">klefki.zkp.qap.</code><code class="sig-name descname">R1CS2QAP</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">s</span></em>, <em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">B</span></em>, <em class="sig-param"><span class="n">C</span></em>, <em class="sig-param"><span class="n">field</span><span class="o">=</span><span class="default_value">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.zkp.qap.R1CS2QAP" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">klefki.zkp.qap.</code><code class="sig-name descname">R1CS2QAP</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">b</span></em>, <em class="sig-param"><span class="n">c</span></em>, <em class="sig-param"><span class="n">x</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">field</span><span class="o">=</span><span class="default_value">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.zkp.qap.R1CS2QAP" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt id="klefki.zkp.qap.verify_qap">
-<code class="sig-prename descclassname">klefki.zkp.qap.</code><code class="sig-name descname">verify_qap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">b</span></em>, <em class="sig-param"><span class="n">C</span></em>, <em class="sig-param"><span class="n">Z</span></em>, <em class="sig-param"><span class="n">H</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.zkp.qap.verify_qap" title="Permalink to this definition">¶</a></dt>
+<dt id="klefki.zkp.qap.proof">
+<code class="sig-prename descclassname">klefki.zkp.qap.</code><code class="sig-name descname">proof</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">s</span></em>, <em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">B</span></em>, <em class="sig-param"><span class="n">C</span></em>, <em class="sig-param"><span class="n">Z</span></em>, <em class="sig-param"><span class="n">field</span><span class="o">=</span><span class="default_value">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.zkp.qap.proof" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="klefki.zkp.qap.verify">
+<code class="sig-prename descclassname">klefki.zkp.qap.</code><code class="sig-name descname">verify</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">s</span></em>, <em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">B</span></em>, <em class="sig-param"><span class="n">C</span></em>, <em class="sig-param"><span class="n">Z</span></em>, <em class="sig-param"><span class="n">H</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.zkp.qap.verify" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>

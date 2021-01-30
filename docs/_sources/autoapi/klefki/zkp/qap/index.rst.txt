@@ -17,7 +17,8 @@ Functions
    klefki.zkp.qap.transfer
    klefki.zkp.qap.map2field
    klefki.zkp.qap.R1CS2QAP
-   klefki.zkp.qap.verify_qap
+   klefki.zkp.qap.proof
+   klefki.zkp.qap.verify
 
 
 .. function:: lagrange_polynomial(xs, ys, field=int)
@@ -29,9 +30,12 @@ Functions
 .. function:: map2field(v, field=int)
 
 
-.. function:: R1CS2QAP(s, A, B, C, field=int)
+.. function:: R1CS2QAP(a, b, c, x=None, field=int)
 
 
-.. function:: verify_qap(A, b, C, Z, H)
+.. function:: proof(s, A, B, C, Z, field=int)
+
+
+.. function:: verify(s, A, B, C, Z, H)
 
 
