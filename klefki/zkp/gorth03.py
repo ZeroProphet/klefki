@@ -3,21 +3,18 @@
 #* I. Damg˚ard, J. Groth. Non-interactive and reusable non-malleable commitment schemes. Proc. of 35 th ACM Symp. on Theory of Computing (STOC’03), pp.426- 437, 2003.
 #
 #
-from klefki.types.algebra.concrete import EllipticCurveCyclicSubgroupSecp256k1 as ECC
-from klefki.types.algebra.concrete import EllipticCurveGroupSecp256k1 as Cruve
+from klefki.curves.secp256k1 import EllipticCurveGroupSecp256k1 as Curve
 from klefki.types.algebra.concrete import FiniteFieldCyclicSecp256k1 as CF
-from klefki.types.algebra.concrete import FiniteFieldSecp256k1 as F
 from klefki.types.algebra.utils import randfield
-from klefki.bitcoin.address import gen_address
+from klefki.blockchain.bitcoin.address import gen_address
 from klefki.utils import to_sha256int
 import hmac
-from klefki.bitcoin.public import encode_pubkey
-from klefki.utils import int_to_byte
-from klefki.zkp.commitment import Commitment, Sigma
+from klefki.blockchain.bitcoin.public import encode_pubkey
+from klefki.zkp.commitment import Commitment
 from klefki.zkp.pedersen import PedersonCommitment
 
-G = ECC.G
-H = Cruve.lift_x(CF(to_sha256int("hello NIRNCS")))
+G = Curve.G
+H = Curve.lift_x(CF(to_sha256int("hello NIRNCS")))
 
 
 def keygen(F):

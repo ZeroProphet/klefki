@@ -39,3 +39,7 @@ def R1CS2QAP(s, A, B, C, field=int):
     Z = lambda x: field((x-field(1)) * (x-field(2)))
     H = lambda x: field((A(x) * B(x) - C(x)) * (Z(x) ** -1))
     return (A, B, C, Z, H)
+
+
+def verify_qap(A, b, C, Z, H):
+    return A(x) * B(x) - C(x) == H(x) * Z(x)

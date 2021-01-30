@@ -1,7 +1,7 @@
 from functools import reduce
 from operator import add
-from .consts import OPS
-from klefki.bitcoin.sign import sign_bytes
+from klefki.blockchain.bitcoin.script.consts import OPS
+from klefki.blockchain.bitcoin.sign import sign_bytes
 
 
 def pay_to_pubhash(privkey, pubkey, address):

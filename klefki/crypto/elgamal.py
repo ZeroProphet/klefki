@@ -1,4 +1,4 @@
-from klefki.types.algebra.concrete import EllipticCurveCyclicSubgroupSecp256k1 as Curve
+from klefki.curves.secp256k1 import EllipticCurveGroupSecp256k1 as Curve
 from klefki.types.algebra.concrete import FiniteFieldCyclicSecp256k1 as F
 from klefki.types.algebra.utils import randfield
 from klefki.types.algebra.meta import field

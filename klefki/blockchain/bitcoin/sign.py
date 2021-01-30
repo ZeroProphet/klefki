@@ -3,8 +3,8 @@ from pyasn1.codec.der.encoder import encode as edr_encode
 from pyasn1.codec.der.decoder import decode as edr_decode
 import klefki.crypto.ecdsa.secp256k1 as ecdsa
 from klefki.asn import signature as sig_asn
-from klefki.bitcoin.private import decode_privkey
-from klefki.bitcoin.public import decode_pubkey
+from klefki.blockchain.bitcoin.private import decode_privkey
+from klefki.blockchain.bitcoin.public import decode_pubkey
 from klefki.utils import int_to_byte, byte_to_int, b64encode, b58encode
 from klefki.types.algebra.concrete import FiniteFieldCyclicSecp256k1 as CF
 from klefki.types.algebra.isomorphism import bijection, do
