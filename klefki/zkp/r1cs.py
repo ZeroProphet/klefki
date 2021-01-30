@@ -222,6 +222,13 @@ def code_to_r1cs_with_inputs(code, input_vars):
     r = assign_variables(inputs, input_vars, flatcode)
     return r, A, B, C
 
+def code_to_r1cs(code):
+    inputs, body = extract_inputs_and_body(parse(code))
+    flatcode = flatten_body(body)
+    A, B, C = flatcode_to_r1cs(inputs, flatcode)
+    return A, B, C
+
+
 def mul(a, b):
     return sum(list(map(lambda x: x[0] * x[1], zip(a, b))))
 
@@ -240,8 +247,9 @@ class R1CS:
 
     def r1cs(f):
         src = inspect.getsource(f)
-        def code_to_r1cs(*args):
+        def code_to_r1cs_with(*args):
             return code_to_r1cs_with_inputs(src, list(args))
-        f.r1cs = code_to_r1cs
+        f.r1cs_with = code_to_r1cs_with
+        f.r1cs = code_to_r1cs(src)
         f.src = src
         return f
