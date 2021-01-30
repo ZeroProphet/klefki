@@ -1,8 +1,10 @@
 """
 from https://github.com/ethereum/research/blob/master/zksnark/code_to_r1cs.py
+ref: https://medium.com/@VitalikButerin/quadratic-arithmetic-programs-from-zero-to-hero-f6d558cea649
 """
 
 import ast
+import inspect
 
 if 'arg' not in dir(ast):
     ast.arg = type(None)
@@ -219,3 +221,27 @@ def code_to_r1cs_with_inputs(code, input_vars):
     A, B, C = flatcode_to_r1cs(inputs, flatcode)
     r = assign_variables(inputs, input_vars, flatcode)
     return r, A, B, C
+
+def mul(a, b):
+    return sum(list(map(lambda x: x[0] * x[1], zip(a, b))))
+
+class R1CS:
+    @staticmethod
+    def parse(code, input_vals):
+        s, A, B, C = code_to_r1cs_with_inputs(code, input_vals)
+        return (s, A, B, C)
+
+    @staticmethod
+    def verify(s, A, B, C):
+        ret = True
+        for i in range(len(s)-2):
+            ret = ret and mul(A[i], s) * mul(B[i], s) == mul(C[i], s)
+        return ret
+
+    def r1cs(f):
+        src = inspect.getsource(f)
+        def code_to_r1cs(*args):
+            return code_to_r1cs_with_inputs(src, list(args))
+        f.r1cs = code_to_r1cs
+        f.src = src
+        return f
