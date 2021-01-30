@@ -8,7 +8,7 @@ def qeval(x):
     return y + x + 5
 
 def test_r1cs():
-    assert qeval.r1cs_with(3) == ([1, 3, 35, 9, 27, 30],
+    assert qeval.r1cs_apply(3) == ([1, 3, 35, 9, 27, 30],
                              [[0, 1, 0, 0, 0, 0],
                               [0, 0, 0, 1, 0, 0],
                               [0, 1, 0, 0, 1, 0],
@@ -22,5 +22,5 @@ def test_r1cs():
                               [0, 0, 0, 0, 0, 1],
                              [0, 0, 1, 0, 0, 0]])
 
-    s, A, B, C = qeval.r1cs_with(3)
+    s, A, B, C = qeval.r1cs_apply(3)
     assert R1CS.verify(s, A, B, C)
