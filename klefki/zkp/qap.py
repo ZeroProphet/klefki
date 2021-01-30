@@ -25,21 +25,28 @@ def map2field(v, field=int):
     return [[field(j) for j in i]for i in v]
 
 
-def R1CS2QAP(s, A, B, C, field=int):
+def R1CS2QAP(a, b, c, x=None, field=int):
+#    s = [field(i) for i in s]
+    a = map2field(a, field)
+    b = map2field(b, field)
+    c = map2field(c, field)
+    A = transfer(a, field)
+    B = transfer(b, field)
+    C = transfer(c, field)
+    Z = lambda x: reduce(mul, [(x - field(i)) for i in range(1, len(a)+1)])
+    if not x:
+        return A, B, C, Z
+    return (A(x), B(x), C(x), Z(x))
+
+
+def proof(s, A, B, C, Z, field=int):
     s = [field(i) for i in s]
-    A = map2field(A, field)
-    B = map2field(B, field)
-    C = map2field(C, field)
-    A_v = transfer(A, field)
-    B_v = transfer(B, field)
-    C_v = transfer(C, field)
-    A = lambda x: sum(vmul(A_v(x), s))
-    B = lambda x: sum(vmul(B_v(x), s))
-    C = lambda x: sum(vmul(C_v(x), s))
-    Z = lambda x: field((x-field(1)) * (x-field(2)))
-    H = lambda x: field((A(x) * B(x) - C(x)) * (Z(x) ** -1))
-    return (A, B, C, Z, H)
+    A = sum(vmul(A, s))
+    B = sum(vmul(B, s))
+    C = sum(vmul(C, s))
+    H = (A * B - C) * (Z ** (-1))
+    assert A * B - C == H * Z
+    return (s, H)
 
-
-def verify_qap(A, b, C, Z, H):
-    return A(x) * B(x) - C(x) == H(x) * Z(x)
+def verify(s, A, B, C, Z, H):
+    return sum(vmul(A, s)) * sum(vmul(B, s)) - sum(vmul(C, s)) == H * Z

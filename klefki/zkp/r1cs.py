@@ -5,6 +5,7 @@ ref: https://medium.com/@VitalikButerin/quadratic-arithmetic-programs-from-zero-
 
 import ast
 import inspect
+import types
 
 if 'arg' not in dir(ast):
     ast.arg = type(None)
@@ -154,31 +155,31 @@ def get_var_placement(inputs, flatcode):
 
 
 # Convert the flattened code generated above into a rank-1 constraint system
-def flatcode_to_r1cs(inputs, flatcode):
+def flatcode_to_r1cs(inputs, flatcode, field=int):
     varz = get_var_placement(inputs, flatcode)
     A, B, C = [], [], []
     used = {i: True for i in inputs}
     for x in flatcode:
-        a, b, c = [0] * len(varz), [0] * len(varz), [0] * len(varz)
+        a, b, c = [field(0)] * len(varz), [field(0)] * len(varz), [field(0)] * len(varz)
         if x[1] in used:
             raise Exception("Variable already used: %r" % x[1])
         used[x[1]] = True
         if x[0] == 'set':
-            a[varz.index(x[1])] += 1
+            a[varz.index(x[1])] += field(1)
             insert_var(a, varz, x[2], used, reverse=True)
             b[0] = 1
         elif x[0] == '+' or x[0] == '-':
-            c[varz.index(x[1])] = 1
+            c[varz.index(x[1])] = field(1)
             insert_var(a, varz, x[2], used)
             insert_var(a, varz, x[3], used, reverse=(x[0] == '-'))
             b[0] = 1
         elif x[0] == '*':
-            c[varz.index(x[1])] = 1
+            c[varz.index(x[1])] = field(1)
             insert_var(a, varz, x[2], used)
             insert_var(b, varz, x[3], used)
         elif x[0] == '/':
             insert_var(c, varz, x[2], used)
-            a[varz.index(x[1])] = 1
+            a[varz.index(x[1])] = field(1)
             insert_var(b, varz, x[3], used)
         A.append(a)
         B.append(b)
@@ -195,43 +196,43 @@ def grab_var(varz, assignment, var):
         raise Exception("What kind of expression is this? %r" % var)
 
 # Goes through flattened code and completes the input vector
-def assign_variables(inputs, input_vars, flatcode):
+def assign_variables(inputs, input_vars, flatcode, field):
     varz = get_var_placement(inputs, flatcode)
-    assignment = [0] * len(varz)
-    assignment[0] = 1
+    assignment = [field(0)] * len(varz)
+    assignment[0] = field(1)
     for i, inp in enumerate(input_vars):
-        assignment[i + 1] = inp
+        assignment[i + 1] = field(inp)
     for x in flatcode:
         if x[0] == 'set':
-            assignment[varz.index(x[1])] = grab_var(varz, assignment, x[2])
+            assignment[varz.index(x[1])] = field(grab_var(varz, assignment, x[2]))
         elif x[0] == '+':
-            assignment[varz.index(x[1])] = grab_var(varz, assignment, x[2]) + grab_var(varz, assignment, x[3])
+            assignment[varz.index(x[1])] = field(grab_var(varz, assignment, x[2])) + field(grab_var(varz, assignment, x[3]))
         elif x[0] == '-':
-            assignment[varz.index(x[1])] = grab_var(varz, assignment, x[2]) - grab_var(varz, assignment, x[3])
+            assignment[varz.index(x[1])] = field(grab_var(varz, assignment, x[2])) - field(grab_var(varz, assignment, x[3]))
         elif x[0] == '*':
-            assignment[varz.index(x[1])] = grab_var(varz, assignment, x[2]) * grab_var(varz, assignment, x[3])
+            assignment[varz.index(x[1])] = field(grab_var(varz, assignment, x[2])) * field(grab_var(varz, assignment, x[3]))
         elif x[0] == '/':
-            assignment[varz.index(x[1])] = grab_var(varz, assignment, x[2]) / grab_var(varz, assignment, x[3])
+            assignment[varz.index(x[1])] = field(grab_var(varz, assignment, x[2])) / field(grab_var(varz, assignment, x[3]))
     return assignment
 
 
-def code_to_r1cs_with_inputs(code, input_vars):
+def code_to_r1cs_with_inputs(code, input_vars, field):
     inputs, body = extract_inputs_and_body(parse(code))
     flatcode = flatten_body(body)
-    A, B, C = flatcode_to_r1cs(inputs, flatcode)
-    r = assign_variables(inputs, input_vars, flatcode)
+    A, B, C = flatcode_to_r1cs(inputs, flatcode, field)
+    r = assign_variables(inputs, input_vars, flatcode, field)
     return r, A, B, C
 
-def code_to_r1cs_result(code, input_vars):
+def code_to_r1cs_result(code, input_vars, field=int):
     inputs, body = extract_inputs_and_body(parse(code))
     flatcode = flatten_body(body)
-    r = assign_variables(inputs, input_vars, flatcode)
+    r = assign_variables(inputs, input_vars, flatcode, field)
     return r
 
-def code_to_r1cs(code):
+def code_to_r1cs(code, field):
     inputs, body = extract_inputs_and_body(parse(code))
     flatcode = flatten_body(body)
-    A, B, C = flatcode_to_r1cs(inputs, flatcode)
+    A, B, C = flatcode_to_r1cs(inputs, flatcode, field)
     return A, B, C
 
 
@@ -240,8 +241,8 @@ def mul(a, b):
 
 class R1CS:
     @staticmethod
-    def parse(code, input_vals):
-        s, A, B, C = code_to_r1cs_with_inputs(code, input_vals)
+    def parse(code, input_vals, field=int):
+        s, A, B, C = code_to_r1cs_with_inputs(code, input_vals, field)
         return (s, A, B, C)
 
     @staticmethod
@@ -251,11 +252,12 @@ class R1CS:
             ret = ret and sum(mul(A[i], s)) * sum(mul(B[i], s)) == sum(mul(C[i], s))
         return ret
 
-    def r1cs(f):
+    @staticmethod
+    def r1cs(f, field=int):
         src = inspect.getsource(f)
-        def code_to_r1cs_with(*args):
-            return code_to_r1cs_with_inputs(src, list(args))
-        f.r1cs_apply = code_to_r1cs_with
-        f.r1cs = code_to_r1cs(src)
+        def wit(*args):
+            return code_to_r1cs_result(src, list(args), field)
+        f.witness = wit
+        f.r1cs = code_to_r1cs(src, field)
         f.src = src
         return f
