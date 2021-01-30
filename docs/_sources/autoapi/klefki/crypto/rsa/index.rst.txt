@@ -12,6 +12,23 @@
 Module Contents
 ---------------
 
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   klefki.crypto.rsa.RSA
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   klefki.crypto.rsa.mod_inverse
+
+
 .. function:: mod_inverse(a, m)
 
    gcd = as + mt
@@ -44,34 +61,38 @@ Module Contents
       :property:
 
 
-
    .. method:: private_key(self)
       :property:
-
-
-
-   .. method:: encrypt_with_pub_key(self, block: int)
-
 
 
    .. method:: decrypt_with_pub_key(self, block: int)
 
 
-
-   .. method:: encrypt_with_private_key(self, block: int)
-
+   .. method:: encrypt_with_private_key(self, block: int) -> int
 
 
-   .. method:: decrypt_with_private_key(self, block: int)
+   .. method:: encrypt_with_pub_key(self, block: int)
 
 
+   .. method:: decrypt_with_private_key(self, block: int) -> int
 
-   .. method:: encrypt_string(self, message: str)
 
+   .. method:: decrypt(msg, e, n)
+      :staticmethod:
+
+
+   .. method:: encrypt_string(self, message: str) -> list
 
 
    .. method:: decrypt_string(self, encrypted: list)
 
+
+   .. method:: parse_lv_pubkey(pub)
+      :staticmethod:
+
+
+   .. method:: verify_ssh_rsa_sig(cls, sig, msg, pub, alog='SHA256')
+      :classmethod:
 
 
 

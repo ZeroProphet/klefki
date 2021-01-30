@@ -7,6 +7,15 @@
 Module Contents
 ---------------
 
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   klefki.types.algebra.meta.field
+
+
 .. function:: field(p, name='FiniteField')
 
 

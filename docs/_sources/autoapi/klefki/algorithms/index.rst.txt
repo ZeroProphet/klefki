@@ -7,6 +7,16 @@
 Module Contents
 ---------------
 
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   klefki.algorithms.extended_euclidean_algorithm
+   klefki.algorithms.double_and_add_algorithm
+
+
 .. function:: extended_euclidean_algorithm(a: int, b: int) -> Tuple[int, int, int]
 
    Returns a three-tuple (gcd, x, y) such that

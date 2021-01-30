@@ -7,7 +7,25 @@
 Module Contents
 ---------------
 
-.. py:class:: FiniteFieldSecp256k1
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   klefki.types.algebra.concrete.FiniteFieldSecp256k1
+   klefki.types.algebra.concrete.FiniteFieldCyclicSecp256k1
+   klefki.types.algebra.concrete.EllipticCurveGroupSecp256k1
+   klefki.types.algebra.concrete.JacobianGroupSecp256k1
+   klefki.types.algebra.concrete.FiniteFieldSecp256r1
+   klefki.types.algebra.concrete.FiniteFieldCyclicSecp256r1
+   klefki.types.algebra.concrete.EllipticCurveGroupSecp256r1
+   klefki.types.algebra.concrete.JacobianGroupSecp256r1
+   klefki.types.algebra.concrete.EllipticCurveCyclicSubgroupSecp256r1
+   klefki.types.algebra.concrete.EllipticCurveGroupSecp256r1
+
+
+
+.. py:class:: FiniteFieldSecp256k1(*args)
 
    Bases: :class:`klefki.types.algebra.fields.FiniteField`
 
@@ -17,7 +35,7 @@ Module Contents
       
 
 
-.. py:class:: FiniteFieldCyclicSecp256k1
+.. py:class:: FiniteFieldCyclicSecp256k1(*args)
 
    Bases: :class:`klefki.types.algebra.fields.FiniteField`
 
@@ -27,9 +45,11 @@ Module Contents
       
 
 
-.. py:class:: EllipticCurveCyclicSubgroupSecp256k1
+.. py:class:: EllipticCurveGroupSecp256k1(*args)
 
-   Bases: :class:`klefki.types.algebra.groups.EllipicCyclicSubroup`
+   Bases: :class:`klefki.types.algebra.groups.EllipticCurveGroup`
+
+   y^2 = x^3 + A * x + B
 
    .. attribute:: N
       
@@ -50,44 +70,17 @@ Module Contents
       :property:
 
 
-
    .. method:: y(self)
       :property:
 
 
+   .. method:: op(self, g)
 
-
-.. py:class:: EllipticCurveGroupSecp256k1
-
-   Bases: :class:`klefki.types.algebra.groups.EllipticCurveGroup`
-
-   .. attribute:: A
-      
-
-      
-
-   .. attribute:: B
-      
-
-      
-
-   .. attribute:: G
-      
-
-      
-
-   .. method:: x(self)
-      :property:
+      The Operator for obeying axiom `associativity` (2)
 
 
 
-   .. method:: y(self)
-      :property:
-
-
-
-
-.. py:class:: JacobianGroupSecp256k1
+.. py:class:: JacobianGroupSecp256k1(*args)
 
    Bases: :class:`klefki.types.algebra.groups.JacobianGroup`
 
@@ -107,7 +100,7 @@ Module Contents
       
 
 
-.. py:class:: FiniteFieldSecp256r1
+.. py:class:: FiniteFieldSecp256r1(*args)
 
    Bases: :class:`klefki.types.algebra.fields.FiniteField`
 
@@ -122,7 +115,7 @@ Module Contents
       
 
 
-.. py:class:: FiniteFieldCyclicSecp256r1
+.. py:class:: FiniteFieldCyclicSecp256r1(*args)
 
    Bases: :class:`klefki.types.algebra.fields.FiniteField`
 
@@ -137,7 +130,7 @@ Module Contents
       
 
 
-.. py:class:: EllipticCurveGroupSecp256r1
+.. py:class:: EllipticCurveGroupSecp256r1(*args)
 
    Bases: :class:`klefki.types.algebra.groups.EllipticCurveGroup`
 
@@ -157,7 +150,7 @@ Module Contents
       
 
 
-.. py:class:: JacobianGroupSecp256r1
+.. py:class:: JacobianGroupSecp256r1(*args)
 
    Bases: :class:`klefki.types.algebra.groups.JacobianGroup`
 
@@ -177,9 +170,12 @@ Module Contents
       
 
 
-.. py:class:: EllipticCurveCyclicSubgroupSecp256r1
+.. py:class:: EllipticCurveCyclicSubgroupSecp256r1(*args)
 
-   Bases: :class:`klefki.types.algebra.groups.EllipicCyclicSubroup`
+   Bases: :class:`klefki.types.algebra.groups.EllipicCyclicSubgroup`
+
+   With Lagrange's therem
+   the order of a subgroup is a divisor of the order of the parent group
 
    .. attribute:: N
       
@@ -196,18 +192,8 @@ Module Contents
 
       
 
-   .. method:: x(self)
-      :property:
 
-
-
-   .. method:: y(self)
-      :property:
-
-
-
-
-.. py:class:: EllipticCurveGroupSecp256r1
+.. py:class:: EllipticCurveGroupSecp256r1(*args)
 
    Bases: :class:`klefki.types.algebra.groups.EllipticCurveGroup`
 
@@ -225,15 +211,5 @@ Module Contents
       
 
       
-
-   .. method:: x(self)
-      :property:
-
-
-
-   .. method:: y(self)
-      :property:
-
-
 
 

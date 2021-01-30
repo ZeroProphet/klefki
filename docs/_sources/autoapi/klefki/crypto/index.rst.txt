@@ -20,10 +20,13 @@ Submodules
    :maxdepth: 1
 
    EVP/index.rst
+   MiMC/index.rst
    damgard_jurik/index.rst
    elgamal/index.rst
    paillier/index.rst
+   pkcs/index.rst
    rsa/index.rst
+   sponge/index.rst
    ssss/index.rst
    vss/index.rst
 

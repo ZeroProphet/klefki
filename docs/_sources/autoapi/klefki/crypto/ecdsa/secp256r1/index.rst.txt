@@ -7,6 +7,19 @@
 Module Contents
 ---------------
 
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   klefki.crypto.ecdsa.secp256r1.random_privkey
+   klefki.crypto.ecdsa.secp256r1.pubkey
+   klefki.crypto.ecdsa.secp256r1.sign
+   klefki.crypto.ecdsa.secp256r1.verify
+   klefki.crypto.ecdsa.secp256r1.verify_msghash
+
+
 .. function:: random_privkey() -> CF
 
 

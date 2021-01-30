@@ -1,24 +1,25 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>\(\Sigma\) Protocols &#8212; klefki 1.0-rc documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
-    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Abstract Algebra Types" href="Abstract Algebra Types.html" />
-    <link rel="prev" title="Pedersen Commitment" href="Pedersen Commitment.html" />
+    <link rel="next" title="Abstract Algebra Types" href="Abstract%20Algebra%20Types.html" />
+    <link rel="prev" title="Pedersen Commitment" href="Pedersen%20Commitment.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -54,7 +55,11 @@
 <p>A protocol <span class="math notranslate nohighlight">\(P\)</span> is said to be a <span class="math notranslate nohighlight">\(\Sigma\)</span>-protocol for relation <span class="math notranslate nohighlight">\(R\)</span> if:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(P\)</span> is of the above 3-move form, and we have completeness: if <span class="math notranslate nohighlight">\(P, V\)</span> follow the protocol on input <span class="math notranslate nohighlight">\(x\)</span> and private input <span class="math notranslate nohighlight">\(w\)</span> to <span class="math notranslate nohighlight">\(P\)</span> where <span class="math notranslate nohighlight">\((x, w) ∈ R\)</span>, the veriﬁer always accepts.</p></li>
+</ul>
+<ul class="simple">
 <li><p>From any <span class="math notranslate nohighlight">\(x\)</span> and any pair of accepting conversations on input <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\((a,e,z),(a,e',z')\)</span> where <span class="math notranslate nohighlight">\(e\neq e'\)</span>, one can efficiently compute <span class="math notranslate nohighlight">\(w\)</span> such that <span class="math notranslate nohighlight">\((x,w)\in R\)</span>. This is sometimes called the <strong>special soundness property</strong>.</p></li>
+</ul>
+<ul class="simple">
 <li><p>There exists a polynomial-time simulator <span class="math notranslate nohighlight">\(M\)</span>, which on input <span class="math notranslate nohighlight">\(x\)</span> and a random <span class="math notranslate nohighlight">\(e\)</span> outputs an accepting conversation of the form <span class="math notranslate nohighlight">\((a, e, z)\)</span>, with the same probability distribution as conversations between the honest <span class="math notranslate nohighlight">\(P, V\)</span> on input <span class="math notranslate nohighlight">\(x\)</span>. This is sometimes called <strong>special honest-veriﬁer zero-nowledge (sHVZK)</strong>.</p></li>
 </ul>
 <p>Deﬁne <span class="math notranslate nohighlight">\(L_R\)</span> to be the set of <span class="math notranslate nohighlight">\(x’s\)</span> for which there exist <span class="math notranslate nohighlight">\(w\)</span> such that <span class="math notranslate nohighlight">\((x, w) ∈ L\)</span>. Then the special soundness property implies that a <span class="math notranslate nohighlight">\(\sigma\)</span>-protocol for <span class="math notranslate nohighlight">\(R\)</span> is always an interactive proof system for <span class="math notranslate nohighlight">\(L_R\)</span> with error probability <span class="math notranslate nohighlight">\(2^t\)</span> .</p>
@@ -126,20 +131,20 @@
 <li class="toctree-l1"><a class="reference internal" href="README.html">TL;DR</a></li>
 </ul>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="Non-interactive and Reusable Non-malleable Commitment Schemes.html">Non-interactive and Reusable Non-malleable Commitment Schemes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Pedersen Commitment.html">Pedersen Commitment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Non-interactive%20and%20Reusable%20Non-malleable%20Commitment%20Schemes.html">Non-interactive and Reusable Non-malleable Commitment Schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pedersen%20Commitment.html">Pedersen Commitment</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><span class="math notranslate nohighlight">\(\Sigma\)</span> Protocols</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Abstract Algebra Types.html">Abstract Algebra Types</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Homomorphic Encryption.html">Homomorphic Encryption</a></li>
-<li class="toctree-l1"><a class="reference internal" href="From ZK to Bulletproofs.html">From ZK to Bulletproofsproof via Python</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Paillier's encryption Scheme.html">Paillier’s encryption Scheme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Abstract%20Algebra%20Types.html">Abstract Algebra Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Homomorphic%20Encryption.html">Homomorphic Encryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="From%20ZK%20to%20Bulletproofs.html">From ZK to Bulletproofsproof via Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Paillier%27s%20encryption%20Scheme.html">Paillier’s encryption Scheme</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ElGamal.html">ElGamal</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Shamir's secret sharing scheme.html">Shamir’s secret sharing scheme</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Trapdoor Commitment Schemes.html">Discrete-Logarithm-Based Trapdoor Commitment Schemes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Threshold ECDSA.html">Threshold ECDSA</a></li>
-<li class="toctree-l1"><a class="reference internal" href="POD-Mini and POD-AS.html">POD-Mini and POD-AS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Damgard-Jurik Scheme of Paillier.html">Damgard-Jurik Scheme of Paillier</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Threshold Paillier Cryptosystem.html">Threshold Paillier Cryptosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Shamir%27s%20secret%20sharing%20scheme.html">Shamir’s secret sharing scheme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Trapdoor%20Commitment%20Schemes.html">Discrete-Logarithm-Based Trapdoor Commitment Schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Threshold%20ECDSA.html">Threshold ECDSA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="POD-Mini%20and%20POD-AS.html">POD-Mini and POD-AS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Damgard-Jurik%20Scheme%20of%20Paillier.html">Damgard-Jurik Scheme of Paillier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Threshold%20Paillier%20Cryptosystem.html">Threshold Paillier Cryptosystem</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
@@ -149,8 +154,8 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="Pedersen Commitment.html" title="previous chapter">Pedersen Commitment</a></li>
-      <li>Next: <a href="Abstract Algebra Types.html" title="next chapter">Abstract Algebra Types</a></li>
+      <li>Previous: <a href="Pedersen%20Commitment.html" title="previous chapter">Pedersen Commitment</a></li>
+      <li>Next: <a href="Abstract%20Algebra%20Types.html" title="next chapter">Abstract Algebra Types</a></li>
   </ul></li>
 </ul>
 </div>
@@ -163,7 +168,7 @@
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
 
 
 
@@ -180,7 +185,7 @@
       &copy;2019, Ryan Kung.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

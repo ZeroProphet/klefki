@@ -1,23 +1,24 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TL;DR &#8212; klefki 1.0-rc documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
-    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Non-interactive and Reusable Non-malleable Commitment Schemes" href="Non-interactive and Reusable Non-malleable Commitment Schemes.html" />
+    <link rel="next" title="Non-interactive and Reusable Non-malleable Commitment Schemes" href="Non-interactive%20and%20Reusable%20Non-malleable%20Commitment%20Schemes.html" />
     <link rel="prev" title="Welcome to klefki!" href="index.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -62,65 +63,65 @@ klefki shell
 <h2>AAT(Abstract Algebra Type)<a class="headerlink" href="#aat-abstract-algebra-type" title="Permalink to this headline">¶</a></h2>
 <p>With <code class="docutils literal notranslate"><span class="pre">AAT(Abstract</span> <span class="pre">Algebra</span> <span class="pre">Type)</span></code> you can easily implement the bitcoin <code class="docutils literal notranslate"><span class="pre">priv/pub</span> <span class="pre">key</span></code> and <code class="docutils literal notranslate"><span class="pre">sign/verify</span></code> algorithms like this:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-import random
-from klefki.utils import to_sha256int
-from klefki.types.algebra.concrete import (
-    JacobianGroupSecp256k1 as JG,
-    EllipticCurveCyclicSubgroupSecp256k1 as CG,
-    EllipticCurveGroupSecp256k1 as ECG,
-    FiniteFieldCyclicSecp256k1 as CF
-)
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">klefki.utils</span> <span class="kn">import</span> <span class="n">to_sha256int</span>
+<span class="kn">from</span> <span class="nn">klefki.types.algebra.concrete</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">JacobianGroupSecp256k1</span> <span class="k">as</span> <span class="n">JG</span><span class="p">,</span>
+    <span class="n">EllipticCurveCyclicSubgroupSecp256k1</span> <span class="k">as</span> <span class="n">CG</span><span class="p">,</span>
+    <span class="n">EllipticCurveGroupSecp256k1</span> <span class="k">as</span> <span class="n">ECG</span><span class="p">,</span>
+    <span class="n">FiniteFieldCyclicSecp256k1</span> <span class="k">as</span> <span class="n">CF</span>
+<span class="p">)</span>
 
 
-N = CG.N
-G = CG.G
+<span class="n">N</span> <span class="o">=</span> <span class="n">CG</span><span class="o">.</span><span class="n">N</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">CG</span><span class="o">.</span><span class="n">G</span>
 
 
-def random_privkey() -&gt; CF:
-    return CF(random.randint(1, N))
+<span class="k">def</span> <span class="nf">random_privkey</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">CF</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">CF</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
 
 
-def pubkey(priv: CF) -&gt; ECG:
-    return ECG(JG(G @ priv))
+<span class="k">def</span> <span class="nf">pubkey</span><span class="p">(</span><span class="n">priv</span><span class="p">:</span> <span class="n">CF</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ECG</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">ECG</span><span class="p">(</span><span class="n">JG</span><span class="p">(</span><span class="n">G</span> <span class="o">@</span> <span class="n">priv</span><span class="p">))</span>
 
 
-def sign(priv: CF, m: str) -&gt; tuple:
-    k = CF(random.randint(1, N))
-    z = CF(to_sha256int(m))
-    r = CF((G @ k).value[0])  # From Secp256k1Field to CyclicSecp256k1Field
-    s = z / k + priv * r / k
-    return r, s
+<span class="k">def</span> <span class="nf">sign</span><span class="p">(</span><span class="n">priv</span><span class="p">:</span> <span class="n">CF</span><span class="p">,</span> <span class="n">m</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">CF</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">CF</span><span class="p">(</span><span class="n">to_sha256int</span><span class="p">(</span><span class="n">m</span><span class="p">))</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">CF</span><span class="p">((</span><span class="n">G</span> <span class="o">@</span> <span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># From Secp256k1Field to CyclicSecp256k1Field</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">z</span> <span class="o">/</span> <span class="n">k</span> <span class="o">+</span> <span class="n">priv</span> <span class="o">*</span> <span class="n">r</span> <span class="o">/</span> <span class="n">k</span>
+    <span class="k">return</span> <span class="n">r</span><span class="p">,</span> <span class="n">s</span>
 
 
 
-def verify(pub: ECG, sig: tuple, mhash: int):
-    r, s = sig
-    z = CF(mhash)
-    u1 = z / s
-    u2 = r / s
-    rp = G @ u1 + pub @ u2
-    return r == rp.value[0]
+<span class="k">def</span> <span class="nf">verify</span><span class="p">(</span><span class="n">pub</span><span class="p">:</span> <span class="n">ECG</span><span class="p">,</span> <span class="n">sig</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">mhash</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="n">r</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">sig</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">CF</span><span class="p">(</span><span class="n">mhash</span><span class="p">)</span>
+    <span class="n">u1</span> <span class="o">=</span> <span class="n">z</span> <span class="o">/</span> <span class="n">s</span>
+    <span class="n">u2</span> <span class="o">=</span> <span class="n">r</span> <span class="o">/</span> <span class="n">s</span>
+    <span class="n">rp</span> <span class="o">=</span> <span class="n">G</span> <span class="o">@</span> <span class="n">u1</span> <span class="o">+</span> <span class="n">pub</span> <span class="o">@</span> <span class="n">u2</span>
+    <span class="k">return</span> <span class="n">r</span> <span class="o">==</span> <span class="n">rp</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>Even proof the <code class="docutils literal notranslate"><span class="pre">Sign/Verify</span></code> algorithm mathematically.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>def proof():
-    priv = random_privkey()
-    m = &#39;test&#39;
-    k = CF(random_privkey())
-    z = CF(to_sha256int(m))
-    r = CF((G @ k).value[0])
-    s = z / k + priv * r / k
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">proof</span><span class="p">():</span>
+    <span class="n">priv</span> <span class="o">=</span> <span class="n">random_privkey</span><span class="p">()</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="s1">&#39;test&#39;</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">CF</span><span class="p">(</span><span class="n">random_privkey</span><span class="p">())</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">CF</span><span class="p">(</span><span class="n">to_sha256int</span><span class="p">(</span><span class="n">m</span><span class="p">))</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">CF</span><span class="p">((</span><span class="n">G</span> <span class="o">@</span> <span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">z</span> <span class="o">/</span> <span class="n">k</span> <span class="o">+</span> <span class="n">priv</span> <span class="o">*</span> <span class="n">r</span> <span class="o">/</span> <span class="n">k</span>
 
-    assert k == z / s + priv * r / s
-    assert G @ k == G @ (z / s + priv * r / s)
-    assert G @ k == G @ (z / s) + G @ priv @ (r / s)
+    <span class="k">assert</span> <span class="n">k</span> <span class="o">==</span> <span class="n">z</span> <span class="o">/</span> <span class="n">s</span> <span class="o">+</span> <span class="n">priv</span> <span class="o">*</span> <span class="n">r</span> <span class="o">/</span> <span class="n">s</span>
+    <span class="k">assert</span> <span class="n">G</span> <span class="o">@</span> <span class="n">k</span> <span class="o">==</span> <span class="n">G</span> <span class="o">@</span> <span class="p">(</span><span class="n">z</span> <span class="o">/</span> <span class="n">s</span> <span class="o">+</span> <span class="n">priv</span> <span class="o">*</span> <span class="n">r</span> <span class="o">/</span> <span class="n">s</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">G</span> <span class="o">@</span> <span class="n">k</span> <span class="o">==</span> <span class="n">G</span> <span class="o">@</span> <span class="p">(</span><span class="n">z</span> <span class="o">/</span> <span class="n">s</span><span class="p">)</span> <span class="o">+</span> <span class="n">G</span> <span class="o">@</span> <span class="n">priv</span> <span class="o">@</span> <span class="p">(</span><span class="n">r</span> <span class="o">/</span> <span class="n">s</span><span class="p">)</span>
 
-    pub = G @ priv
-    assert pub == pubkey(priv)
-    assert G @ k == G @ (z / s) + pub @ (r / s)
-    u1 = z / s
-    u2 = r / s
-    assert G @ k == G @ u1 + pub @ u2
+    <span class="n">pub</span> <span class="o">=</span> <span class="n">G</span> <span class="o">@</span> <span class="n">priv</span>
+    <span class="k">assert</span> <span class="n">pub</span> <span class="o">==</span> <span class="n">pubkey</span><span class="p">(</span><span class="n">priv</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">G</span> <span class="o">@</span> <span class="n">k</span> <span class="o">==</span> <span class="n">G</span> <span class="o">@</span> <span class="p">(</span><span class="n">z</span> <span class="o">/</span> <span class="n">s</span><span class="p">)</span> <span class="o">+</span> <span class="n">pub</span> <span class="o">@</span> <span class="p">(</span><span class="n">r</span> <span class="o">/</span> <span class="n">s</span><span class="p">)</span>
+    <span class="n">u1</span> <span class="o">=</span> <span class="n">z</span> <span class="o">/</span> <span class="n">s</span>
+    <span class="n">u2</span> <span class="o">=</span> <span class="n">r</span> <span class="o">/</span> <span class="n">s</span>
+    <span class="k">assert</span> <span class="n">G</span> <span class="o">@</span> <span class="n">k</span> <span class="o">==</span> <span class="n">G</span> <span class="o">@</span> <span class="n">u1</span> <span class="o">+</span> <span class="n">pub</span> <span class="o">@</span> <span class="n">u2</span>
 
 </pre></div>
 </div>
@@ -134,7 +135,7 @@ def verify(pub: ECG, sig: tuple, mhash: int):
     <span class="n">key</span> <span class="o">=</span> <span class="n">decode_privkey</span><span class="p">(</span><span class="n">priv</span><span class="p">)</span>
     <span class="n">eos_priv</span> <span class="o">=</span> <span class="n">encode_privkey</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
     <span class="n">eos_pub</span> <span class="o">=</span> <span class="n">gen_pub_key</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">eos_priv</span><span class="p">,</span> <span class="n">eos_pub</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">eos_priv</span><span class="p">,</span> <span class="n">eos_pub</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -200,20 +201,23 @@ def verify(pub: ECG, sig: tuple, mhash: int):
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="Non-interactive and Reusable Non-malleable Commitment Schemes.html">Non-interactive and Reusable Non-malleable Commitment Schemes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Pedersen Commitment.html">Pedersen Commitment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="On Sigma Protocols.html"><span class="math notranslate nohighlight">\(\Sigma\)</span> Protocols</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Abstract Algebra Types.html">Abstract Algebra Types</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Homomorphic Encryption.html">Homomorphic Encryption</a></li>
-<li class="toctree-l1"><a class="reference internal" href="From ZK to Bulletproofs.html">From ZK to Bulletproofsproof via Python</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Paillier's encryption Scheme.html">Paillier’s encryption Scheme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Non-interactive%20and%20Reusable%20Non-malleable%20Commitment%20Schemes.html">Non-interactive and Reusable Non-malleable Commitment Schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pedersen%20Commitment.html">Pedersen Commitment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="On%20Sigma%20Protocols.html"><span class="math notranslate nohighlight">\(\Sigma\)</span> Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Abstract%20Algebra%20Types.html">Abstract Algebra Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Homomorphic%20Encryption.html">Homomorphic Encryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="From%20ZK%20to%20Bulletproofs.html">From ZK to Bulletproofsproof via Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Paillier%27s%20encryption%20Scheme.html">Paillier’s encryption Scheme</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ElGamal.html">ElGamal</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Shamir's secret sharing scheme.html">Shamir’s secret sharing scheme</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Trapdoor Commitment Schemes.html">Discrete-Logarithm-Based Trapdoor Commitment Schemes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Threshold ECDSA.html">Threshold ECDSA</a></li>
-<li class="toctree-l1"><a class="reference internal" href="POD-Mini and POD-AS.html">POD-Mini and POD-AS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Damgard-Jurik Scheme of Paillier.html">Damgard-Jurik Scheme of Paillier</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Threshold Paillier Cryptosystem.html">Threshold Paillier Cryptosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Shamir%27s%20secret%20sharing%20scheme.html">Shamir’s secret sharing scheme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Trapdoor%20Commitment%20Schemes.html">Discrete-Logarithm-Based Trapdoor Commitment Schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Threshold%20ECDSA.html">Threshold ECDSA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="POD-Mini%20and%20POD-AS.html">POD-Mini and POD-AS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Damgard-Jurik%20Scheme%20of%20Paillier.html">Damgard-Jurik Scheme of Paillier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Threshold%20Paillier%20Cryptosystem.html">Threshold Paillier Cryptosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="R1CS%20to%20QAP.html">R1CS to QAP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MimbleWimble.html">Play MimbleWimble with klefki</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MimbleWimble.html#Ownership">Ownership</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
@@ -224,7 +228,7 @@ def verify(pub: ECG, sig: tuple, mhash: int):
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="index.html" title="previous chapter">Welcome to klefki!</a></li>
-      <li>Next: <a href="Non-interactive and Reusable Non-malleable Commitment Schemes.html" title="next chapter">Non-interactive and Reusable Non-malleable Commitment Schemes</a></li>
+      <li>Next: <a href="Non-interactive%20and%20Reusable%20Non-malleable%20Commitment%20Schemes.html" title="next chapter">Non-interactive and Reusable Non-malleable Commitment Schemes</a></li>
   </ul></li>
 </ul>
 </div>
@@ -237,7 +241,7 @@ def verify(pub: ECG, sig: tuple, mhash: int):
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
 
 
 
@@ -254,7 +258,7 @@ def verify(pub: ECG, sig: tuple, mhash: int):
       &copy;2019, Ryan Kung.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

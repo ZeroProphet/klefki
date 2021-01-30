@@ -7,6 +7,16 @@
 Module Contents
 ---------------
 
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   klefki.mpc.secret_sharing.additive_share
+   klefki.mpc.secret_sharing.additive_reconstruct
+
+
 .. function:: additive_share(secret, F, n)
 
 

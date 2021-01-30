@@ -7,6 +7,19 @@
 Module Contents
 ---------------
 
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   klefki.numbers.primes.ipow
+   klefki.numbers.primes.rabin_miller_witness
+   klefki.numbers.primes.default_k
+   klefki.numbers.primes.is_probably_prime
+   klefki.numbers.primes.generate_prime
+
+
 .. function:: ipow(a, b, n)
 
    calculates (a**b) % n via binary exponentiation, yielding itermediate

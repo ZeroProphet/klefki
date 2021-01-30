@@ -7,6 +7,24 @@
 Module Contents
 ---------------
 
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   klefki.crypto.elgamal.ElGamal
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   klefki.crypto.elgamal.map_to_curve
+   klefki.crypto.elgamal.map_from_curve
+
+
 .. function:: map_to_curve(m, G=Curve.G, bias=1)
 
 
@@ -19,18 +37,14 @@ Module Contents
       :classmethod:
 
 
-
    .. method:: decrypt(cls, x, c)
       :classmethod:
-
 
 
    .. method:: E(self, m)
 
 
-
    .. method:: D(self, c)
-
 
 
 

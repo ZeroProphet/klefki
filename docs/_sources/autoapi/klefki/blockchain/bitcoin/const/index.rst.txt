@@ -1,0 +1,14 @@
+:mod:`klefki.blockchain.bitcoin.const`
+======================================
+
+.. py:module:: klefki.blockchain.bitcoin.const
+
+
+Module Contents
+---------------
+
+.. data:: MAGIC
+   
+
+   
+

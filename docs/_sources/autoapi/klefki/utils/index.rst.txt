@@ -7,6 +7,35 @@
 Module Contents
 ---------------
 
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   klefki.utils.EnumDict
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   klefki.utils.int_to_byte
+   klefki.utils.int_to_byte64
+   klefki.utils.byte_to_int
+   klefki.utils.dhash256
+   klefki.utils.ripemd160
+   klefki.utils.trunks
+   klefki.utils.concat
+   klefki.utils.compose
+   klefki.utils.to_sha256int
+   klefki.utils.parse_lv_format
+   klefki.utils.CF2Bytes
+   klefki.utils.to_u32s
+   klefki.utils.from_u32s
+
+
 .. data:: b58encode
    
 
@@ -18,6 +47,9 @@ Module Contents
    
 
 .. function:: int_to_byte(key: int, length=32) -> bytes
+
+
+.. function:: int_to_byte64(key: int) -> bytes
 
 
 .. function:: byte_to_int(byte: bytes) -> CF
@@ -45,18 +77,41 @@ Module Contents
 
    Bases: :class:`dict`
 
-   .. method:: __getattr__(self, k)
+   dict() -> new empty dictionary
+   dict(mapping) -> new dictionary initialized from a mapping object's
+       (key, value) pairs
+   dict(iterable) -> new dictionary initialized as if via:
+       d = {}
+       for k, v in iterable:
+           d[k] = v
+   dict(**kwargs) -> new dictionary initialized with the name=value pairs
+       in the keyword argument list.  For example:  dict(one=1, two=2)
 
+   .. method:: __getattr__(self, k)
 
       Support Lazy
 
 
    .. method:: __setattr__(self, k, v)
 
+      Implement setattr(self, name, value).
 
 
    .. method:: __contains__(self, v)
 
+      True if the dictionary has the specified key, else False.
 
+
+
+.. function:: parse_lv_format(b)
+
+
+.. function:: CF2Bytes(cf, l=32)
+
+
+.. function:: to_u32s(a: int, endian='little')
+
+
+.. function:: from_u32s(a: list, endian='little')
 
 

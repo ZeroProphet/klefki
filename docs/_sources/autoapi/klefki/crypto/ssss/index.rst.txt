@@ -14,10 +14,18 @@
 Module Contents
 ---------------
 
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   klefki.crypto.ssss.SSSS
+
+
+
 .. py:class:: SSSS(F: FiniteField, secret=None, k=None, n=None, poly_params=None)
 
    .. method:: setup(self, secret, k, n, poly_params=[])
-
 
       k: threshold
 
@@ -25,10 +33,12 @@ Module Contents
    .. method:: join(self, x=None)
 
 
-
-   .. method:: decrypt(priv)
+   .. method:: decrypt(shares)
       :staticmethod:
 
+
+   .. method:: combine(cls, shares)
+      :classmethod:
 
 
 

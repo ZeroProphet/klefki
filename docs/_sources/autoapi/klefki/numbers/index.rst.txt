@@ -16,6 +16,28 @@ Submodules
 Package Contents
 ----------------
 
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   klefki.numbers.rsa_lambda
+   klefki.numbers.rsa_phi
+   klefki.numbers.fn_lambda
+   klefki.numbers.fn_phi
+   klefki.numbers.lcm
+   klefki.numbers.length
+   klefki.numbers.Blength
+   klefki.numbers.Dlength
+   klefki.numbers.power
+   klefki.numbers.invmod
+   klefki.numbers.modpow
+   klefki.numbers.modular_sqrt
+   klefki.numbers.legendre_symbol
+   klefki.numbers.crt
+
+
 .. function:: rsa_lambda(p, q)
 
 
@@ -78,6 +100,7 @@ Package Contents
 
 .. function:: modular_sqrt(a, p)
 
+   ref: https://gist.github.com/nakov/60d62bdf4067ea72b7832ce9f71ae079
    Find a quadratic residue (mod p) of 'a'. p
    must be an odd prime.
    Solve the congruence of the form:

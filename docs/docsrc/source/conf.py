@@ -32,7 +32,7 @@ release = '1.0-rc'
 # ones.
 extensions = ['sphinx.ext.todo',
               'sphinx.ext.mathjax',
-              'sphinx.ext.viewcode',
+     #         'sphinx.ext.viewcode',
               'sphinx.ext.autodoc',
               'sphinx.ext.autosectionlabel',
               'recommonmark',

@@ -7,6 +7,18 @@
 Module Contents
 ---------------
 
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   klefki.types.algebra.utils.encode
+   klefki.types.algebra.utils.decode
+   klefki.types.algebra.utils.randfield
+   klefki.types.algebra.utils.randgroup
+
+
 .. function:: encode(key: ECG)
 
 

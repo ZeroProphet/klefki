@@ -7,7 +7,19 @@
 Module Contents
 ---------------
 
-.. py:class:: EllipticCurveGroup
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   klefki.types.algebra.groups.EllipticCurveGroup
+   klefki.types.algebra.groups.CyclicAddGroup
+   klefki.types.algebra.groups.EllipicCyclicSubgroup
+   klefki.types.algebra.groups.JacobianGroup
+
+
+
+.. py:class:: EllipticCurveGroup(*args)
 
    Bases: :class:`klefki.types.algebra.abstract.Group`
 
@@ -24,18 +36,28 @@ Module Contents
    .. method:: fmap(self, o)
 
 
-
    .. method:: op(self, g)
 
+      The Operator for obeying axiom `associativity` (2)
 
 
    .. method:: inverse(self)
 
+      Implement for axiom `inverse`
 
 
    .. method:: identity(self)
       :property:
 
+      The value for obeying axiom `identity` (3)
+
+
+   .. method:: x(self)
+      :property:
+
+
+   .. method:: y(self)
+      :property:
 
 
    .. method:: lift_x(cls, x: FiniteField)
@@ -43,8 +65,7 @@ Module Contents
 
 
 
-
-.. py:class:: CyclicAddGroup
+.. py:class:: CyclicAddGroup(*args)
 
    Bases: :class:`klefki.types.algebra.abstract.Group`
 
@@ -56,26 +77,27 @@ Module Contents
    .. method:: fmap(self, o)
 
 
-
    .. method:: identity(self)
       :property:
 
+      The value for obeying axiom `identity` (3)
 
 
    .. method:: inverse(self)
 
+      Implement for axiom `inverse`
 
 
    .. method:: op(self, g)
 
+      The Operator for obeying axiom `associativity` (2)
 
 
    .. method:: __pow__(self, times)
 
 
 
-
-.. py:class:: EllipicCyclicSubroup
+.. py:class:: EllipicCyclicSubgroup(*args)
 
    Bases: :class:`klefki.types.algebra.groups.EllipticCurveGroup`
 
@@ -91,8 +113,7 @@ Module Contents
 
 
 
-
-.. py:class:: JacobianGroup
+.. py:class:: JacobianGroup(*args)
 
    Bases: :class:`klefki.types.algebra.abstract.Group`
 
@@ -109,22 +130,23 @@ Module Contents
    .. method:: fmap(self, o)
 
 
-
    .. method:: double(self, n=None)
-
 
 
    .. method:: identity(self)
       :property:
 
+      The value for obeying axiom `identity` (3)
 
 
    .. method:: inverse(self)
 
+      Implement for axiom `inverse`
 
 
    .. method:: op(self, g)
 
+      The Operator for obeying axiom `associativity` (2)
 
 
 

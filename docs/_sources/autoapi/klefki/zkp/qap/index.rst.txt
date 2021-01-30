@@ -1,0 +1,37 @@
+:mod:`klefki.zkp.qap`
+=====================
+
+.. py:module:: klefki.zkp.qap
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   klefki.zkp.qap.lagrange_polynomial
+   klefki.zkp.qap.transfer
+   klefki.zkp.qap.map2field
+   klefki.zkp.qap.R1CS2QAP
+   klefki.zkp.qap.verify_qap
+
+
+.. function:: lagrange_polynomial(xs, ys, field=int)
+
+
+.. function:: transfer(v, field=int)
+
+
+.. function:: map2field(v, field=int)
+
+
+.. function:: R1CS2QAP(s, A, B, C, field=int)
+
+
+.. function:: verify_qap(A, b, C, Z, H)
+
+

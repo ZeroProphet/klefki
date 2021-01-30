@@ -1,0 +1,6 @@
+:mod:`klefki.curves.ed25519`
+============================
+
+.. py:module:: klefki.curves.ed25519
+
+

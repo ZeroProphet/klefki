@@ -11,8 +11,10 @@ Subpackages
    :maxdepth: 3
 
    asn/index.rst
+   blockchain/index.rst
    client/index.rst
    crypto/index.rst
+   curves/index.rst
    mpc/index.rst
    numbers/index.rst
    types/index.rst

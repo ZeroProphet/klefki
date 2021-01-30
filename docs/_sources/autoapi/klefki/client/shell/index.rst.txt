@@ -7,6 +7,20 @@
 Module Contents
 ---------------
 
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   klefki.client.shell.command
+   klefki.client.shell.shell
+   klefki.client.shell.help
+   klefki.client.shell.not_found
+   klefki.client.shell.output
+   klefki.client.shell.router
+
+
 .. function:: command(fn, name=None)
 
 

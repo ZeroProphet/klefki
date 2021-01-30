@@ -7,21 +7,29 @@
 Module Contents
 ---------------
 
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   klefki.zkp.commitment.Sigma
+   klefki.zkp.commitment.Commitment
+   klefki.zkp.commitment.TrapdoorCommitment
+
+
+
 .. py:class:: Sigma
 
    .. method:: commit(self, m, r)
       :property:
 
 
-
    .. method:: challenge(self, e)
       :property:
 
 
-
    .. method:: proof(self)
       :property:
-
 
 
 

@@ -7,6 +7,23 @@
 Module Contents
 ---------------
 
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   klefki.crypto.damgard_jurik.DJPaillier
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   klefki.crypto.damgard_jurik.damgard_jurik_reduce
+
+
 .. function:: damgard_jurik_reduce(a: int, n: int, s=1) -> int
 
    Computes i given a = (1 + n)^i (mod n^(s+1)).
@@ -24,23 +41,18 @@ Module Contents
       :staticmethod:
 
 
-
    .. method:: encrypt(cls, m, pub, s=1, r=None)
       :classmethod:
-
 
 
    .. method:: decrypt(cls, c, priv, pub, s=1)
       :classmethod:
 
 
-
    .. method:: E(self, m, pub=None, s=None, r=None)
 
 
-
    .. method:: D(self, c, priv=None, pub=None, s=None)
-
 
 
 

@@ -7,7 +7,16 @@
 Module Contents
 ---------------
 
-.. py:class:: FiniteField
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   klefki.types.algebra.fields.FiniteField
+
+
+
+.. py:class:: FiniteField(*args)
 
    Bases: :class:`klefki.types.algebra.abstract.Field`
 
@@ -19,35 +28,37 @@ Module Contents
    .. method:: fmap(self, o)
 
 
-
    .. method:: identity(self)
       :property:
 
+      The value for obeying axiom `identity` (3)
 
 
    .. method:: sec_identity(self)
       :property:
 
 
-
    .. method:: inverse(self)
 
+      Implement for axiom `inverse`
 
 
    .. method:: mod(self, a, b)
 
 
-
    .. method:: sec_inverse(self)
 
+      Implement for axiom `inverse`
 
 
    .. method:: op(self, g)
 
+      The Operator for obeying axiom `associativity` (2)
 
 
    .. method:: sec_op(self, g)
 
+      The Operator for obeying axiom `associativity` (2)
 
 
 

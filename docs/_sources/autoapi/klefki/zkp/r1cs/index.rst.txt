@@ -1,0 +1,115 @@
+:mod:`klefki.zkp.r1cs`
+======================
+
+.. py:module:: klefki.zkp.r1cs
+
+.. autoapi-nested-parse::
+
+   from https://github.com/ethereum/research/blob/master/zksnark/code_to_r1cs.py
+   ref: https://medium.com/@VitalikButerin/quadratic-arithmetic-programs-from-zero-to-hero-f6d558cea649
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   klefki.zkp.r1cs.R1CS
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   klefki.zkp.r1cs.parse
+   klefki.zkp.r1cs.extract_inputs_and_body
+   klefki.zkp.r1cs.flatten_body
+   klefki.zkp.r1cs.mksymbol
+   klefki.zkp.r1cs.flatten_stmt
+   klefki.zkp.r1cs.flatten_expr
+   klefki.zkp.r1cs.insert_var
+   klefki.zkp.r1cs.get_var_placement
+   klefki.zkp.r1cs.flatcode_to_r1cs
+   klefki.zkp.r1cs.grab_var
+   klefki.zkp.r1cs.assign_variables
+   klefki.zkp.r1cs.code_to_r1cs_with_inputs
+   klefki.zkp.r1cs.code_to_r1cs_result
+   klefki.zkp.r1cs.code_to_r1cs
+   klefki.zkp.r1cs.mul
+
+
+.. data:: arg
+   
+
+   
+
+.. function:: parse(code)
+
+
+.. function:: extract_inputs_and_body(code)
+
+
+.. function:: flatten_body(body)
+
+
+.. data:: next_symbol
+   :annotation: = [0]
+
+   
+
+.. function:: mksymbol()
+
+
+.. function:: flatten_stmt(stmt)
+
+
+.. function:: flatten_expr(target, expr)
+
+
+.. function:: insert_var(arr, varz, var, used, reverse=False)
+
+
+.. function:: get_var_placement(inputs, flatcode)
+
+
+.. function:: flatcode_to_r1cs(inputs, flatcode)
+
+
+.. function:: grab_var(varz, assignment, var)
+
+
+.. function:: assign_variables(inputs, input_vars, flatcode)
+
+
+.. function:: code_to_r1cs_with_inputs(code, input_vars)
+
+
+.. function:: code_to_r1cs_result(code, input_vars)
+
+
+.. function:: code_to_r1cs(code)
+
+
+.. function:: mul(a, b)
+
+
+.. py:class:: R1CS
+
+   .. method:: parse(code, input_vals)
+      :staticmethod:
+
+
+   .. method:: verify(s, A, B, C)
+      :staticmethod:
+
+
+   .. method:: r1cs(f)
+
+
+

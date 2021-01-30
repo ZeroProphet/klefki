@@ -34,6 +34,8 @@ Academic Notes
    POD-Mini and POD-AS
    Damgard-Jurik Scheme of Paillier
    Threshold Paillier Cryptosystem
+   R1CS to QAP
+   MimbleWimble
 
 
 Documents
