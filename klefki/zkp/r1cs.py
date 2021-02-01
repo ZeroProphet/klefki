@@ -114,7 +114,7 @@ def flatten_expr(target, expr):
                     o.append(['*', nxt, latest, base])
                 return o
         else:
-            raise Exception("Bad operation: " % ast.dump(stmt.op))
+            raise Exception("Bad operation: " % ast.dump(expr.op))
         # If the subexpression is a variable or a number, then include it directly
         if isinstance(expr.left, (ast.Name, ast.Num)):
             var1 = expr.left.id if isinstance(expr.left, ast.Name) else expr.left.n
