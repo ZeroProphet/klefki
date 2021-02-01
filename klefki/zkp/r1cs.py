@@ -13,15 +13,6 @@ if 'arg' not in dir(ast):
 def parse(code):
     return ast.parse(code).body
 
-# Takes code of the form
-# def foo(arg1, arg2 ...):
-#     x = arg1 + arg2
-#     y = ...
-#     return x + y
-# And extracts the inputs and the body, where
-# it expects the body to be a sequence of
-# variable assignments (variables are immutable;
-# can only be set once) and a return statement at the end
 def extract_inputs_and_body(code):
     if len(code) != 1 or not isinstance(code[0], ast.FunctionDef):
         raise Exception("Expecting function declaration")
@@ -73,6 +64,7 @@ def flatten_stmt(stmt):
         target = '~out'
     # Get inner content
     return flatten_expr(target, stmt.value)
+
 
 # Main method for flattening an expression
 def flatten_expr(target, expr):
@@ -135,7 +127,7 @@ def flatten_expr(target, expr):
         # processing for the subexpression if any
         return sub1 + sub2 + [[op, target, var1, var2]]
     else:
-        raise Exception("Unexpected statement value: %r" % stmt.value)
+        raise Exception("Unexpected statement value: %r" % expr.value)
 
 # Adds a variable or number into one of the vectors; if it's a variable
 # then the slot associated with that variable is set to 1, and if it's
@@ -150,7 +142,8 @@ def insert_var(arr, varz, var, used, reverse=False):
 
 # Maps input, output and intermediate variables to indices
 def get_var_placement(inputs, flatcode):
-    return ['~one'] + [x for x in inputs] + ['~out'] + [c[1] for c in flatcode if c[1] not in inputs and c[1] != '~out']
+    return ['~one'] + [x for x in inputs] + ['~out'] + [
+        c[1] for c in flatcode if c[1] not in inputs and c[1] != '~out']
 
 
 # Convert the flattened code generated above into a rank-1 constraint system
@@ -197,21 +190,19 @@ def grab_var(varz, assignment, var):
 # Goes through flattened code and completes the input vector
 def assign_variables(inputs, input_vars, flatcode, field):
     varz = get_var_placement(inputs, flatcode)
+
     assignment = [field(0)] * len(varz)
     assignment[0] = field(1)
     for i, inp in enumerate(input_vars):
         assignment[i + 1] = field(inp)
     for x in flatcode:
-        if x[0] == 'set':
-            assignment[varz.index(x[1])] = field(grab_var(varz, assignment, x[2]))
-        elif x[0] == '+':
-            assignment[varz.index(x[1])] = field(grab_var(varz, assignment, x[2])) + field(grab_var(varz, assignment, x[3]))
-        elif x[0] == '-':
-            assignment[varz.index(x[1])] = field(grab_var(varz, assignment, x[2])) - field(grab_var(varz, assignment, x[3]))
-        elif x[0] == '*':
-            assignment[varz.index(x[1])] = field(grab_var(varz, assignment, x[2])) * field(grab_var(varz, assignment, x[3]))
-        elif x[0] == '/':
-            assignment[varz.index(x[1])] = field(grab_var(varz, assignment, x[2])) / field(grab_var(varz, assignment, x[3]))
+        assignment[varz.index(x[1])] = {
+            "set": field(grab_var(varz, assignment, x[2])),
+            "+": field(grab_var(varz, assignment, x[2])) + field(grab_var(varz, assignment, x[3])),
+            "-": field(grab_var(varz, assignment, x[2])) - field(grab_var(varz, assignment, x[3])),
+            "*": field(grab_var(varz, assignment, x[2])) * field(grab_var(varz, assignment, x[3])),
+            "/": field(grab_var(varz, assignment, x[2])) / field(grab_var(varz, assignment, x[3]))
+        }[x[0]]
     return assignment
 
 
