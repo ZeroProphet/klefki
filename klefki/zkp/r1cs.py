@@ -213,23 +213,12 @@ def code_to_r1cs_with_inputs(code, input_vars, field):
     r = assign_variables(inputs, input_vars, flatcode, field)
     return r, A, B, C
 
-def code_to_r1cs_result(code, input_vars, field=int):
-    inputs, body = extract_inputs_and_body(parse(code))
-    flatcode = flatten_body(body)
-    r = assign_variables(inputs, input_vars, flatcode, field)
-    return r
-
-def code_to_r1cs(code, field):
-    inputs, body = extract_inputs_and_body(parse(code))
-    flatcode = flatten_body(body)
-    A, B, C = flatcode_to_r1cs(inputs, flatcode, field)
-    return A, B, C
-
 
 def mul(a, b):
     return list(map(lambda x: x[0] * x[1], zip(a, b)))
 
 class R1CS:
+
     @staticmethod
     def parse(code, input_vals, field=int):
         s, A, B, C = code_to_r1cs_with_inputs(code, input_vals, field)
@@ -245,9 +234,11 @@ class R1CS:
     @staticmethod
     def r1cs(f, field=int):
         src = inspect.getsource(f)
-        def wit(*args):
-            return code_to_r1cs_result(src, list(args), field)
-        f.witness = wit
-        f.r1cs = code_to_r1cs(src, field)
+        inputs, body = extract_inputs_and_body(parse(src))
+        f.flatcode = flatten_body(body)
+        f.r1cs = flatcode_to_r1cs(inputs, f.flatcode, field)
         f.src = src
+        def wit(*args):
+            return assign_variables(inputs, args, f.flatcode, field)
+        f.witness = wit
         return f
