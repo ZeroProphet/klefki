@@ -23,7 +23,6 @@ def parse(code):
 # variable assignments (variables are immutable;
 # can only be set once) and a return statement at the end
 def extract_inputs_and_body(code):
-    o = []
     if len(code) != 1 or not isinstance(code[0], ast.FunctionDef):
         raise Exception("Expecting function declaration")
     # Gather the list of input variables
