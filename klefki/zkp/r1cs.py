@@ -237,6 +237,10 @@ class R1CS:
         inputs, body = extract_inputs_and_body(parse(src))
         f.flatcode = flatten_body(body)
         f.r1cs = flatcode_to_r1cs(inputs, f.flatcode, field)
+        f.A = f.r1cs[0]
+        f.B = f.r1cs[1]
+        f.C = f.r1cs[2]
+        f.var = get_var_placement(inputs, f.flatcode)
         f.src = src
         def wit(*args):
             return assign_variables(inputs, args, f.flatcode, field)
