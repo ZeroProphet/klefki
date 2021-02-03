@@ -21,6 +21,16 @@ def t3(x, y):
     y = x**3
     return y + x + 5 + 2
 
+
+@R1CS.r1cs
+def t4(x, y):
+    for _ in range(10):
+        y = x
+        y = x + 2
+        y = x**3
+    return y + x + 5 + 2
+
+
 def test_r1cs():
     s = t.witness(3)
     assert R1CS.verify(s, *t.r1cs)
@@ -31,3 +41,6 @@ def test_r1cs():
 
     s = t3.witness(1, 2)
     assert s[3] == t3(1, 2)
+
+    s = t4.witness(1, 2)
+    assert s[3] == t4(1, 2)

@@ -1,6 +1,8 @@
 import ast
 from time import time
 
+debugger = None
+
 class Flattener:
     def __init__(self, src):
         raw = ast.parse(src).body
@@ -23,17 +25,35 @@ class Flattener:
     def extra_inputs(self):
         self.inputs = [arg.arg for arg in self.raw.args.args]
 
+    def extra_loop(self, loop):
+        """
+        only support:
+        for _ in range(3):
+        """
+        assert loop.target.id == "_"
+        assert loop.iter.func.id == "range"
+        assert len(loop.iter.args) == 1
+        assert isinstance(loop.iter.args[0], ast.Constant)
+        times = loop.iter.args[0].value
+        return sum([
+            loop.body for t in range(times)
+        ], [])
+
     def extra_body(self):
         body = []
-        avalid_stmt = (ast.Assign, ast.Return)
+        avalid_stmt = (ast.Assign, ast.Return, ast.For)
         returned = False
         for c in self.raw.body:
             assert isinstance(c, avalid_stmt)
             assert not returned
-            if isinstance(c, ast.Return):
+            if isinstance(c, ast.For):
+                body += self.extra_loop(c)
+                continue
+            elif isinstance(c, ast.Return):
                 returned = True
             body.append(c)
         self.body = body
+
 
     def flatten_body(self):
         self.flatten_code = sum([self.flatten_stmt(c) for c in self.body], [])
