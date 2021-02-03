@@ -17,6 +17,9 @@ class Flattener:
         self._symbol += 1
         return ret
 
+    def latest_sym(self, base="Sym"):
+        return [s for s in self.syms if base in s][-1]
+
     def extra_inputs(self):
         self.inputs = [arg.arg for arg in self.raw.args.args]
 
@@ -75,7 +78,10 @@ class Flattener:
             return self.flatten_pow(target, expr)
 
         if isinstance(expr.left, (ast.Name, ast.Num)):
-            var1 = expr.left.id if isinstance(expr.left, ast.Name) else expr.left.n
+            if isinstance(expr.left, ast.Name):
+                var1 = self.latest_sym(expr.left.id)
+            else:
+                var1 = expr.left.n
             sub1 = []
         # If one of the subexpressions is itself a compound expression, recursively
         # apply this method to it using an intermediate variable
@@ -84,7 +90,10 @@ class Flattener:
             sub1 = self.flatten_expr(var1, expr.left)
         # Same for right subexpression as for left subexpression
         if isinstance(expr.right, (ast.Name, ast.Num)):
-            var2 = expr.right.id if isinstance(expr.right, ast.Name) else expr.right.n
+            if isinstance(expr.right, ast.Name):
+                var2 = self.latest_sym(expr.right.id)
+            else:
+                var2 = expr.right.n
             sub2 = []
         else:
             var2 = self.mk_symbol()
