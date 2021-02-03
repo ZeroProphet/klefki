@@ -7,12 +7,13 @@ class Flattener:
         assert len(raw) == 1 and isinstance(raw[0], ast.FunctionDef), "only support function"
         self.raw = raw[0]
         self.extra_inputs()
+        self.syms = [i for i in self.inputs]
         self.extra_body()
         self._symbol = 0
         self.flatten_body()
 
-    def mk_symbol(self):
-        ret = "Sym-%s" % str(self._symbol)
+    def mk_symbol(self, base="Sym"):
+        ret = "%s-%s" % (base, str(self._symbol))
         self._symbol += 1
         return ret
 
@@ -39,6 +40,9 @@ class Flattener:
         if isinstance(s, ast.Assign):
             assert len(s.targets) == 1 and isinstance(s.targets[0], ast.Name)
             target = s.targets[0].id
+            if target in self.syms:
+                target = self.mk_symbol(target)
+            self.syms.append(target)
 
         elif isinstance(s, ast.Return):
             target = '~out'
@@ -84,7 +88,7 @@ class Flattener:
             sub2 = []
         else:
             var2 = self.mk_symbol()
-            sub2 = self.flatten_expr(var2, expr.right)
+            sub2 = flatten_expr(var2, expr.right)
         # Last expression represents the assignment; sub1 and sub2 represent the
         # processing for the subexpression if any
         return sub1 + sub2 + [[op, target, var1, var2]]
@@ -95,7 +99,7 @@ class Flattener:
         if expr.right.n == 0:
             return [['set', target, 1]]
         elif expr.right.n == 1:
-            return self.flatten_expr(target, expr.left)
+            return flatten_expr(target, expr.left)
         else: # This could be made more efficient via square-and-multiply but oh well
             if isinstance(expr.left, (ast.Name, ast.Num)):
                 nxt = base = expr.left.id if isinstance(expr.left, ast.Name) else expr.left.n
