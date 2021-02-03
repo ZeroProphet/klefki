@@ -1,8 +1,6 @@
 import ast
 from time import time
 
-debugger = None
-
 class Flattener:
     def __init__(self, src, cxt={}):
         self.cxt = cxt
