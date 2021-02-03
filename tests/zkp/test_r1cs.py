@@ -1,5 +1,5 @@
 from klefki.zkp.r1cs import R1CS
-
+from functools import partial
 
 @R1CS.r1cs
 def t(x):
@@ -30,6 +30,14 @@ def t4(x, y):
         y = x**3
     return y + x + 5 + 2
 
+A = 10
+@partial(R1CS.r1cs, cxt=locals())
+def t5(x, y):
+    for _ in range(A):
+        y = x
+        y = x + 2
+        y = x**3
+    return y + x + 5 + 2
 
 def test_r1cs():
     s = t.witness(3)
@@ -44,3 +52,6 @@ def test_r1cs():
 
     s = t4.witness(1, 2)
     assert s[3] == t4(1, 2)
+
+    s = t5.witness(1, 2)
+    assert s[3] == t5(1, 2)

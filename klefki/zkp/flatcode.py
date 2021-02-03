@@ -4,7 +4,8 @@ from time import time
 debugger = None
 
 class Flattener:
-    def __init__(self, src):
+    def __init__(self, src, cxt={}):
+        self.cxt = cxt
         raw = ast.parse(src).body
         assert len(raw) == 1 and isinstance(raw[0], ast.FunctionDef), "only support function"
         self.raw = raw[0]
@@ -30,11 +31,15 @@ class Flattener:
         only support:
         for _ in range(3):
         """
+        avalid_iter_arg = (ast.Constant, ast.Name)
         assert loop.target.id == "_"
         assert loop.iter.func.id == "range"
         assert len(loop.iter.args) == 1
-        assert isinstance(loop.iter.args[0], ast.Constant)
-        times = loop.iter.args[0].value
+        assert isinstance(loop.iter.args[0], avalid_iter_arg)
+        if isinstance(loop.iter.args[0], ast.Constant):
+            times = loop.iter.args[0].value
+        else:
+            times = self.cxt[loop.iter.args[0].id]
         return sum([
             loop.body for t in range(times)
         ], [])

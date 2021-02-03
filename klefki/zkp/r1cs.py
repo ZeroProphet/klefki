@@ -113,9 +113,9 @@ class R1CS:
         return ret
 
     @staticmethod
-    def r1cs(f, field=int):
+    def r1cs(f, field=int, cxt={}):
         src = inspect.getsource(f)
-        flatten = Flattener(src)
+        flatten = Flattener(src, cxt)
         inputs = flatten.inputs
         f.flatcode = flatten.flatten_code
         f.r1cs = flatcode_to_r1cs(inputs, f.flatcode, field)
