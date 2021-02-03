@@ -77,12 +77,12 @@ def assign_variables(inputs, input_vars, flatcode, field):
         assignment[i + 1] = field(inp)
     for x in flatcode:
         assignment[varz.index(x[1])] = {
-            "set": field(grab_var(varz, assignment, x[2])),
-            "+": field(grab_var(varz, assignment, x[2])) + field(grab_var(varz, assignment, x[3])),
-            "-": field(grab_var(varz, assignment, x[2])) - field(grab_var(varz, assignment, x[3])),
-            "*": field(grab_var(varz, assignment, x[2])) * field(grab_var(varz, assignment, x[3])),
-            "/": field(grab_var(varz, assignment, x[2])) / field(grab_var(varz, assignment, x[3]))
-        }[x[0]]
+            "set": lambda :field(grab_var(varz, assignment, x[2])),
+            "+": lambda :field(grab_var(varz, assignment, x[2])) + field(grab_var(varz, assignment, x[3])),
+            "-": lambda :field(grab_var(varz, assignment, x[2])) - field(grab_var(varz, assignment, x[3])),
+            "*": lambda :field(grab_var(varz, assignment, x[2])) * field(grab_var(varz, assignment, x[3])),
+            "/": lambda :field(grab_var(varz, assignment, x[2])) / field(grab_var(varz, assignment, x[3]))
+        }[x[0]]()
     return assignment
 
 

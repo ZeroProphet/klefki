@@ -1,26 +1,27 @@
 from klefki.zkp.r1cs import R1CS
-from klefki.curves.baby_jubjub import FiniteFieldBabyJubjub as F
-from functools import partial
+
 
 @R1CS.r1cs
-def qeval(x):
+def t(x):
     y = x**3
     return y + x + 5
 
-def test_r1cs():
-    assert qeval.r1cs == ([[0, 1, 0, 0, 0, 0],
-                           [0, 0, 0, 1, 0, 0],
-                           [0, 1, 0, 0, 1, 0],
-                           [5, 0, 0, 0, 0, 1]],
-                          [[0, 1, 0, 0, 0, 0],
-                           [0, 1, 0, 0, 0, 0],
-                           [1, 0, 0, 0, 0, 0],
-                           [1, 0, 0, 0, 0, 0]],
-                          [[0, 0, 0, 1, 0, 0],
-                           [0, 0, 0, 0, 1, 0],
-                           [0, 0, 0, 0, 0, 1],
-                           [0, 0, 1, 0, 0, 0]])
+@R1CS.r1cs
+def t2(x):
+    y = x
+    y = x + 2
+    y = x**3
+    return y + x + 5 + 2
 
-    s = qeval.witness(3)
-    A, B, C = qeval.r1cs
-    assert R1CS.verify(s, A, B, C)
+
+@R1CS.r1cs
+def t3(x, y):
+    y = x
+    y = x + 2
+    y = x**3
+    return y + x + 5 + 2
+
+def test_r1cs():
+    s = t.witness(3)
+    assert R1CS.verify(s, *t.r1cs)
+    assert s[2] == t(3)
