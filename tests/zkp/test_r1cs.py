@@ -31,9 +31,19 @@ def t4(x, y):
     return y + x + 5 + 2
 
 A = 10
-@R1CS.r1cs(cxt=locals())
+@R1CS.r1cs(ctx=locals())
 def t5(x, y):
     for _ in range(A):
+        y = x
+        y = x + 2
+        y = x**3
+    return y + x + 5 + 2
+
+
+@R1CS.r1cs(ctx=locals())
+def t6(x, y):
+    for _ in range(10):
+        y = t(x)
         y = x
         y = x + 2
         y = x**3
@@ -55,3 +65,7 @@ def test_r1cs():
 
     s = t5.witness(1, 2)
     assert s[3] == t5(1, 2)
+
+
+    s = t6.witness(1, 2)
+    assert s[3] == t6(1, 2)

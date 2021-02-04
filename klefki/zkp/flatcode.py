@@ -1,9 +1,11 @@
 import ast
 from time import time
+from copy import deepcopy
 
 class Flattener:
-    def __init__(self, src, cxt={}):
-        self.cxt = cxt
+    def __init__(self, src, ctx={}):
+        self.ops = ["set", "+", "-", "*", "/"]
+        self.ctx = ctx
         raw = ast.parse(src).body
         assert len(raw) == 1 and isinstance(raw[0], ast.FunctionDef), "only support function"
         self.raw = raw[0]
@@ -12,14 +14,29 @@ class Flattener:
         self.extra_body()
         self._symbol = 0
         self.flatten_body()
+        self.closure = {}
+
+    def closure_alias(self, sym, refs):
+        if not isinstance(sym, str):
+            return sym
+        if sym in self.ops:
+            return sym
+        return "Local<Rc(%s)>%s" % (refs, sym)
 
     def mk_symbol(self, base="Sym"):
-        ret = "%s-%s" % (base, str(self._symbol))
+        ret = "%s::%s" % (base, str(self._symbol))
         self._symbol += 1
         return ret
 
-    def latest_sym(self, base="Sym"):
-        return [s for s in self.syms if base in s][-1]
+    def latest_sym(self, base):
+        if not isinstance(base, str):
+            return base
+        base = base.split("::")[0]
+        syms = [s for s in self.syms if s.split("::")[0] == base]
+        if len(syms):
+            return syms[-1]
+        else:
+            return base
 
     def extra_inputs(self):
         self.inputs = [arg.arg for arg in self.raw.args.args]
@@ -37,7 +54,7 @@ class Flattener:
         if isinstance(loop.iter.args[0], ast.Constant):
             times = loop.iter.args[0].value
         else:
-            times = self.cxt[loop.iter.args[0].id]
+            times = self.ctx[loop.iter.args[0].id]
         return sum([
             loop.body for t in range(times)
         ], [])
@@ -76,6 +93,8 @@ class Flattener:
         return self.flatten_expr(target, s.value)
 
     def flatten_expr(self, target, expr):
+        avalid_expr = (ast.Name, ast.Num, ast.BinOp, ast.Call)
+        assert isinstance(expr, avalid_expr), expr
         # x = y
         if isinstance(expr, ast.Name):
             return [['set', target, expr.id]]
@@ -85,6 +104,32 @@ class Flattener:
 
         elif isinstance(expr, ast.BinOp):
             return self.flatten_binop(target, expr)
+        elif isinstance(expr, ast.Call):
+            return self.flatten_call(target, expr)
+
+    def flatten_call(self, target, expr):
+        fn_ins = self.ctx[expr.func.id]
+        if not hasattr(fn_ins, "rc"):
+            fn_ins.rc = -1
+        fn_ins.rc += 1
+        fn_flat = deepcopy(fn_ins.flatcode)
+        fn_inputs = fn_ins.inputs
+        fn_args = [self.latest_sym(a.id) for a in expr.args]
+
+        # tagging closure vars:
+        for f in fn_flat:
+            for i in range(len(f)):
+                if isinstance(f[i], str):
+                    # mark as local rc
+                    if not f[i].split("::")[0] in fn_inputs:
+                        f[i] = self.closure_alias(f[i], fn_ins.rc)
+                    else:
+                    # update global vars to latest
+                        f[i] = self.latest_sym(fn_inputs.index(f[i]))
+
+        fn_flat[-1][1] = target
+        return fn_flat
+
 
     def flatten_binop(self, target, expr):
         avalid_binop = (ast.Mult, ast.Add, ast.Sub, ast.Div, ast.Pow)

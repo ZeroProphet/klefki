@@ -114,20 +114,20 @@ class R1CS:
         return ret
 
     @staticmethod
-    def r1cs(fn_or_field=int, cxt={}):
+    def r1cs(fn_or_field=int, ctx={}):
         def wrapper(f):
             src = inspect.getsource(f)
-            flatten = Flattener(src, cxt)
-            inputs = flatten.inputs
+            flatten = Flattener(src, ctx)
+            f.inputs = flatten.inputs
             f.flatcode = flatten.flatten_code
-            f.r1cs = flatcode_to_r1cs(inputs, f.flatcode, field)
+            f.r1cs = flatcode_to_r1cs(f.inputs, f.flatcode, field)
             f.A = f.r1cs[0]
             f.B = f.r1cs[1]
             f.C = f.r1cs[2]
-            f.var = get_var_placement(inputs, f.flatcode)
+            f.var = get_var_placement(f.inputs, f.flatcode)
             f.src = src
             def wit(*args):
-                return assign_variables(inputs, args, f.flatcode, field)
+                return assign_variables(f.inputs, args, f.flatcode, field)
             f.witness = wit
             return f
         if isinstance(fn_or_field, types.FunctionType):
