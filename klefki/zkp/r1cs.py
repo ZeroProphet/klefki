@@ -34,8 +34,8 @@ def flatcode_to_r1cs(inputs, flatcode, field=int):
     used = {i: True for i in inputs}
     for x in flatcode:
         a, b, c = [field(0)] * len(varz), [field(0)] * len(varz), [field(0)] * len(varz)
-        if x[1] in used:
-            raise Exception("Variable already used: %r" % x[1])
+        # if x[1] in used:
+        #     raise Exception("Variable already used: %r" % x[1])
         used[x[1]] = True
         if x[0] == 'set':
             a[varz.index(x[1])] += field(1)

@@ -61,7 +61,7 @@ class Flattener:
 
     def extra_body(self):
         body = []
-        avalid_stmt = (ast.Assign, ast.Return, ast.For)
+        avalid_stmt = (ast.Assign, ast.Return, ast.For, ast.Assert)
         returned = False
         for c in self.raw.body:
             assert isinstance(c, avalid_stmt)
@@ -79,6 +79,20 @@ class Flattener:
         self.flatten_code = sum([self.flatten_stmt(c) for c in self.body], [])
 
 
+    def transfer_assert(self, stmt):
+        assert isinstance(stmt.test, ast.Compare)
+        assert len(stmt.test.ops) == 1
+        assert isinstance(stmt.test.ops[0], ast.Eq)
+        assert isinstance(stmt.test.left, ast.Name)
+        target = stmt.test.left.id
+        # dont make new symbol if assert
+        # instead, use the latest symbol of target
+        target = self.latest_sym(target)
+        self.syms.append(target)
+        value = stmt.test.comparators[0]
+        return self.flatten_expr(target, value)
+
+
     def flatten_stmt(self, s):
         if isinstance(s, ast.Assign):
             assert len(s.targets) == 1 and isinstance(s.targets[0], ast.Name)
@@ -86,6 +100,8 @@ class Flattener:
             if target in self.syms:
                 target = self.mk_symbol(target)
             self.syms.append(target)
+        elif isinstance(s, ast.Assert):
+            return self.transfer_assert(s)
 
         elif isinstance(s, ast.Return):
             target = '~out'
@@ -94,10 +110,11 @@ class Flattener:
 
     def flatten_expr(self, target, expr):
         avalid_expr = (ast.Name, ast.Num, ast.BinOp, ast.Call)
+
         assert isinstance(expr, avalid_expr), expr
         # x = y
         if isinstance(expr, ast.Name):
-            return [['set', target, expr.id]]
+            return [['set', target, self.latest_sym(expr.id)]]
         # x = 5
         elif isinstance(expr, ast.Num):
             return [['set', target, expr.n]]
@@ -114,7 +131,6 @@ class Flattener:
         fn_ins.rc += 1
         fn_flat = deepcopy(fn_ins.flatcode)
         fn_inputs = fn_ins.inputs
-        fn_args = [self.latest_sym(a.id) for a in expr.args]
 
         # tagging closure vars:
         for f in fn_flat:
@@ -125,7 +141,11 @@ class Flattener:
                         f[i] = self.closure_alias(f[i], fn_ins.rc)
                     else:
                     # update global vars to latest
-                        f[i] = self.latest_sym(fn_inputs.index(f[i]))
+                        if f[i] in fn_inputs:
+                            f[i] = self.latest_sym(fn_inputs.index(f[i]))
+                        else:
+                            f[i] = self.closure_alias(f[i], fn_ins.rc)
+
 
         fn_flat[-1][1] = target
         return fn_flat
@@ -165,6 +185,7 @@ class Flattener:
             sub2 = []
         else:
             var2 = self.mk_symbol()
+            self.syms.append(var2)
             sub2 = flatten_expr(var2, expr.right)
         # Last expression represents the assignment; sub1 and sub2 represent the
         # processing for the subexpression if any
