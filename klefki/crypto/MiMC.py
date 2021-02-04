@@ -6,6 +6,7 @@ Ref: https://eprint.iacr.org/2016/492.pdf
 from klefki.curves.baby_jubjub import FiniteFieldBabyJubjub as F
 from klefki.types.algebra.utils import randfield
 from klefki.utils import to_sha256int
+from klefki.zkp.r1cs import R1CS
 from functools import partial, reduce
 from itertools import count
 import time
@@ -25,6 +26,22 @@ class MiMC:
         if not r: r = self.r
         Fs = [partial(self.F, k=k, c=c) for c in self.c[:r]]
         return reduce(lambda x, y: x + y(x), Fs[1:], Fs[0](x)) + k
+
+    @property
+    def r1cs(self):
+        R = self.r
+        C = self.c
+        F = self.field
+
+        def mimc(x, k):
+            for _ in range(R):
+                c = C[i]
+                x = x + k
+                x = x + c
+                x = x ** 3
+            return x + k
+
+        return R1CS.r1cs(F, locals())(mimc)
 
     def E(self, *args, **kwargs):
         return self.encrypt(*args, **kwargs)
