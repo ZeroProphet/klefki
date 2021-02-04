@@ -56,16 +56,22 @@ def test_r1cs():
 
     s = t2.witness(3)
     assert s[2] == t2(3)
+    assert R1CS.verify(s, *t2.r1cs)
+
 
     s = t3.witness(1, 2)
     assert s[3] == t3(1, 2)
+    assert R1CS.verify(s, *t3.r1cs)
 
     s = t4.witness(1, 2)
     assert s[3] == t4(1, 2)
+    assert R1CS.verify(s, *t4.r1cs)
 
     s = t5.witness(1, 2)
     assert s[3] == t5(1, 2)
+    assert R1CS.verify(s, *t5.r1cs)
 
 
     s = t6.witness(1, 2)
     assert s[3] == t6(1, 2)
+    assert R1CS.verify(s, *t6.r1cs)

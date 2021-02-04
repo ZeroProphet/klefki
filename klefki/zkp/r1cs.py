@@ -107,9 +107,9 @@ class R1CS:
         return (s, A, B, C)
 
     @staticmethod
-    def verify(s, A, B, C):
+    def verify(s, A, B, C, input_len=1):
         ret = True
-        for i in range(len(s)-2):
+        for i in range(len(A)):
             ret = ret and sum(mul(A[i], s)) * sum(mul(B[i], s)) == sum(mul(C[i], s))
         return ret
 
