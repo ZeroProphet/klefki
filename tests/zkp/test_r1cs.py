@@ -31,7 +31,7 @@ def t4(x, y):
     return y + x + 5 + 2
 
 A = 10
-@partial(R1CS.r1cs, cxt=locals())
+@R1CS.r1cs(cxt=locals())
 def t5(x, y):
     for _ in range(A):
         y = x

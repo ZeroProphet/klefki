@@ -6,6 +6,7 @@ ref: https://medium.com/@VitalikButerin/quadratic-arithmetic-programs-from-zero-
 import ast
 import inspect
 from klefki.zkp.flatcode import Flattener
+import types
 
 
 
@@ -113,18 +114,27 @@ class R1CS:
         return ret
 
     @staticmethod
-    def r1cs(f, field=int, cxt={}):
-        src = inspect.getsource(f)
-        flatten = Flattener(src, cxt)
-        inputs = flatten.inputs
-        f.flatcode = flatten.flatten_code
-        f.r1cs = flatcode_to_r1cs(inputs, f.flatcode, field)
-        f.A = f.r1cs[0]
-        f.B = f.r1cs[1]
-        f.C = f.r1cs[2]
-        f.var = get_var_placement(inputs, f.flatcode)
-        f.src = src
-        def wit(*args):
-            return assign_variables(inputs, args, f.flatcode, field)
-        f.witness = wit
-        return f
+    def r1cs(fn_or_field=int, cxt={}):
+        def wrapper(f):
+            src = inspect.getsource(f)
+            flatten = Flattener(src, cxt)
+            inputs = flatten.inputs
+            f.flatcode = flatten.flatten_code
+            f.r1cs = flatcode_to_r1cs(inputs, f.flatcode, field)
+            f.A = f.r1cs[0]
+            f.B = f.r1cs[1]
+            f.C = f.r1cs[2]
+            f.var = get_var_placement(inputs, f.flatcode)
+            f.src = src
+            def wit(*args):
+                return assign_variables(inputs, args, f.flatcode, field)
+            f.witness = wit
+            return f
+        if isinstance(fn_or_field, types.FunctionType):
+            f = fn_or_field
+            field = int
+            return wrapper(f)
+            return ret
+        else:
+            field = fn_or_field
+            return wrapper
