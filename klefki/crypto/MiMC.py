@@ -24,24 +24,22 @@ class MiMC:
 
     def encrypt(self, x, k, r=None):
         if not r: r = self.r
-        Fs = [partial(self.F, k=k, c=c) for c in self.c[:r]]
-        return reduce(lambda x, y: x + y(x), Fs[1:], Fs[0](x)) + k
+        return self.r1cs(x, k)
 
     @property
     def r1cs(self):
-        R = self.r
-        C = self.c
-        F = self.field
+        r = self.r
+        c = self.c
 
+        @R1CS.r1cs(self.field, self.__dict__)
         def mimc(x, k):
-            for _ in range(R):
-                c = C[i]
-                x = x + k
-                x = x + c
+            for i in range(r):
+                # x + k + c_i
+                x = x + c[i] + k
+                # x ^ 3
                 x = x ** 3
             return x + k
-
-        return R1CS.r1cs(F, locals())(mimc)
+        return mimc
 
     def E(self, *args, **kwargs):
         return self.encrypt(*args, **kwargs)
@@ -57,10 +55,20 @@ class FeistelMiMC(MiMC):
     def F(x, y, k, c):
         return (y, x + (y + k + c) ** 3)
 
-    def encrypt(self, x, y, k, r=None):
-        if not r: r = self.r
-        Ks = [(i + self.field(1)) * k for i in range(0, r)]
-        Fs = [partial(self.F, k=k, c=c) for (k, c) in zip(Ks[:r], self.c[:r])]
-        return reduce(
-            lambda x, y: y(*x), Fs[1:], Fs[0](x, y)
-        ) + (k, k)
+    @property
+    def r1cs(self):
+        r = self.r
+        c = self.c
+
+        @R1CS.r1cs(self.field, self.__dict__)
+        def mimc(x, y, k):
+            for i in range(r):
+                # k = k * (i+1)
+                j = i + 1
+                # (y, x) = (x, x + (y+k+c) ** 3)
+                m = y + k * j + c[i]
+                m = m ** 3 + m
+                x = y
+                y = m
+            return x + y
+        return mimc

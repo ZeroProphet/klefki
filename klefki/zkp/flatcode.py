@@ -6,6 +6,8 @@ class Flattener:
     def __init__(self, src, ctx={}):
         self.ops = ["set", "+", "-", "*", "/"]
         self.ctx = ctx
+        # drop decorator
+        src = "\n".join([r for r in src.split("\n") if not "@" in r])
         raw = ast.parse(src.lstrip()).body
         assert len(raw) == 1 and isinstance(raw[0], ast.FunctionDef), "only support function"
         self.raw = raw[0]
@@ -70,8 +72,20 @@ class Flattener:
         ret = [(i, deepcopy(loop.body)) for i in range(times)]
         for e in ret:
             for s in e[1]:
-                if isinstance(s, ast.Assign) and isinstance(s.value, ast.Subscript):
-                    s.value = self.handle_subscript(s.value, index=e[0])
+                if isinstance(s, ast.Assign):
+                    if isinstance(s.value, ast.Subscript):
+                        s.value = self.handle_subscript(s.value, index=e[0])
+                    if isinstance(s.value, ast.BinOp):
+                        if isinstance(s.value.right, ast.Subscript):
+                            s.value.right = self.handle_subscript(s.value.right, index=e[0])
+                        if isinstance(s.value.right, ast.Name) and s.value.right.id == loop_index:
+                            s.value.right = ast.Num(e[0])
+                        if isinstance(s.value.left, ast.Name) and s.value.left.id == loop_index:
+                            s.value.left = ast.Num(e[0])
+                    if isinstance(s.value, ast.Name) and s.value.id == loop_index:
+                        s.value = ast.Num(e[0])
+
+
         return sum([r[1] for r in ret], [])
 
     def extra_body(self):
@@ -108,7 +122,7 @@ class Flattener:
         return self.flatten_expr(target, value)
 
 
-    def flatten_stmt(self, s):
+    def flatten_stmt(self, s, force_target=None):
         if isinstance(s, ast.Assign):
             assert len(s.targets) == 1 and isinstance(s.targets[0], ast.Name)
             target = s.targets[0].id
@@ -120,7 +134,18 @@ class Flattener:
 
         elif isinstance(s, ast.Return):
             target = '~out'
+            # if isinstance(s.value, ast.Tuple):
+            #     rets = s.value.elts
+            #     ret = []
+            #     for i in range(len(rets)):
+            #         target = self.mk_symbol(target)
+            #         self.syms.append(target)
+            #         ret.append(
+            #             self.flatten_stmt(ast.Return(value=rets[i]), force_target=self.mk_symbol(target))
+            #         )
+            #     return ret
         # Get inner content
+        target = force_target or target
         return self.flatten_expr(target, s.value)
 
     def flatten_expr(self, target, expr):
