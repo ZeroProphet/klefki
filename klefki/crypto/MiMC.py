@@ -35,7 +35,8 @@ class MiMC:
         def mimc(x, k):
             for i in range(r):
                 # x + k + c_i
-                x = x + c[i] + k
+                x = x + k
+                x = x + c[i]
                 # x ^ 3
                 x = x ** 3
             return x + k
@@ -55,6 +56,14 @@ class FeistelMiMC(MiMC):
     def F(x, y, k, c):
         return (y, x + (y + k + c) ** 3)
 
+    def encrypt(self, x, y, k, r=None):
+        if not r: r = self.r
+        Ks = [(i + self.field(1)) * k for i in range(0, r)]
+        Fs = [partial(self.F, k=k, c=c) for (k, c) in zip(Ks[:r], self.c[:r])]
+        return reduce(
+            lambda x, y: y(*x), Fs[1:], Fs[0](x, y)
+        ) + (k, k)
+
     @property
     def r1cs(self):
         r = self.r
@@ -68,6 +77,7 @@ class FeistelMiMC(MiMC):
                 # (y, x) = (x, x + (y+k+c) ** 3)
                 m = y + k * j + c[i]
                 m = m ** 3 + m
+                m = x + m
                 x = y
                 y = m
             return x + y

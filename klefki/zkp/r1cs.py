@@ -41,12 +41,12 @@ def flatcode_to_r1cs(inputs, flatcode, field=int):
         if x[0] == 'set':
             a[varz.index(x[1])] += field(1)
             insert_var(a, varz, x[2], used, reverse=True)
-            b[0] = 1
+            b[0] = field(1)
         elif x[0] == '+' or x[0] == '-':
             c[varz.index(x[1])] = field(1)
             insert_var(a, varz, x[2], used)
             insert_var(a, varz, x[3], used, reverse=(x[0] == '-'))
-            b[0] = 1
+            b[0] = field(1)
         elif x[0] == '*':
             c[varz.index(x[1])] = field(1)
             insert_var(a, varz, x[2], used)
