@@ -217,8 +217,6 @@
 </li>
       <li><a href="autoapi/klefki/mpc/secret_sharing/index.html#klefki.mpc.secret_sharing.additive_share">additive_share() (in module klefki.mpc.secret_sharing)</a>
 </li>
-      <li><a href="autoapi/klefki/zkp/r1cs/index.html#klefki.zkp.r1cs.arg">arg (in module klefki.zkp.r1cs)</a>
-</li>
       <li><a href="autoapi/klefki/blockchain/bitcoin/script/consts/index.html#klefki.blockchain.bitcoin.script.consts.ARITHMETIC">ARITHMETIC (in module klefki.blockchain.bitcoin.script.consts)</a>
 </li>
       <li><a href="autoapi/klefki/zkp/r1cs/index.html#klefki.zkp.r1cs.assign_variables">assign_variables() (in module klefki.zkp.r1cs)</a>
@@ -325,9 +323,7 @@
       </ul></li>
       <li><a href="autoapi/klefki/blockchain/eos/public/index.html#klefki.blockchain.eos.public.checksum">checksum() (in module klefki.blockchain.eos.public)</a>
 </li>
-      <li><a href="autoapi/klefki/zkp/r1cs/index.html#klefki.zkp.r1cs.code_to_r1cs">code_to_r1cs() (in module klefki.zkp.r1cs)</a>
-</li>
-      <li><a href="autoapi/klefki/zkp/r1cs/index.html#klefki.zkp.r1cs.code_to_r1cs_result">code_to_r1cs_result() (in module klefki.zkp.r1cs)</a>
+      <li><a href="autoapi/klefki/zkp/flatcode/index.html#klefki.zkp.flatcode.Flattener.closure_alias">closure_alias() (klefki.zkp.flatcode.Flattener method)</a>
 </li>
       <li><a href="autoapi/klefki/zkp/r1cs/index.html#klefki.zkp.r1cs.code_to_r1cs_with_inputs">code_to_r1cs_with_inputs() (in module klefki.zkp.r1cs)</a>
 </li>
@@ -501,10 +497,10 @@
         <li><a href="autoapi/klefki/blockchain/eos/private/index.html#klefki.blockchain.eos.private.encode_privkey">(in module klefki.blockchain.eos.private)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="autoapi/klefki/blockchain/ethereum/private/index.html#klefki.blockchain.ethereum.private.encode_privkey">encode_privkey() (in module klefki.blockchain.ethereum.private)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="autoapi/klefki/blockchain/bitcoin/public/index.html#klefki.blockchain.bitcoin.public.encode_pubkey">encode_pubkey() (in module klefki.blockchain.bitcoin.public)</a>
 
       <ul>
@@ -539,7 +535,11 @@
 </li>
       <li><a href="autoapi/klefki/algorithms/index.html#klefki.algorithms.extended_euclidean_algorithm">extended_euclidean_algorithm() (in module klefki.algorithms)</a>
 </li>
-      <li><a href="autoapi/klefki/zkp/r1cs/index.html#klefki.zkp.r1cs.extract_inputs_and_body">extract_inputs_and_body() (in module klefki.zkp.r1cs)</a>
+      <li><a href="autoapi/klefki/zkp/flatcode/index.html#klefki.zkp.flatcode.Flattener.extra_body">extra_body() (klefki.zkp.flatcode.Flattener method)</a>
+</li>
+      <li><a href="autoapi/klefki/zkp/flatcode/index.html#klefki.zkp.flatcode.Flattener.extra_inputs">extra_inputs() (klefki.zkp.flatcode.Flattener method)</a>
+</li>
+      <li><a href="autoapi/klefki/zkp/flatcode/index.html#klefki.zkp.flatcode.Flattener.extra_loop">extra_loop() (klefki.zkp.flatcode.Flattener method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -583,13 +583,21 @@
 </li>
       <li><a href="autoapi/klefki/zkp/r1cs/index.html#klefki.zkp.r1cs.flatcode_to_r1cs">flatcode_to_r1cs() (in module klefki.zkp.r1cs)</a>
 </li>
-      <li><a href="autoapi/klefki/zkp/r1cs/index.html#klefki.zkp.r1cs.flatten_body">flatten_body() (in module klefki.zkp.r1cs)</a>
+      <li><a href="autoapi/klefki/zkp/flatcode/index.html#klefki.zkp.flatcode.Flattener.flatten_binop">flatten_binop() (klefki.zkp.flatcode.Flattener method)</a>
+</li>
+      <li><a href="autoapi/klefki/zkp/flatcode/index.html#klefki.zkp.flatcode.Flattener.flatten_body">flatten_body() (klefki.zkp.flatcode.Flattener method)</a>
+</li>
+      <li><a href="autoapi/klefki/zkp/flatcode/index.html#klefki.zkp.flatcode.Flattener.flatten_call">flatten_call() (klefki.zkp.flatcode.Flattener method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="autoapi/klefki/zkp/r1cs/index.html#klefki.zkp.r1cs.flatten_expr">flatten_expr() (in module klefki.zkp.r1cs)</a>
+      <li><a href="autoapi/klefki/zkp/flatcode/index.html#klefki.zkp.flatcode.Flattener.flatten_expr">flatten_expr() (klefki.zkp.flatcode.Flattener method)</a>
 </li>
-      <li><a href="autoapi/klefki/zkp/r1cs/index.html#klefki.zkp.r1cs.flatten_stmt">flatten_stmt() (in module klefki.zkp.r1cs)</a>
+      <li><a href="autoapi/klefki/zkp/flatcode/index.html#klefki.zkp.flatcode.Flattener.flatten_pow">flatten_pow() (klefki.zkp.flatcode.Flattener method)</a>
+</li>
+      <li><a href="autoapi/klefki/zkp/flatcode/index.html#klefki.zkp.flatcode.Flattener.flatten_stmt">flatten_stmt() (klefki.zkp.flatcode.Flattener method)</a>
+</li>
+      <li><a href="autoapi/klefki/zkp/flatcode/index.html#klefki.zkp.flatcode.Flattener">Flattener (class in klefki.zkp.flatcode)</a>
 </li>
       <li><a href="autoapi/klefki/blockchain/bitcoin/script/consts/index.html#klefki.blockchain.bitcoin.script.consts.FLOW_CONTROL">FLOW_CONTROL (in module klefki.blockchain.bitcoin.script.consts)</a>
 </li>
@@ -704,6 +712,8 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="autoapi/klefki/zkp/gorth03/index.html#klefki.zkp.gorth03.H">H (in module klefki.zkp.gorth03)</a>
+</li>
+      <li><a href="autoapi/klefki/zkp/flatcode/index.html#klefki.zkp.flatcode.Flattener.handle_subscript">handle_subscript() (klefki.zkp.flatcode.Flattener method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -1226,6 +1236,13 @@
 </li>
       </ul></li>
       <li>
+    klefki.zkp.flatcode
+
+      <ul>
+        <li><a href="autoapi/klefki/zkp/flatcode/index.html#module-klefki.zkp.flatcode">module</a>
+</li>
+      </ul></li>
+      <li>
     klefki.zkp.gorth03
 
       <ul>
@@ -1277,6 +1294,8 @@
 </li>
       <li><a href="autoapi/klefki/zkp/qap/index.html#klefki.zkp.qap.lagrange_polynomial">lagrange_polynomial() (in module klefki.zkp.qap)</a>
 </li>
+      <li><a href="autoapi/klefki/zkp/flatcode/index.html#klefki.zkp.flatcode.Flattener.latest_sym">latest_sym() (klefki.zkp.flatcode.Flattener method)</a>
+</li>
       <li><a href="autoapi/klefki/numbers/index.html#klefki.numbers.lcm">lcm() (in module klefki.numbers)</a>
 </li>
   </ul></td>
@@ -1309,7 +1328,7 @@
 </li>
       <li><a href="autoapi/klefki/crypto/MiMC/index.html#klefki.crypto.MiMC.MiMC">MiMC (class in klefki.crypto.MiMC)</a>
 </li>
-      <li><a href="autoapi/klefki/zkp/r1cs/index.html#klefki.zkp.r1cs.mksymbol">mksymbol() (in module klefki.zkp.r1cs)</a>
+      <li><a href="autoapi/klefki/zkp/flatcode/index.html#klefki.zkp.flatcode.Flattener.mk_symbol">mk_symbol() (klefki.zkp.flatcode.Flattener method)</a>
 </li>
       <li><a href="autoapi/klefki/types/algebra/fields/index.html#klefki.types.algebra.fields.FiniteField.mod">mod() (klefki.types.algebra.fields.FiniteField method)</a>
 </li>
@@ -1447,6 +1466,8 @@
 </li>
         <li><a href="autoapi/klefki/zkp/commitment/index.html#module-klefki.zkp.commitment">klefki.zkp.commitment</a>
 </li>
+        <li><a href="autoapi/klefki/zkp/flatcode/index.html#module-klefki.zkp.flatcode">klefki.zkp.flatcode</a>
+</li>
         <li><a href="autoapi/klefki/zkp/gorth03/index.html#module-klefki.zkp.gorth03">klefki.zkp.gorth03</a>
 </li>
         <li><a href="autoapi/klefki/zkp/pedersen/index.html#module-klefki.zkp.pedersen">klefki.zkp.pedersen</a>
@@ -1498,8 +1519,6 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="autoapi/klefki/zkp/r1cs/index.html#klefki.zkp.r1cs.next_symbol">next_symbol (in module klefki.zkp.r1cs)</a>
-</li>
       <li><a href="autoapi/klefki/zkp/sigma/index.html#klefki.zkp.sigma.NIZK">NIZK (class in klefki.zkp.sigma)</a>
 </li>
       <li><a href="autoapi/klefki/zkp/schnorr/index.html#klefki.zkp.schnorr.NIZKSchnoor">NIZKSchnoor (class in klefki.zkp.schnorr)</a>
@@ -1594,20 +1613,16 @@
 </li>
       <li><a href="autoapi/klefki/crypto/paillier/index.html#klefki.crypto.paillier.Paillier">Paillier (class in klefki.crypto.paillier)</a>
 </li>
-      <li><a href="autoapi/klefki/zkp/r1cs/index.html#klefki.zkp.r1cs.parse">parse() (in module klefki.zkp.r1cs)</a>
-
-      <ul>
-        <li><a href="autoapi/klefki/zkp/r1cs/index.html#klefki.zkp.r1cs.R1CS.parse">(klefki.zkp.r1cs.R1CS static method)</a>
+      <li><a href="autoapi/klefki/zkp/r1cs/index.html#klefki.zkp.r1cs.R1CS.parse">parse() (klefki.zkp.r1cs.R1CS static method)</a>
 </li>
-      </ul></li>
       <li><a href="autoapi/klefki/utils/index.html#klefki.utils.parse_lv_format">parse_lv_format() (in module klefki.utils)</a>
 </li>
       <li><a href="autoapi/klefki/crypto/rsa/index.html#klefki.crypto.rsa.RSA.parse_lv_pubkey">parse_lv_pubkey() (klefki.crypto.rsa.RSA static method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="autoapi/klefki/blockchain/bitcoin/script/script/index.html#klefki.blockchain.bitcoin.script.script.pay_to_pubhash">pay_to_pubhash() (in module klefki.blockchain.bitcoin.script.script)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="autoapi/klefki/blockchain/bitcoin/script/script/index.html#klefki.blockchain.bitcoin.script.script.pay_to_scripthash">pay_to_scripthash() (in module klefki.blockchain.bitcoin.script.script)</a>
 </li>
       <li><a href="autoapi/klefki/zkp/pedersen/index.html#klefki.zkp.pedersen.PedersonCommitment">PedersonCommitment (class in klefki.zkp.pedersen)</a>
@@ -1650,8 +1665,14 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="autoapi/klefki/zkp/r1cs/index.html#klefki.zkp.r1cs.R1CS">R1CS (class in klefki.zkp.r1cs)</a>
 </li>
-      <li><a href="autoapi/klefki/zkp/r1cs/index.html#klefki.zkp.r1cs.R1CS.r1cs">r1cs() (klefki.zkp.r1cs.R1CS static method)</a>
+      <li><a href="autoapi/klefki/crypto/MiMC/index.html#klefki.crypto.MiMC.FeistelMiMC.r1cs">r1cs() (klefki.crypto.MiMC.FeistelMiMC property)</a>
+
+      <ul>
+        <li><a href="autoapi/klefki/crypto/MiMC/index.html#klefki.crypto.MiMC.MiMC.r1cs">(klefki.crypto.MiMC.MiMC property)</a>
 </li>
+        <li><a href="autoapi/klefki/zkp/r1cs/index.html#klefki.zkp.r1cs.R1CS.r1cs">(klefki.zkp.r1cs.R1CS static method)</a>
+</li>
+      </ul></li>
       <li><a href="autoapi/klefki/zkp/qap/index.html#klefki.zkp.qap.R1CS2QAP">R1CS2QAP() (in module klefki.zkp.qap)</a>
 </li>
       <li><a href="autoapi/klefki/numbers/primes/index.html#klefki.numbers.primes.rabin_miller_witness">rabin_miller_witness() (in module klefki.numbers.primes)</a>
@@ -1666,10 +1687,10 @@
         <li><a href="autoapi/klefki/crypto/ecdsa/secp256r1/index.html#klefki.crypto.ecdsa.secp256r1.random_privkey">(in module klefki.crypto.ecdsa.secp256r1)</a>
 </li>
       </ul></li>
-      <li><a href="autoapi/klefki/blockchain/bitcoin/script/interpreter/index.html#klefki.blockchain.bitcoin.script.interpreter.Stack.register">register() (klefki.blockchain.bitcoin.script.interpreter.Stack class method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="autoapi/klefki/blockchain/bitcoin/script/interpreter/index.html#klefki.blockchain.bitcoin.script.interpreter.Stack.register">register() (klefki.blockchain.bitcoin.script.interpreter.Stack class method)</a>
+</li>
       <li><a href="autoapi/klefki/blockchain/eos/private/index.html#klefki.blockchain.eos.private.remove_checksum">remove_checksum() (in module klefki.blockchain.eos.private)</a>
 </li>
       <li><a href="autoapi/klefki/blockchain/eos/private/index.html#klefki.blockchain.eos.private.remove_version">remove_version() (in module klefki.blockchain.eos.private)</a>
@@ -1824,8 +1845,6 @@
 </li>
       <li><a href="autoapi/klefki/numbers/index.html#klefki.numbers.totient">totient (in module klefki.numbers)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     transaction
 
@@ -1833,11 +1852,15 @@
         <li><a href="autoapi/transaction/index.html#module-transaction">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="autoapi/transaction/index.html#transaction.Transaction">Transaction (class in transaction)</a>
 </li>
       <li><a href="autoapi/klefki/zkp/pedersen/index.html#klefki.zkp.pedersen.PedersonCommitment.transcript">transcript() (klefki.zkp.pedersen.PedersonCommitment property)</a>
 </li>
       <li><a href="autoapi/klefki/zkp/qap/index.html#klefki.zkp.qap.transfer">transfer() (in module klefki.zkp.qap)</a>
+</li>
+      <li><a href="autoapi/klefki/zkp/flatcode/index.html#klefki.zkp.flatcode.Flattener.transfer_assert">transfer_assert() (klefki.zkp.flatcode.Flattener method)</a>
 </li>
       <li><a href="autoapi/klefki/zkp/commitment/index.html#klefki.zkp.commitment.TrapdoorCommitment.trapdoor">trapdoor (klefki.zkp.commitment.TrapdoorCommitment attribute)</a>
 </li>

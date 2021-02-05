@@ -11,6 +11,7 @@ Submodules
    :maxdepth: 1
 
    commitment/index.rst
+   flatcode/index.rst
    gorth03/index.rst
    pedersen/index.rst
    qap/index.rst

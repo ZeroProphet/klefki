@@ -181,7 +181,7 @@
     "(x_{i+1},y_{i+1})=(y_i,x_i+(y_i+k_i+c_i)^3)\n",
     "$$\n",
     "\n",
-    "where $(x_i+1,y_i+1)$ is the state after round $i$, $(x_0,y_0)$ is the input and $k_i=(i+1)⋅k$ for $i≥0$."
+    "where $(x_{i+1},y_{i+1})$ is the state after round $i$, $(x_0,y_0)$ is the input and $k_i=(i+1)⋅k$ for $i≥0$."
    ]
   },
   {

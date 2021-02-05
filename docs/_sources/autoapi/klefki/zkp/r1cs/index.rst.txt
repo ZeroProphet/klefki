@@ -27,49 +27,13 @@ Functions
 
 .. autoapisummary::
 
-   klefki.zkp.r1cs.parse
-   klefki.zkp.r1cs.extract_inputs_and_body
-   klefki.zkp.r1cs.flatten_body
-   klefki.zkp.r1cs.mksymbol
-   klefki.zkp.r1cs.flatten_stmt
-   klefki.zkp.r1cs.flatten_expr
    klefki.zkp.r1cs.insert_var
    klefki.zkp.r1cs.get_var_placement
    klefki.zkp.r1cs.flatcode_to_r1cs
    klefki.zkp.r1cs.grab_var
    klefki.zkp.r1cs.assign_variables
    klefki.zkp.r1cs.code_to_r1cs_with_inputs
-   klefki.zkp.r1cs.code_to_r1cs_result
-   klefki.zkp.r1cs.code_to_r1cs
    klefki.zkp.r1cs.mul
-
-
-.. data:: arg
-   
-
-   
-
-.. function:: parse(code)
-
-
-.. function:: extract_inputs_and_body(code)
-
-
-.. function:: flatten_body(body)
-
-
-.. data:: next_symbol
-   :annotation: = [0]
-
-   
-
-.. function:: mksymbol()
-
-
-.. function:: flatten_stmt(stmt)
-
-
-.. function:: flatten_expr(target, expr)
 
 
 .. function:: insert_var(arr, varz, var, used, reverse=False)
@@ -90,12 +54,6 @@ Functions
 .. function:: code_to_r1cs_with_inputs(code, input_vars, field)
 
 
-.. function:: code_to_r1cs_result(code, input_vars, field=int)
-
-
-.. function:: code_to_r1cs(code, field)
-
-
 .. function:: mul(a, b)
 
 
@@ -109,7 +67,7 @@ Functions
       :staticmethod:
 
 
-   .. method:: r1cs(f, field=int)
+   .. method:: r1cs(fn_or_field=int, ctx={})
       :staticmethod:
 
 

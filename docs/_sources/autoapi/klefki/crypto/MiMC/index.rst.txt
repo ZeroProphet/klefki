@@ -32,6 +32,10 @@ Classes
    .. method:: encrypt(self, x, k, r=None)
 
 
+   .. method:: r1cs(self)
+      :property:
+
+
    .. method:: E(self, *args, **kwargs)
 
 
@@ -49,6 +53,10 @@ Classes
 
 
    .. method:: encrypt(self, x, y, k, r=None)
+
+
+   .. method:: r1cs(self)
+      :property:
 
 
 
