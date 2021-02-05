@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>R1CS to QAP to ZKSnark &#8212; klefki 1.0-rc documentation</title>
+    <title>R1CS to QAP to BulletProof &#8212; klefki 1.0-rc documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
@@ -285,8 +285,8 @@ div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
 </style>
-<div class="section" id="R1CS-to-QAP-to-ZKSnark">
-<h1>R1CS to QAP to ZKSnark<a class="headerlink" href="#R1CS-to-QAP-to-ZKSnark" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="R1CS-to-QAP-to-BulletProof">
+<h1>R1CS to QAP to BulletProof<a class="headerlink" href="#R1CS-to-QAP-to-BulletProof" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="Example">
 <h2>Example<a class="headerlink" href="#Example" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
@@ -425,7 +425,7 @@ div.rendered_html tbody tr:hover {
 <div class="math notranslate nohighlight">
 \[[One, Input_0, \cdots, Input_n, Output, S_0, S_1, \cdots, S_n]\]</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -444,27 +444,27 @@ div.rendered_html tbody tr:hover {
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">var</span><span class="p">)</span>
+<span></span><span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">mimc</span><span class="o">.</span><span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">mimc</span><span class="o">.</span><span class="n">var</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <p>For each line of flatcodes, we have <span class="math notranslate nohighlight">\(A_i.s \circ B_i.s == C_i.s\)</span></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">s</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">witness</span><span class="p">(</span><span class="n">F</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span></span><span class="n">s</span> <span class="o">=</span> <span class="n">mimc</span><span class="o">.</span><span class="n">witness</span><span class="p">(</span><span class="n">F</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
 <span class="n">s</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -501,34 +501,16 @@ div.rendered_html tbody tr:hover {
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">sum</span><span class="p">(</span><span class="n">mul</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">s</span><span class="p">))</span>
+<span></span><span class="nb">sum</span><span class="p">(</span><span class="n">mul</span><span class="p">(</span><span class="n">mimc</span><span class="o">.</span><span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">s</span><span class="p">))</span> <span class="o">*</span> <span class="nb">sum</span><span class="p">(</span><span class="n">mul</span><span class="p">(</span><span class="n">mimc</span><span class="o">.</span><span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">s</span><span class="p">))</span> <span class="o">==</span> <span class="nb">sum</span><span class="p">(</span><span class="n">mul</span><span class="p">(</span><span class="n">mimc</span><span class="o">.</span><span class="n">C</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">s</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-FiniteFieldCyclicSecp256k1::0
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">sum</span><span class="p">(</span><span class="n">mul</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">s</span><span class="p">))</span> <span class="o">*</span> <span class="nb">sum</span><span class="p">(</span><span class="n">mul</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">s</span><span class="p">))</span> <span class="o">==</span> <span class="nb">sum</span><span class="p">(</span><span class="n">mul</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">C</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">s</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -3220,7 +3202,7 @@ t_zH+ (\mathbf{f}_x \cdot \mathbf{f}_y)G &amp;\stackrel{?}{=}e^2C_z + eC_1 + C_0
 <li class="toctree-l1"><a class="reference internal" href="POD-Mini%20and%20POD-AS.html">POD-Mini and POD-AS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Damgard-Jurik%20Scheme%20of%20Paillier.html">Damgard-Jurik Scheme of Paillier</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Threshold%20Paillier%20Cryptosystem.html">Threshold Paillier Cryptosystem</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">R1CS to QAP to ZKSnark</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">R1CS to QAP to BulletProof</a></li>
 <li class="toctree-l1"><a class="reference internal" href="MimbleWimble.html">Play MimbleWimble with klefki</a></li>
 <li class="toctree-l1"><a class="reference internal" href="MimbleWimble.html#Ownership">Ownership</a></li>
 </ul>
