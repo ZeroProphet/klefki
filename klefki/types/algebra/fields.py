@@ -61,3 +61,68 @@ class FiniteField(Field):
                 (self.value * g.value), self.P
             )
         )
+
+
+# Utility methods for polynomial math
+def deg(p):
+    d = len(p) - 1
+    while p[d] == 0 and d:
+        d -= 1
+    return d
+
+
+def poly_rounded_div(a, b):
+
+    dega = deg(a)
+    degb = deg(b)
+    temp = [x for x in a]
+    o = [0 for x in a]
+    for i in range(dega - degb, -1, -1):
+        o[i] += temp[degb + i] / b[degb]
+        for c in range(degb + 1):
+            temp[c + i] -= o[c]
+    return o[:deg(o)+1]
+
+
+class PolyExtField(Field):
+    module_coeffs = abstractproperty()
+    degree = abstractproperty()
+
+    def op(self, rhs):
+        return self.__class__([x + y for x, y in zip(self.value, rhs.value)])
+
+    def inv(self):
+        return self.__class__([-x for x in self.value])
+
+    def sec_op(self, rhs):
+        field = self.value[0].__class__
+        b = [field(0)] * (self.degree * 2 - 1)
+        for i in range(self.degree):
+            for j in range(self.degree):
+                b[i + j] = b[i + j] + self.value[i] * rhs.value[j]
+        while len(b) > self.degree:
+            exp, top = len(b) - self.degree - 1, b.pop()
+            for i in range(self.degree):
+                b[exp + i] = b[exp + 1] - top * field(self.modulus_coeffs[i])
+        return self.__class__(b)
+
+    def sec_inverse(self):
+        lm, hm = [1] + [0] * self.degree, [0] * (self.degree + 1)
+        low, high = self.value + [0], self.modulus_coeffs + [1]
+        while deg(low):
+            r = poly_rounded_div(high, low)
+            r += [0] * (self.degree + 1 - len(r))
+            nm = [x for x in hm]
+            new = [x for x in high]
+            assert len(lm) == len(hm) == len(low) == len(high) == len(nm) == len(new) == self.degree + 1
+            for i in range(self.degree + 1):
+                for j in range(self.degree + 1 - i):
+                    nm[i+j] -= lm[i] * r[j]
+                    new[i+j] -= low[i] * r[j]
+            lm, low, hm, high = nm, new, lm, low
+        return self.__class__(lm[:self.degree]) / low[0]
+
+
+
+PrimeField = FiniteField
+Fq = FiniteField

@@ -1,5 +1,5 @@
 """
-DOC: https://eips.ethereum.org/EIPS/eip-2494
+ref: https://github.com/ethereum/research/blob/711bd9532b4534ef5ae6277bd7afe625195506d5/zksnark/bn128_field_elements.py
 """
 import klefki.const as const
 from klefki.types.algebra.fields import FiniteField
