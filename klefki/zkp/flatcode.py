@@ -28,15 +28,16 @@ class Flattener:
     def mk_symbol(self, base="Sym"):
         ret = "%s::%s" % (base, str(self._symbol))
         self._symbol += 1
+        self.syms.append(ret)
         return ret
 
-    def latest_sym(self, base):
+    def latest_sym(self, base, bias=1):
         if not isinstance(base, str):
             return base
         base = base.split("::")[0]
         syms = [s for s in self.syms if s.split("::")[0] == base]
         if len(syms):
-            return syms[-1]
+            return syms[-bias]
         else:
             return base
 
@@ -117,7 +118,6 @@ class Flattener:
         # dont make new symbol if assert
         # instead, use the latest symbol of target
         target = self.latest_sym(target)
-        self.syms.append(target)
         value = stmt.test.comparators[0]
         return self.flatten_expr(target, value)
 
@@ -128,7 +128,8 @@ class Flattener:
             target = s.targets[0].id
             if target in self.syms:
                 target = self.mk_symbol(target)
-            self.syms.append(target)
+            else:
+                self.syms.append(target)
         elif isinstance(s, ast.Assert):
             return self.transfer_assert(s)
 
@@ -171,7 +172,7 @@ class Flattener:
             fn_ins.rc = -1
         fn_ins.rc += 1
         fn_flat = deepcopy(fn_ins.flatcode)
-        fn_inputs = fn_ins.inputs
+        fn_inputs = deepcopy(fn_ins.inputs)
 
         # tagging closure vars:
         for f in fn_flat:
@@ -183,7 +184,13 @@ class Flattener:
                     else:
                     # update global vars to latest
                         if f[i] in fn_inputs:
-                            f[i] = self.latest_sym(fn_inputs.index(f[i]))
+                            if all([target == self.latest_sym(target),
+                                    target.split("::")[0] == fn_inputs.index(f[i]),
+                                    target != fn_inputs.index(f[i])
+                            ]):
+                                f[i] = self.latest_sym(fn_inputs.index(f[i]), 2)
+                            else:
+                                f[i] = self.latest_sym(fn_inputs.index(f[i]), 1)
                         else:
                             f[i] = self.closure_alias(f[i], fn_ins.rc)
 
@@ -208,9 +215,16 @@ class Flattener:
 
         if isinstance(expr.left, (ast.Name, ast.Num)):
             if isinstance(expr.left, ast.Name):
-                var1 = self.latest_sym(expr.left.id)
-            else:
-                var1 = expr.left.n
+                # target was shadowed
+                if all([target == self.latest_sym(target),
+                        target.split("::")[0] == expr.left.id,
+                        target != expr.left.id
+                ]):
+                    var1 = self.latest_sym(expr.left.id, 2)
+                else:
+                    var1 = self.latest_sym(expr.left.id, 1)
+
+
             sub1 = []
         # If one of the subexpressions is itself a compound expression, recursively
         # apply this method to it using an intermediate variable
@@ -220,13 +234,18 @@ class Flattener:
         # Same for right subexpression as for left subexpression
         if isinstance(expr.right, (ast.Name, ast.Num)):
             if isinstance(expr.right, ast.Name):
-                var2 = self.latest_sym(expr.right.id)
+                if all([target == self.latest_sym(target),
+                        target.split("::")[0] == expr.right.id,
+                        target != expr.right.id
+                ]):
+                    var2 = self.latest_sym(expr.right.id, 2)
+                else:
+                    var2 = self.latest_sym(expr.right.id, 1)
             else:
                 var2 = expr.right.n
             sub2 = []
         else:
             var2 = self.mk_symbol()
-            self.syms.append(var2)
             sub2 = self.flatten_expr(var2, expr.right)
         # Last expression represents the assignment; sub1 and sub2 represent the
         # processing for the subexpression if any
@@ -241,13 +260,16 @@ class Flattener:
             return flatten_expr(target, expr.left)
         else: # This could be made more efficient via square-and-multiply but oh well
             if isinstance(expr.left, (ast.Name, ast.Num)):
-                nxt = base = expr.left.id if isinstance(expr.left, ast.Name) else expr.left.n
+                if isinstance(expr.left, ast.Name):
+                    nxt = base = self.latest_sym(expr.left.id)
+                else:
+                    expr.left.n
                 o = []
             else:
                 nxt = base = self.mk_symbol()
                 o = self.flatten_expr(base, expr.left)
             for i in range(1, expr.right.n):
-                latest = nxt
+                latest = self.latest_sym(nxt)
                 nxt = target if i == expr.right.n - 1 else self.mk_symbol()
                 o.append(['*', nxt, latest, base])
             return o
