@@ -2,6 +2,7 @@ from abc import abstractproperty
 from .abstract import Field
 from klefki.algorithms import extended_euclidean_algorithm
 from klefki.algorithms import complex_truediv_algorithm
+from klefki.algorithms import deg, poly_rounded_div
 
 
 class FiniteField(Field):
@@ -61,27 +62,6 @@ class FiniteField(Field):
                 (self.value * g.value), self.P
             )
         )
-
-
-# Utility methods for polynomial math
-def deg(p):
-    d = len(p) - 1
-    while p[d] == 0 and d:
-        d -= 1
-    return d
-
-
-def poly_rounded_div(a, b):
-
-    dega = deg(a)
-    degb = deg(b)
-    temp = [x for x in a]
-    o = [0 for x in a]
-    for i in range(dega - degb, -1, -1):
-        o[i] += temp[degb + i] / b[degb]
-        for c in range(degb + 1):
-            temp[c + i] -= o[c]
-    return o[:deg(o)+1]
 
 
 class PolyExtField(Field):

@@ -9,6 +9,27 @@ __all__ = [
 
 T = TypeVar('T')
 
+# Utility methods for polynomial math
+def deg(p):
+    d = len(p) - 1
+    while p[d] == 0 and d:
+        d -= 1
+    return d
+
+
+def poly_rounded_div(a, b):
+
+    dega = deg(a)
+    degb = deg(b)
+    temp = [x for x in a]
+    o = [0 for x in a]
+    for i in range(dega - degb, -1, -1):
+        o[i] += temp[degb + i] / b[degb]
+        for c in range(degb + 1):
+            temp[c + i] -= o[c]
+    return o[:deg(o)+1]
+
+
 def bits(n: int) -> Iterable:
     """
     Generates the binary digits of n, starting
