@@ -67,7 +67,9 @@ class FiniteField(Field):
 class PolyExtField(Field):
     """
     polynomial extension fields
-    ref: https://github.com/ethereum/research/blob/711bd9532b4534ef5ae6277bd7afe625195506d5/zksnark/bn128_field_elements.py
+    refs: http://mathonline.wikidot.com/polynomials-over-a-field
+    https://users.math.msu.edu/users/halljo/classes/codenotes/PolyAlg.pdf
+     https://github.com/ethereum/research/blob/711bd9532b4534ef5ae6277bd7afe625195506d5/zksnark/bn128_field_elements.py
     """
     modulus_coeffs = abstractproperty()
     degree = abstractproperty()
