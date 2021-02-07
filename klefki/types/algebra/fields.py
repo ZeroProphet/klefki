@@ -107,6 +107,22 @@ class PolyExtField(Field):
         return self.__class__(lm[:self.degree]) / low[0]
 
 
+    @property
+    def sec_identity(self):
+        field = self.value[0].__class__
+        return self.__class__([field(1)] + [field(0)] * (self.degree - 1))
+
+    @property
+    def identity(self):
+        field = self.value[0].__class__
+        return self.__class__([field(0)] * self.degree)
+
+    def inverse(self):
+        return self.__class__(self.P - self.value)
+
+
+
+
 
 PrimeField = FiniteField
 Fq = FiniteField
