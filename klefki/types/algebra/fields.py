@@ -123,9 +123,7 @@ class PolyExtField(Field):
         return self.__class__([field(0)] * self.degree)
 
     def inverse(self):
-        return self.__class__(self.P - self.value)
-
-
+        return self.__class__([-c for c in self.value])
 
 
 
