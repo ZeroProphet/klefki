@@ -69,7 +69,7 @@ class PolyExtField(Field):
     polynomial extension fields
     ref: https://github.com/ethereum/research/blob/711bd9532b4534ef5ae6277bd7afe625195506d5/zksnark/bn128_field_elements.py
     """
-    module_coeffs = abstractproperty()
+    modulus_coeffs = abstractproperty()
     degree = abstractproperty()
 
     def op(self, rhs):
@@ -90,21 +90,26 @@ class PolyExtField(Field):
                 b[exp + i] = b[exp + 1] - top * field(self.modulus_coeffs[i])
         return self.__class__(b)
 
+
     def sec_inverse(self):
-        lm, hm = [1] + [0] * self.degree, [0] * (self.degree + 1)
-        low, high = self.value + [0], self.modulus_coeffs + [1]
+        field = self.value[0].__class__
+        lm, hm = [field(1)] + [field(0)] * self.degree, [field(0)] * (self.degree + 1)
+        low, high = self.value + [field(0)], [field(m) for m in self.modulus_coeffs] + [field(1)]
         while deg(low):
             r = poly_rounded_div(high, low)
-            r += [0] * (self.degree + 1 - len(r))
+            r += [field(0)] * (self.degree + 1 - len(r))
             nm = [x for x in hm]
             new = [x for x in high]
+
             assert len(lm) == len(hm) == len(low) == len(high) == len(nm) == len(new) == self.degree + 1
+
             for i in range(self.degree + 1):
                 for j in range(self.degree + 1 - i):
                     nm[i+j] -= lm[i] * r[j]
                     new[i+j] -= low[i] * r[j]
             lm, low, hm, high = nm, new, lm, low
-        return self.__class__(lm[:self.degree]) / low[0]
+
+        return self.__class__([i / low[0] for i in lm[:self.degree]])
 
 
     @property

@@ -96,6 +96,10 @@ class SemiGroup(Groupoid):
 class Monoid(SemiGroup):
     __slots__ = ()
 
+    @property
+    def zero(self):
+        return self.identity
+
     @abstractproperty
     def identity(self):
         '''
@@ -164,6 +168,10 @@ class Field(Group):
     @abstractmethod
     def sec_identity(self):
         pass
+
+    @property
+    def one(self):
+        return self.sec_identity
 
     def __invert__(self):
         return self.sec_inverse()
