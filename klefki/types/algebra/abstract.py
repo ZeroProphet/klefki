@@ -174,17 +174,25 @@ class Ring(Group):
         if hasattr(b, "value"):
             b = b.id
 
-        if b == (1/2):
+        if b == 0:
+            return self.one()
+
+        elif b == 1:
+            return self
+
+        elif b == (1/2):
             root = modular_sqrt(self.id, self.P)
             assert root != 0, "ins dont have root"
             return self.functor(root)
-
-
-        if hasattr(self, "P"):
-            m = self.P
-            if b < 0:
-                return ~self.functor(pow(self.id, b * -1, m))
-        return self.functor(pow(self.id, b, m))
+        elif b % 2 == 0:
+            return (self * self) ** (b / 2)
+        else:
+            return ((self * self) ** int(b / 2)) * self
+        # if hasattr(self, "P"):
+        #     m = self.P
+        #     if b < 0:
+        #         return ~self.functor(pow(self.id, b * -1, m))
+        # return self.functor(pow(self.id, b, m))
         # If b == 0:
         #     return self.functor(1)
         # if 0 < b < 1:

@@ -1,21 +1,21 @@
 from klefki.types.algebra.fields import PolyExtField
 from klefki.curves.bn254 import FiniteFieldBN254 as F
-modulus_coeffs = [82, 18]
 
 
+modulus_coeffs = [82, 0, 0, 0, 0, 0, 18, 0, 0, 0, 0, 0]
 
-class FQ2(PolyExtField):
+class FQ12(PolyExtField):
     F = F
-    DEG = 2
-    MOD_COEFF = [82, 18]
+    DEG = len(modulus_coeffs)
+    MOD_COEFF =  modulus_coeffs
 
 
 def test_ext_field():
-    x = FQ2([F(1), F(0)])
-    f = FQ2([F(1), F(2)])
-    fpx = FQ2([F(2), F(2)])
-    one = FQ2.one()
-    zero = FQ2.zero()
+    x = FQ12([1] + [0] * 11)
+    f = FQ12([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
+    fpx = FQ12([2, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
+    one = FQ12.one()
+    zero = FQ12.zero()
 
     assert x + f == fpx
     assert x - x == zero
@@ -23,3 +23,7 @@ def test_ext_field():
     assert x * x == one
     assert x / x == one
     assert f / f == one
+    assert f / f == one
+    assert one / f + x / f == (one + x) / f
+    assert one * f + x * f == (one + x) * f
+    assert x ** (F.P - 1) == one
