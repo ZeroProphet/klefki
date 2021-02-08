@@ -9,19 +9,18 @@ __all__ = [
 
 T = TypeVar('T')
 
-# Utility methods for polynomial math
-def deg(p):
+def deg(p, field=int):
     d = len(p) - 1
-    while p[d].value == 0 and d:
+    while getattr(p[d], "id", p[d]) == 0 and d:
         d -= 1
     return d
 
-
-def poly_rounded_div(a, b):
-    dega = deg(a)
-    degb = deg(b)
-    field = a[0].__class__
-    temp = [x for x in a]
+def poly_rounded_div(a, b, field=int):
+    a = [field(i) for i in a]
+    b = [field(i) for i in a]
+    dega = deg(a, field)
+    degb = deg(b, field)
+    temp = [field(x) for x in a]
     o = [field(0) for x in a]
     for i in range(dega - degb, -1, -1):
         o[i] += temp[degb + i] / b[degb]
@@ -144,6 +143,7 @@ def complex_truediv_algorithm(x: complex, y: complex, f: T) -> T:
     ))
 
 
+@lru_cache(maxsize=None)
 def extended_euclidean_algorithm(a: int, b: int) -> Tuple[int, int, int]:
     '''
     Returns a three-tuple (gcd, x, y) such that

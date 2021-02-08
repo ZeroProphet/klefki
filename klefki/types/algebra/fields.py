@@ -55,70 +55,77 @@ class FiniteField(Field):
             )
         )
 
-
 class PolyExtField(Field):
-    """
-    polynomial extension fields
-    refs: http://mathonline.wikidot.com/polynomials-over-a-field
-    https://users.math.msu.edu/users/halljo/classes/codenotes/PolyAlg.pdf
-     https://github.com/ethereum/research/blob/711bd9532b4534ef5ae6277bd7afe625195506d5/zksnark/bn128_field_elements.py
-    """
-    modulus_coeffs = abstractproperty()
-    degree = abstractproperty()
-    field = abstractproperty()
+    # field
+    F = abstractproperty()
+    DEG = abstractproperty()
+    MOD_COEFF = abstractproperty()
+
+    def fmap(self, coef):
+        # map Maybe<int> top Field
+        assert len(coef) == self.DEG
+        return [self.F(p) for p in coef]
 
     def op(self, rhs):
-        return self.__class__([x + y for x, y in zip(self.value, rhs.value)])
-
-    def inv(self):
-        return self.__class__([-x for x in self.value])
-
-    def sec_op(self, rhs):
-        field = self.value[0].__class__
-        b = [field(0)] * (self.degree * 2 - 1)
-        for i in range(self.degree):
-            for j in range(self.degree):
-                b[i + j] = b[i + j] + self.value[i] * rhs.value[j]
-        while len(b) > self.degree:
-            exp, top = len(b) - self.degree - 1, b.pop()
-            for i in range(self.degree):
-                b[exp + i] = b[exp + 1] - top * field(self.modulus_coeffs[i])
-        return self.__class__(b)
-
-
-    def sec_inverse(self):
-        field = self.value[0].__class__
-        lm, hm = [field(1)] + [field(0)] * self.degree, [field(0)] * (self.degree + 1)
-        low, high = self.value + [field(0)], [field(m) for m in self.modulus_coeffs] + [field(1)]
-        while deg(low):
-            r = poly_rounded_div(high, low)
-            r += [field(0)] * (self.degree + 1 - len(r))
-            nm = [x for x in hm]
-            new = [x for x in high]
-
-            assert len(lm) == len(hm) == len(low) == len(high) == len(nm) == len(new) == self.degree + 1
-
-            for i in range(self.degree + 1):
-                for j in range(self.degree + 1 - i):
-                    nm[i+j] -= lm[i] * r[j]
-                    new[i+j] -= low[i] * r[j]
-            lm, low, hm, high = nm, new, lm, low
-
-        return self.__class__([i / low[0] for i in lm[:self.degree]])
-
+        return self.functor([x + y for x, y in zip(self.id, rhs.id)])
 
     @classmethod
     def sec_identity(cls):
-        field = cls.field
-        return cls([field(1)] + [field(0)] * (cls.degree - 1))
+        field = cls.F
+        return cls([field(1)] + [field(0)] * (cls.DEG - 1))
 
     @classmethod
     def identity(cls):
-        field = cls.field
-        return cls([field(0)] * cls.degree)
+        field = cls.F
+        return cls([field(0)] * cls.DEG)
 
     def inverse(self):
-        return self.functor([-c for c in self.id])
+        return self.functor([-x for x in self.id])
+
+
+    def sec_inverse(self):
+        field = self.F
+        lm, hm = [field(1)] + [field(0)] * self.DEG, [field(0)] * (self.DEG + 1)
+        low, high = self.id + [field(0)], self.MOD_COEFF + [field(1)]
+        while deg(low, field):
+            r = poly_rounded_div(high, low, field)
+            r += [field(0)] * (self.DEG + 1 - len(r))
+            nm = [field(x) for x in hm]
+            new = [field(x) for x in high]
+            assert len(lm) == len(hm) == len(low) == len(high) == len(nm) == len(new) == self.DEG + 1
+            for i in range(self.DEG + 1):
+                for j in range(self.DEG + 1 - i):
+                    nm[i+j] -= lm[i] * r[j]
+                    new[i+j] -= low[i] * r[j]
+            lm, low, hm, high = nm, new, lm, low
+        return self.functor([i / field(low[0]) for i in lm[:self.DEG]])
+
+    def sec_op(self, rhs):
+        # Let m(x) be a fixed polynomial of F[x] of degree d.
+        # By the Division Algorithm, for any polynomial p(x)
+        # (ref: https://www.aplustopper.com/division-algorithm-for-polynomials/)
+        # there is a unique polynomial r(x)
+        # determined by:
+        # * deg(r(x))< d
+        # * p(x)−r(x) is a multiple of m(x) in F[x]
+        # For a(x),b(x) in F[x]_d we define multiplication modulom(x) by
+        # a(x)·b(x) =r(x) (mod m(x)
+        # where r(x) is the remainder of a(x)b(x) upon division by m(x).
+
+        field = self.F
+        # b = [0, 0, 0, ...]
+        b = [field(0)] * (self.DEG * 2 - 1)
+
+        for i in range(self.DEG):
+            for j in range(self.DEG):
+                b[i + j] = b[i + j] + self.id[i] * rhs.id[j]
+
+        while len(b) > self.DEG:
+            exp, top = len(b) - self.DEG - 1, b.pop()
+            for i in range(self.DEG):
+                b[exp + i] = b[exp + 1] - top * field(self.MOD_COEFF[i])
+        return self.functor(b)
+
 
 
 

@@ -3,10 +3,11 @@ from klefki.curves.bn254 import FiniteFieldBN254 as F
 modulus_coeffs = [82, 18]
 
 
+
 class FQ2(PolyExtField):
-    field = F
-    modulus_coeffs = modulus_coeffs
-    degree = len(modulus_coeffs)
+    F = F
+    DEG = 2
+    MOD_COEFF = [82, 18]
 
 
 def test_ext_field():
@@ -18,3 +19,4 @@ def test_ext_field():
 
     assert x + f == fpx
     assert x - x == zero
+    assert f - f == zero
