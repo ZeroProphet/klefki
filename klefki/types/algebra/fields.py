@@ -82,17 +82,17 @@ class PolyExtField(Field):
     def inverse(self):
         return self.functor([-x for x in self.id])
 
-
     def sec_inverse(self):
         field = self.F
         lm, hm = [field(1)] + [field(0)] * self.DEG, [field(0)] * (self.DEG + 1)
-        low, high = self.id + [field(0)], self.MOD_COEFF + [field(1)]
-        while deg(low, field):
+        low, high = self.id + [field(0)], [field(m) for m in self.MOD_COEFF] + [field(1)]
+        while deg(low):
             r = poly_rounded_div(high, low, field)
             r += [field(0)] * (self.DEG + 1 - len(r))
             nm = [field(x) for x in hm]
             new = [field(x) for x in high]
             assert len(lm) == len(hm) == len(low) == len(high) == len(nm) == len(new) == self.DEG + 1
+            # xt Euclidean alog.
             for i in range(self.DEG + 1):
                 for j in range(self.DEG + 1 - i):
                     nm[i+j] -= lm[i] * r[j]
@@ -101,32 +101,18 @@ class PolyExtField(Field):
         return self.functor([i / field(low[0]) for i in lm[:self.DEG]])
 
     def sec_op(self, rhs):
-        # Let m(x) be a fixed polynomial of F[x] of degree d.
-        # By the Division Algorithm, for any polynomial p(x)
-        # (ref: https://www.aplustopper.com/division-algorithm-for-polynomials/)
-        # there is a unique polynomial r(x)
-        # determined by:
-        # * deg(r(x))< d
-        # * p(x)−r(x) is a multiple of m(x) in F[x]
-        # For a(x),b(x) in F[x]_d we define multiplication modulom(x) by
-        # a(x)·b(x) =r(x) (mod m(x)
-        # where r(x) is the remainder of a(x)b(x) upon division by m(x).
-
-        field = self.F
-        # b = [0, 0, 0, ...]
-        b = [field(0)] * (self.DEG * 2 - 1)
-
-        for i in range(self.DEG):
-            for j in range(self.DEG):
-                b[i + j] = b[i + j] + self.id[i] * rhs.id[j]
-
-        while len(b) > self.DEG:
-            exp, top = len(b) - self.DEG - 1, b.pop()
+        if not isinstance(rhs, self.functor):
+            return self.__class__([c * other for c in self.value])
+        else:
+            b = [self.F(0) for i in range(self.DEG * 2 - 1)]
             for i in range(self.DEG):
-                b[exp + i] = b[exp + 1] - top * field(self.MOD_COEFF[i])
-        return self.functor(b)
-
-
+                for j in range(self.DEG):
+                    b[i + j] += self.value[i] * rhs.value[j]
+            while len(b) > self.DEG:
+                exp, top = len(b) - self.DEG - 1, b.pop()
+                for i in range(self.DEG):
+                    b[exp + i] -= top * self.F(self.MOD_COEFF[i])
+            return self.__class__(b)
 
 
 PrimeField = FiniteField

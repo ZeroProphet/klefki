@@ -20,3 +20,6 @@ def test_ext_field():
     assert x + f == fpx
     assert x - x == zero
     assert f - f == zero
+    assert x * x == one
+    assert x / x == one
+    assert f / f == one

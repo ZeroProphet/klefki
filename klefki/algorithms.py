@@ -9,17 +9,15 @@ __all__ = [
 
 T = TypeVar('T')
 
-def deg(p, field=int):
+def deg(p):
     d = len(p) - 1
     while getattr(p[d], "id", p[d]) == 0 and d:
         d -= 1
     return d
 
 def poly_rounded_div(a, b, field=int):
-    a = [field(i) for i in a]
-    b = [field(i) for i in a]
-    dega = deg(a, field)
-    degb = deg(b, field)
+    dega = deg(a)
+    degb = deg(b)
     temp = [field(x) for x in a]
     o = [field(0) for x in a]
     for i in range(dega - degb, -1, -1):
@@ -27,7 +25,6 @@ def poly_rounded_div(a, b, field=int):
         for c in range(degb + 1):
             temp[c + i] -= o[c]
     return o[:deg(o)+1]
-
 
 def bits(n: int) -> Iterable:
     """
@@ -143,8 +140,7 @@ def complex_truediv_algorithm(x: complex, y: complex, f: T) -> T:
     ))
 
 
-@lru_cache(maxsize=None)
-def extended_euclidean_algorithm(a: int, b: int) -> Tuple[int, int, int]:
+def extended_euclidean_algorithm(a: int, b: int, one=1, zero=0) -> Tuple[int, int, int]:
     '''
     Returns a three-tuple (gcd, x, y) such that
     a * x + b * y == gcd, where gcd.
@@ -152,10 +148,10 @@ def extended_euclidean_algorithm(a: int, b: int) -> Tuple[int, int, int]:
     This function implements the extended Euclidean
     algotithm and runs in O(log b) in the worst case
     '''
-    s, t, r = 0, 1, b
-    old_s, old_t, old_r = 1, 0, a
+    s, t, r = zero, one, b
+    old_s, old_t, old_r = one, 0, a
 
-    while r != 0:
+    while r != zero:
         quoient = old_r // r
         old_r, r = r, old_r - quoient * r
         old_s, s = s, old_s - quoient * s
