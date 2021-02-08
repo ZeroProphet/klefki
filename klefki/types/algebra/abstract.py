@@ -14,10 +14,11 @@ class Functor(metaclass=ABCMeta):
 
     def __init__(self, *args):
         if len(args) == 1:
-            if isinstance(args[0], self.__class__):
-                self.value = args[0].value
+            args = args[0]
+            if isinstance(args, self.functor):
+                self.value = args.value
             else:
-                self.value = self.fmap(args[0])
+                self.value = self.fmap(args)
         else:
             self.value = self.fmap(args)
 
