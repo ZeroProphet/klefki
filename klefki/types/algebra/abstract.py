@@ -28,6 +28,7 @@ class Functor(metaclass=ABCMeta):
     def functor(self):
         return self.__class__
 
+    @property
     def id(self):
         return self.value
 
@@ -40,19 +41,19 @@ class Groupoid(Functor):
         pass
 
     def __eq__(self, b) -> bool:
-        return self.value == b.value
+        return self.id == b.id
 
     def __lt__(self, b) -> bool:
-        return self.value < b.value
+        return self.id < b.id
 
     def __le__(self, b) -> bool:
-        return self.value <= b.value
+        return self.id <= b.id
 
     def __gt__(self, b) -> bool:
-        return self.value > b.value
+        return self.id > b.id
 
     def __ge__(self, b) -> bool:
-        return self.value >= b.value
+        return self.id >= b.id
 
     def __add__(self, g: 'Group') -> 'Group':
         '''
@@ -74,11 +75,11 @@ class Groupoid(Functor):
     def __repr__(self):
         return "%s::%s" % (
             type(self).__name__,
-            self.value
+            self.id
         )
 
     def __str__(self):
-        return str(self.value)
+        return str(self.id)
 
 
 class SemiGroup(Groupoid):
@@ -112,7 +113,7 @@ class Monoid(SemiGroup):
 
     def scalar(self, times):
         while getattr(times, 'value', None) != None:
-            times = times.value
+            times = times.id
         if times == 0:
             return self.identity
         return double_and_add_algorithm(times, self, self.identity)
@@ -147,8 +148,7 @@ class Group(Monoid):
     def __neg__(self) -> 'Group':
         return self.inverse()
 
-
-class Field(Group):
+class Ring(Group):
     __slots__ = ()
 
     @abstractmethod
@@ -157,6 +157,46 @@ class Field(Group):
         The Operator for obeying axiom `associativity` (2)
         '''
         pass
+
+
+    def __mul__(self, g: 'Field') -> 'Field':
+        '''
+        Allowing call associativity operator via A * B
+        Strict limit arg `g` and ret `res` should be subtype of Group,
+        For obeying axiom `closure` (1)
+        '''
+        res = self.sec_op(g)
+        assert isinstance(res, type(self)), 'result shuould be %s' % type(self)
+        return res
+
+    def __pow__(self, b, m=None):
+        if hasattr(b, "value"):
+            b = b.id
+
+        if b == (1/2):
+            root = modular_sqrt(self.id, self.P)
+            assert root != 0, "ins dont have root"
+            return self.functor(root)
+
+
+        if hasattr(self, "P"):
+            m = self.P
+            if b < 0:
+                return ~self.functor(pow(self.id, b * -1, m))
+        return self.functor(pow(self.id, b, m))
+        # If b == 0:
+        #     return self.functor(1)
+        # if 0 < b < 1:
+        #     return self.functor(self.id ** b)
+        # if b == 1:
+        #     return self
+        # if b == 2:
+        #     return self * self
+        # return self * (self ** (b - 1))
+
+
+class Field(Ring):
+    __slots__ = ()
 
     @abstractmethod
     def sec_inverse(self) -> 'Field':
@@ -176,42 +216,8 @@ class Field(Group):
     def __invert__(self):
         return self.sec_inverse()
 
-    def __mul__(self, g: 'Field') -> 'Field':
-        '''
-        Allowing call associativity operator via A * B
-        Strict limit arg `g` and ret `res` should be subtype of Group,
-        For obeying axiom `closure` (1)
-        '''
-        res = self.sec_op(g)
-        assert isinstance(res, type(self)), 'result shuould be %s' % type(self)
-        return res
-
-    def __pow__(self, b, m=None):
-        if hasattr(b, "value"):
-            b = b.value
-
-        if b == (1/2):
-            root = modular_sqrt(self.value, self.P)
-            assert root != 0, "ins dont have root"
-            return self.__class__(root)
-
-
-        if hasattr(self, "P"):
-            m = self.P
-            if b < 0:
-                return ~self.__class__(pow(self.value, b * -1, m))
-        return self.__class__(pow(self.value, b, m))
-        # If b == 0:
-        #     return self.__class__(1)
-        # if 0 < b < 1:
-        #     return self.__class__(self.value ** b)
-        # if b == 1:
-        #     return self
-        # if b == 2:
-        #     return self * self
-        # return self * (self ** (b - 1))
 
     def __truediv__(self, g: 'Field') -> 'Field':
-        if isinstance(g.value, complex):
-            return complex_truediv_algorithm(complex(1), self.value, self.__class__)
+        if isinstance(g.id, complex):
+            return complex_truediv_algorithm(complex(1), self.id, self.functor)
         return self.sec_op(g.sec_inverse())
