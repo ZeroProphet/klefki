@@ -35,6 +35,7 @@ def test_double():
     g2 = G((F(x1), F(y2)))
     assert g1 + g2 == G((F(x3), F(y3)))
 
+
 def test_doubling_the_identity():
     x1 = 0
     y1 = 1
@@ -47,9 +48,11 @@ def test_doubling_the_identity():
     g2 = G((F(x1), F(y2)))
     assert g1 + g2 == G((F(x3), F(y3)))
 
+
 def test_curve_membership():
     assert G((F(0), F(1)))
 #    assert not G((F(1), F(0)))
+
 
 def test_base_point_choice():
     Bx = 5299619240641551281634865583518297030282874472190772894086521144482721001553

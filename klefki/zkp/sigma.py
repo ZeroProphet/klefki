@@ -1,5 +1,6 @@
 import abc
 
+
 class NIZK(abc.ABCMeta):
     @abc.abstractmethod
     def callange(self, *args, **kwargs):

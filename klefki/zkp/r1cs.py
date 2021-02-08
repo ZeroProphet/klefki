@@ -9,7 +9,6 @@ from klefki.zkp.flatcode import Flattener
 import types
 
 
-
 # Adds a variable or number into one of the vectors; if it's a variable
 # then the slot associated with that variable is set to 1, and if it's
 # a number then the slot associated with 1 gets set to that number
@@ -22,6 +21,8 @@ def insert_var(arr, varz, var, used, reverse=False):
         arr[0] += var * (-1 if reverse else 1)
 
 # Maps input, output and intermediate variables to indices
+
+
 def get_var_placement(inputs, flatcode):
     return ['~one'] + [x for x in inputs] + ['~out'] + [
         c[1] for c in flatcode if c[1] not in inputs and c[1] != '~out']
@@ -34,7 +35,8 @@ def flatcode_to_r1cs(inputs, flatcode, field=int):
     A, B, C = [], [], []
     used = {i: True for i in inputs}
     for x in flatcode:
-        a, b, c = [field(0)] * len(varz), [field(0)] * len(varz), [field(0)] * len(varz)
+        a, b, c = [field(0)] * len(varz), [field(0)] * \
+            len(varz), [field(0)] * len(varz)
         if x[1] in used:
             raise Exception("Variable already used: %r" % x[1])
         used[x[1]] = True
@@ -61,6 +63,8 @@ def flatcode_to_r1cs(inputs, flatcode, field=int):
     return A, B, C
 
 # Get a variable or number given an existing input vector
+
+
 def grab_var(varz, assignment, var):
     if isinstance(var, str):
         return assignment[varz.index(var)]
@@ -70,6 +74,8 @@ def grab_var(varz, assignment, var):
         raise Exception("What kind of expression is this? %r" % var)
 
 # Goes through flattened code and completes the input vector
+
+
 def assign_variables(inputs, input_vars, flatcode, field):
     varz = get_var_placement(inputs, flatcode)
 
@@ -79,11 +85,11 @@ def assign_variables(inputs, input_vars, flatcode, field):
         assignment[i + 1] = field(inp)
     for x in flatcode:
         assignment[varz.index(x[1])] = {
-            "set": lambda :field(grab_var(varz, assignment, x[2])),
-            "+": lambda :field(grab_var(varz, assignment, x[2])) + field(grab_var(varz, assignment, x[3])),
-            "-": lambda :field(grab_var(varz, assignment, x[2])) - field(grab_var(varz, assignment, x[3])),
-            "*": lambda :field(grab_var(varz, assignment, x[2])) * field(grab_var(varz, assignment, x[3])),
-            "/": lambda :field(grab_var(varz, assignment, x[2])) / field(grab_var(varz, assignment, x[3]))
+            "set": lambda: field(grab_var(varz, assignment, x[2])),
+            "+": lambda: field(grab_var(varz, assignment, x[2])) + field(grab_var(varz, assignment, x[3])),
+            "-": lambda: field(grab_var(varz, assignment, x[2])) - field(grab_var(varz, assignment, x[3])),
+            "*": lambda: field(grab_var(varz, assignment, x[2])) * field(grab_var(varz, assignment, x[3])),
+            "/": lambda: field(grab_var(varz, assignment, x[2])) / field(grab_var(varz, assignment, x[3]))
         }[x[0]]()
     return assignment
 
@@ -100,6 +106,7 @@ def code_to_r1cs_with_inputs(code, input_vars, field):
 def mul(a, b):
     return list(map(lambda x: x[0] * x[1], zip(a, b)))
 
+
 class R1CS:
 
     @staticmethod
@@ -111,7 +118,8 @@ class R1CS:
     def verify(s, A, B, C):
         ret = True
         for i in range(len(A)):
-            ret = ret and sum(mul(A[i], s)) * sum(mul(B[i], s)) == sum(mul(C[i], s))
+            ret = ret and sum(mul(A[i], s)) * \
+                sum(mul(B[i], s)) == sum(mul(C[i], s))
         return ret
 
     @staticmethod
@@ -127,6 +135,7 @@ class R1CS:
             f.C = f.r1cs[2]
             f.var = get_var_placement(f.inputs, f.flatcode)
             f.src = src
+
             def wit(*args):
                 return assign_variables(f.inputs, args, f.flatcode, field)
             f.witness = wit

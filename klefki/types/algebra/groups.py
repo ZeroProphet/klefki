@@ -15,7 +15,6 @@ class EllipticCurveGroup(Group):
             return (o.value[0] * z ** 2, o.value[1] * z ** 3)
         return o
 
-
     def op(self, g):
         # https://www.desmos.com/calculator/ialhd71we3
         if g.value == 0:
@@ -28,9 +27,10 @@ class EllipticCurveGroup(Group):
         if self.value[0] == g.value[0]:
             if self.value[1] == -(g.value[1]):
                 return self.identity
-            m = (field(3) * self.value[0] * self.value[0] + field(self.A)) / (field(2) * self.value[1])
+            m = (field(3) * self.value[0] * self.value[0] +
+                 field(self.A)) / (field(2) * self.value[1])
         else:
-             m = (self.value[1] - g.value[1]) / (self.value[0] - g.value[0])
+            m = (self.value[1] - g.value[1]) / (self.value[0] - g.value[0])
 
         r_x = m * m - self.value[0] - g.value[0]
         r_y = self.value[1] + m * (r_x - self.value[0])

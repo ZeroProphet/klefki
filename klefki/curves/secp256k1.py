@@ -50,6 +50,7 @@ class EllipticCurveGroupSecp256k1(EllipticCurveGroup):
             return self.__class__(0)
         return self.__class__((x, y))
 
+
 EllipticCurveGroupSecp256k1.G = EllipticCurveGroupSecp256k1(
     (
         FiniteFieldSecp256k1(const.SECP256K1_Gx),

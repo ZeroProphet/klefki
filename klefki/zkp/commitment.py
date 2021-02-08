@@ -1,11 +1,11 @@
 from abc import ABCMeta, abstractmethod, abstractproperty
 
+
 class Sigma(metaclass=ABCMeta):
 
     @abstractproperty
     def commit(self, m, r):
         return
-
 
     @abstractproperty
     def challenge(self, e):

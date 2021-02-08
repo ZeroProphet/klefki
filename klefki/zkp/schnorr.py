@@ -4,6 +4,7 @@ from klefki.types.algebra.concrete import FiniteFieldCyclicSecp256k1 as CF
 from klefki.types.algebra.concrete import EllipticCurveGroupSecp256k1 as Curve
 from hashlib import sha256
 
+
 class NIZKSchnoor(NIZK):
     """
     ref: https://crypto.stanford.edu/cs355/19sp/lec5.pdf

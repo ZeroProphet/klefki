@@ -12,6 +12,7 @@ from itertools import count
 import time
 from hashlib import sha256
 
+
 class MiMC:
     @staticmethod
     def F(x, k, c):
@@ -23,7 +24,8 @@ class MiMC:
         self.r = r
 
     def encrypt(self, x, k, r=None):
-        if not r: r = self.r
+        if not r:
+            r = self.r
         return self.r1cs(x, k)
 
     @property
@@ -57,7 +59,8 @@ class FeistelMiMC(MiMC):
         return (y, x + (y + k + c) ** 3)
 
     def encrypt(self, x, y, k, r=None):
-        if not r: r = self.r
+        if not r:
+            r = self.r
         Ks = [(i + self.field(1)) * k for i in range(0, r)]
         Fs = [partial(self.F, k=k, c=c) for (k, c) in zip(Ks[:r], self.c[:r])]
         return reduce(

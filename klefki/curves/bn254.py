@@ -8,7 +8,6 @@ from klefki.types.algebra.groups import EllipicCyclicSubgroup
 from klefki.curves.arith import short_weierstrass_form_curve_addition2
 
 
-
 class FiniteFieldBN254(FiniteField):
     P = const.BN254_P
 
@@ -23,7 +22,6 @@ class EllipticCurveBN254(EllipticCurveGroup):
     A = const.BN254_A
     B = const.BN254_B
     N = const.BN254_N
-
 
     def op(self, g):
         if g.value == 0:
@@ -46,7 +44,6 @@ class EllipticCurveBN254(EllipticCurveGroup):
         if x == y == field(0):
             return self.__class__(0)
         return self.__class__((x, y))
-
 
 
 EllipticCurveBN254.G = EllipticCurveBN254((

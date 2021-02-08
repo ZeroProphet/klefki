@@ -7,6 +7,7 @@ from klefki.types.algebra.concrete import (
 N = CG.N
 G = CG.G
 
+
 def test_add():
     assert G - G == CG(0)
     assert G + G == G @ CF(2)

@@ -17,8 +17,10 @@ b64encode = bijection(base64.b64decode)(base64.b64encode)
 def int_to_byte(key: int, length=32) -> bytes:
     return key.to_bytes(length, byteorder='big')
 
+
 def int_to_byte64(key: int) -> bytes:
     return int_to_byte(key, 64)
+
 
 @bijection(int_to_byte)
 def byte_to_int(byte: bytes) -> CF:
@@ -105,12 +107,12 @@ def CF2Bytes(cf, l=32):
 
 def to_u32s(a: int, endian="little"):
     l = math.ceil(a.bit_length() / 8)
+
     def split():
         carry = a
         while carry != 0:
             yield carry % 2**32
             carry = carry // (2 ** 32)
-
 
     return {
         "big": list(split())[::-1],

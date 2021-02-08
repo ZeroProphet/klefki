@@ -9,11 +9,13 @@ __all__ = [
 
 T = TypeVar('T')
 
+
 def deg(p):
     d = len(p) - 1
     while getattr(p[d], "id", p[d]) == 0 and d:
         d -= 1
     return d
+
 
 def poly_rounded_div(a, b, field=int):
     dega = deg(a)
@@ -25,6 +27,7 @@ def poly_rounded_div(a, b, field=int):
         for c in range(degb + 1):
             temp[c + i] -= o[c]
     return o[:deg(o)+1]
+
 
 def bits(n: int) -> Iterable:
     """
@@ -41,13 +44,15 @@ def bits(n: int) -> Iterable:
 
 
 def bits_little_endian_from_bytes(s):
-    return "".join([bin(ord(x))[2:].rjust(8,'0')[::-1] for x in s.decode()])
+    return "".join([bin(ord(x))[2:].rjust(8, '0')[::-1] for x in s.decode()])
+
 
 def bytes_from_bits_little_endian(s):
     return bytes([int(s[i:i+8][::-1], 2) for i in range(0, len(s), 8)])
 
+
 def bytes_mul(a, b, s=32):
-    t = [0] * 2* s
+    t = [0] * 2 * s
     a = a.to_bytes(s, "big")[::-1]
     b = b.to_bytes(s, "big")[::-1]
 
@@ -63,7 +68,8 @@ def bytes_mul(a, b, s=32):
 @lru_cache(maxsize=None)
 def montgomery_property(r, n):
     r_inv = invmod(r, n)
-    return (r * r_inv -1) // n
+    return (r * r_inv - 1) // n
+
 
 def mon_pro(a_, b_, r, n, n_):
     t = a_ * b_
@@ -74,14 +80,14 @@ def mon_pro(a_, b_, r, n, n_):
     else:
         return u_
 
+
 def montgomery_mul(a, b, n):
-    r = 2 ** (n.bit_length() +1)
+    r = 2 ** (n.bit_length() + 1)
     n_ = montgomery_property(r, n)
     a_ = (a * r) % n
     b_ = (b * r) % n
     u_ = mon_pro(a_, b_, r, n, n_)
     return mon_pro(u_, 1, r, n, n_)
-
 
 
 def CIOS(a, b, P, N=32):
@@ -125,7 +131,6 @@ def CIOS(a, b, P, N=32):
         (C, t[N-1]) = (t[N] + C).to_bytes(2, "big")
         t[N] = t[N+1] + C
     return int.from_bytes(t, "little")
-
 
 
 def complex_truediv_algorithm(x: complex, y: complex, f: T) -> T:
@@ -177,7 +182,8 @@ def double_and_add_algorithm(times: int, x: T, init: T) -> T:
 
 
 def newton_iterator_sqrt(x: T):
-    if (x.value == 0): return x
+    if (x.value == 0):
+        return x
     last = x.__class__(0)
     res = x.__class__(1)
     while res != last:

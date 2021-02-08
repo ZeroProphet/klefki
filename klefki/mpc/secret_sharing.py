@@ -8,5 +8,6 @@ def additive_share(secret, F, n):
     shares += [(F(secret) - reduce(add, shares))]
     return shares
 
+
 def additive_reconstruct(shares):
     return reduce(add, shares)

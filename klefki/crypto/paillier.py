@@ -30,7 +30,6 @@ class Paillier():
         self.privkey = Lam
         self.pubkey = (self.N, self.G)
 
-
     @classmethod
     def encrypt(cls, m, pub):
         N, G = pub
@@ -40,7 +39,6 @@ class Paillier():
 
         r = G.functor(random.randint(0, N))
         return G**m * r**N
-
 
     @classmethod
     def decrypt(cls, c, priv, pub):
@@ -53,10 +51,8 @@ class Paillier():
     def E(self, m, pub=None):
         return self.encrypt(m, pub or self.pubkey)
 
-
     def D(self, c, priv=None, pub=None):
         return self.decrypt(c, priv or self.privkey, pub or self.pubkey)
-
 
     def test(self):
         m = random.randint(0, self.N)

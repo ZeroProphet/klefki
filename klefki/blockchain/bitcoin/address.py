@@ -38,5 +38,6 @@ def gen_address(pub: ECG) -> str:
     assert len(res) == 25
     return b58encode(res)
 
+
 def gen_address_from_priv(key) -> str:
     return gen_address(pubkey(key))

@@ -4,8 +4,10 @@ from operator import mul
 
 # https://crypto.stackexchange.com/questions/29591/lcm-versus-phi-in-rsa
 
+
 def rsa_lambda(p, q):
     return lcm(p-1, q-1)
+
 
 def rsa_phi(p, q):
     return (p-1) * (q-1)
@@ -41,6 +43,7 @@ def fn_phi(n):
 
 carmichael = fn_lambda
 totient = fn_phi
+
 
 def lcm(a, b):
     return abs(a*b) // math.gcd(a, b)
@@ -89,8 +92,6 @@ def modpow(base, exponent, modulus):
         exponent = exponent >> 1
         base = (base * base) % modulus
     return result
-
-
 
 
 def modular_sqrt(a, p):
@@ -184,8 +185,6 @@ def legendre_symbol(a, p):
     """
     ls = pow(a, (p - 1) // 2, p)
     return -1 if ls == p - 1 else ls
-
-
 
 
 def crt(a_list, n_list) -> int:

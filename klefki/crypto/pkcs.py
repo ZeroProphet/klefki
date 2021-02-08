@@ -32,6 +32,7 @@ def gen_pad(n, msg, hash_type):
         m = SHA256
         h = hashlib.sha256(msg.encode()).hexdigest()
     else:
-        raise Exception("Im too lazy to add all the hash type support, please open a pull requrest if you like")
+        raise Exception(
+            "Im too lazy to add all the hash type support, please open a pull requrest if you like")
     pad = "f" * (key_len - len(h) - len(m) - 4 - 2)
     return "0001" + pad + "00" + m + h

@@ -1,6 +1,6 @@
 #
 # Ref:
-#* I. Damg˚ard, J. Groth. Non-interactive and reusable non-malleable commitment schemes. Proc. of 35 th ACM Symp. on Theory of Computing (STOC’03), pp.426- 437, 2003.
+# * I. Damg˚ard, J. Groth. Non-interactive and reusable non-malleable commitment schemes. Proc. of 35 th ACM Symp. on Theory of Computing (STOC’03), pp.426- 437, 2003.
 #
 #
 from klefki.curves.secp256k1 import EllipticCurveGroupSecp256k1 as Curve
@@ -24,8 +24,6 @@ def keygen(F):
     return (pk, vk, h)
 
 
-
-
 class NMCommitment(Commitment):
 
     def __init__(self, G, H, key=None):
@@ -47,10 +45,10 @@ class NMCommitment(Commitment):
         z = S.challenge(m)
         self.S = S
         # Finally, we compute 𝑚𝑎𝑐=𝑀𝐴𝐶𝑎𝑘(𝑎).
-        mac = hmac.new(str(ak.value).encode(), encode_pubkey(a).encode()).hexdigest()
+        mac = hmac.new(str(ak.value).encode(),
+                       encode_pubkey(a).encode()).hexdigest()
         self.c = (c, a, mac)
-        self.d = (m, d , z)
-
+        self.d = (m, d, z)
 
     @property
     def C(self):
@@ -60,11 +58,11 @@ class NMCommitment(Commitment):
     def D(self):
         return self.d
 
-
     def open(self):
         c, a, mac = self.c
         m, d, z = self.d
         alpha = CF(to_sha256int(gen_address(c)))
-        assert mac == hmac.new(str(d[1].value).encode(), encode_pubkey(a).encode()).hexdigest()
+        assert mac == hmac.new(
+            str(d[1].value).encode(), encode_pubkey(a).encode()).hexdigest()
         assert self.S.proof
         return m

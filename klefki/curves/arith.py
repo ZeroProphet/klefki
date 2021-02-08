@@ -2,6 +2,7 @@
 """
 from klefki.types.algebra.fields import FiniteField
 
+
 def short_weierstrass_form_curve_addition2(
         u1, v1, u2, v2, a1, a3, a2, a4, a6, f: FiniteField
 ) -> (FiniteField, FiniteField):
@@ -13,13 +14,18 @@ def short_weierstrass_form_curve_addition2(
     for baby_jubjub curve: Bv^2 = x^3 + Ax^2 + x
     a1,a3,a2,a4,a6 = 0, 0, a, 1, 0
     """
-    if f(u1) == f(0) and f(v1) == f(0): return (u2, v2)
-    elif (f(u2) == f(0) and f(v2) == f(0)): return (u1, v1)
+    if f(u1) == f(0) and f(v1) == f(0):
+        return (u2, v2)
+    elif (f(u2) == f(0) and f(v2) == f(0)):
+        return (u1, v1)
     elif u1 == u2:
-        if v1 != v2: return (f(0), f(0))
-        elif v1*2 + u1 * a1 + a3 == f(0): return (f(0), f(0))
+        if v1 != v2:
+            return (f(0), f(0))
+        elif v1*2 + u1 * a1 + a3 == f(0):
+            return (f(0), f(0))
         else:
-            lam = ((u1 ** f(2)) * f(3) + u1 * a2 * f(2) - v1 * a1 + a4) / (v1 * f(2) + u1 * a1 + a3)
+            lam = ((u1 ** f(2)) * f(3) + u1 * a2 * f(2) -
+                   v1 * a1 + a4) / (v1 * f(2) + u1 * a1 + a3)
             u3 = lam ** f(2) + lam * a1 - a2 - u2 * f(2)
             v3 = lam * (u1 - u3) - v1 - a1 * u3 - a3
             return (u3, v3)

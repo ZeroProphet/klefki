@@ -16,10 +16,10 @@ def map_to_curve(m, G=Curve.G, bias=1):
     except AssertionError:
         return map_to_curve(m, G=G, bias=bias+1)
 
+
 @bijection(map_to_curve)
 def map_from_curve(M):
     return int(str(M.x.value)[1:])
-
 
 
 class ElGamal():
@@ -27,7 +27,6 @@ class ElGamal():
     def __init__(self, x, g=Curve.G):
         self.privkey = x
         self.pubkey = g, g ** x
-
 
     @classmethod
     def encrypt(cls, m, pub):
@@ -39,7 +38,6 @@ class ElGamal():
         c2 = s * m_
         return (c1, c2)
 
-
     @classmethod
     def decrypt(cls, x, c):
         c1, c2 = c
@@ -47,10 +45,8 @@ class ElGamal():
         m = (c2 - s)
         return map_from_curve(m)
 
-
     def E(self, m):
         return self.encrypt(m, self.pubkey)
-
 
     def D(self, c):
         return self.decrypt(self.privkey, c)

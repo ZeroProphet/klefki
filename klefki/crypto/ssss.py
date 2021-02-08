@@ -20,7 +20,7 @@ class SSSS:
         if all([secret, k, n]):
             self.setup(secret, k, n, poly_params)
 
-    def setup(self, secret, k, n, poly_params = []):
+    def setup(self, secret, k, n, poly_params=[]):
         '''
         k: threshold
         '''
@@ -41,7 +41,6 @@ class SSSS:
         if not hasattr(self, 'f'):
             raise Exception("Needs to encrypt first")
         return (self.F(x), self.f(x))
-
 
     @staticmethod
     def decrypt(shares):

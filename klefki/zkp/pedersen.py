@@ -7,8 +7,9 @@ from operator import add
 
 __all__ = ['commitment', 'vertex_commitment', 'com', 'PedersonCommitment']
 
+
 def v_multi(g: [Group], a: [Field]) -> [Group]:
-    return reduce(lambda x,y: x+y,
+    return reduce(lambda x, y: x+y,
                   list(map(lambda a: a[0] @ a[1], zip(g, a))))
 
 
@@ -22,6 +23,7 @@ def vertex_commitment(x: [Field], r: Field, H: Group, G: [Group]) -> Group:
 
 def matrix_commitment(x: [[Field]], r: Field, H: Group, G: [Group]) -> Group:
     return vertex_commitment(G, H, reduce(add, x), r)
+
 
 def com(x, r, H, G) -> Group:
     '''
@@ -42,18 +44,16 @@ def com(x, r, H, G) -> Group:
 
 class PedersonCommitment(TrapdoorCommitment):
 
-
     def __init__(self, G, H, x, r):
         '''
         G, H <- ECC
         '''
         self.G = G
         self.H = H
-        self.com = partial(com, G=G,H=H)
+        self.com = partial(com, G=G, H=H)
         self.x = x
         self.r = r
         self.A = self.com(self.x, self.r)
-
 
     def commit(self, y, s):
         self.B = self.com(y, s)
@@ -80,7 +80,6 @@ class PedersonCommitment(TrapdoorCommitment):
         )
         return self.response
 
-
     def proof(self, trans=None):
         if not trans:
             trans = self.transcript
@@ -99,7 +98,6 @@ class PedersonCommitment(TrapdoorCommitment):
     @property
     def D(self):
         return (self.x, self.r)
-
 
     @staticmethod
     def verify(H, G, C, D):

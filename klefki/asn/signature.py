@@ -12,5 +12,3 @@ ECDSA_Sig_Value.componentType = namedtype.NamedTypes(
     namedtype.NamedType('r', univ.Integer()),
     namedtype.NamedType('s', univ.Integer())
 )
-
-

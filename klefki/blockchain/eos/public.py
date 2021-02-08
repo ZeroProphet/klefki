@@ -12,6 +12,7 @@ from klefki.utils import ripemd160, b58encode, byte_to_int
 def to_bytes(pub: ECG) -> str:
     return bytes([2 + (pub.value[1].value % 2)]) + int_to_byte(pub.value[0].value)
 
+
 @bijection(to_bytes)
 def from_bytes(a):
     return ECG([
@@ -23,6 +24,7 @@ def from_bytes(a):
 def checksum(a) -> int:
     assert len(a) == 33
     return 'EOS' + b58encode(a + ripemd160(a)[:4])
+
 
 @bijection(checksum)
 def unchecksum(a):

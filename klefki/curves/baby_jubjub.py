@@ -8,7 +8,6 @@ from klefki.types.algebra.groups import EllipicCyclicSubgroup
 from klefki.curves.arith import short_weierstrass_form_curve_addition2
 
 
-
 class FiniteFieldBabyJubjub(FiniteField):
     P = const.BABYJUBJUB_P
 
@@ -23,7 +22,6 @@ class EllipticCurveBabyJubjub(EllipticCurveGroup):
     A = const.BABYJUBJUB_A
     B = const.BABYJUBJUB_B
     N = const.BABYJUBJUB_N
-
 
     def op(self, g):
         # x3 = (x1*y2 + y1*x2)/(1 + b*x1*x2*y1*y2)
@@ -41,7 +39,8 @@ class EllipticCurveBabyJubjub(EllipticCurveGroup):
         y3 = (self.y * g.y - field(self.A) * self.x * g.x) / (field(1) - m)
         return self.__class__((x3, y3))
 
+
 EllipticCurveBabyJubjub.G = EllipticCurveBabyJubjub((
-        FiniteFieldBabyJubjub(const.BABYJUBJUB_Gx),
-        FiniteFieldBabyJubjub(const.BABYJUBJUB_Gy)
+    FiniteFieldBabyJubjub(const.BABYJUBJUB_Gx),
+    FiniteFieldBabyJubjub(const.BABYJUBJUB_Gy)
 ))

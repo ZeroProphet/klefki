@@ -6,6 +6,7 @@ from klefki.types.algebra.concrete import (
 from klefki.types.algebra.isomorphism import bijection
 from random import randint
 
+
 def encode(key: ECG):
     x = hex(key.value[0].value)[2:]
     y = hex(key.value[1].value)[2:]
@@ -21,6 +22,7 @@ def decode(key: str) -> ECG:
 
 def randfield(F):
     return F(randint(0, F.P - 1))
+
 
 def randgroup(G):
     return G(randint(0, G.N - 1))

@@ -14,6 +14,7 @@ from klefki.types.algebra.isomorphism import bijection, do
 def to_cf(a: int) -> CF:
     return CF(a)
 
+
 @bijection(to_cf)
 def from_cf(a: CF) -> int:
     return a.value

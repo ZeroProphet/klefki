@@ -41,7 +41,8 @@ def damgard_jurik_reduce(a: int, n: int, s=1) -> int:
 
             i = i - 1
             t_2 = t_2 * i % n_pow(j)
-            t_1 = t_1 - (t_2 * n_pow(k - 1) * invmod(fact(k), n_pow(j))) % n_pow(j)
+            t_1 = t_1 - (t_2 * n_pow(k - 1) *
+                         invmod(fact(k), n_pow(j))) % n_pow(j)
 
         i = t_1
     return i
@@ -58,9 +59,9 @@ class DJPaillier(Paillier):
         '''
         N = P * Q
 #        Lam = lcm(P-1, Q-1)
-        G = field(N**s, "G") # n ** s == n if s = 1
+        G = field(N**s, "G")  # n ** s == n if s = 1
         # multiplicative group
-        MG = field(N ** (s+1), "N^{s+1}") # n ** (s +1 ) == n2 in pailer case
+        MG = field(N ** (s+1), "N^{s+1}")  # n ** (s +1 ) == n2 in pailer case
         H = field(N, "H")
         # https://crypto.stackexchange.com/questions/29591/lcm-versus-phi-in-rsa
         if strict:
@@ -99,7 +100,6 @@ class DJPaillier(Paillier):
             r = G.functor(r)
         return G**m * r**(N**s)
 
-
     @classmethod
     def decrypt(cls, c, priv, pub, s=1):
         N, G = pub
@@ -111,7 +111,6 @@ class DJPaillier(Paillier):
         if not s:
             s = self.s or 1
         return self.encrypt(m, pub or self.pubkey, s=s, r=r)
-
 
     def D(self, c, priv=None, pub=None, s=None):
         if not s:

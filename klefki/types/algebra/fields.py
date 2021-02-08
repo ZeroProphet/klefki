@@ -55,6 +55,7 @@ class FiniteField(Field):
             )
         )
 
+
 class PolyExtField(Field):
     # field
     F = abstractproperty()
@@ -84,14 +85,17 @@ class PolyExtField(Field):
 
     def sec_inverse(self):
         field = self.F
-        lm, hm = [field(1)] + [field(0)] * self.DEG, [field(0)] * (self.DEG + 1)
-        low, high = self.id + [field(0)], [field(m) for m in self.MOD_COEFF] + [field(1)]
+        lm, hm = [field(1)] + [field(0)] * \
+            self.DEG, [field(0)] * (self.DEG + 1)
+        low, high = self.id + [field(0)], [field(m)
+                                           for m in self.MOD_COEFF] + [field(1)]
         while deg(low):
             r = poly_rounded_div(high, low, field)
             r += [field(0)] * (self.DEG + 1 - len(r))
             nm = [field(x) for x in hm]
             new = [field(x) for x in high]
-            assert len(lm) == len(hm) == len(low) == len(high) == len(nm) == len(new) == self.DEG + 1
+            assert len(lm) == len(hm) == len(low) == len(
+                high) == len(nm) == len(new) == self.DEG + 1
             # xt Euclidean alog.
             for i in range(self.DEG + 1):
                 for j in range(self.DEG + 1 - i):

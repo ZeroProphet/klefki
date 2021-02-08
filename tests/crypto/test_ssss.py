@@ -4,6 +4,7 @@ from klefki.types.algebra.utils import randfield
 from klefki.types.algebra.meta import field
 import random
 
+
 def test_ssss():
     F = field(P)
     s = SSSS(F)

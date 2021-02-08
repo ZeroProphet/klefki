@@ -2,6 +2,7 @@ import ast
 from time import time
 from copy import deepcopy
 
+
 class Flattener:
     def __init__(self, src, ctx={}):
         self.ops = ["set", "+", "-", "*", "/"]
@@ -9,7 +10,8 @@ class Flattener:
         # drop decorator
         src = "\n".join([r for r in src.split("\n") if not "@" in r])
         raw = ast.parse(src.lstrip()).body
-        assert len(raw) == 1 and isinstance(raw[0], ast.FunctionDef), "only support function"
+        assert len(raw) == 1 and isinstance(
+            raw[0], ast.FunctionDef), "only support function"
         self.raw = raw[0]
         self.extra_inputs()
         self.syms = [i for i in self.inputs]
@@ -55,7 +57,6 @@ class Flattener:
             index = s.slice.value.value
         return ast.Num(self.ctx[s.value.id][index])
 
-
     def extra_loop(self, loop):
         """
         only support:
@@ -78,14 +79,14 @@ class Flattener:
                         s.value = self.handle_subscript(s.value, index=e[0])
                     if isinstance(s.value, ast.BinOp):
                         if isinstance(s.value.right, ast.Subscript):
-                            s.value.right = self.handle_subscript(s.value.right, index=e[0])
+                            s.value.right = self.handle_subscript(
+                                s.value.right, index=e[0])
                         if isinstance(s.value.right, ast.Name) and s.value.right.id == loop_index:
                             s.value.right = ast.Num(e[0])
                         if isinstance(s.value.left, ast.Name) and s.value.left.id == loop_index:
                             s.value.left = ast.Num(e[0])
                     if isinstance(s.value, ast.Name) and s.value.id == loop_index:
                         s.value = ast.Num(e[0])
-
 
         return sum([r[1] for r in ret], [])
 
@@ -104,10 +105,8 @@ class Flattener:
             body.append(c)
         self.body = body
 
-
     def flatten_body(self):
         self.flatten_code = sum([self.flatten_stmt(c) for c in self.body], [])
-
 
     def transfer_assert(self, stmt):
         assert isinstance(stmt.test, ast.Compare)
@@ -120,7 +119,6 @@ class Flattener:
         target = self.latest_sym(target)
         value = stmt.test.comparators[0]
         return self.flatten_expr(target, value)
-
 
     def flatten_stmt(self, s, force_target=None):
         if isinstance(s, ast.Assign):
@@ -182,22 +180,23 @@ class Flattener:
                     if not f[i].split("::")[0] in fn_inputs:
                         f[i] = self.closure_alias(f[i], fn_ins.rc)
                     else:
-                    # update global vars to latest
+                        # update global vars to latest
                         if f[i] in fn_inputs:
                             if all([target == self.latest_sym(target),
-                                    target.split("::")[0] == fn_inputs.index(f[i]),
+                                    target.split("::")[
+                                0] == fn_inputs.index(f[i]),
                                     target != fn_inputs.index(f[i])
                             ]):
-                                f[i] = self.latest_sym(fn_inputs.index(f[i]), 2)
+                                f[i] = self.latest_sym(
+                                    fn_inputs.index(f[i]), 2)
                             else:
-                                f[i] = self.latest_sym(fn_inputs.index(f[i]), 1)
+                                f[i] = self.latest_sym(
+                                    fn_inputs.index(f[i]), 1)
                         else:
                             f[i] = self.closure_alias(f[i], fn_ins.rc)
 
-
         fn_flat[-1][1] = target
         return fn_flat
-
 
     def flatten_binop(self, target, expr):
         avalid_binop = (ast.Mult, ast.Add, ast.Sub, ast.Div, ast.Pow)
@@ -219,11 +218,10 @@ class Flattener:
                 if all([target == self.latest_sym(target),
                         target.split("::")[0] == expr.left.id,
                         target != expr.left.id
-                ]):
+                        ]):
                     var1 = self.latest_sym(expr.left.id, 2)
                 else:
                     var1 = self.latest_sym(expr.left.id, 1)
-
 
             sub1 = []
         # If one of the subexpressions is itself a compound expression, recursively
@@ -237,7 +235,7 @@ class Flattener:
                 if all([target == self.latest_sym(target),
                         target.split("::")[0] == expr.right.id,
                         target != expr.right.id
-                ]):
+                        ]):
                     var2 = self.latest_sym(expr.right.id, 2)
                 else:
                     var2 = self.latest_sym(expr.right.id, 1)
@@ -251,14 +249,13 @@ class Flattener:
         # processing for the subexpression if any
         return sub1 + sub2 + [[op, target, var1, var2]]
 
-
     def flatten_pow(self, target, expr):
         assert isinstance(expr.right, ast.Num)
         if expr.right.n == 0:
             return [['set', target, 1]]
         elif expr.right.n == 1:
             return flatten_expr(target, expr.left)
-        else: # This could be made more efficient via square-and-multiply but oh well
+        else:  # This could be made more efficient via square-and-multiply but oh well
             if isinstance(expr.left, (ast.Name, ast.Num)):
                 if isinstance(expr.left, ast.Name):
                     nxt = base = self.latest_sym(expr.left.id)

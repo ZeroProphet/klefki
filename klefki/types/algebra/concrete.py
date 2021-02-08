@@ -29,7 +29,6 @@ class JacobianGroupSecp256k1(JacobianGroup):
     B = const.SECP256K1_B
 
 
-
 class FiniteFieldSecp256r1(FiniteField):
     __slots__ = ()
     P = const.SECP256R1_P

@@ -1,5 +1,6 @@
 from klefki.types.algebra.concrete import FiniteFieldCyclicSecp256k1 as CF
 
+
 def test_int():
     x = CF(3)
     y = CF(4)

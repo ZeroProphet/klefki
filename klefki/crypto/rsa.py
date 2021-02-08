@@ -51,7 +51,6 @@ class RSA:
     def private_key(self):
         return self.n, self.d
 
-
     def decrypt_with_pub_key(self, block: int):
         return pow(block, self.e, self.n)
 
@@ -63,8 +62,6 @@ class RSA:
 
     def decrypt_with_private_key(self, block: int) -> int:
         return pow(block, self.d, self.n)
-
-
 
     encrypt_block = encrypt_with_pub_key
     decrypt_block = decrypt_with_private_key

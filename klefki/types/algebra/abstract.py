@@ -33,6 +33,7 @@ class Functor(metaclass=ABCMeta):
     def id(self):
         return self.value
 
+
 class Groupoid(Functor):
 
     __slots__ = ()
@@ -71,7 +72,6 @@ class Groupoid(Functor):
 
     def __mul__(self, g: 'Group') -> 'Group':
         return self.__add__(g)
-
 
     def __repr__(self):
         return "%s::%s" % (
@@ -129,7 +129,6 @@ class Monoid(SemiGroup):
         return self.__matmul__(times)
 
 
-
 class Group(Monoid):
     __slots__ = ()
 
@@ -149,6 +148,7 @@ class Group(Monoid):
     def __neg__(self) -> 'Group':
         return self.inverse()
 
+
 class Ring(Group):
     __slots__ = ()
 
@@ -158,7 +158,6 @@ class Ring(Group):
         The Operator for obeying axiom `associativity` (2)
         '''
         pass
-
 
     def __mul__(self, g: 'Field') -> 'Field':
         '''
@@ -224,7 +223,6 @@ class Field(Ring):
 
     def __invert__(self):
         return self.sec_inverse()
-
 
     def __truediv__(self, g: 'Field') -> 'Field':
         if isinstance(g.id, complex):

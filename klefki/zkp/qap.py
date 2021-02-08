@@ -7,7 +7,9 @@ from operator import add, mul
 
 def lagrange_polynomial(xs, ys, field=int):
     k = len(xs)
-    l = lambda j: lambda x: reduce(mul, [(x-xs[m])/(xs[j]-xs[m]) for m in range(0, k) if m != j])
+
+    def l(j): return lambda x: reduce(
+        mul, [(x-xs[m])/(xs[j]-xs[m]) for m in range(0, k) if m != j])
     return lambda x: field(reduce(add, [ys[j] * l(j)(x) for j in range(0, k)]))
 
 
@@ -17,7 +19,8 @@ def transfer(v, field=int):
         a = []
         for i in range(len(v)):
             a.append(v[i][n])
-        ret.append(lagrange_polynomial([field(i) for i in range(1, len(a)+1)], a, field))
+        ret.append(lagrange_polynomial([field(i)
+                                        for i in range(1, len(a)+1)], a, field))
     return lambda x: [f(x) for f in ret]
 
 
@@ -26,14 +29,15 @@ def map2field(v, field=int):
 
 
 def R1CS2QAP(a, b, c, x=None, field=int):
-#    s = [field(i) for i in s]
+    #    s = [field(i) for i in s]
     a = map2field(a, field)
     b = map2field(b, field)
     c = map2field(c, field)
     A = transfer(a, field)
     B = transfer(b, field)
     C = transfer(c, field)
-    Z = lambda x: reduce(mul, [(x - field(i)) for i in range(1, len(a)+1)])
+
+    def Z(x): return reduce(mul, [(x - field(i)) for i in range(1, len(a)+1)])
     if not x:
         return A, B, C, Z
     return (A(x), B(x), C(x), Z(x))
@@ -47,6 +51,7 @@ def proof(s, A, B, C, Z, field=int):
     H = (A * B - C) * (Z ** (-1))
     assert A * B - C == H * Z
     return (s, H)
+
 
 def verify(s, A, B, C, Z, H):
     return sum(vmul(A, s)) * sum(vmul(B, s)) - sum(vmul(C, s)) == H * Z

@@ -4,6 +4,7 @@
 import random
 import sys
 
+
 def ipow(a, b, n):
     """calculates (a**b) % n via binary exponentiation, yielding itermediate
        results as Rabin-Miller requires"""
@@ -23,16 +24,20 @@ def ipow(a, b, n):
         yield A
         t >>= 1
 
+
 def rabin_miller_witness(test, possible):
     """Using Rabin-Miller witness test, will return True if possible is
        definitely not prime (composite), False if it may be prime."""
     return 1 not in ipow(test, possible - 1, possible)
 
-smallprimes = (2,3,5,7,11,13,17,19,23,29,31,37,41,43,
-               47,53,59,61,67,71,73,79,83,89,97)
+
+smallprimes = (2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43,
+               47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97)
+
 
 def default_k(bits):
     return max(40, 2 * bits)
+
 
 def is_probably_prime(possible, k=None):
     if possible == 1:

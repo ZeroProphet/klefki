@@ -12,12 +12,15 @@ class SymmetricEncryption(object):
 
     def encrypt(self, plaintext):
         ENCRYPT = 1
-        cipher = M2Crypto.EVP.Cipher(alg=self.alg, key=self.key, iv=self.iv, op=ENCRYPT)
+        cipher = M2Crypto.EVP.Cipher(
+            alg=self.alg, key=self.key, iv=self.iv, op=ENCRYPT)
         ciphertext = cipher.update(plaintext) + cipher.final()
         return base64.b64encode(ciphertext)
 
     def decrypt(self, cyphertext):
         DECRYPT = 0
-        cipher = M2Crypto.EVP.Cipher(alg=self.alg, key=self.key, iv=self.iv, op=DECRYPT)
-        plaintext = cipher.update(base64.b64decode(cyphertext)) + cipher.final()
+        cipher = M2Crypto.EVP.Cipher(
+            alg=self.alg, key=self.key, iv=self.iv, op=DECRYPT)
+        plaintext = cipher.update(
+            base64.b64decode(cyphertext)) + cipher.final()
         return plaintext
