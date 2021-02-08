@@ -15,14 +15,6 @@ class FiniteField(Field):
             return complex((value.real % self.P), (value.imag % self.P))
         return value % self.P
 
-    @property
-    def identity(self):
-        return self.__class__(0 % self.P)
-
-    @property
-    def sec_identity(self):
-        return self.__class__(1 % self.P)
-
     def inverse(self):
         return self.__class__(self.P - self.value)
 
@@ -73,6 +65,7 @@ class PolyExtField(Field):
     """
     modulus_coeffs = abstractproperty()
     degree = abstractproperty()
+    field = abstractproperty()
 
     def op(self, rhs):
         return self.__class__([x + y for x, y in zip(self.value, rhs.value)])
@@ -114,18 +107,18 @@ class PolyExtField(Field):
         return self.__class__([i / low[0] for i in lm[:self.degree]])
 
 
-    @property
-    def sec_identity(self):
-        field = self.value[0].__class__
-        return self.__class__([field(1)] + [field(0)] * (self.degree - 1))
+    @classmethod
+    def sec_identity(cls):
+        field = cls.field
+        return cls([field(1)] + [field(0)] * (cls.degree - 1))
 
-    @property
-    def identity(self):
-        field = self.value[0].__class__
-        return self.__class__([field(0)] * self.degree)
+    @classmethod
+    def identity(cls):
+        field = cls.field
+        return cls([field(0)] * cls.degree)
 
     def inverse(self):
-        return self.__class__([-c for c in self.value])
+        return self.functor([-c for c in self.id])
 
 
 

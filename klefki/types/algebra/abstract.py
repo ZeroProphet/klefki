@@ -98,16 +98,16 @@ class SemiGroup(Groupoid):
 class Monoid(SemiGroup):
     __slots__ = ()
 
-    @property
-    def zero(self):
-        return self.identity
+    @classmethod
+    def zero(cls):
+        return cls.identity()
 
-    @abstractproperty
-    def identity(self):
+    @classmethod
+    def identity(cls):
         '''
         The value for obeying axiom `identity` (3)
         '''
-        pass
+        return cls(0)
 
     def __not__(self):
         return self is not self.identity
@@ -206,13 +206,13 @@ class Field(Ring):
         '''
         pass
 
-    @abstractmethod
-    def sec_identity(self):
-        pass
+    @classmethod
+    def sec_identity(cls):
+        return cls(1)
 
-    @property
-    def one(self):
-        return self.sec_identity
+    @classmethod
+    def one(cls):
+        return cls.sec_identity()
 
     def __invert__(self):
         return self.sec_inverse()
