@@ -47,15 +47,15 @@ class EllipticCurveBN128(EllipticCurveGroup):
         x, y = short_weierstrass_form_curve_addition2(
             self.x, self.y,
             g.x, g.y,
-            field(0),
-            field(0),
-            field(0),
+            field.zero(),
+            field.zero(),
+            field.zero(),
             field(self.A),
             field(self.B),
             field
         )
-        if x == y == field(0):
-            return self.__class__(0)
+        if x == y == field.zero():
+            return self.zero()
         return self.__class__((x, y))
 
 
