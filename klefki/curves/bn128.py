@@ -3,25 +3,38 @@ ref: https://github.com/ethereum/research/blob/711bd9532b4534ef5ae6277bd7afe6251
 """
 import klefki.const as const
 from klefki.types.algebra.fields import FiniteField
+from klefki.types.algebra.fields import PolyExtField
 from klefki.types.algebra.groups import EllipticCurveGroup
 from klefki.types.algebra.groups import EllipicCyclicSubgroup
 from klefki.curves.arith import short_weierstrass_form_curve_addition2
 
 
-class FiniteFieldBN254(FiniteField):
-    P = const.BN254_P
+class BN128FP(FiniteField):
+    P = const.BN128_P
 
 
-class EllipticCurveBN254(EllipticCurveGroup):
+class BN128FP2(PolyExtField):
+    F = FiniteFieldBN128
+    DEG = len(const.BN128_FP2_MOD)
+    MOD_COEFF = const.BN128_FP2_MOD
+
+
+class BN128FP12(PolyExtField):
+    F = FiniteFieldBN128
+    DEG = len(const.BN128_FP12_MOD)
+    MOD_COEFF = const.BN128_FP12_MOD
+
+
+class EllipticCurveBN128(EllipticCurveGroup):
     """
     Twisted Edwards Form (standard)
     y^2 = x^3 + Ax^2 + x
     Montgomery Form
     By^2 = x^3 + A x^2 + x
     """
-    A = const.BN254_A
-    B = const.BN254_B
-    N = const.BN254_N
+    A = const.BN128_A
+    B = const.BN128_B
+    N = const.BN128_N
 
     def op(self, g):
         if g.id == self.zero():
@@ -46,7 +59,7 @@ class EllipticCurveBN254(EllipticCurveGroup):
         return self.__class__((x, y))
 
 
-EllipticCurveBN254.G = EllipticCurveBN254((
-    FiniteFieldBN254(const.BN254_Gx),
-    FiniteFieldBN254(const.BN254_Gy)
+EllipticCurveBN128.G = EllipticCurveBN128((
+    FiniteFieldBN128(const.BN128_G1x),
+    FiniteFieldBN128(const.BN128_G1y)
 ))
