@@ -14,27 +14,18 @@ class BN128FP(FiniteField):
 
 
 class BN128FP2(PolyExtField):
-    F = FiniteFieldBN128
-    DEG = len(const.BN128_FP2_MOD)
-    MOD_COEFF = const.BN128_FP2_MOD
+    F = BN128FP
+    E = const.BN128_FP2_E
 
 
 class BN128FP12(PolyExtField):
-    F = FiniteFieldBN128
-    DEG = len(const.BN128_FP12_MOD)
-    MOD_COEFF = const.BN128_FP12_MOD
+    F = BN128FP
+    E = const.BN128_FP12_E
 
 
 class EllipticCurveBN128(EllipticCurveGroup):
-    """
-    Twisted Edwards Form (standard)
-    y^2 = x^3 + Ax^2 + x
-    Montgomery Form
-    By^2 = x^3 + A x^2 + x
-    """
     A = const.BN128_A
     B = const.BN128_B
-    N = const.BN128_N
 
     def op(self, g):
         if g.id == self.zero():
@@ -57,9 +48,3 @@ class EllipticCurveBN128(EllipticCurveGroup):
         if x == y == field.zero():
             return self.zero()
         return self.__class__((x, y))
-
-
-EllipticCurveBN128.G = EllipticCurveBN128((
-    FiniteFieldBN128(const.BN128_G1x),
-    FiniteFieldBN128(const.BN128_G1y)
-))

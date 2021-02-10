@@ -59,12 +59,11 @@ class FiniteField(Field):
 class PolyExtField(Field):
     # field
     F = abstractproperty()
-    DEG = abstractproperty()
-    MOD_COEFF = abstractproperty()
+    E = abstractproperty()
 
     def fmap(self, coef):
         # map Maybe<int> top Field
-        assert len(coef) == self.DEG
+        assert len(coef) == len(self.E)
         return [self.F(p) for p in coef]
 
     def op(self, rhs):
@@ -73,12 +72,12 @@ class PolyExtField(Field):
     @classmethod
     def sec_identity(cls):
         field = cls.F
-        return cls([field(1)] + [field(0)] * (cls.DEG - 1))
+        return cls([field(1)] + [field(0)] * (len(cls.E) - 1))
 
     @classmethod
     def identity(cls):
         field = cls.F
-        return cls([field(0)] * cls.DEG)
+        return cls([field(0)] * len(cls.E))
 
     def inverse(self):
         return self.functor([-x for x in self.id])
@@ -86,36 +85,36 @@ class PolyExtField(Field):
     def sec_inverse(self):
         field = self.F
         lm, hm = [field(1)] + [field(0)] * \
-            self.DEG, [field(0)] * (self.DEG + 1)
+            len(self.E), [field(0)] * (len(self.E) + 1)
         low, high = self.id + [field(0)], [field(m)
-                                           for m in self.MOD_COEFF] + [field(1)]
+                                           for m in self.E] + [field(1)]
         while deg(low):
             r = poly_rounded_div(high, low, field)
-            r += [field(0)] * (self.DEG + 1 - len(r))
+            r += [field(0)] * (len(self.E) + 1 - len(r))
             nm = [field(x) for x in hm]
             new = [field(x) for x in high]
             assert len(lm) == len(hm) == len(low) == len(
-                high) == len(nm) == len(new) == self.DEG + 1
+                high) == len(nm) == len(new) == len(self.E) + 1
             # xt Euclidean alog.
-            for i in range(self.DEG + 1):
-                for j in range(self.DEG + 1 - i):
+            for i in range(len(self.E) + 1):
+                for j in range(len(self.E) + 1 - i):
                     nm[i+j] -= lm[i] * r[j]
                     new[i+j] -= low[i] * r[j]
             lm, low, hm, high = nm, new, lm, low
-        return self.functor([i / field(low[0]) for i in lm[:self.DEG]])
+        return self.functor([i / field(low[0]) for i in lm[:len(self.E)]])
 
     def sec_op(self, rhs):
         if not isinstance(rhs, self.functor):
             return self.__class__([c * other for c in self.value])
         else:
-            b = [self.F(0) for i in range(self.DEG * 2 - 1)]
-            for i in range(self.DEG):
-                for j in range(self.DEG):
+            b = [self.F(0) for i in range(len(self.E) * 2 - 1)]
+            for i in range(len(self.E)):
+                for j in range(len(self.E)):
                     b[i + j] += self.value[i] * rhs.value[j]
-            while len(b) > self.DEG:
-                exp, top = len(b) - self.DEG - 1, b.pop()
-                for i in range(self.DEG):
-                    b[exp + i] -= top * self.F(self.MOD_COEFF[i])
+            while len(b) > len(self.E):
+                exp, top = len(b) - len(self.E) - 1, b.pop()
+                for i in range(len(self.E)):
+                    b[exp + i] -= top * self.F(self.E[i])
             return self.__class__(b)
 
 

@@ -1,5 +1,5 @@
 from klefki.types.algebra.fields import PolyExtField
-from klefki.curves.bn254 import FiniteFieldBN254 as F
+from klefki.curves.barreto_naehrig.bn128 import BN128FP as F
 
 
 modulus_coeffs = [82, 0, 0, 0, 0, 0, 18, 0, 0, 0, 0, 0]
@@ -7,8 +7,7 @@ modulus_coeffs = [82, 0, 0, 0, 0, 0, 18, 0, 0, 0, 0, 0]
 
 class FQ12(PolyExtField):
     F = F
-    DEG = len(modulus_coeffs)
-    MOD_COEFF = modulus_coeffs
+    E = modulus_coeffs
 
 
 def test_ext_field():
