@@ -61,12 +61,19 @@ class PolyExtField(Field):
     F = abstractproperty()
     E = abstractproperty()
 
-    def fmap(self, coef):
+    def fmap(self, value):
         # map Maybe<int> top Field
-        assert len(coef) == len(self.E)
-        return [self.F(p) for p in coef]
+        if isinstance(value, list):
+            assert len(value) == len(self.E)
+            return [self.F(p) for p in value]
+        else:
+            return self.F(value)
 
     def op(self, rhs):
+        if isinstance(rhs, int):
+            rhs = self.F(rhs)
+        if isinstance(rhs, self.F):
+            return self.functor([x + rhs for x in self.id])
         return self.functor([x + y for x, y in zip(self.id, rhs.id)])
 
     @classmethod
@@ -104,6 +111,8 @@ class PolyExtField(Field):
         return self.functor([i / field(low[0]) for i in lm[:len(self.E)]])
 
     def sec_op(self, rhs):
+        if isinstance(rhs, int):
+            rhs = self.F(rhs)
         if not isinstance(rhs, self.functor):
             return self.__class__([c * other for c in self.value])
         else:

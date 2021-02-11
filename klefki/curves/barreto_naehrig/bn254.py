@@ -24,9 +24,9 @@ class EllipticCurveBN254(EllipticCurveGroup):
     N = const.BN254_N
 
     def op(self, g):
-        if g.id == self.zero():
+        if g == self.zero():
             return self
-        if self.value == self.zero():
+        if self == self.zero():
             return g
         field = self.id[0].functor
 

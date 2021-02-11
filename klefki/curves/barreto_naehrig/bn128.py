@@ -28,9 +28,9 @@ class ECGBN128(EllipticCurveGroup):
     B = const.BN128_B
 
     def op(self, g):
-        if g.id == self.zero():
+        if g == self.zero():
             return self
-        if self.value == self.zero():
+        if self == self.zero():
             return g
         field = self.id[0].functor
 
@@ -55,7 +55,9 @@ ECGBN128.G1 = ECGBN128(
     BN128FP(const.BN128_G1y)
 )
 
-ECGBN128.G1 = ECGBN128(
+ECGBN128.G2 = ECGBN128(
     BN128FP2(const.BN128_G2x),
     BN128FP2(const.BN128_G2y)
 )
+
+ECGBN128.G = ECGBN128.G1

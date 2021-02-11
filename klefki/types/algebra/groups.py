@@ -26,7 +26,7 @@ class EllipticCurveGroup(Group):
 
         if self.value[0] == g.value[0]:
             if self.value[1] == -(g.value[1]):
-                return self.identity
+                return self.identity()
             m = (field(3) * self.value[0] * self.value[0] +
                  field(self.A)) / (field(2) * self.value[1])
         else:
@@ -41,21 +41,17 @@ class EllipticCurveGroup(Group):
             return self
         return self.__class__((self.value[0], -self.value[1]))
 
-    @property
-    def identity(self):
+    @classmethod
+    def identity(cls):
         # The abstract zero of EC Group
-        return self.__class__(0)
+        return cls(0)
 
     @property
     def x(self):
-        if self == self.identity:
-            return 0
         return self.value[0]
 
     @property
     def y(self):
-        if self == self.identity:
-            return 0
         return self.value[1]
 
     @classmethod
@@ -74,9 +70,9 @@ class CyclicAddGroup(Group):
         value = getattr(o, 'value', o)
         return value % self.N
 
-    @property
-    def identity(self):
-        return self.__class__(0)
+    @classmethod
+    def identity(cls):
+        return cls(0)
 
     def inverse(self):
         return self.__class__(invmod(self.value, self.N))
@@ -140,9 +136,9 @@ class JacobianGroup(Group):
         nz = field(2) * self.value[1] * self.value[2]
         return self.__class__((nx, ny, nz))
 
-    @property
-    def identity(self):
-        return self.__class__(0)
+    @classmethod
+    def identity(cls):
+        return cls(0)
 
     def inverse(self):
         pass

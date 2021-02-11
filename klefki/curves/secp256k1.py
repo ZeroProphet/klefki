@@ -24,24 +24,24 @@ class EllipticCurveGroupSecp256k1(EllipticCurveGroup):
 
     @property
     def x(self):
-        if self == self.identity:
+        if self == self.zero():
             return 0
         return self.value[0]
 
     @property
     def y(self):
-        if self == self.identity:
+        if self == self.zero():
             return 0
         return self.value[1]
 
     def op(self, g):
-        field = self.value[0].__class__
+        field = self.id[0].__class__
         x, y = short_weierstrass_form_curve_addition2(
             self.x, self.y,
             g.x, g.y,
-            field(0),
-            field(0),
-            field(0),
+            field.zero(),
+            field.zero(),
+            field.zero(),
             field(self.A),
             field(self.B),
             field

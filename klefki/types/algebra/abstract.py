@@ -110,14 +110,14 @@ class Monoid(SemiGroup):
         return cls(0)
 
     def __not__(self):
-        return self is not self.identity
+        return self is not self.identity()
 
     def scalar(self, times):
         while getattr(times, 'value', None) != None:
             times = times.id
         if times == 0:
-            return self.identity
-        return double_and_add_algorithm(times, self, self.identity)
+            return self.identity()
+        return double_and_add_algorithm(times, self, self.identity())
 
     def __matmul__(self, times):
         return self.scalar(times)
