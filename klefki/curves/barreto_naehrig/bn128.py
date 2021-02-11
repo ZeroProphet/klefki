@@ -23,7 +23,7 @@ class BN128FP12(PolyExtField):
     E = const.BN128_FP12_E
 
 
-class EllipticCurveBN128(EllipticCurveGroup):
+class ECGBN128(EllipticCurveGroup):
     A = const.BN128_A
     B = const.BN128_B
 
@@ -48,3 +48,14 @@ class EllipticCurveBN128(EllipticCurveGroup):
         if x == y == field.zero():
             return self.zero()
         return self.__class__((x, y))
+
+
+ECGBN128.G1 = ECGBN128(
+    BN128FP(const.BN128_G1x),
+    BN128FP(const.BN128_G1y)
+)
+
+ECGBN128.G1 = ECGBN128(
+    BN128FP2(const.BN128_G2x),
+    BN128FP2(const.BN128_G2y)
+)
