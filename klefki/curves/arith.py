@@ -24,13 +24,13 @@ def short_weierstrass_form_curve_addition2(
         elif v1*2 + u1 * a1 + a3 == f.zero():
             return (f.zero(), f.zero())
         else:
-            lam = ((u1 ** 2) * f(3) + u1 * a2 * f(2) -
-                   v1 * a1 + a4) / (v1 * f(2) + u1 * a1 + a3)
-            u3 = lam ** 2 + lam * a1 - a2 - u2 * f(2)
+            lam = ((u1 ** 2) * 3 + u1 * a2 * 2 -
+                   v1 * a1 + a4) / (v1 * 2 + u1 * a1 + a3)
+            u3 = lam ** 2 + lam * a1 - a2 - u2 * 2
             v3 = lam * (u1 - u3) - v1 - a1 * u3 - a3
             return (u3, v3)
     else:
         lam = (v1 - v2) / (u1-u2)
-        u3 = lam ** f(2) + a1 * lam - a2 - u1 - u2
-        v3 = lam * (u1-u3) - v1 - a1*u3 - a3
+        u3 = lam ** 2 + a1 * lam - a2 - u1 - u2
+        v3 = lam * (u1-u3) - v1 - a1 * u3 - a3
         return (u3, v3)

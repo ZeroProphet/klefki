@@ -63,41 +63,45 @@ class PolyExtField(Field):
 
     def fmap(self, value):
         # map Maybe<int> top Field
+        if value == 0:
+            return self.zero().id
+        if value == 1:
+            return self.one().id
         if isinstance(value, list):
             assert len(value) == len(self.E)
             return [self.F(p) for p in value]
-        else:
-            return self.F(value)
+        # support inner field
+        return self.F(value)
 
     def op(self, rhs):
         if isinstance(rhs, int):
             rhs = self.F(rhs)
         if isinstance(rhs, self.F):
             return self.functor([x + rhs for x in self.id])
-        return self.functor([x + y for x, y in zip(self.id, rhs.id)])
+        try:
+            return self.functor([x + y for x, y in zip(self.id, rhs.id)])
+        except:
+            import pdb; pdb.set_trace()
 
     @classmethod
     def sec_identity(cls):
-        field = cls.F
-        return cls([field(1)] + [field(0)] * (len(cls.E) - 1))
+        return cls([cls.F.one()] + [cls.F.zero()] * (len(cls.E) - 1))
 
     @classmethod
     def identity(cls):
-        field = cls.F
-        return cls([field(0)] * len(cls.E))
+        return cls([cls.F.zero()] * len(cls.E))
 
     def inverse(self):
         return self.functor([-x for x in self.id])
 
     def sec_inverse(self):
         field = self.F
-        lm, hm = [field(1)] + [field(0)] * \
-            len(self.E), [field(0)] * (len(self.E) + 1)
-        low, high = self.id + [field(0)], [field(m)
-                                           for m in self.E] + [field(1)]
+        lm, hm = [self.F.one()] + [self.F.zero()] * \
+            len(self.E), [self.F.zero()] * (len(self.E) + 1)
+        low, high = self.id + [self.F.zero()], [self.F(m) for m in self.E] + [field(1)]
         while deg(low):
             r = poly_rounded_div(high, low, field)
-            r += [field(0)] * (len(self.E) + 1 - len(r))
+            r += [field.zero()] * (len(self.E) + 1 - len(r))
             nm = [field(x) for x in hm]
             new = [field(x) for x in high]
             assert len(lm) == len(hm) == len(low) == len(
@@ -113,10 +117,10 @@ class PolyExtField(Field):
     def sec_op(self, rhs):
         if isinstance(rhs, int):
             rhs = self.F(rhs)
-        if not isinstance(rhs, self.functor):
+        if isinstance(rhs, self.F):
             return self.__class__([c * rhs for c in self.value])
         else:
-            b = [self.F(0) for i in range(len(self.E) * 2 - 1)]
+            b = [self.F.zero() for i in range(len(self.E) * 2 - 1)]
             for i in range(len(self.E)):
                 for j in range(len(self.E)):
                     b[i + j] += self.value[i] * rhs.value[j]
