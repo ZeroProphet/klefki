@@ -14,15 +14,15 @@ def short_weierstrass_form_curve_addition2(
     for baby_jubjub curve: Bv^2 = x^3 + Ax^2 + x
     a1,a3,a2,a4,a6 = 0, 0, a, 1, 0
     """
-    if f(u1) == f(0) and f(v1) == f(0):
+    if f(u1) == f.zero() and f(v1) == f.zero():
         return (u2, v2)
-    elif (f(u2) == f(0) and f(v2) == f(0)):
+    elif f(u2) == f.zero() and f(v2) == f.zero():
         return (u1, v1)
     elif u1 == u2:
         if v1 != v2:
-            return (f(0), f(0))
-        elif v1*2 + u1 * a1 + a3 == f(0):
-            return (f(0), f(0))
+            return (f.zero(), f.zero())
+        elif v1*2 + u1 * a1 + a3 == f.zero():
+            return (f.zero(), f.zero())
         else:
             lam = ((u1 ** f(2)) * f(3) + u1 * a2 * f(2) -
                    v1 * a1 + a4) / (v1 * f(2) + u1 * a1 + a3)

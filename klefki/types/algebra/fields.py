@@ -114,7 +114,7 @@ class PolyExtField(Field):
         if isinstance(rhs, int):
             rhs = self.F(rhs)
         if not isinstance(rhs, self.functor):
-            return self.__class__([c * other for c in self.value])
+            return self.__class__([c * rhs for c in self.value])
         else:
             b = [self.F(0) for i in range(len(self.E) * 2 - 1)]
             for i in range(len(self.E)):
