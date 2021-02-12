@@ -39,7 +39,7 @@ class FiniteField(Field):
 
     def op(self, g):
         if isinstance(g, int):
-            g = self.functor(g)
+            g = self.type(g)
         return self.__class__(
             self.mod(
                 (self.value + g.value), self.P
@@ -48,7 +48,7 @@ class FiniteField(Field):
 
     def sec_op(self, g):
         if isinstance(g, int):
-            g = self.functor(g)
+            g = self.type(g)
         return self.__class__(
             self.mod(
                 (self.value * g.value), self.P
@@ -77,9 +77,9 @@ class PolyExtField(Field):
         if isinstance(rhs, int):
             rhs = self.F(rhs)
         if isinstance(rhs, self.F):
-            return self.functor([x + rhs for x in self.id])
+            return self.type([x + rhs for x in self.id])
         try:
-            return self.functor([x + y for x, y in zip(self.id, rhs.id)])
+            return self.type([x + y for x, y in zip(self.id, rhs.id)])
         except:
             import pdb; pdb.set_trace()
 
@@ -92,7 +92,7 @@ class PolyExtField(Field):
         return cls([cls.F.zero()] * len(cls.E))
 
     def inverse(self):
-        return self.functor([-x for x in self.id])
+        return self.type([-x for x in self.id])
 
     def sec_inverse(self):
         field = self.F
@@ -112,7 +112,7 @@ class PolyExtField(Field):
                     nm[i+j] -= lm[i] * r[j]
                     new[i+j] -= low[i] * r[j]
             lm, low, hm, high = nm, new, lm, low
-        return self.functor([i / field(low[0]) for i in lm[:len(self.E)]])
+        return self.type([i / field(low[0]) for i in lm[:len(self.E)]])
 
     def sec_op(self, rhs):
         if isinstance(rhs, int):

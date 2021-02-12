@@ -15,7 +15,7 @@ class Functor(metaclass=ABCMeta):
     def __init__(self, *args):
         if len(args) == 1:
             args = args[0]
-            if isinstance(args, self.functor):
+            if isinstance(args, self.type):
                 self.value = args.value
             else:
                 self.value = self.fmap(args)
@@ -26,7 +26,7 @@ class Functor(metaclass=ABCMeta):
         return o
 
     @property
-    def functor(self):
+    def type(self):
         return self.__class__
 
     @property
@@ -182,7 +182,7 @@ class Ring(Group):
         elif b == (1/2):
             root = modular_sqrt(self.id, self.P)
             assert root != 0, "ins dont have root"
-            return self.functor(root)
+            return self.type(root)
         elif b % 2 == 0:
             return (self * self) ** (b / 2)
         else:
@@ -190,12 +190,12 @@ class Ring(Group):
         # if hasattr(self, "P"):
         #     m = self.P
         #     if b < 0:
-        #         return ~self.functor(pow(self.id, b * -1, m))
-        # return self.functor(pow(self.id, b, m))
+        #         return ~self.type(pow(self.id, b * -1, m))
+        # return self.type(pow(self.id, b, m))
         # If b == 0:
-        #     return self.functor(1)
+        #     return self.type(1)
         # if 0 < b < 1:
-        #     return self.functor(self.id ** b)
+        #     return self.type(self.id ** b)
         # if b == 1:
         #     return self
         # if b == 2:
@@ -226,10 +226,10 @@ class Field(Ring):
 
     def __truediv__(self, g: 'Field') -> 'Field':
         if isinstance(g.id, complex):
-            return complex_truediv_algorithm(complex(1), self.id, self.functor)
+            return complex_truediv_algorithm(complex(1), self.id, self.type)
         return self.sec_op(g.sec_inverse())
 
     def __floordiv__(self, g: 'Field') -> 'Field':
         if isinstance(g.id, complex):
-            return complex_truediv_algorithm(complex(1), self.id, self.functor)
+            return complex_truediv_algorithm(complex(1), self.id, self.type)
         return self.sec_op(g.sec_inverse())

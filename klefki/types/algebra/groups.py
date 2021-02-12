@@ -79,7 +79,7 @@ class CyclicAddGroup(Group):
 
     def op(self, g):
         if isinstance(g, int):
-            g = self.functor(g)
+            g = self.type(g)
         return self.__class__(
             (self.value + g.value) % self.N
         )

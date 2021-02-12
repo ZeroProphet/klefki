@@ -32,7 +32,7 @@ class ECGBN128(EllipticCurveGroup):
             return self
         if self == self.zero():
             return g
-        field = self.id[0].functor
+        field = self.id[0].type
 
         # a1,a3,a2,a4,a6 = 0, 0, 0, a, b
         x, y = short_weierstrass_form_curve_addition2(
