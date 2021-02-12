@@ -26,6 +26,7 @@ class BN128FP12(PolyExtField):
 class ECGBN128(EllipticCurveGroup):
     A = const.BN128_A
     B = const.BN128_B
+    N = const.BN128_N
 
     def op(self, g):
         if g == self.zero():
@@ -76,9 +77,48 @@ class ECGBN128(EllipticCurveGroup):
         ny = BN128FP12([y.id[0]] + [zero] * 5 + [y.id[1]] + [zero] * 5)
         return cls((nx / w **2, ny / w**3))
 
-    def linefunc(self):
+    @staticmethod
+    def linefunc(P1, P2, T):
         # https://github.com/ethereum/research/blob/9a7b6825b0dee7a59a03f8ca1d1ec3ae7fb6d598/zksnark/bn128_pairing.py
-        pass
+        assert P1 and P2 and T # No points-at-infinity allowed, sorry
+        x1, y1 = P1.x, P1.y
+        x2, y2 = P2.x, P2.y
+        xt, yt = T.x, T.y
+        if x1 != x2:
+            m = (y2 - y1) / (x2 - x1)
+            return m * (xt - x1) - (yt - y1)
+        elif y1 == y2:
+            m = (x1**2 * 3)/ (y1 * 2)
+            return m * (xt - x1) - (yt - y1)
+        else:
+            return xt - x1
+
+    @classmethod
+    def miller_loop(cls, Q, P):
+        # ref: https://github.com/ethereum/research/blob/9a7b6825b0dee7a59a03f8ca1d1ec3ae7fb6d598/zksnark/bn128_pairing.py
+        log_ate_loop_count = 63
+        ate_loop_count = 29793968203157093288
+
+        if Q is None or P is None:
+            return BN128FP12.one()
+        R = Q
+        f = BN128FP12.one()
+        for i in range(log_ate_loop_count, -1, -1):
+            f = f * f * cls.linefunc(R, R, P)
+            R = R @ 2
+            if ate_loop_count & (2**i):
+                f = f * cls.linefunc(R, Q, P)
+                R = R + Q
+        # assert R == multiply(Q, ate_loop_count)
+        Q1 = (Q[0] ** BN128FP.P, Q[1] ** BN128FP.P)
+        # assert is_on_curve(Q1, b12)
+        nQ2 = (Q1[0] ** BN128FP.P, -Q1[1] ** BN128FP.P)
+        # assert is_on_curve(nQ2, b12)
+        f = f * cls.linefunc(R, Q1, P)
+        R = R + Q1
+        f = f * cls.linefunc(R, nQ2, P)
+        # R = add(R, nQ2) This line is in many specifications but it technically does nothing
+        return f ** ((BN128FP.P ** 12 - 1) // cls.N)
 
 
 
