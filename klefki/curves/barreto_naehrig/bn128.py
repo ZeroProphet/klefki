@@ -124,6 +124,11 @@ class ECGBN128(EllipticCurveGroup):
     def pairing(cls, P, Q):
         return cls.miller_loop(P.twist(), Q.twist())
 
+    @classmethod
+    def e(cls, P, Q):
+        return cls.pairing(P, Q)
+
+
 
 
 ECGBN128.G1 = ECGBN128(
