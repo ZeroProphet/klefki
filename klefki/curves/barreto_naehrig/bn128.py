@@ -49,6 +49,19 @@ class ECGBN128(EllipticCurveGroup):
             return self.zero()
         return self.__class__((x, y))
 
+    def twist(self):
+        # "Twist" a point in E(FQ2) into a point in E(FQ12)
+        x, y = self.x, self.y
+        zero = BN128FP.zero()
+        one = BN128FP.one()
+        w = BN128FP12([zero, one] + [zero] * 10)
+
+        assert isinstance(x, BN128FP2)
+        assert isinstance(y, BN128FP2)
+        nx = BN128FP12([x.id[0]] + [zero] * 5 + [x.id[1]] + [zero] * 5)
+        ny = BN128FP12([y.id[0]] + [zero] * 5 + [y.id[1]] + [zero] * 5)
+        return self.type(nx / w **2, ny / w**3)
+
 
 ECGBN128.G1 = ECGBN128(
     BN128FP(const.BN128_G1x),
