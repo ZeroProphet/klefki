@@ -110,15 +110,19 @@ class ECGBN128(EllipticCurveGroup):
                 f = f * cls.linefunc(R, Q, P)
                 R = R + Q
         # assert R == multiply(Q, ate_loop_count)
-        Q1 = (Q[0] ** BN128FP.P, Q[1] ** BN128FP.P)
+        Q1 = cls(Q.x ** BN128FP.P, Q.y ** BN128FP.P)
         # assert is_on_curve(Q1, b12)
-        nQ2 = (Q1[0] ** BN128FP.P, -Q1[1] ** BN128FP.P)
+        nQ2 = cls(Q1.x ** BN128FP.P, -Q1.y ** BN128FP.P)
         # assert is_on_curve(nQ2, b12)
         f = f * cls.linefunc(R, Q1, P)
         R = R + Q1
         f = f * cls.linefunc(R, nQ2, P)
         # R = add(R, nQ2) This line is in many specifications but it technically does nothing
         return f ** ((BN128FP.P ** 12 - 1) // cls.N)
+
+    @classmethod
+    def pairing(cls, P, Q):
+        return cls.miller_loop(P.twist(), Q.twist())
 
 
 

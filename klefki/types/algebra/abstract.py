@@ -2,6 +2,9 @@ from abc import ABCMeta, abstractmethod, abstractproperty
 from klefki.algorithms import double_and_add_algorithm
 from klefki.algorithms import complex_truediv_algorithm
 from klefki.numbers import modular_sqrt
+import sys
+
+sys.setrecursionlimit(5000)
 
 
 class Generic(metaclass=ABCMeta):
@@ -184,9 +187,9 @@ class Ring(Group):
             assert root != 0, "ins dont have root"
             return self.type(root)
         elif b % 2 == 0:
-            return (self * self) ** (b / 2)
+            return (self * self) ** (b // 2)
         else:
-            return ((self * self) ** int(b / 2)) * self
+            return ((self * self) ** (b // 2)) * self
         # if hasattr(self, "P"):
         #     m = self.P
         #     if b < 0:

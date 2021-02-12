@@ -17,3 +17,8 @@ def test_bn128():
     assert is_on_curve(G2.twist(), B12)
     assert bn128.ECGBN128.linefunc(G1@1, G1@2, G1@3)
     assert bn128.ECGBN128.linefunc(G2@1, G2@2, G2@3)
+    P = G1 @ 30
+    Q = G2 @ 10
+    ret = bn128.ECGBN128.pairing(P, Q)
+    assert ret
+    assert 0
