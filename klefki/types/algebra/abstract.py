@@ -4,7 +4,7 @@ from klefki.algorithms import complex_truediv_algorithm
 from klefki.numbers import modular_sqrt
 
 
-class Functor(metaclass=ABCMeta):
+class Generic(metaclass=ABCMeta):
 
     __slots__ = ['value']
 
@@ -34,7 +34,7 @@ class Functor(metaclass=ABCMeta):
         return self.value
 
 
-class Groupoid(Functor):
+class Groupoid(Generic):
 
     __slots__ = ()
 
