@@ -68,7 +68,6 @@ class ECGBN128(EllipticCurveGroup):
         assert isinstance(x, BN128FP)
         assert isinstance(y, BN128FP)
         ret = cls(BN128FP12([x] + [BN128FP(0)] * 11), BN128FP12([y] + [BN128FP(0)] * 11))
-        assert ret.is_on_curve()
         return ret
 
     @classmethod
