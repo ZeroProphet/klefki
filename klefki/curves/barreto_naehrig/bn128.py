@@ -53,7 +53,7 @@ class ECGBN128(EllipticCurveGroup):
     def twist(self):
         x, y = self.x, self.y
         if self == self.zero():
-            return self.type(BN128FP12.zero(), BN128FP12.zero())
+            return self.zero()
         if isinstance(x, BN128FP12) and isinstance(y, BN128FP12):
             return self
         elif isinstance(x, BN128FP2) and isinstance(y, BN128FP2):
@@ -95,7 +95,7 @@ class ECGBN128(EllipticCurveGroup):
             m = (y2 - y1) / (x2 - x1)
             return m * (xt - x1) - (yt - y1)
         elif y1 == y2:
-            m = (x1**2 * 3)/ (y1 * 2)
+            m = (x1**2 * 3) / (y1 * 2)
             return m * (xt - x1) - (yt - y1)
         else:
             return xt - x1
@@ -108,6 +108,9 @@ class ECGBN128(EllipticCurveGroup):
 
         # if Q is None or P is None:
         #     return BN128FP12.one()
+        if Q == cls.zero() or P == cls.zero():
+            return cls.one()
+
         R = Q
         f = BN128FP12.one()
         for i in range(log_ate_loop_count, -1, -1):
@@ -116,24 +119,29 @@ class ECGBN128(EllipticCurveGroup):
             if ate_loop_count & (2**i):
                 f = f * cls.linefunc(R, Q, P)
                 R = R + Q
-        assert R == Q @ ate_loop_count
+#        assert R == Q @ ate_loop_count
         Q1 = cls(Q.x ** BN128FP.P, Q.y ** BN128FP.P)
+#        assert Q1.is_on_curve()
         # assert is_on_curve(Q1, b12)
-        nQ2 = cls(Q1.x ** BN128FP.P, -Q1.y ** BN128FP.P)
+        nQ2 = cls(Q1.x ** BN128FP.P, (-Q1.y) ** BN128FP.P)
         # assert is_on_curve(nQ2, b12)
+#        assert nQ2.is_on_curve()
         f = f * cls.linefunc(R, Q1, P)
         R = R + Q1
         f = f * cls.linefunc(R, nQ2, P)
+        R = R + nQ2
         # R = add(R, nQ2) This line is in many specifications but it technically does nothing
         return f ** ((BN128FP.P ** 12 - 1) // cls.N)
 
     @classmethod
-    def pairing(cls, P, Q):
+    def pairing(cls, Q, P):
         """
-        e(P, Q + R) = e(P, Q) * e(P, R)
+        e(P, Q + R) = e(P, Qj * e(P, R)
         e(P + Q, R) = e(P, R) * e(Q, R)
         """
-        return cls.miller_loop(P.twist(), Q.twist())
+        assert P.is_on_curve()
+        assert Q.is_on_curve()
+        return cls.miller_loop(Q.twist(), P.twist())
 
     @classmethod
     def e(cls, P, Q):
