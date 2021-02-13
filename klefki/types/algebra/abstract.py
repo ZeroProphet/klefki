@@ -1,11 +1,9 @@
 from abc import ABCMeta, abstractmethod, abstractproperty
 from klefki.algorithms import double_and_add_algorithm
 from klefki.algorithms import complex_truediv_algorithm
+from klefki.algorithms import fast_pow
 from klefki.numbers import modular_sqrt
 import sys
-
-sys.setrecursionlimit(5000)
-
 
 class Generic(metaclass=ABCMeta):
 
@@ -175,35 +173,18 @@ class Ring(Group):
     def __pow__(self, b, m=None):
         if hasattr(b, "value"):
             b = b.id
-
         if b == 0:
             return self.one()
-
+        elif b < 0:
+            return ~self.type(pow(self.id, b * -1, self.P))
         elif b == 1:
             return self
-
         elif b == (1/2):
             root = modular_sqrt(self.id, self.P)
             assert root != 0, "ins dont have root"
             return self.type(root)
-        elif b % 2 == 0:
-            return (self * self) ** (b // 2)
         else:
-            return ((self * self) ** (b // 2)) * self
-        # if hasattr(self, "P"):
-        #     m = self.P
-        #     if b < 0:
-        #         return ~self.type(pow(self.id, b * -1, m))
-        # return self.type(pow(self.id, b, m))
-        # If b == 0:
-        #     return self.type(1)
-        # if 0 < b < 1:
-        #     return self.type(self.id ** b)
-        # if b == 1:
-        #     return self
-        # if b == 2:
-        #     return self * self
-        # return self * (self ** (b - 1))
+            return fast_pow(b, self, self.type(1))
 
 
 class Field(Ring):

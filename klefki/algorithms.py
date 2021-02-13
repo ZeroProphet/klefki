@@ -40,7 +40,7 @@ def bits(n: int) -> Iterable:
             yield n & 1
             n >>= 1
 
-    return list(_trans(n))
+    return _trans(n)
 
 
 def bits_little_endian_from_bytes(s):
@@ -179,6 +179,18 @@ def double_and_add_algorithm(times: int, x: T, init: T) -> T:
         addend = addend + addend
 
     return result
+
+
+def fast_pow(times: int, x: T, init: T) -> T:
+    result = init
+    addend = x
+
+    for bit in bits(times):
+        if bit == 1:
+            result = addend * result
+        addend = addend * addend
+    return result
+
 
 
 def newton_iterator_sqrt(x: T):
