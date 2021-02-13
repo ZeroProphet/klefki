@@ -22,6 +22,10 @@ class BN128FP12(PolyExtField):
     F = BN128FP
     E = const.BN128_FP12_E
 
+    @classmethod
+    def from_fp(cls, v):
+        return cls([v] + ([cls.F.zero()] * 11))
+
 
 class ECGBN128(EllipticCurveGroup):
     A = const.BN128_A
@@ -67,7 +71,8 @@ class ECGBN128(EllipticCurveGroup):
     def twist_FP_to_FP12(cls, x, y):
         assert isinstance(x, BN128FP)
         assert isinstance(y, BN128FP)
-        ret = cls(BN128FP12([x] + [BN128FP(0)] * 11), BN128FP12([y] + [BN128FP(0)] * 11))
+        ret = cls(BN128FP12.from_fp(x), BN128FP12.from_fp(y))
+        assert ret.is_on_curve()
         return ret
 
     @classmethod
@@ -80,13 +85,14 @@ class ECGBN128(EllipticCurveGroup):
         assert isinstance(y, BN128FP2)
         nx = BN128FP12([x.id[0]] + [zero] * 5 + [x.id[1]] + [zero] * 5)
         ny = BN128FP12([y.id[0]] + [zero] * 5 + [y.id[1]] + [zero] * 5)
-        ret = cls((nx / w **2, ny / w**3))
+        ret = cls((nx * w ** 2, ny * w**3))
         assert ret.is_on_curve()
         return ret
 
     @staticmethod
     def linefunc(P1, P2, T):
-        # https://github.com/ethereum/research/blob/9a7b6825b0dee7a59a03f8ca1d1ec3ae7fb6d598/zksnark/bn128_pairing.py
+
+    # https://github.com/ethereum/research/blob/9a7b6825b0dee7a59a03f8ca1d1ec3ae7fb6d598/zksnark/bn128_curve.py
         assert P1 and P2 and T # No points-at-infinity allowed, sorry
         x1, y1 = P1.x, P1.y
         x2, y2 = P2.x, P2.y
@@ -102,6 +108,7 @@ class ECGBN128(EllipticCurveGroup):
 
     @classmethod
     def miller_loop(cls, Q, P):
+        # https://crypto.stanford.edu/pbc/notes/ep/miller.htm
         # ref: https://github.com/ethereum/research/blob/9a7b6825b0dee7a59a03f8ca1d1ec3ae7fb6d598/zksnark/bn128_pairing.py
         log_ate_loop_count = 63
         ate_loop_count = 29793968203157093288
@@ -153,9 +160,9 @@ class ECGBN128(EllipticCurveGroup):
     @property
     def B(self):
         if isinstance(self.x, BN128FP2):
-            return BN128FP2([3, 0])
+            return BN128FP2([3, 0]) / BN128FP2([0, 1])
         elif isinstance(self.x, BN128FP12):
-            return BN128FP12([3] + [0] * 11) / BN128FP12([0] * 6 + [1] + [0] * 5)
+            return BN128FP12([3] + [0] * 11)
         return BN128FP(3)
 
 
