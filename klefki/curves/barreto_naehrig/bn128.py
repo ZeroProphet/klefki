@@ -25,7 +25,7 @@ class BN128FP12(PolyExtField):
 
 class ECGBN128(EllipticCurveGroup):
     A = const.BN128_A
-    B = const.BN128_B
+
     N = const.BN128_N
 
     def op(self, g):
@@ -52,6 +52,8 @@ class ECGBN128(EllipticCurveGroup):
 
     def twist(self):
         x, y = self.x, self.y
+        if self == self.zero():
+            return self.type(BN128FP12.zero(), BN128FP12.zero())
         if isinstance(x, BN128FP12) and isinstance(y, BN128FP12):
             return self
         elif isinstance(x, BN128FP2) and isinstance(y, BN128FP2):
@@ -63,7 +65,11 @@ class ECGBN128(EllipticCurveGroup):
 
     @classmethod
     def twist_FP_to_FP12(cls, x, y):
-        return cls(BN128FP12([x] + [BN128FP.zero()] * 11), BN128FP12([y] + [BN128FP.zero()] * 11))
+        assert isinstance(x, BN128FP)
+        assert isinstance(y, BN128FP)
+        ret = cls(BN128FP12([x] + [BN128FP(0)] * 11), BN128FP12([y] + [BN128FP(0)] * 11))
+        assert ret.is_on_curve()
+        return ret
 
     @classmethod
     def twist_FP2_to_FP12(cls, x, y):
@@ -75,7 +81,9 @@ class ECGBN128(EllipticCurveGroup):
         assert isinstance(y, BN128FP2)
         nx = BN128FP12([x.id[0]] + [zero] * 5 + [x.id[1]] + [zero] * 5)
         ny = BN128FP12([y.id[0]] + [zero] * 5 + [y.id[1]] + [zero] * 5)
-        return cls((nx / w **2, ny / w**3))
+        ret = cls((nx / w **2, ny / w**3))
+        assert ret.is_on_curve()
+        return ret
 
     @staticmethod
     def linefunc(P1, P2, T):
@@ -99,8 +107,8 @@ class ECGBN128(EllipticCurveGroup):
         log_ate_loop_count = 63
         ate_loop_count = 29793968203157093288
 
-        if Q is None or P is None:
-            return BN128FP12.one()
+        # if Q is None or P is None:
+        #     return BN128FP12.one()
         R = Q
         f = BN128FP12.one()
         for i in range(log_ate_loop_count, -1, -1):
@@ -109,7 +117,7 @@ class ECGBN128(EllipticCurveGroup):
             if ate_loop_count & (2**i):
                 f = f * cls.linefunc(R, Q, P)
                 R = R + Q
-        # assert R == multiply(Q, ate_loop_count)
+        assert R == Q @ ate_loop_count
         Q1 = cls(Q.x ** BN128FP.P, Q.y ** BN128FP.P)
         # assert is_on_curve(Q1, b12)
         nQ2 = cls(Q1.x ** BN128FP.P, -Q1.y ** BN128FP.P)
@@ -122,11 +130,27 @@ class ECGBN128(EllipticCurveGroup):
 
     @classmethod
     def pairing(cls, P, Q):
+        """
+        e(P, Q + R) = e(P, Q) * e(P, R)
+        e(P + Q, R) = e(P, R) * e(Q, R)
+        """
         return cls.miller_loop(P.twist(), Q.twist())
 
     @classmethod
     def e(cls, P, Q):
         return cls.pairing(P, Q)
+
+    def is_on_curve(self):
+        return self.y**2 - self.x**3 == self.B
+
+    @property
+    def B(self):
+        if isinstance(self.x, BN128FP2):
+            return BN128FP2([3, 0])
+        elif isinstance(self.x, BN128FP12):
+            return BN128FP12([3] + [0] * 11) / BN128FP12([0] * 6 + [1] + [0] * 5)
+        return BN128FP(3)
+
 
 
 
