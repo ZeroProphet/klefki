@@ -92,8 +92,8 @@ class ECGBN128(EllipticCurveGroup):
     @staticmethod
     def linefunc(P1, P2, T):
 
-    # https://github.com/ethereum/research/blob/9a7b6825b0dee7a59a03f8ca1d1ec3ae7fb6d598/zksnark/bn128_curve.py
-        assert P1 and P2 and T # No points-at-infinity allowed, sorry
+        # https://github.com/ethereum/research/blob/9a7b6825b0dee7a59a03f8ca1d1ec3ae7fb6d598/zksnark/bn128_curve.py
+        assert P1 and P2 and T  # No points-at-infinity allowed, sorry
         x1, y1 = P1.x, P1.y
         x2, y2 = P2.x, P2.y
         xt, yt = T.x, T.y
@@ -154,9 +154,6 @@ class ECGBN128(EllipticCurveGroup):
         elif isinstance(self.x, BN128FP12):
             return BN128FP12([3] + [0] * 11)
         return BN128FP(3)
-
-
-
 
 
 ECGBN128.G1 = ECGBN128(

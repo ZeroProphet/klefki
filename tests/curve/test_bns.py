@@ -9,6 +9,7 @@ G2 = bn128.ECGBN128.G2
 G = G1
 e = bn128.ECGBN128.e
 
+
 def test_bn128():
     assert G2 @ 9 + G2 @ 5 == G2 @ 14
     assert G2.twist()
@@ -46,6 +47,7 @@ def test_paring_check_against_neg():
     assert pn1 == np1
     # Pairing output has correct order
 
+
 def test_paring_bilinearity():
     one = bn128.BN128FP12.one()
     p1 = e(G2, G1)
@@ -57,6 +59,6 @@ def test_paring_bilinearity():
     # Pairing bilinearity in G2 passed
     assert p1 * p1 == po2
     p3 = e(G2 @ 27, G1 @ 37)
-    po3 = e(G2 , G1 @ 999)
+    po3 = e(G2, G1 @ 999)
     # Composite check passed
     assert p3 == po3

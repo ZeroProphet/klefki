@@ -17,6 +17,7 @@ def test_field():
     assert FQ(2) * FQ(7) + FQ(9) * FQ(7) == FQ(11) * FQ(7)
     assert FQ(9) ** FQ.P == FQ(9)
 
+
 def test_fq2():
     x = FQ2([1, 0])
     f = FQ2([1, 2])
@@ -29,6 +30,7 @@ def test_fq2():
     assert one / f + x / f == (one + x) / f
     assert one * f + x * f == (one + x) * f
     assert x ** (FQ.P ** 2 - 1) == one
+
 
 def test_fq12():
     x = FQ12([1] + [0] * 11)

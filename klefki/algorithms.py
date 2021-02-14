@@ -192,7 +192,6 @@ def fast_pow(times: int, x: T, init: T) -> T:
     return result
 
 
-
 def newton_iterator_sqrt(x: T):
     if (x.value == 0):
         return x

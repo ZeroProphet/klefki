@@ -2,6 +2,7 @@ from klefki.algorithms import fast_pow as f
 from klefki.curves.barreto_naehrig.bn128 import BN128FP12
 from random import randint
 
+
 def test_pow():
     assert f(3, 2, 1) == 8
 

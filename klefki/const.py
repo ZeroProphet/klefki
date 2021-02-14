@@ -39,7 +39,7 @@ BN254_H = 0x01
 
 
 # https://github.com/ethereum/research/commit/711bd9532b4534ef5ae6277bd7afe625195506d5
- # Curve is y**2 = x**3 + 3
+# Curve is y**2 = x**3 + 3
 BN128_A = 0
 BN128_B = 3
 BN128_P = 21888242871839275222246405745257275088696311157297823662689037894645226208583

@@ -5,6 +5,7 @@ from klefki.algorithms import fast_pow
 from klefki.numbers import modular_sqrt
 import sys
 
+
 class Generic(metaclass=ABCMeta):
 
     __slots__ = ['value']

@@ -78,10 +78,7 @@ class PolyExtField(Field):
             rhs = self.F(rhs)
         if isinstance(rhs, self.F):
             return self.type([x + rhs for x in self.id])
-        try:
-            return self.type([x + y for x, y in zip(self.id, rhs.id)])
-        except:
-            import pdb; pdb.set_trace()
+        return self.type([x + y for x, y in zip(self.id, rhs.id)])
 
     @classmethod
     def sec_identity(cls):
@@ -98,7 +95,8 @@ class PolyExtField(Field):
         field = self.F
         lm, hm = [self.F.one()] + [self.F.zero()] * \
             len(self.E), [self.F.zero()] * (len(self.E) + 1)
-        low, high = self.id + [self.F.zero()], [self.F(m) for m in self.E] + [field(1)]
+        low, high = self.id + [self.F.zero()], [self.F(m)
+                                                for m in self.E] + [field(1)]
         while deg(low):
             r = poly_rounded_div(high, low, field)
             r += [field.zero()] * (len(self.E) + 1 - len(r))
@@ -131,6 +129,7 @@ class PolyExtField(Field):
                 for i, c in [(i, c) for i, c in enumerate(self.E) if c]:
                     b[exp + i] -= top * c
             return self.__class__([x for x in b])
+
 
 PrimeField = FiniteField
 Fq = FiniteField
