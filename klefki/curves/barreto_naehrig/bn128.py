@@ -113,8 +113,6 @@ class ECGBN128(EllipticCurveGroup):
         log_ate_loop_count = 63
         ate_loop_count = 29793968203157093288
 
-        # if Q is None or P is None:
-        #     return BN128FP12.one()
         if Q == cls.zero() or P == cls.zero():
             return cls.one()
 
@@ -126,18 +124,12 @@ class ECGBN128(EllipticCurveGroup):
             if ate_loop_count & (2**i):
                 f = f * cls.linefunc(R, Q, P)
                 R = R + Q
-#        assert R == Q @ ate_loop_count
         Q1 = cls(Q.x ** BN128FP.P, Q.y ** BN128FP.P)
-#        assert Q1.is_on_curve()
-        # assert is_on_curve(Q1, b12)
         nQ2 = cls(Q1.x ** BN128FP.P, (-Q1.y) ** BN128FP.P)
-        # assert is_on_curve(nQ2, b12)
-#        assert nQ2.is_on_curve()
         f = f * cls.linefunc(R, Q1, P)
         R = R + Q1
         f = f * cls.linefunc(R, nQ2, P)
         R = R + nQ2
-        # R = add(R, nQ2) This line is in many specifications but it technically does nothing
         return f ** ((BN128FP.P ** 12 - 1) // cls.N)
 
     @classmethod
@@ -146,8 +138,6 @@ class ECGBN128(EllipticCurveGroup):
         e(P, Q + R) = e(P, Qj * e(P, R)
         e(P + Q, R) = e(P, R) * e(Q, R)
         """
-        assert P.is_on_curve()
-        assert Q.is_on_curve()
         return cls.miller_loop(Q.twist(), P.twist())
 
     @classmethod
