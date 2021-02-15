@@ -69,8 +69,6 @@ class ECGBN128(EllipticCurveGroup):
 
     @classmethod
     def twist_FP_to_FP12(cls, x, y):
-        assert isinstance(x, BN128FP)
-        assert isinstance(y, BN128FP)
         ret = cls(BN128FP12.from_fp(x), BN128FP12.from_fp(y))
         assert ret.is_on_curve()
         return ret
@@ -81,8 +79,6 @@ class ECGBN128(EllipticCurveGroup):
         zero = BN128FP.zero()
         one = BN128FP.one()
         w = BN128FP12([zero, one] + [zero] * 10)
-        assert isinstance(x, BN128FP2)
-        assert isinstance(y, BN128FP2)
         nx = BN128FP12([x.id[0]] + [zero] * 5 + [x.id[1]] + [zero] * 5)
         ny = BN128FP12([y.id[0]] + [zero] * 5 + [y.id[1]] + [zero] * 5)
         ret = cls((nx * w ** 2, ny * w**3))
