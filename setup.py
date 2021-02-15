@@ -34,6 +34,8 @@ setup(
         "Development Status :: 5 - Production/Stable",
         'Environment :: Console',
         "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: Implementation :: CPython",
+        "Programming Language :: Python :: Implementation :: PyPy",
         "Operating System :: OS Independent",
         "Topic :: Software Development",
         "Topic :: Software Development :: Libraries :: Python Modules",
