@@ -2,6 +2,14 @@ Klefki
 ===================
 
 [![travis](https://travis-ci.org/RyanKung/klefki.svg?branch=master)](https://travis-ci.org/RyanKung/klefki)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/RyanKung/klefki/graphs/commit-activity)
+[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
+[![PyPI version fury.io](https://badge.fury.io/py/ansicolortags.svg)](https://pypi.python.org/pypi/klefki/)
+[![PyPI license](https://img.shields.io/pypi/l/ansicolortags.svg)](https://pypi.python.org/pypi/klefki/)
+[![PyPI implementation](https://img.shields.io/pypi/implementation/ansicolortags.svg)](https://pypi.python.org/pypi/klefki/)
+[![PyPI status](https://img.shields.io/pypi/status/ansicolortags.svg)](https://pypi.python.org/pypi/klefki/)
+
+[![Documentation Status](https://ryankung.github.io/klefki/index.html)](https://ryankung.github.io/klefki/index.html)
 
 ![klefki](res/707Klefki.png)
 
