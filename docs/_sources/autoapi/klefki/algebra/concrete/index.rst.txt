@@ -66,14 +66,6 @@ Classes
 
       
 
-   .. method:: x(self)
-      :property:
-
-
-   .. method:: y(self)
-      :property:
-
-
    .. method:: op(self, g)
 
       The Operator for obeying axiom `associativity` (2)

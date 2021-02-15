@@ -19,7 +19,6 @@ Submodules
    :titlesonly:
    :maxdepth: 1
 
-   EVP/index.rst
    MiMC/index.rst
    damgard_jurik/index.rst
    elgamal/index.rst
