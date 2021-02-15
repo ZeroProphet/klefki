@@ -27,12 +27,13 @@ setup(
     author_email=email,
     install_requires=install_requires,
     classifiers=[
-        'Development Status :: 4 - Beta',
+        "Development Status :: 5 - Production/Stable",
         'Environment :: Console',
         "Programming Language :: Python :: 3.5",
         "Operating System :: OS Independent",
         "Topic :: Software Development",
-        "Topic :: Software Development :: Libraries :: Python Modules"
+        "Topic :: Software Development :: Libraries :: Python Modules",
+        "Topic :: Security :: Cryptography"
     ],
     entry_points={
         'console_scripts': [
