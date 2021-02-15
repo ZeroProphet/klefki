@@ -1,9 +1,8 @@
-rom klefki.algebra.utils import randfield
+from klefki.algebra.utils import randfield
 from klefki.zkp.sigma import NIZK
 from klefki.algebra.concrete import FiniteFieldCyclicSecp256k1 as CF
 from klefki.algebra.concrete import EllipticCurveGroupSecp256k1 as Curve
 from hashlib import sha256
-
 
 class NIZKSchnoor(NIZK):
     """
