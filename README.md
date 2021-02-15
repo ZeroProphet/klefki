@@ -2,6 +2,12 @@ Klefki
 ===================
 
 [![travis](https://travis-ci.org/RyanKung/klefki.svg?branch=master)](https://travis-ci.org/RyanKung/klefki)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/RyanKung/klefki/graphs/commit-activity)
+[![PyPI version klefki](https://badge.fury.io/py/klefki.svg)](https://pypi.python.org/pypi/klefki/)
+[![PyPI license](https://img.shields.io/pypi/l/klefki.svg)](https://pypi.python.org/pypi/klefki/)
+[![PyPI status](https://img.shields.io/pypi/status/klefki.svg)](https://pypi.python.org/pypi/klefki/)
+
+[![Documentation Status](https://ryankung.github.io/klefki/index.html)](https://ryankung.github.io/klefki/index.html)
 
 ![klefki](res/707Klefki.png)
 
@@ -11,9 +17,9 @@ Klefki
 
 ----------------------
 
-# TL;DR
+# TL; DR
 
-**Klefki is a playground for researching elliptic curve group based cryptocoins, such as Bitcoin and Ethereum. All data types & structures are based on mathematical defination of abstract algebra.**
+**Klefki is a playground for researching elliptic curve group based algorithms & applications, such as MPC, HE, ZKP, and Bitcoin/Ethereum. All data types & structures are based on mathematical defination of abstract algebra.**
 
 #### [Check the Document](https://ryankung.github.io/klefki)
 
@@ -30,7 +36,119 @@ klefki shell
 
 Have Fun!!!!
 
-## AAT(Abstract Algebra Type)
+## Elliptic Curve Group Example
+
+* Test pairing
+
+```python
+from klefki.curves.barreto_naehrig import bn128
+
+G1 = bn128.ECGBN128.G1
+G2 = bn128.ECGBN128.G2
+G = G1
+e = bn128.ECGBN128.e
+
+one = bn128.BN128FP12.one()
+p1 = e(G2, G1)
+p2 = e(G2, G1 @ 2)
+assert p1 * p1 == p2
+```
+
+* Create Custom Groups
+
+```python
+import klefki.const as const
+from klefki.algebra.fields import FiniteField
+from klefki.algebra.groups import EllipticCurveGroup
+from klefki.algebra.groups import EllipicCyclicSubgroup
+from klefki.curves.arith import short_weierstrass_form_curve_addition2
+
+
+class FiniteFieldSecp256k1(FiniteField):
+    P = const.SECP256K1_P
+
+
+class FiniteFieldCyclicSecp256k1(FiniteField):
+    P = const.SECP256K1_N
+
+
+class EllipticCurveGroupSecp256k1(EllipticCurveGroup):
+    """
+    y^2 = x^3 + A * x + B
+    """
+
+    N = const.SECP256K1_N
+    A = const.SECP256K1_A
+    B = const.SECP256K1_B
+
+    def op(self, g):
+        field = self.id[0].__class__
+        x, y = short_weierstrass_form_curve_addition2(
+            self.x, self.y,
+            g.x, g.y,
+            field.zero(),
+            field.zero(),
+            field.zero(),
+            field(self.A),
+            field(self.B),
+            field
+        )
+        if x == y == field(0):
+            return self.__class__(0)
+        return self.__class__((x, y))
+
+```
+
+
+## ZKP Examples
+
+* Play with r1cs
+
+```python
+from klefki.zkp.r1cs import R1CS
+from functools import partial
+
+
+
+@R1CS.r1cs
+def t(x):
+    y = x**3
+    return y + x + 5
+
+
+s = t.witness(3)
+assert R1CS.verify(s, *t.r1cs)
+assert s[2] == t(3)
+```
+
+
+## MPC Examples (SSSS/VSS)
+
+```
+from klefki.crypto.ssss import SSSS
+from klefki.const import SECP256K1_P as P
+from klefki.algebra.utils import randfield
+from klefki.algebra.meta import field
+import random
+
+
+def test_ssss():
+    F = field(P)
+    s = SSSS(F)
+    k = random.randint(1, 100)
+    n = k * 3
+    secret = randfield(F)
+
+    s.setup(secret, k, n)
+
+    assert s.decrypt([s.join() for _ in range(k-1)]) != secret
+    assert s.decrypt([s.join() for _ in range(k+1)]) == secret
+    assert s.decrypt([s.join() for _ in range(k+2)]) == secret
+
+```
+
+
+## PubKey/PrivKey Examples
 
 With `AAT(Abstract Algebra Type)` you can easily implement the bitcoin `priv/pub key` and `sign/verify` algorithms like this:
 

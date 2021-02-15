@@ -9,6 +9,8 @@ class Flattener:
         self.ctx = ctx
         # drop decorator
         src = "\n".join([r for r in src.split("\n") if not "@" in r])
+        if 'arg' not in dir(ast):
+            ast.arg = type(None)
         raw = ast.parse(src.lstrip()).body
         assert len(raw) == 1 and isinstance(
             raw[0], ast.FunctionDef), "only support function"
@@ -62,13 +64,15 @@ class Flattener:
         only support:
         for _ in range(3):
         """
-        avalid_iter_arg = (ast.Constant, ast.Name)
+        avalid_iter_arg = (ast.Constant, ast.Name, ast.Num)
         loop_index = loop.target.id
         assert loop.iter.func.id == "range"
         assert len(loop.iter.args) == 1
-        assert isinstance(loop.iter.args[0], avalid_iter_arg)
+        assert isinstance(loop.iter.args[0], avalid_iter_arg), "%s is not support" % loop.iter.args[0]
         if isinstance(loop.iter.args[0], ast.Constant):
             times = loop.iter.args[0].value
+        elif isinstance(loop.iter.args[0], ast.Num):
+            times = loop.iter.args[0].n
         else:
             times = self.ctx[loop.iter.args[0].id]
         ret = [(i, deepcopy(loop.body)) for i in range(times)]
