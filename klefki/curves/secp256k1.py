@@ -22,18 +22,6 @@ class EllipticCurveGroupSecp256k1(EllipticCurveGroup):
     A = const.SECP256K1_A
     B = const.SECP256K1_B
 
-    @property
-    def x(self):
-        if self == self.zero():
-            return 0
-        return self.value[0]
-
-    @property
-    def y(self):
-        if self == self.zero():
-            return 0
-        return self.value[1]
-
     def op(self, g):
         field = self.id[0].__class__
         x, y = short_weierstrass_form_curve_addition2(
