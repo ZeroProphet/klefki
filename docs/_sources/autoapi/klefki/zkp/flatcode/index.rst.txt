@@ -24,7 +24,7 @@ Classes
    .. method:: mk_symbol(self, base='Sym')
 
 
-   .. method:: latest_sym(self, base)
+   .. method:: latest_sym(self, base, bias=1)
 
 
    .. method:: extra_inputs(self)

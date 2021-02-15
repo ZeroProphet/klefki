@@ -4,6 +4,15 @@
 .. py:module:: klefki.curves
 
 
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   barreto_naehrig/index.rst
+
+
 Submodules
 ----------
 .. toctree::

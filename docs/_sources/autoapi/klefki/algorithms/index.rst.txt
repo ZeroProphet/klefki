@@ -17,7 +17,7 @@ Functions
    klefki.algorithms.double_and_add_algorithm
 
 
-.. function:: extended_euclidean_algorithm(a: int, b: int) -> Tuple[int, int, int]
+.. function:: extended_euclidean_algorithm(a: int, b: int, one=1, zero=0) -> Tuple[int, int, int]
 
    Returns a three-tuple (gcd, x, y) such that
    a * x + b * y == gcd, where gcd.

@@ -14,7 +14,6 @@ Functions
 .. autoapisummary::
 
    klefki.curves.arith.short_weierstrass_form_curve_addition2
-   klefki.curves.arith.short_weierstrass_form_curve_addition3
 
 
 .. function:: short_weierstrass_form_curve_addition2(u1, v1, u2, v2, a1, a3, a2, a4, a6, f: FiniteField) -> (FiniteField, FiniteField)
@@ -25,10 +24,5 @@ Functions
    a1,a3,a2,a4,a6 = 0, 0, 0, a, b
    for baby_jubjub curve: Bv^2 = x^3 + Ax^2 + x
    a1,a3,a2,a4,a6 = 0, 0, a, 1, 0
-
-
-.. function:: short_weierstrass_form_curve_addition3(x1, y1, z1, x2, y2, z2, a, b) -> (FiniteField, FiniteField, FiniteField)
-
-   https://eprint.iacr.org/2015/1060.pdf
 
 

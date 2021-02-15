@@ -24,7 +24,7 @@ Classes
 
 .. py:class:: FiniteFieldBabyJubjub(*args)
 
-   Bases: :class:`klefki.types.algebra.fields.FiniteField`
+   Bases: :class:`klefki.algebra.fields.FiniteField`
 
    .. attribute:: P
       
@@ -34,7 +34,7 @@ Classes
 
 .. py:class:: EllipticCurveBabyJubjub(*args)
 
-   Bases: :class:`klefki.types.algebra.groups.EllipticCurveGroup`
+   Bases: :class:`klefki.algebra.groups.EllipticCurveGroup`
 
    Twisted Edwards Form (standard)
    y^2 = x^3 + Ax^2 + x

@@ -47,7 +47,7 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#klefki.algorithms.extended_euclidean_algorithm" title="klefki.algorithms.extended_euclidean_algorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extended_euclidean_algorithm</span></code></a>(a: int, b: int) → Tuple[int, int, int]</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#klefki.algorithms.extended_euclidean_algorithm" title="klefki.algorithms.extended_euclidean_algorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extended_euclidean_algorithm</span></code></a>(a: int, b: int, one=1, zero=0) → Tuple[int, int, int]</p></td>
 <td><p>Returns a three-tuple (gcd, x, y) such that</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#klefki.algorithms.double_and_add_algorithm" title="klefki.algorithms.double_and_add_algorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">double_and_add_algorithm</span></code></a>(times: int, x: T, init: T) → T</p></td>
@@ -57,7 +57,7 @@
 </table>
 <dl class="py function">
 <dt id="klefki.algorithms.extended_euclidean_algorithm">
-<code class="sig-prename descclassname">klefki.algorithms.</code><code class="sig-name descname">extended_euclidean_algorithm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">b</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>int<span class="p">, </span>int<span class="p">, </span>int<span class="p">]</span><a class="headerlink" href="#klefki.algorithms.extended_euclidean_algorithm" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">klefki.algorithms.</code><code class="sig-name descname">extended_euclidean_algorithm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">b</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">one</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">zero</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>int<span class="p">, </span>int<span class="p">, </span>int<span class="p">]</span><a class="headerlink" href="#klefki.algorithms.extended_euclidean_algorithm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a three-tuple (gcd, x, y) such that
 a * x + b * y == gcd, where gcd.</p>
 <p>This function implements the extended Euclidean
