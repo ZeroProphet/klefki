@@ -3,9 +3,9 @@ from klefki.numbers import rsa_lambda, rsa_phi
 from klefki.numbers import lcm, length
 from klefki.numbers import crt
 from klefki.crypto.paillier import Paillier
-from klefki.types.algebra.meta import field
+from klefki.algebra.meta import field
 from klefki.numbers.primes import generate_prime
-from klefki.types.algebra.utils import randfield
+from klefki.algebra.utils import randfield
 from functools import lru_cache
 from math import factorial, gcd
 import damgard_jurik as ts_dj

@@ -1,10 +1,10 @@
 from klefki.crypto.ecdsa.secp256k1 import (
     random_privkey,
 )
-from klefki.types.algebra.concrete import (
+from klefki.algebra.concrete import (
     FiniteFieldCyclicSecp256k1 as CF,
 )
-from klefki.types.algebra.isomorphism import bijection
+from klefki.algebra.isomorphism import bijection
 
 
 def encode_privkey(key: CF) -> str:

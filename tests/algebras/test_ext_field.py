@@ -1,4 +1,4 @@
-from klefki.types.algebra.fields import PolyExtField
+from klefki.algebra.fields import PolyExtField
 from klefki.curves.barreto_naehrig.bn128 import BN128FP as FQ
 from klefki.curves.barreto_naehrig.bn128 import BN128FP2 as FQ2
 

@@ -1,11 +1,11 @@
 from klefki.utils import int_to_byte
 from klefki.crypto.ecdsa.secp256k1 import pubkey
-from klefki.types.algebra.concrete import (
+from klefki.algebra.concrete import (
     EllipticCurveGroupSecp256k1 as ECG,
     FiniteFieldCyclicSecp256k1 as CF
 
 )
-from klefki.types.algebra.isomorphism import bijection, do
+from klefki.algebra.isomorphism import bijection, do
 from klefki.utils import ripemd160, b58encode, byte_to_int
 
 

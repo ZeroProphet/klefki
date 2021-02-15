@@ -1,8 +1,8 @@
 from math import gcd
 from abc import ABCMeta
 from random import randint
-from klefki.types.algebra.utils import randfield
-from klefki.types.algebra.meta import field
+from klefki.algebra.utils import randfield
+from klefki.algebra.meta import field
 from klefki.numbers import lcm
 from functools import partial
 import random

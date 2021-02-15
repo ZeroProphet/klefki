@@ -1,7 +1,7 @@
 from klefki.crypto.ssss import SSSS
-from klefki.types.algebra.groups import EllipticCurveGroup
-from klefki.types.algebra.fields import FiniteField
-from klefki.types.algebra.utils import randfield
+from klefki.algebra.groups import EllipticCurveGroup
+from klefki.algebra.fields import FiniteField
+from klefki.algebra.utils import randfield
 from functools import reduce
 from operator import mul
 

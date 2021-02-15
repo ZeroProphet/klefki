@@ -4,11 +4,11 @@ from klefki.utils import b58encode, int_to_byte
 from klefki.crypto.ecdsa.secp256k1 import (
     random_privkey,
 )
-from klefki.types.algebra.concrete import (
+from klefki.algebra.concrete import (
     FiniteFieldCyclicSecp256k1 as CF,
 )
 
-from klefki.types.algebra.isomorphism import bijection, do
+from klefki.algebra.isomorphism import bijection, do
 
 
 def to_cf(a: int) -> CF:

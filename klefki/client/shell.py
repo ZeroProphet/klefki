@@ -18,7 +18,7 @@ def shell():
     '''
     import random
     from klefki.utils import to_sha256int
-    from klefki.types.algebra.concrete import (
+    from klefki.algebra.concrete import (
         JacobianGroupSecp256k1 as JG,
         EllipticCurveCyclicSubgroupSecp256k1 as CG,
         EllipticCurveGroupSecp256k1 as ECG,

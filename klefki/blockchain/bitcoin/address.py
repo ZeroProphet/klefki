@@ -3,7 +3,7 @@ from klefki.utils import dhash256, ripemd160, b58encode
 from klefki.crypto.ecdsa.secp256k1 import (
     pubkey
 )
-from klefki.types.algebra.concrete import (
+from klefki.algebra.concrete import (
     EllipticCurveGroupSecp256k1 as ECG,
     FiniteFieldSecp256k1 as F
 )

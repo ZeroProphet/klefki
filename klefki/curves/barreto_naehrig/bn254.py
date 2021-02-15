@@ -2,9 +2,9 @@
 ref: https://github.com/ethereum/research/blob/711bd9532b4534ef5ae6277bd7afe625195506d5/zksnark/bn128_field_elements.py
 """
 import klefki.const as const
-from klefki.types.algebra.fields import FiniteField
-from klefki.types.algebra.groups import EllipticCurveGroup
-from klefki.types.algebra.groups import EllipicCyclicSubgroup
+from klefki.algebra.fields import FiniteField
+from klefki.algebra.groups import EllipticCurveGroup
+from klefki.algebra.groups import EllipicCyclicSubgroup
 from klefki.curves.arith import short_weierstrass_form_curve_addition2
 
 

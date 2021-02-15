@@ -1,4 +1,4 @@
-from klefki.types.algebra.fields import FiniteField
+from klefki.algebra.fields import FiniteField
 
 
 def field(p, name="FiniteField"):

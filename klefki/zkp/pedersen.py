@@ -1,6 +1,6 @@
 from klefki.zkp.commitment import TrapdoorCommitment
-from klefki.types.algebra.abstract import Group, Field
-from klefki.types.algebra.meta import field
+from klefki.algebra.abstract import Group, Field
+from klefki.algebra.meta import field
 from functools import reduce, partial
 from typing import Iterator
 from operator import add

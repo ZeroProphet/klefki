@@ -1,6 +1,6 @@
 from functools import reduce
 from operator import add
-from klefki.types.algebra.utils import randfield
+from klefki.algebra.utils import randfield
 
 
 def additive_share(secret, F, n):

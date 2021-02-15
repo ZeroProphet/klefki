@@ -9,9 +9,9 @@ The essential idea of Adi Shamir's threshold scheme is that 2 points are suffici
 import random
 from functools import reduce
 from operator import add, mul
-from klefki.types.algebra.fields import FiniteField
-from klefki.types.algebra.meta import field
-from klefki.types.algebra.utils import randfield
+from klefki.algebra.fields import FiniteField
+from klefki.algebra.meta import field
+from klefki.algebra.utils import randfield
 
 
 class SSSS:

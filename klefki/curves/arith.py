@@ -1,6 +1,6 @@
 """
 """
-from klefki.types.algebra.fields import FiniteField
+from klefki.algebra.fields import FiniteField
 
 
 def short_weierstrass_form_curve_addition2(

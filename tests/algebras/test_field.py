@@ -1,4 +1,4 @@
-from klefki.types.algebra.concrete import FiniteFieldCyclicSecp256k1 as CF
+from klefki.algebra.concrete import FiniteFieldCyclicSecp256k1 as CF
 
 
 def test_int():

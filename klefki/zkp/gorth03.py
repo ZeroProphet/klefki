@@ -4,8 +4,8 @@
 #
 #
 from klefki.curves.secp256k1 import EllipticCurveGroupSecp256k1 as Curve
-from klefki.types.algebra.concrete import FiniteFieldCyclicSecp256k1 as CF
-from klefki.types.algebra.utils import randfield
+from klefki.algebra.concrete import FiniteFieldCyclicSecp256k1 as CF
+from klefki.algebra.utils import randfield
 from klefki.blockchain.bitcoin.address import gen_address
 from klefki.utils import to_sha256int
 import hmac

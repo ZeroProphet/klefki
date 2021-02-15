@@ -1,6 +1,6 @@
 import hashlib
 from klefki.crypto.ecdsa.secp256k1 import pubkey
-from klefki.types.algebra.concrete import (
+from klefki.algebra.concrete import (
     EllipticCurveGroupSecp256k1 as ECG,
     FiniteFieldCyclicSecp256k1 as CF,
 )

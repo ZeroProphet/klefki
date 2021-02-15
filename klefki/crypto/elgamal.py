@@ -1,8 +1,8 @@
 from klefki.curves.secp256k1 import EllipticCurveGroupSecp256k1 as Curve
-from klefki.types.algebra.concrete import FiniteFieldCyclicSecp256k1 as F
-from klefki.types.algebra.utils import randfield
-from klefki.types.algebra.meta import field
-from klefki.types.algebra.isomorphism import bijection
+from klefki.algebra.concrete import FiniteFieldCyclicSecp256k1 as F
+from klefki.algebra.utils import randfield
+from klefki.algebra.meta import field
+from klefki.algebra.isomorphism import bijection
 from klefki.utils import int_to_byte, byte_to_int
 
 

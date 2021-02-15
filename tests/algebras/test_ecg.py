@@ -1,4 +1,4 @@
-from klefki.types.algebra.concrete import (
+from klefki.algebra.concrete import (
     EllipticCurveGroupSecp256k1 as CG,
     FiniteFieldCyclicSecp256k1 as CF
 )

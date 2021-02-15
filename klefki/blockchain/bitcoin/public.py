@@ -3,12 +3,12 @@ from klefki.crypto.ecdsa.secp256k1 import (
     pubkey
 )
 
-from klefki.types.algebra.concrete import (
+from klefki.algebra.concrete import (
     EllipticCurveGroupSecp256k1 as CG,
     FiniteFieldSecp256k1 as F,
     FiniteFieldCyclicSecp256k1 as CF
 )
-from klefki.types.algebra.isomorphism import bijection
+from klefki.algebra.isomorphism import bijection
 
 
 G = CG.G

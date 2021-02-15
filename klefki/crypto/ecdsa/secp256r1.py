@@ -1,7 +1,7 @@
 from typing import Tuple
 import random
 from klefki.utils import to_sha256int
-from klefki.types.algebra.concrete import (
+from klefki.algebra.concrete import (
     JacobianGroupSecp256r1 as JG,
     FiniteFieldSecp256r1 as F,
     EllipticCurveCyclicSubgroupSecp256r1 as CG,

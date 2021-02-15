@@ -1,4 +1,4 @@
-from klefki.types.structure import MerkleTree
+from klefki.structure import MerkleTree
 
 
 def test_mktree():

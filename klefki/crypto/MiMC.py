@@ -4,7 +4,7 @@ Ref: https://eprint.iacr.org/2016/492.pdf
 """
 
 from klefki.curves.baby_jubjub import FiniteFieldBabyJubjub as F
-from klefki.types.algebra.utils import randfield
+from klefki.algebra.utils import randfield
 from klefki.utils import to_sha256int
 from klefki.zkp.r1cs import R1CS
 from functools import partial, reduce
