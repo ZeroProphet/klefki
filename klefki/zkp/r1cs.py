@@ -3,7 +3,6 @@ from https://github.com/ethereum/research/blob/master/zksnark/code_to_r1cs.py
 ref: https://medium.com/@VitalikButerin/quadratic-arithmetic-programs-from-zero-to-hero-f6d558cea649
 """
 
-import ast
 import inspect
 from klefki.zkp.flatcode import Flattener
 import types
