@@ -1,0 +1,18 @@
+:mod:`tests.test_client`
+========================
+
+.. py:module:: tests.test_client
+
+
+Module Contents
+---------------
+
+.. function:: cmd()
+
+
+.. function:: cmd2()
+
+
+.. function:: test_register()
+
+

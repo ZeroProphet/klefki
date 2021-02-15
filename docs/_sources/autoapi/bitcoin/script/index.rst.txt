@@ -1,0 +1,17 @@
+:mod:`bitcoin.script`
+=====================
+
+.. py:module:: bitcoin.script
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   consts/index.rst
+   interpreter/index.rst
+   script/index.rst
+
+
