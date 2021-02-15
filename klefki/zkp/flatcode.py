@@ -68,7 +68,8 @@ class Flattener:
         loop_index = loop.target.id
         assert loop.iter.func.id == "range"
         assert len(loop.iter.args) == 1
-        assert isinstance(loop.iter.args[0], avalid_iter_arg), "%s is not support" % loop.iter.args[0]
+        assert isinstance(
+            loop.iter.args[0], avalid_iter_arg), "%s is not support" % loop.iter.args[0]
         if isinstance(loop.iter.args[0], ast.Constant):
             times = loop.iter.args[0].value
         elif isinstance(loop.iter.args[0], ast.Num):

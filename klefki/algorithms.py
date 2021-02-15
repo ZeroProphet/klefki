@@ -2,6 +2,7 @@ from typing import Tuple, TypeVar, Iterable
 from klefki.numbers import invmod
 from functools import lru_cache
 
+
 __all__ = [
     'extended_euclidean_algorithm',
     'double_and_add_algorithm'
