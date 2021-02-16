@@ -1,0 +1,18 @@
+:mod:`ethereum.private`
+=======================
+
+.. py:module:: ethereum.private
+
+
+Module Contents
+---------------
+
+.. function:: encode_privkey(key: CF) -> str
+
+
+.. function:: decode_privkey(key: str) -> CF
+
+
+.. function:: gen_random_privkey()
+
+

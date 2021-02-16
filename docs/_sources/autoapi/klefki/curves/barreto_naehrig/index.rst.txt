@@ -1,0 +1,21 @@
+:mod:`klefki.curves.barreto_naehrig`
+====================================
+
+.. py:module:: klefki.curves.barreto_naehrig
+
+.. autoapi-nested-parse::
+
+   doc: https://tools.ietf.org/id/draft-kasamatsu-bncurves-01.html
+
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   bn128/index.rst
+   bn254/index.rst
+
+

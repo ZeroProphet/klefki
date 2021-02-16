@@ -1,0 +1,15 @@
+:mod:`klefki.client`
+====================
+
+.. py:module:: klefki.client
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   shell/index.rst
+
+

@@ -1,0 +1,26 @@
+:mod:`klefki.types.algebra.meta`
+================================
+
+.. py:module:: klefki.types.algebra.meta
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   klefki.types.algebra.meta.field
+
+
+.. function:: field(p, name='FiniteField')
+
+
+.. data:: finite_field
+   
+
+   
+

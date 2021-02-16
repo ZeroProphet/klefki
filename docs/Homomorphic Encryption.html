@@ -1,0 +1,568 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Homomorphic Encryption &#8212; klefki 1.0-rc documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="From ZK to Bulletproofsproof via Python" href="From%20ZK%20to%20Bulletproofs.html" />
+    <link rel="prev" title="Abstract Algebra Types" href="Abstract%20Algebra%20Types.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="section" id="Homomorphic-Encryption">
+<h1>Homomorphic Encryption<a class="headerlink" href="#Homomorphic-Encryption" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="History">
+<h2>History<a class="headerlink" href="#History" title="Permalink to this headline">¶</a></h2>
+<p>In <strong>1978</strong> Rivest et al. (Rivest et al, 1978a) first investigated the design of a homomorphic encryption scheme. Unfortunately, their privacy homomorphism was broken a couple of years later by Brickell and Yacobi (Brickell &amp; Yacobi, 1987).</p>
+<p>The question rose again in <strong>1991</strong> when Feigenbaum and Merritt (Feigenbaum &amp; Merritt, 1991) raised an important question: is there an encryption function (E) such that both <span class="math notranslate nohighlight">\(E(x + y)\)</span> and <span class="math notranslate nohighlight">\(E(x.y)\)</span> are easy to compute from <span class="math notranslate nohighlight">\(E(x)\)</span> and <span class="math notranslate nohighlight">\(E(y)\)</span>?</p>
+<p>Unfortunately, there has been a very little progress in determining whether such encryption schemes exist that are efficient and secure until <strong>2009</strong> when Craig Gentry, in his seminal paper, theoretically demonstrated the possibility of construction such an encryption system (Gentry, 2009).</p>
+</div>
+<div class="section" id="Fundamentals">
+<h2>Fundamentals<a class="headerlink" href="#Fundamentals" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Symmetric-encryption-schemes:">
+<h3>Symmetric encryption schemes:<a class="headerlink" href="#Symmetric-encryption-schemes:" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>The sender and the receiver agree on the key they will use before establishing any secure communication session.</p>
+<ul>
+<li><p>It is not possible for two persons who never met before to use such schemes directly.</p></li>
+<li><p>In order to communicate with different persons, we must have a different key for each people.</p></li>
+</ul>
+</li>
+<li><p>Existing symmetric encryption systems</p>
+<ul>
+<li><p>AES (Daemen &amp; Rijmen, 2000; Daemen &amp; Rijmen, 2002)</p></li>
+<li><p>One-Time Pad (Vernam, 1926)</p></li>
+<li><p>Snow (Ekdahl &amp; Johansson, 2002)</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="Asymmetric-encryption-schemes:">
+<h3>Asymmetric encryption schemes:<a class="headerlink" href="#Asymmetric-encryption-schemes:" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>every participant has a pair of keys - private and public.</p>
+<ul>
+<li><p>More secure than their symmetric counterparts</p></li>
+<li><p>Don’t need any prior agreement between the communicating parties on a common key before establishing a session of communication.</p></li>
+</ul>
+</li>
+<li><p>Popular Asymmetric Encryption Schemes:</p>
+<ul>
+<li><p>RSA (Rivest et al., 1978b)</p></li>
+<li><p>ElGamal (ElGamal, 1985)</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="Security-of-encryption-schemes:">
+<h3>Security of encryption schemes:<a class="headerlink" href="#Security-of-encryption-schemes:" title="Permalink to this headline">¶</a></h3>
+<p>Security of encryption schemes was first formalized by Shannon (Shannon, 1949). In his seminal paper, Shannon first introduced the notion of perfect secrecy/unconditional secrecy.</p>
+<p>which characterizes encryption schemes for which the knowledge of a ciphertext does not give any information about the corresponding plaintext and the encryption key.</p>
+<p>Shannon also proved that One-Time Pad (Vernam, 1926) encryption scheme is perfectly secure under certain conditions.</p>
+<p>For <strong>asymmetric schemes</strong>, we can rely on their mathematical structures to estimate their security strength in a formal way. These schemes are based on some well-identified mathematical problems which are hard to solve in general, but easy to solve for the one who knows the trapdoor (NP), the estimation of the security level of these schemes may not always be correct due to several reasons:</p>
+<ol class="arabic simple">
+<li><p>There may be other ways to break the system than solving the mathematical problems on which these schemes are based (Ajtai &amp; Dwork, 1997; Nguyen &amp; Stern, 1999).</p></li>
+<li><p>most of the security proofs are performed in an idealized model called <strong>random oracle model</strong>, in which involved primitives, for example, hash functions, are considered truly random.</p></li>
+</ol>
+<p>However, we are now able to perform proofs in a more realistic model called <strong>standard model</strong> (Canetti et al., 1998; Paillier, 2007). This model eliminates some of the unrealistic assumptions in the random oracle model and makes the security analysis of cryptographic schemes more practical.</p>
+<p>To evaluate the attack capacity of an <strong>adversary</strong>, we distinguish among several contexts (Diffie &amp; Hellman, 1976):</p>
+<ul class="simple">
+<li><p><strong>cipher-text only attacks</strong></p>
+<ul>
+<li><p>where the adversary has access only to some ciphertexts</p></li>
+<li><p>It can happen when some adversary eavesdrops on a communication channel.</p></li>
+</ul>
+</li>
+<li><p><strong>known-plaintext attacks</strong></p>
+<ul>
+<li><p>where the adversary has access to some pairs of plaintext messages and their corresponding ciphertexts</p></li>
+</ul>
+</li>
+<li><p><strong>chosen-plaintext attacks</strong></p>
+<ul>
+<li><p>the adversary has access to a decryption oracle that behaves like a black-box and takes a ciphertext as its input and outputs the corresponding plaintexts</p></li>
+<li><p>The chosen one exists in adaptive versions, where the opponents can wait for a computation result before choosing the next input (Fontaine &amp; Galand, 2007).</p></li>
+</ul>
+</li>
+</ul>
+<div class="section" id="Probabilistic-encryption:">
+<h4>Probabilistic encryption:<a class="headerlink" href="#Probabilistic-encryption:" title="Permalink to this headline">¶</a></h4>
+<p>Almost all the well-known cryptosystems are <strong>deterministic</strong>. - For a fixed encryption key, a given plaintext will always be encrypted into the same ciphertext under these systems. this may lead to some security problems.</p>
+<p>E.g.</p>
+<ul class="simple">
+<li><p>RSA scheme</p>
+<ul>
+<li><ol class="arabic simple">
+<li><p>A particular plaintext may be encrypted in a too much structured way. With RSA, messages 0 and 1 are always encrypted as 0 and 1, respectively.</p></li>
+</ol>
+</li>
+<li><ol class="arabic simple" start="2">
+<li><p>It may be easy to compute some partial information about the plaintext: with RSA, the ciphertext c leaks one bit of information about the plaintext m, namely, the so called Jacobi symbol (Fontaine &amp; Galand, 2007).</p></li>
+</ol>
+</li>
+<li><ol class="arabic simple" start="3">
+<li><p>When using a deterministic encryption scheme, it is easy to detect when the same message is sent twice while being processed with the same key.</p></li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<p>We prefer encryption schemes to be <strong>probabilistic</strong>.</p>
+<p><strong>symmetric schemes case</strong></p>
+<p>we introduce a random vector in the encryption process, <strong>initial vector (IV)</strong>.</p>
+<ul class="simple">
+<li><p>IV</p>
+<ul>
+<li><p>May be public and it may be transmitted in a clear-text form.</p></li>
+<li><p>IV must be changed every time we encrypt a message.</p></li>
+<li></li>
+</ul>
+</li>
+</ul>
+<div class="section" id="asymmetric-ciphers-case">
+<h5>asymmetric ciphers case<a class="headerlink" href="#asymmetric-ciphers-case" title="Permalink to this headline">¶</a></h5>
+<p>The security analysis is more mathematical and formal, and we want the randomized schemes to remain analyzable in the same way as the deterministic schemes. Researchers have proposed some models to randomize the existing deterministic schemes, Such as:</p>
+<ul class="simple">
+<li><p>Randomized schemes</p>
+<ul>
+<li><p>The <strong>optimal asymmetric encryption padding</strong> (OAEP) for RSA (or any scheme that is based on a trapdoor one-way permutation) (Bellare &amp; Rogaway, 1995).</p></li>
+<li><p>ElGamal, 1985; Goldwasser &amp; Micali, 1982; Blum &amp; Goldwasser, 1985</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="Expansion">
+<h5>Expansion<a class="headerlink" href="#Expansion" title="Permalink to this headline">¶</a></h5>
+<p>The ratio of the length of the ciphertext and the corresponding plaintext (in bits) is called <strong>expansion</strong>.</p>
+<p>The value of this parameter is of paramount importance in determining <strong>security</strong> and <strong>efficiency tradeoff</strong> of a probabilistic encryption scheme.</p>
+<p>E.g.</p>
+<p>In Paillier’s scheme, an efficient probabilistic encryption mechanism has been proposed with the value of expansion less than 2 (Paillier, 1997).</p>
+</div>
+</div>
+</div>
+<div class="section" id="Homomorphic-encryption-schemes">
+<h3>Homomorphic encryption schemes<a class="headerlink" href="#Homomorphic-encryption-schemes" title="Permalink to this headline">¶</a></h3>
+<p><strong>Definition</strong>: Let the message space <span class="math notranslate nohighlight">\((\mathbf{M}, o)\)</span> be a <span class="math notranslate nohighlight">\(finite (semi-)group\)</span>, and let <span class="math notranslate nohighlight">\(\sigma\)</span> be the security parameter.</p>
+<p>A <strong>homomorphic public-key encryption scheme</strong>(or <strong>homomorphic cryptosystem</strong>) on <span class="math notranslate nohighlight">\(\mathbf{M}\)</span> is a quadruple <span class="math notranslate nohighlight">\((K, E, D, A)\)</span> of probabilistic.</p>
+<p>expected polynomial time algorithms, satisfying the following functionalities:</p>
+<ul class="simple">
+<li><p><strong>Key Generation:</strong></p>
+<ul>
+<li><p>On input <span class="math notranslate nohighlight">\(1^\sigma\)</span>, the algorithm <span class="math notranslate nohighlight">\(K\)</span> outputs an encryption/decryption key pair <span class="math notranslate nohighlight">\((k_{e}, k_d)=k \in \mathbb{K}\)</span>, where <span class="math notranslate nohighlight">\(\mathbb{K}\)</span> denotes the key space.</p></li>
+</ul>
+</li>
+</ul>
+<ul class="simple">
+<li><p><strong>Encryption:</strong></p>
+<ul>
+<li><p>On inputs <span class="math notranslate nohighlight">\(1^{\sigma} , k_{e}\)</span>, and an element <span class="math notranslate nohighlight">\(m \in \mathbf{M}\)</span>, the encryption algorithm <span class="math notranslate nohighlight">\(E\)</span> outputs a ciphertext <span class="math notranslate nohighlight">\(c \in C\)</span> , where <span class="math notranslate nohighlight">\(C\)</span> denotes the ciphertext space.</p></li>
+</ul>
+</li>
+</ul>
+<ul class="simple">
+<li><p><strong>Decryption:</strong></p></li>
+</ul>
+<p>The decryption algorithm <span class="math notranslate nohighlight">\(D\)</span> is deterministic. On input <span class="math notranslate nohighlight">\(1^{\sigma‘}k\)</span>, and an element <span class="math notranslate nohighlight">\(c \in C\)</span>, it outputs an element in the message space <span class="math notranslate nohighlight">\(\mathbf{M}\)</span> so that:</p>
+<div class="math notranslate nohighlight">
+\[Pr[m \leftarrow \mathbf{M} ;c = E(1^\sigma, k_e, m): D(1^{\sigma}, k, c \neq m] \le 2^{-\sigma}\ is \ negligiable\]</div>
+<ul class="simple">
+<li><p><strong>Homomorphic Property:</strong></p></li>
+</ul>
+<p><span class="math notranslate nohighlight">\(A\)</span> is an algorithm that on input <span class="math notranslate nohighlight">\(1^{\sigma}, k_e\)</span>, and elements <span class="math notranslate nohighlight">\(c_1, c_2 \in C\)</span>, outputs an element <span class="math notranslate nohighlight">\(C_3 \in C\)</span>.</p>
+<p>So that for all <span class="math notranslate nohighlight">\(m_1, m_2 \in \mathbf{M}\)</span>, it holds:</p>
+<div class="math notranslate nohighlight">
+\[Pr[m_1, m_2 \leftarrow \mathbf{M}; m_3 = m_1 \circ m_2: D(A(1^\sigma, k_1, E(1^\sigma, k_e, m_1), E(1^\sigma, k_e, m_1)))\neq m_3]\ is \ negligiable\]</div>
+<p>Informally speaking, A homomorphic cryptosystem is a cryptosystem with the additional property that there exists an efficient algorithm to compute an encryption of the sum or the product, of two messages given the public key and the encryptions of the messages but not the messages themselves.</p>
+<p>if <span class="math notranslate nohighlight">\(\mathbf{M}\)</span> is an additive (semi-)group, then the scheme is called <strong>additively homomorphic</strong> and the algorithms <span class="math notranslate nohighlight">\(A\)</span> is called <strong>Add</strong> Otherwise, the scheme is called <strong>multiplicatively homomorphic</strong> and the algorithm <span class="math notranslate nohighlight">\(A\)</span> is called <strong>Mult</strong>.</p>
+<p>If the encryption algorithm <span class="math notranslate nohighlight">\(E\)</span> gets as additional input a uniform random number <span class="math notranslate nohighlight">\(r\)</span> of a set <span class="math notranslate nohighlight">\(Z\)</span>, the encryption shceme is called <strong>probablistic</strong>, otherwise, it is called <strong>deterministic</strong>.</p>
+<p>If a cryptosystem is probabilistic, there belong several different ciphertexts to one message depending on the random number <span class="math notranslate nohighlight">\(r \in Z\)</span>.</p>
+</div>
+<div class="section" id="Ref:">
+<h3>Ref:<a class="headerlink" href="#Ref:" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Jaydip Sen, DOI: 10.5772/56687, Homomorphic Encryption — Theory and Application <a class="reference external" href="https://www.intechopen.com/books/theory-and-practice-of-cryptography-and-network-security-protocols-and-technologies/homomorphic-encryption-theory-and-application">https://www.intechopen.com/books/theory-and-practice-of-cryptography-and-network-security-protocols-and-technologies/homomorphic-encryption-theory-and-application</a></p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <a href="https://github.com/ryankung/klefki">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
+    </a>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">klefki</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="README.html">TL;DR</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Non-interactive%20and%20Reusable%20Non-malleable%20Commitment%20Schemes.html">Non-interactive and Reusable Non-malleable Commitment Schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pedersen%20Commitment.html">Pedersen Commitment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="On%20Sigma%20Protocols.html"><span class="math notranslate nohighlight">\(\Sigma\)</span> Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Abstract%20Algebra%20Types.html">Abstract Algebra Types</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Homomorphic Encryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="From%20ZK%20to%20Bulletproofs.html">From ZK to Bulletproofsproof via Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Paillier%27s%20encryption%20Scheme.html">Paillier’s encryption Scheme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ElGamal.html">ElGamal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Shamir%27s%20secret%20sharing%20scheme.html">Shamir’s secret sharing scheme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Trapdoor%20Commitment%20Schemes.html">Discrete-Logarithm-Based Trapdoor Commitment Schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Threshold%20ECDSA.html">Threshold ECDSA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="POD-Mini%20and%20POD-AS.html">POD-Mini and POD-AS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Damgard-Jurik%20Scheme%20of%20Paillier.html">Damgard-Jurik Scheme of Paillier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Threshold%20Paillier%20Cryptosystem.html">Threshold Paillier Cryptosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="R1CS%20to%20QAP.html">R1CS to QAP to BulletProof</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MimbleWimble.html">Play MimbleWimble with klefki</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MimbleWimble.html#Ownership">Ownership</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="Abstract%20Algebra%20Types.html" title="previous chapter">Abstract Algebra Types</a></li>
+      <li>Next: <a href="From%20ZK%20to%20Bulletproofs.html" title="next chapter">From ZK to Bulletproofsproof via Python</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Ryan Kung.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/Homomorphic Encryption.ipynb.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

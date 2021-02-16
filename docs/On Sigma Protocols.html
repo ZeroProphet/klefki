@@ -1,0 +1,203 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>\(\Sigma\) Protocols &#8212; klefki 1.0-rc documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Abstract Algebra Types" href="Abstract%20Algebra%20Types.html" />
+    <link rel="prev" title="Pedersen Commitment" href="Pedersen%20Commitment.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="\Sigma-Protocols">
+<h1><span class="math notranslate nohighlight">\(\Sigma\)</span> Protocols<a class="headerlink" href="#\Sigma-Protocols" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Deﬁnitions">
+<h2>Deﬁnitions<a class="headerlink" href="#Deﬁnitions" title="Permalink to this headline">¶</a></h2>
+<p>let <span class="math notranslate nohighlight">\(R\)</span> be a binary relation, i.e., <span class="math notranslate nohighlight">\(R\)</span> is a subset of <span class="math notranslate nohighlight">\(\{0, 1\}^∗ \times \{0, 1\}^∗\)</span> , where the only restriction is that if <span class="math notranslate nohighlight">\((x, w) ∈ R\)</span>, then the length of <span class="math notranslate nohighlight">\(w\)</span> is at most <span class="math notranslate nohighlight">\(p(|x|)\)</span>, for some polynomial <span class="math notranslate nohighlight">\(p()\)</span>.</p>
+<p>For some <span class="math notranslate nohighlight">\((x, w) ∈ R\)</span>, we may think of <span class="math notranslate nohighlight">\(x\)</span> as an instance of some computational problem, and <span class="math notranslate nohighlight">\(w\)</span> as the solution to that instance. We call <span class="math notranslate nohighlight">\(w\)</span> a witness for <span class="math notranslate nohighlight">\(x\)</span>.</p>
+<p>We will be concerned with protocols of the following form, where <span class="math notranslate nohighlight">\(x\)</span> is common input to <span class="math notranslate nohighlight">\(P, V\)</span> and a w such that <span class="math notranslate nohighlight">\((x, w)\in R\)</span> is private input to <span class="math notranslate nohighlight">\(P\)</span>:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(P\)</span> sends a message a.</p></li>
+<li><p><span class="math notranslate nohighlight">\(V\)</span> sends a random <span class="math notranslate nohighlight">\(t-bit\)</span> sting <span class="math notranslate nohighlight">\(e\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(P\)</span> sendss reply <span class="math notranslate nohighlight">\(z\)</span>, and <span class="math notranslate nohighlight">\(V\)</span> decides to accept or reject based on the data has be seen, i.e. <span class="math notranslate nohighlight">\(x, a, e,z\)</span></p></li>
+</ol>
+<p>We will assume throughout that both <span class="math notranslate nohighlight">\(P, V\)</span> are probabilistic polynomial time machines, so <span class="math notranslate nohighlight">\(P\)</span>’s only advantage over <span class="math notranslate nohighlight">\(V\)</span> is that he knows <span class="math notranslate nohighlight">\(w\)</span>.</p>
+<div class="section" id="Deﬁnition-\Sigma-protocol.">
+<h3>Deﬁnition <span class="math notranslate nohighlight">\(\Sigma\)</span>-protocol.<a class="headerlink" href="#Deﬁnition-\Sigma-protocol." title="Permalink to this headline">¶</a></h3>
+<p>A protocol <span class="math notranslate nohighlight">\(P\)</span> is said to be a <span class="math notranslate nohighlight">\(\Sigma\)</span>-protocol for relation <span class="math notranslate nohighlight">\(R\)</span> if:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(P\)</span> is of the above 3-move form, and we have completeness: if <span class="math notranslate nohighlight">\(P, V\)</span> follow the protocol on input <span class="math notranslate nohighlight">\(x\)</span> and private input <span class="math notranslate nohighlight">\(w\)</span> to <span class="math notranslate nohighlight">\(P\)</span> where <span class="math notranslate nohighlight">\((x, w) ∈ R\)</span>, the veriﬁer always accepts.</p></li>
+</ul>
+<ul class="simple">
+<li><p>From any <span class="math notranslate nohighlight">\(x\)</span> and any pair of accepting conversations on input <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\((a,e,z),(a,e',z')\)</span> where <span class="math notranslate nohighlight">\(e\neq e'\)</span>, one can efficiently compute <span class="math notranslate nohighlight">\(w\)</span> such that <span class="math notranslate nohighlight">\((x,w)\in R\)</span>. This is sometimes called the <strong>special soundness property</strong>.</p></li>
+</ul>
+<ul class="simple">
+<li><p>There exists a polynomial-time simulator <span class="math notranslate nohighlight">\(M\)</span>, which on input <span class="math notranslate nohighlight">\(x\)</span> and a random <span class="math notranslate nohighlight">\(e\)</span> outputs an accepting conversation of the form <span class="math notranslate nohighlight">\((a, e, z)\)</span>, with the same probability distribution as conversations between the honest <span class="math notranslate nohighlight">\(P, V\)</span> on input <span class="math notranslate nohighlight">\(x\)</span>. This is sometimes called <strong>special honest-veriﬁer zero-nowledge (sHVZK)</strong>.</p></li>
+</ul>
+<p>Deﬁne <span class="math notranslate nohighlight">\(L_R\)</span> to be the set of <span class="math notranslate nohighlight">\(x’s\)</span> for which there exist <span class="math notranslate nohighlight">\(w\)</span> such that <span class="math notranslate nohighlight">\((x, w) ∈ L\)</span>. Then the special soundness property implies that a <span class="math notranslate nohighlight">\(\sigma\)</span>-protocol for <span class="math notranslate nohighlight">\(R\)</span> is always an interactive proof system for <span class="math notranslate nohighlight">\(L_R\)</span> with error probability <span class="math notranslate nohighlight">\(2^t\)</span> .</p>
+<div class="section" id="Lemma-1.">
+<h4>Lemma 1.<a class="headerlink" href="#Lemma-1." title="Permalink to this headline">¶</a></h4>
+<p>The properties of <span class="math notranslate nohighlight">\(\sigma\)</span>-protocols are invariant under parallel composition, for instance repeating a Σ-protocol for <span class="math notranslate nohighlight">\(R\)</span> twice in parallel produces a new <span class="math notranslate nohighlight">\(Σ\)</span>-protocol for <span class="math notranslate nohighlight">\(R\)</span> with challenge length <span class="math notranslate nohighlight">\(2t\)</span>.</p>
+</div>
+<div class="section" id="Lemma-2">
+<h4>Lemma 2<a class="headerlink" href="#Lemma-2" title="Permalink to this headline">¶</a></h4>
+<p>If a Σ-protocol for <span class="math notranslate nohighlight">\(R\)</span> exists, then for any <span class="math notranslate nohighlight">\(t\)</span>, there exists a Σ-protocol for <span class="math notranslate nohighlight">\(R\)</span> with challenge length <span class="math notranslate nohighlight">\(t\)</span>.</p>
+<ul class="simple">
+<li><p>Proof.</p></li>
+</ul>
+<p>Let <span class="math notranslate nohighlight">\(t'\)</span> be the challenge length for the given protocol <span class="math notranslate nohighlight">\(P\)</span>. Then any challenge length <span class="math notranslate nohighlight">\(t\)</span> shorter than <span class="math notranslate nohighlight">\(t'\)</span> can be implemented as follows:</p>
+<p><span class="math notranslate nohighlight">\(P\)</span> sends the ﬁrst message a as in <span class="math notranslate nohighlight">\(P\)</span>. <span class="math notranslate nohighlight">\(V\)</span> sends a random <span class="math notranslate nohighlight">\(t\)</span>-bit string <span class="math notranslate nohighlight">\(e\)</span>.</p>
+<p><span class="math notranslate nohighlight">\(P\)</span> appends <span class="math notranslate nohighlight">\(t' − t\)</span> zeros to <span class="math notranslate nohighlight">\(e\)</span>, calls the result <span class="math notranslate nohighlight">\(e'\)</span> and computes the answer <span class="math notranslate nohighlight">\(z\)</span> to <span class="math notranslate nohighlight">\(e'\)</span> as in <span class="math notranslate nohighlight">\(P\)</span>.</p>
+<p><span class="math notranslate nohighlight">\(V\)</span> checks <span class="math notranslate nohighlight">\(z\)</span> as in <span class="math notranslate nohighlight">\(P\)</span>, as if the challenge was <span class="math notranslate nohighlight">\(e'\)</span> .</p>
+<p>Any challenge length <span class="math notranslate nohighlight">\(t &gt; t'\)</span> can be implemented by ﬁrst repeating the given protocol in parallel <span class="math notranslate nohighlight">\(j\)</span> times, such that <span class="math notranslate nohighlight">\(jt' ≥ t\)</span>, and then possibly adjusting down to <span class="math notranslate nohighlight">\(t\)</span> as above.</p>
+</div>
+</div>
+<div class="section" id="Definition-Proofs-of-Knowledge">
+<h3>Definition Proofs of Knowledge<a class="headerlink" href="#Definition-Proofs-of-Knowledge" title="Permalink to this headline">¶</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(κ()\)</span> be a function from bit strings to the interval <span class="math notranslate nohighlight">\([0..1]\)</span>. The protocol <span class="math notranslate nohighlight">\((P, V)\)</span> is said to be a proof of knowledge for the relation <span class="math notranslate nohighlight">\(R\)</span> with knowledge error <span class="math notranslate nohighlight">\(κ\)</span>, if the following are satisﬁed:</p>
+<ul class="simple">
+<li><p>Completeness</p></li>
+</ul>
+<p>On common input <span class="math notranslate nohighlight">\(x\)</span>, if the honest prover <span class="math notranslate nohighlight">\(P\)</span> gets as private input <span class="math notranslate nohighlight">\(w\)</span> such that <span class="math notranslate nohighlight">\((x, w) ∈ R\)</span>, then the veriﬁer <span class="math notranslate nohighlight">\(V\)</span> always accepts.</p>
+<ul class="simple">
+<li><p>Knowledge soundness</p></li>
+</ul>
+<p>There exists a probabilistic algorithm <span class="math notranslate nohighlight">\(M\)</span> called the <strong>knowledge extractor</strong>.</p>
+<p>This <span class="math notranslate nohighlight">\(M\)</span> gets input <span class="math notranslate nohighlight">\(x\)</span> and rewindable black-box access to the prover and attempts to compute <span class="math notranslate nohighlight">\(w\)</span> such that <span class="math notranslate nohighlight">\((x, w) ∈ R\)</span>.</p>
+<p>We require that the following holds: For any prover <span class="math notranslate nohighlight">\(P∗\)</span> , let <span class="math notranslate nohighlight">\(\epsilon(x)\)</span> be the probability that <span class="math notranslate nohighlight">\(V\)</span> accepts on input <span class="math notranslate nohighlight">\(x\)</span>. There exists a constant <span class="math notranslate nohighlight">\(c\)</span> such that whenever <span class="math notranslate nohighlight">\(\epsilon(x) &gt; κ(x)\)</span>, <span class="math notranslate nohighlight">\(M\)</span> will output a correct <span class="math notranslate nohighlight">\(w\)</span> in expected time at most</p>
+<div class="math notranslate nohighlight">
+\[\frac{|x|}{\epsilon(x)-k(x)}\]</div>
+<p>where access to <span class="math notranslate nohighlight">\(P∗\)</span> counts as one step only.</p>
+</div>
+</div>
+<div class="section" id="Ref:">
+<h2>Ref:<a class="headerlink" href="#Ref:" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Ivan Damg˚ard, On Σ-protocols <a class="reference external" href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;cad=rja&amp;uact=8&amp;ved=2ahUKEwiO8qym9dLlAhXKl54KHdPIA9EQFjAAegQIBRAC&amp;url=http%3A%2F%2Fwww.cs.au.dk%2F~ivan%2FSigma.pdf&amp;usg=AOvVaw1Jw9tKPLGZViKm3xOjwnaC">https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;cad=rja&amp;uact=8&amp;ved=2ahUKEwiO8qym9dLlAhXKl54KHdPIA9EQFjAAegQIBRAC&amp;url=http%3A%2F%2Fwww.cs.au.dk%2F~ivan%2FSigma.pdf&amp;usg=AOvVaw1Jw9tKPLGZViKm3xOjwnaC</a></p></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <a href="https://github.com/ryankung/klefki">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
+    </a>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">klefki</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="README.html">TL;DR</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Non-interactive%20and%20Reusable%20Non-malleable%20Commitment%20Schemes.html">Non-interactive and Reusable Non-malleable Commitment Schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pedersen%20Commitment.html">Pedersen Commitment</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><span class="math notranslate nohighlight">\(\Sigma\)</span> Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Abstract%20Algebra%20Types.html">Abstract Algebra Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Homomorphic%20Encryption.html">Homomorphic Encryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="From%20ZK%20to%20Bulletproofs.html">From ZK to Bulletproofsproof via Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Paillier%27s%20encryption%20Scheme.html">Paillier’s encryption Scheme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ElGamal.html">ElGamal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Shamir%27s%20secret%20sharing%20scheme.html">Shamir’s secret sharing scheme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Trapdoor%20Commitment%20Schemes.html">Discrete-Logarithm-Based Trapdoor Commitment Schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Threshold%20ECDSA.html">Threshold ECDSA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="POD-Mini%20and%20POD-AS.html">POD-Mini and POD-AS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Damgard-Jurik%20Scheme%20of%20Paillier.html">Damgard-Jurik Scheme of Paillier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Threshold%20Paillier%20Cryptosystem.html">Threshold Paillier Cryptosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="R1CS%20to%20QAP.html">R1CS to QAP to BulletProof</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MimbleWimble.html">Play MimbleWimble with klefki</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MimbleWimble.html#Ownership">Ownership</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="Pedersen%20Commitment.html" title="previous chapter">Pedersen Commitment</a></li>
+      <li>Next: <a href="Abstract%20Algebra%20Types.html" title="next chapter">Abstract Algebra Types</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Ryan Kung.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/On Sigma Protocols.ipynb.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,1188 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>From ZK to Bulletproofsproof via Python &#8212; klefki 1.0-rc documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Paillier’s encryption Scheme" href="Paillier%27s%20encryption%20Scheme.html" />
+    <link rel="prev" title="Homomorphic Encryption" href="Homomorphic%20Encryption.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="section" id="From-ZK-to-Bulletproofsproof-via-Python">
+<h1>From ZK to Bulletproofsproof via Python<a class="headerlink" href="#From-ZK-to-Bulletproofsproof-via-Python" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="I-Motivation">
+<h2>I Motivation<a class="headerlink" href="#I-Motivation" title="Permalink to this headline">¶</a></h2>
+<p><strong>Prove that some condition holds true, without revealing anything else, but even better - do it using only a tiny amount of data!</strong></p>
+</div>
+<div class="section" id="II-Commitments">
+<h2>II Commitments<a class="headerlink" href="#II-Commitments" title="Permalink to this headline">¶</a></h2>
+<p>Cryptographic commitments usually used in a situation <strong>where you want to promise something is true before later proving it to be true</strong>.</p>
+<p>Commitments <strong>are only possible because of existence of one-way functions’</strong></p>
+<p>E.g. If Alice want to commit to the value “2”, She can send Bob its hash (53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3), the hash is the commitments of value “2”</p>
+<p>If Alice always send same commitment for value “2”, it’s lack of <strong>Semantic Security</strong>, so instead of commit to “2”, Alice may commit to “2” + some random data(salt). The commitments may looks like <span class="math notranslate nohighlight">\(\mathcal{H}(secret||salt)\)</span></p>
+<p>Key properties of any commitment scheme:</p>
+<ul class="simple">
+<li><p><strong>Hiding</strong> - a commitment <span class="math notranslate nohighlight">\(C\)</span> does not reveal the value it commit to.</p></li>
+<li><p><strong>Binding</strong> - have make the commitment <span class="math notranslate nohighlight">\(C(m)\)</span> to <span class="math notranslate nohighlight">\(m\)</span>, you can’t change your mind and open it as commitment to a different message <span class="math notranslate nohighlight">\(m'\)</span></p></li>
+</ul>
+</div>
+<div class="section" id="III-Homorphic-and-Pedersen">
+<h2>III Homorphic and Pedersen<a class="headerlink" href="#III-Homorphic-and-Pedersen" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="A-Pedersen-commitment-in-elliptic-curve-form">
+<h3>A Pedersen commitment in elliptic curve form<a class="headerlink" href="#A-Pedersen-commitment-in-elliptic-curve-form" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[C=rH+aG\]</div>
+<p><span class="math notranslate nohighlight">\(H\)</span> is a curve point, for which nobody knows the discrete logarithm <span class="math notranslate nohighlight">\(q\)</span> s.t. <span class="math notranslate nohighlight">\(H = qG\)</span>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">klefki.curves.secp256k1</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">EllipticCurveGroupSecp256k1</span> <span class="k">as</span> <span class="n">ECG</span><span class="p">,</span>
+    <span class="n">FiniteFieldSecp256k1</span> <span class="k">as</span> <span class="n">F</span><span class="p">,</span>
+    <span class="n">FiniteFieldCyclicSecp256k1</span> <span class="k">as</span> <span class="n">CF</span>
+<span class="p">)</span>
+
+
+<span class="n">G</span> <span class="o">=</span> <span class="n">ECG</span><span class="o">.</span><span class="n">G</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">random</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="mh">0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141</span>
+<span class="k">def</span> <span class="nf">random_cf</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">CF</span><span class="p">:</span> <span class="k">return</span> <span class="n">CF</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span> <span class="o">%</span> <span class="n">F</span><span class="o">.</span><span class="n">P</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">q</span> <span class="o">=</span> <span class="n">random_cf</span><span class="p">()</span>
+<span class="n">H</span> <span class="o">=</span> <span class="n">G</span> <span class="o">@</span> <span class="n">q</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">C</span><span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="n">CF</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">CF</span><span class="p">):</span> <span class="k">return</span> <span class="p">(</span><span class="n">H</span><span class="nd">@r</span> <span class="o">+</span> <span class="n">G</span><span class="nd">@a</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Homomorphism-of-Pedersen-commitment">
+<h3>Homomorphism of Pedersen commitment<a class="headerlink" href="#Homomorphism-of-Pedersen-commitment" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[C(r_1, a_1)+C(r_2, a_2) = r_1H+a_1G+r_2H+a_2G=(r_1+r_2)H+(a_1+a_2)G=C(r_1+r_2, a_1+a_2)\]</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">r_1</span><span class="p">,</span> <span class="n">a_1</span><span class="p">,</span> <span class="n">r_2</span><span class="p">,</span> <span class="n">a_2</span> <span class="o">=</span> <span class="n">random_cf</span><span class="p">(),</span> <span class="n">random_cf</span><span class="p">(),</span> <span class="n">random_cf</span><span class="p">(),</span> <span class="n">random_cf</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">assert</span> <span class="n">C</span><span class="p">(</span><span class="n">r_1</span><span class="p">,</span> <span class="n">a_1</span><span class="p">)</span> <span class="o">+</span> <span class="n">C</span><span class="p">(</span><span class="n">r_2</span><span class="p">,</span> <span class="n">a_2</span><span class="p">)</span> <span class="o">==</span> <span class="n">H</span><span class="nd">@r_1</span> <span class="o">+</span> <span class="n">G</span><span class="nd">@a_1</span> <span class="o">+</span> <span class="n">H</span><span class="nd">@r_2</span> <span class="o">+</span> <span class="n">G</span><span class="nd">@a_2</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">assert</span> <span class="n">C</span><span class="p">(</span><span class="n">r_1</span><span class="p">,</span> <span class="n">a_1</span><span class="p">)</span> <span class="o">+</span> <span class="n">C</span><span class="p">(</span><span class="n">r_2</span><span class="p">,</span> <span class="n">a_2</span><span class="p">)</span> <span class="o">==</span> <span class="n">C</span><span class="p">(</span><span class="n">r_1</span> <span class="o">+</span> <span class="n">r_2</span><span class="p">,</span> <span class="n">a_1</span> <span class="o">+</span> <span class="n">a_2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="The-Vector-Pedersen-Commitment">
+<h3>The Vector Pedersen Commitment<a class="headerlink" href="#The-Vector-Pedersen-Commitment" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="NUMS-ness-and-binding">
+<h3>NUMS-ness and binding<a class="headerlink" href="#NUMS-ness-and-binding" title="Permalink to this headline">¶</a></h3>
+<p>NUMS sands for “Noting Up My Sleeve”. ref: <a class="reference external" href="https://en.wikipedia.org/wiki/Nothing-up-my-sleeve_number">https://en.wikipedia.org/wiki/Nothing-up-my-sleeve_number</a></p>
+<p>A easy way is to use a hash fuction like SHA256.</p>
+<p>For <span class="math notranslate nohighlight">\(C = rH_aG\)</span> to find two scalar values <span class="math notranslate nohighlight">\(s,b\)</span> that <span class="math notranslate nohighlight">\(s\neq r, b\neq a\)</span> is impossible, unless the ECDLP(Ellipic Curve discrete Logarithm Problem) had cracked.</p>
+<p>To extend to a more powerful form of the Pedersen commitment already deﬁned, we go from:</p>
+<div class="math notranslate nohighlight">
+\[C = rH + aG\]</div>
+<p>to:</p>
+<div class="math notranslate nohighlight">
+\[C=rH + \sum_{i=0}^n v_iG_i = rH + \mathbf{v}\mathbf{G}\]</div>
+<p>The individual G i s can be constructed using a simple algorithm of the form already mentioned (like, take a <span class="math notranslate nohighlight">\(\mathcal{H}(encode(G)||i)\)</span> where <span class="math notranslate nohighlight">\(\mathcal{H}\)</span> represents some hash function).</p>
+<p>Not: we can extend this yet further to create commitments to 2 or even multiple vectors;</p>
+<p>We just need a set of N NUMS base curve points for each vector we’re committing to, for example (2 vectors):</p>
+<div class="math notranslate nohighlight">
+\[C=rH+\mathbf{vG}+\mathbf{wH}\]</div>
+<p>Note here that the single curve point H is not part of the vector H.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">klefki.types.algebra.utils</span> <span class="kn">import</span> <span class="n">encode</span><span class="p">,</span> <span class="n">decode</span>
+<span class="kn">from</span> <span class="nn">hashlib</span> <span class="kn">import</span> <span class="n">sha256</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span>
+
+<span class="k">def</span> <span class="nf">map2curve</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">CF</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">G</span> <span class="o">@</span> <span class="n">x</span>
+
+<span class="n">secret</span> <span class="o">=</span> <span class="s2">&quot;sec&quot;</span>
+<span class="n">Gs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">map2curve</span><span class="p">,</span>
+              <span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span>
+                  <span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">sha256</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">(),</span> <span class="n">sha256</span><span class="p">(</span><span class="n">secret</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()))))))</span>
+
+
+<span class="k">def</span> <span class="nf">vgm</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="p">[</span><span class="n">CF</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">ECG</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="p">,</span>
+                  <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">a</span><span class="p">:</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">@</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">zip</span><span class="p">(</span><span class="n">Gs</span><span class="p">,</span> <span class="n">a</span><span class="p">))))</span>
+
+<span class="k">def</span> <span class="nf">Cv</span><span class="p">(</span><span class="n">r</span><span class="p">:</span><span class="n">CF</span><span class="p">,</span> <span class="n">a</span><span class="p">:[</span><span class="n">CF</span><span class="p">]):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">H</span><span class="nd">@r</span> <span class="o">+</span> <span class="n">vgm</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Homomorphism">
+<h3>Homomorphism<a class="headerlink" href="#Homomorphism" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[C(r_1, \mathbf{v}_1)+C(r_2, \mathbf{v}_2) = r_1H+\mathbf{v_1}\mathbf{G}+r_2H+\mathbf{v}_2\mathbf{G}=(r_1+r_2)H+(\mathbf{v}_1+\mathbf{v}_2)\mathbf{G}=C(r_1+r_2, \mathbf{v}_1+\mathbf{v}_2)\]</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">r_1</span><span class="p">,</span> <span class="n">r_2</span> <span class="o">=</span> <span class="n">random_cf</span><span class="p">(),</span> <span class="n">random_cf</span><span class="p">()</span>
+<span class="n">v_1</span><span class="p">,</span> <span class="n">v_2</span> <span class="o">=</span> <span class="p">[</span><span class="n">random_cf</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)],</span> <span class="p">[</span><span class="n">random_cf</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">assert</span> <span class="n">Cv</span><span class="p">(</span><span class="n">r_1</span> <span class="o">+</span> <span class="n">r_2</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">zip</span><span class="p">(</span><span class="n">v_1</span><span class="p">,</span> <span class="n">v_2</span><span class="p">))))</span> <span class="o">==</span> <span class="n">Cv</span><span class="p">(</span><span class="n">r_1</span><span class="p">,</span> <span class="n">v_1</span><span class="p">)</span> <span class="o">+</span> <span class="n">Cv</span><span class="p">(</span><span class="n">r_2</span><span class="p">,</span> <span class="n">v_2</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Perfect-Hiding-and-Perfect-Binding-are-incompatible">
+<h3>Perfect Hiding and Perfect Binding are incompatible<a class="headerlink" href="#Perfect-Hiding-and-Perfect-Binding-are-incompatible" title="Permalink to this headline">¶</a></h3>
+<p>The perdersen commitment is property as “perfeact” or “satistical” hiding</p>
+<p>But it’s <strong>not</strong> binding, if <strong>you know the discrete log of</strong>.</p>
+<p>Consider, if I have commitment <span class="math notranslate nohighlight">\(C=rH+aG\)</span>, there is another <span class="math notranslate nohighlight">\(r'\)</span> s.t. <span class="math notranslate nohighlight">\(C=r'H+a'G\)</span> for any chosen <span class="math notranslate nohighlight">\(a'\)</span>;</p>
+<p>It’s just that we can’t ﬁnd that <span class="math notranslate nohighlight">\(r'\)</span> without the ability to crack the ECDLP. But the fact that it even exists means that the commitment is a valid commitment to any value <span class="math notranslate nohighlight">\(a\)</span>, for the right <span class="math notranslate nohighlight">\(r\)</span>.</p>
+<p>the Pedersen commitment’s binding is not perfect – it is “computational”. What this means is that, much as discussed just above, in a case where the ECDLP was cracked, the binding property could fail and people could open the commitment to other values.</p>
+</div>
+</div>
+<div class="section" id="IV-Zero-Knowledge-argument-of-knowledge-set-of-vectors">
+<h2>IV Zero Knowledge argument of knowledge set of vectors<a class="headerlink" href="#IV-Zero-Knowledge-argument-of-knowledge-set-of-vectors" title="Permalink to this headline">¶</a></h2>
+<p>There are three key properties of any zero knowledge proof:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>- Does an honest Prover successd in convincing the Verifier?
+</pre></div>
+</div>
+<ul>
+<li><p>Classical Proofs def: If <span class="math notranslate nohighlight">\(x \in L,\)</span>, then there exists proofs s.t. <span class="math notranslate nohighlight">\(V(x, proof)\)</span>=accept.</p></li>
+<li><p>Interactive Proofs def: If <span class="math notranslate nohighlight">\(G_0, G_1\)</span> are non isomorphic then there is only one <span class="math notranslate nohighlight">\(b'\)</span> such that <span class="math notranslate nohighlight">\(H \approx G_{b'}\)</span>. In this case, <span class="math notranslate nohighlight">\(P\)</span> always ansers <span class="math notranslate nohighlight">\(b'\)</span> correctly. Hence, <span class="math notranslate nohighlight">\(b=b'\)</span> always, and:</p>
+<div class="math notranslate nohighlight">
+\[Pr([P,V](1^n,x;1^n,x)=(1,1))=1\]</div>
+</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">Does</span> <span class="n">the</span> <span class="n">Prover</span> <span class="n">actually</span> <span class="o">**</span><span class="n">prove</span><span class="o">**</span> <span class="n">the</span> <span class="n">truth</span> <span class="n">of</span> <span class="n">the</span> <span class="n">statement</span><span class="o">.</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Classical Proofs def:</p></li>
+</ul>
+<p>if <span class="math notranslate nohighlight">\(x \notin L\)</span>, then for all <span class="math notranslate nohighlight">\(proof*\)</span>, <span class="math notranslate nohighlight">\(V(x, proof*)=reject.\)</span></p>
+<ul class="simple">
+<li><p>Interactive Proofs def:</p></li>
+</ul>
+<p>The probability that <span class="math notranslate nohighlight">\(P\)</span> guesses <span class="math notranslate nohighlight">\(b\)</span> correctly for all <span class="math notranslate nohighlight">\(|x|\)</span> rounds is <span class="math notranslate nohighlight">\(\frac{1}{|x|}\)</span>, which is negligible.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">Can</span> <span class="n">we</span> <span class="n">reveal</span> <span class="n">that</span> <span class="n">the</span> <span class="n">Prover</span> <span class="n">reveals</span> <span class="n">nothing</span> <span class="k">else</span> <span class="n">than</span> <span class="n">that</span> <span class="n">the</span> <span class="n">statement</span> <span class="ow">is</span> <span class="n">true</span><span class="o">.</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Def: A proof system for a language L is an interactive proof <span class="math notranslate nohighlight">\((V_L , P_L )\)</span> for <span class="math notranslate nohighlight">\(L\)</span>, such that there is a probabilistic algorithm S (or “Simulator”) that runs in expected polynomial time and such that for every string x ∈ L the distribution of outputs of <span class="math notranslate nohighlight">\(S(x)\)</span> is identical to the distribution of views of <span class="math notranslate nohighlight">\(V_L\)</span> of the interaction between <span class="math notranslate nohighlight">\(P_L\)</span> and <span class="math notranslate nohighlight">\(V_L\)</span> on input <span class="math notranslate nohighlight">\(x\)</span>.</p></li>
+</ul>
+<p>ref: <a class="reference external" href="http://www.cs.tau.ac.il/~canetti/f09-materials/f09-scribe3.pdf">http://www.cs.tau.ac.il/~canetti/f09-materials/f09-scribe3.pdf</a></p>
+<p>An “argument of knowledge” is a technical term distinguished from “proof of knowledge”.</p>
+<p>The proof is only computational – an adversary with enough computing power may be able to convince you that he knows the secret value(s), even if he doesn’t.</p>
+<p>Here just assume that <strong>Veriﬁer of the proof will interact with the Prover in real time.</strong></p>
+<p>Our argument of knowledge will come after we have generated a set of commitments for each of m vectors <span class="math notranslate nohighlight">\(x_1 , x_2 , \cdots , x_m\)</span> , each of the same dimension <span class="math notranslate nohighlight">\(N(\neq m)\)</span>).Explicitly:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}C_1=r_1H + x_1G\\
+C_2=r_2H + x_2G\\
+\vdots\\
+C_m=r_mH+x_mG\\\end{split}\]</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="n">x</span><span class="p">:</span> <span class="p">[[</span><span class="n">CF</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[[</span><span class="n">random_cf</span><span class="p">()</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">)]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">m</span><span class="p">)]</span>
+<span class="n">r</span><span class="p">:</span> <span class="p">[</span><span class="n">CF</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">random_cf</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">m</span><span class="p">)]</span>
+<span class="n">q</span><span class="p">:</span> <span class="n">CF</span> <span class="o">=</span> <span class="n">random_cf</span><span class="p">()</span>
+<span class="n">H</span><span class="p">:</span> <span class="n">ECG</span> <span class="o">=</span> <span class="n">G</span><span class="nd">@q</span>
+<span class="n">C</span><span class="p">:</span> <span class="p">[</span><span class="n">ECG</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">H</span> <span class="o">@</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">vgm</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">zip</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">x</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(P\rightarrow V: C_0\)</span> (0 (a new commitment to a newly chosen random vector of dimension <span class="math notranslate nohighlight">\(N\)</span>)</p></li>
+<li><p><span class="math notranslate nohighlight">\(V\rightarrow P: e\)</span> (a random scalar)</p></li>
+<li><p><span class="math notranslate nohighlight">\(P\rightarrow V: (\mathbf{z}, s)\)</span>(a single vector of dimension N, and another scalar)</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[z=\sum_{i=0}^m e^ix_i,\ s=\sum_{i=0}^m e^ir_i\]</div>
+<p>Note that the summations start at 0; this means that the sums include the extra, random commitment, indexed 0, that was created as the ﬁrst step of the interaction.</p>
+<p>for <span class="math notranslate nohighlight">\(z=\sum_{i=0}^m e^ix_i\)</span>, <span class="math notranslate nohighlight">\(z_n = x_0n + e*x_1n + . . . e^m*x_mn\)</span>, aht addition hides the individual values.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="n">x</span><span class="p">:</span> <span class="p">[[</span><span class="n">CF</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[[</span><span class="n">random_cf</span><span class="p">()</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">)]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">m</span><span class="p">)]</span>
+<span class="n">r</span><span class="p">:</span> <span class="p">[</span><span class="n">CF</span><span class="p">]</span> <span class="o">=</span>  <span class="p">[</span><span class="n">random_cf</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">m</span><span class="p">)]</span>
+<span class="n">q</span><span class="p">:</span> <span class="n">CF</span> <span class="o">=</span> <span class="n">random_cf</span><span class="p">()</span>
+<span class="n">H</span><span class="p">:</span> <span class="n">ECG</span> <span class="o">=</span> <span class="n">G</span><span class="nd">@q</span>
+<span class="n">C</span><span class="p">:</span> <span class="p">[</span><span class="n">ECG</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">H</span> <span class="o">@</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">vgm</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">zip</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">x</span><span class="p">)))</span>
+
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span>
+<span class="n">P</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="p">{},</span> <span class="p">{}</span>
+
+<span class="c1"># Step 1</span>
+<span class="n">V</span><span class="p">[</span><span class="s1">&#39;C_0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">C</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Step 2</span>
+<span class="n">V</span><span class="p">[</span><span class="s1">&#39;e&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">random_cf</span><span class="p">()</span>
+<span class="n">P</span><span class="p">[</span><span class="s1">&#39;e&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">V</span><span class="p">[</span><span class="s1">&#39;e&#39;</span><span class="p">]</span>
+
+<span class="c1"># Step 3</span>
+<span class="c1"># z: a single vector of dimension N</span>
+<span class="c1"># z_n = x_0n + e*x_1n + . . . e^m*x_mn ;</span>
+
+<span class="n">P</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">@</span> <span class="p">(</span><span class="n">P</span><span class="p">[</span><span class="s1">&#39;e&#39;</span><span class="p">]</span> <span class="o">**</span> <span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">m</span><span class="p">)])</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="n">P</span><span class="p">[</span><span class="s1">&#39;s&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">,</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">@</span> <span class="p">(</span><span class="n">P</span><span class="p">[</span><span class="s1">&#39;e&#39;</span><span class="p">]</span> <span class="o">**</span> <span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">m</span><span class="p">)])</span>
+<span class="n">V</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">],</span> <span class="n">V</span><span class="p">[</span><span class="s1">&#39;s&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">],</span> <span class="n">P</span><span class="p">[</span><span class="s1">&#39;s&#39;</span><span class="p">]</span>
+
+</pre></div>
+</div>
+</div>
+<p>Having received this <span class="math notranslate nohighlight">\((z, s)\)</span>, the verifer of course needs to verify whether the proof is valid. He does the following:</p>
+<div class="math notranslate nohighlight">
+\[\sum_{i=0}^m e^iC_i \stackrel{?}{=} sH+\mathbf{z}\mathbf{G}\]</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">assert</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="p">,</span> <span class="p">[</span><span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">@</span> <span class="p">(</span><span class="n">P</span><span class="p">[</span><span class="s1">&#39;e&#39;</span><span class="p">]</span> <span class="o">**</span> <span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">m</span><span class="p">)])</span> <span class="o">==</span> <span class="n">H</span> <span class="o">@</span> <span class="n">V</span><span class="p">[</span><span class="s1">&#39;s&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">vgm</span><span class="p">(</span><span class="n">V</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Completness">
+<h3>Completness<a class="headerlink" href="#Completness" title="Permalink to this headline">¶</a></h3>
+<p>For RHS:</p>
+<div class="math notranslate nohighlight">
+\begin{align*}
+\sum_{i=0}^m e^iC_i &amp;= sH+\mathbf{zG} \\&amp;=\sum_{i=0}^m e^i (r_iH)+\sum_{i=0}^m x^i\mathbf{x_iG} \\
+&amp;=\sum_{i=0}^m (r_iH+\mathbf{x_iG})\\
+&amp;=\sum_{i=0}^m e^iC_i
+\end{align*}</div></div>
+<div class="section" id="Zero-knowledgeness">
+<h3>Zero-knowledgeness<a class="headerlink" href="#Zero-knowledgeness" title="Permalink to this headline">¶</a></h3>
+<p>We deal with zero knowledgeness before soundness, because the latter is the harder proof.</p>
+<p>If the distribution of transcripts of the conversation between Prover and Veriﬁer, in the case where the <strong>veriﬁer’s execution environment is controlled</strong> and it is run by a notional entity called a “<strong>Simulator</strong>”, and we can simulate a proof <strong>without</strong> actually having the knowledge, is the same distribution as that obtained for genuine conversations with Prover(s) who do know the opening of the vector commitments, it follows that the <strong>Veriﬁer learns zero</strong> from the interaction other than
+the aforementioned single bit.</p>
+<p>def:</p>
+<p>A “witness” is a piece of (usually secret) data corresponding to a “statement” which the Prover possesses but does not want to reveal.</p>
+<div class="section" id="E.g.-:-Schnorr’s-identity-protocol">
+<h4>E.g. : Schnorr’s identity protocol<a class="headerlink" href="#E.g.-:-Schnorr’s-identity-protocol" title="Permalink to this headline">¶</a></h4>
+<p>ref: <a class="reference external" href="https://crypto.stanford.edu/cs355/19sp/lec5.pdf">https://crypto.stanford.edu/cs355/19sp/lec5.pdf</a></p>
+<p>Prover starts with a public key P and a corresponding private key <span class="math notranslate nohighlight">\(x\)</span> s.t. <span class="math notranslate nohighlight">\(P = xG\)</span>. Prover wishes to prove in zero knowledge, that he knows <span class="math notranslate nohighlight">\(x\)</span>.</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(P\rightarrow V:P=xG\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(P\rightarrow V:R\)</span> (a new random curve point, but <span class="math notranslate nohighlight">\(P\)</span> knows <span class="math notranslate nohighlight">\(k\)</span> s.t. <span class="math notranslate nohighlight">\(R=kG\)</span>)</p></li>
+<li><p><span class="math notranslate nohighlight">\(V\rightarrow P:e\)</span> (a random scalar)</p></li>
+<li><p><span class="math notranslate nohighlight">\(P\rightarrow V:s\)</span> (which <span class="math notranslate nohighlight">\(P\)</span> calcuated from the quation <span class="math notranslate nohighlight">\(s=k+ex\)</span>)</p></li>
+</ol>
+<p>Note: the transcript referred to above, would here be: <span class="math notranslate nohighlight">\((R, e, s)\)</span>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">P</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="p">{},</span> <span class="p">{}</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">random_cf</span><span class="p">()</span>
+<span class="c1"># step 1</span>
+<span class="n">P</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span>
+<span class="n">V</span><span class="p">[</span><span class="s1">&#39;P&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">G</span> <span class="o">@</span> <span class="n">P</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span>
+
+<span class="c1"># step 2</span>
+<span class="n">P</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">random_cf</span><span class="p">()</span>
+<span class="n">V</span><span class="p">[</span><span class="s1">&#39;R&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">G</span> <span class="o">@</span> <span class="n">P</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span>
+
+<span class="c1"># step 3</span>
+<span class="n">V</span><span class="p">[</span><span class="s1">&#39;e&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">random_cf</span><span class="p">()</span>
+<span class="n">P</span><span class="p">[</span><span class="s1">&#39;e&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">V</span><span class="p">[</span><span class="s1">&#39;e&#39;</span><span class="p">]</span>
+
+<span class="c1"># step 4</span>
+<span class="n">P</span><span class="p">[</span><span class="s1">&#39;s&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">P</span><span class="p">[</span><span class="s1">&#39;e&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">P</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span>
+<span class="n">V</span><span class="p">[</span><span class="s1">&#39;s&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="s1">&#39;s&#39;</span><span class="p">]</span>
+
+<span class="n">transcript</span> <span class="o">=</span> <span class="n">V</span><span class="p">[</span><span class="s1">&#39;R&#39;</span><span class="p">],</span> <span class="n">V</span><span class="p">[</span><span class="s1">&#39;e&#39;</span><span class="p">],</span> <span class="n">V</span><span class="p">[</span><span class="s1">&#39;s&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<p>Veriﬁcation works fairly trivially: veriﬁer checks <span class="math notranslate nohighlight">\(sG \stackrel{?}{=} R+eP\)</span>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">assert</span> <span class="n">G</span> <span class="o">@</span> <span class="n">V</span><span class="p">[</span><span class="s1">&#39;s&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">V</span><span class="p">[</span><span class="s1">&#39;R&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">V</span><span class="p">[</span><span class="s1">&#39;P&#39;</span><span class="p">]</span> <span class="o">@</span> <span class="n">V</span><span class="p">[</span><span class="s1">&#39;e&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<p>It may be entirely valid to the interacting Veriﬁer, but entirely <strong>meaningless</strong> (as in this case) to a third party who is shown the transcript later.</p>
+<div class="section" id="zero-knowledgeness-proof:">
+<h5>zero knowledgeness proof:<a class="headerlink" href="#zero-knowledgeness-proof:" title="Permalink to this headline">¶</a></h5>
+<p>The “Simulator”, which controls the execution of the veriﬁer, given the public key P, just as the Veriﬁer would be, can <strong>fake</strong> a valid transcript as follows:</p>
+<p>Choose <span class="math notranslate nohighlight">\(s\)</span> randomly. Then, choose <span class="math notranslate nohighlight">\(e\)</span>, also randomly. Finally, we only need to choose <span class="math notranslate nohighlight">\(R\)</span> to create a complete conversation transcript; it must be <span class="math notranslate nohighlight">\(R = sG − eP\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}R=sG-eP\\
+kG=sG-eP\\
+sG=kG+eP\\
+sG=kG+xeG\\
+s=k+ex\\\end{split}\]</div>
+<p>Then we have successfully simulated a conversation which is entirely valid: <span class="math notranslate nohighlight">\((R, e, s)\)</span>, without ever knowing the secret key <span class="math notranslate nohighlight">\(x\)</span>, and which it’s easy to see is randomly distributed in the same way as a real one would be (<span class="math notranslate nohighlight">\(R\)</span> is a free variable).</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">s</span><span class="p">,</span> <span class="n">e</span> <span class="o">=</span> <span class="n">random_cf</span><span class="p">(),</span> <span class="n">random_cf</span><span class="p">()</span>
+<span class="n">R</span> <span class="o">=</span> <span class="n">G</span> <span class="o">@</span> <span class="n">s</span> <span class="o">-</span> <span class="n">V</span><span class="p">[</span><span class="s1">&#39;P&#39;</span><span class="p">]</span> <span class="o">@</span> <span class="n">e</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">assert</span> <span class="n">G</span> <span class="o">@</span> <span class="n">s</span> <span class="o">==</span> <span class="n">R</span> <span class="o">+</span> <span class="n">V</span><span class="p">[</span><span class="s1">&#39;P&#39;</span><span class="p">]</span> <span class="o">@</span> <span class="n">e</span>
+</pre></div>
+</div>
+</div>
+<p>Another way of looking at it is that this kind of proof is <strong>deniable</strong> –</p>
+<p><strong>it may be entirely valid to the interacting Veriﬁer，but entirely meaningless (as in this case) to a third party who is shown the transcript later.</strong></p>
+</div>
+<div class="section" id="For-Vector-proof-of-knowledge-case:">
+<h5>For Vector proof of knowledge case:<a class="headerlink" href="#For-Vector-proof-of-knowledge-case:" title="Permalink to this headline">¶</a></h5>
+<p>The conversation transcipts looks like: <span class="math notranslate nohighlight">\((C_0, e, (\mathbf{z}, s)\)</span>, which is almost the same, except that the ﬁnal portion is a vector + a scalar instead of a single scalar.</p>
+<p>And so the same reasoning applies: <strong>a Simulator can fake the transcript by choosing out of order</strong>.</p>
+<p>involved issue here: you choose <span class="math notranslate nohighlight">\((\mathbf{z}, s)\)</span> both at random, as well as <span class="math notranslate nohighlight">\(e\)</span>, and you can deduce the right value of the point:</p>
+<div class="math notranslate nohighlight">
+\[C_0 = (sH+zG) - \sum_{i=1}^m e^iC^i\]</div>
+<p>The <span class="math notranslate nohighlight">\(C 1 , C 2 , . . . , C\)</span> m are all set in advance.</p>
+<p>Now we try to do the prove via random <span class="math notranslate nohighlight">\(\mathbf{z}, s, e\)</span></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">z</span> <span class="o">=</span> <span class="p">[</span><span class="n">random_cf</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">)]</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">random_cf</span><span class="p">()</span>
+<span class="n">e</span> <span class="o">=</span> <span class="n">random_cf</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">q</span><span class="p">:</span> <span class="n">CF</span> <span class="o">=</span> <span class="n">random_cf</span><span class="p">()</span>
+<span class="n">H</span><span class="p">:</span> <span class="n">ECG</span> <span class="o">=</span> <span class="n">G</span><span class="nd">@q</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">C_0</span> <span class="o">=</span> <span class="n">H</span> <span class="o">@</span> <span class="n">s</span> <span class="o">+</span> <span class="n">vgm</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="o">-</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">,</span> <span class="p">[</span><span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">@</span> <span class="n">e</span> <span class="o">**</span> <span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">m</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+<div class="math notranslate nohighlight">
+\[\sum_{i=0}^m e^iC_i \stackrel{?}{=} sH+\mathbf{z}\mathbf{G}\]</div>
+<div class="math notranslate nohighlight">
+\[C_0 + \sum_{i=1}^m e^iC_i \stackrel{?}{=} sH+\mathbf{z}\mathbf{G}\]</div>
+<p>We provide <span class="math notranslate nohighlight">\((C_0, e, (\mathbf{z}, s))\)</span></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">assert</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="p">,</span> <span class="p">[([</span><span class="n">C_0</span><span class="p">]</span> <span class="o">+</span> <span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">:])[</span><span class="n">i</span><span class="p">]</span> <span class="o">@</span> <span class="p">(</span><span class="n">e</span> <span class="o">**</span> <span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">m</span><span class="p">)])</span> <span class="o">==</span> <span class="n">H</span> <span class="o">@</span> <span class="n">s</span> <span class="o">+</span> <span class="n">vgm</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p><strong>The entire transcript will look valid to a third party</strong></p>
+</div>
+</div>
+</div>
+<div class="section" id="Knowledge-sondness---does-a-verifying-interaction-actually-prove-knowledge-of-the-vectors?">
+<h3>Knowledge sondness - does a verifying interaction actually prove knowledge of the vectors?<a class="headerlink" href="#Knowledge-sondness---does-a-verifying-interaction-actually-prove-knowledge-of-the-vectors?" title="Permalink to this headline">¶</a></h3>
+<p>Proving “soundness” is somehow complementary/“opposite” to proving zero knowledge, in the following sense: the idea here is to isolate/control the oper- ation of the Prover, as a machine, rather than isolate the veriﬁer.</p>
+<p>If we can control the Prover’s environment and by doing so get him to spit out the secret information (the “witness”), it follows that he must have it in the ﬁrst place!</p>
+<ul class="simple">
+<li><p>God (The Extractor) Stealing the secret from the Prover(Machine)</p>
+<ul>
+<li><p><strong>imagine the Prover is literally a function. You can start running it, stop at any point (imagine debugger breakpoints). Crucially you can make copies of its current state.</strong></p></li>
+</ul>
+</li>
+</ul>
+<div class="section" id="E.g.-In-the-Schnorr-identity-protocol-case:">
+<h4>E.g. In the Schnorr identity protocol case:<a class="headerlink" href="#E.g.-In-the-Schnorr-identity-protocol-case:" title="Permalink to this headline">¶</a></h4>
+<p>we get the Prover to run twice, but only after the same initial random point <span class="math notranslate nohighlight">\(R\)</span>. So imagine I as “Extractor” (what we call the “God” controlling the Prover) create two runs of the protocol with two diﬀerent values <span class="math notranslate nohighlight">\(e_1\)</span> , <span class="math notranslate nohighlight">\(e_2\)</span> against the same initial <span class="math notranslate nohighlight">\(R\)</span>, then:</p>
+<div class="math notranslate nohighlight">
+\begin{align*}
+s_1 = k+e_1x\\
+s_2=k+e_2x
+\end{align*}</div><div class="math notranslate nohighlight">
+\[\rightarrow x = \frac{s_1-s_2}{e_1-e_2}\]</div>
+<p>Secret <span class="math notranslate nohighlight">\(x\)</span> is <strong>LEAK</strong>!</p>
+<p>Thus, the Extractor get the secret key in two runs of the protocol that happened to share the same “nonce” point <span class="math notranslate nohighlight">\(R\)</span> (remember, <span class="math notranslate nohighlight">\(R = kG\)</span> and it’s the same in both runs here). This is such a widely known “exploit” of both Schnorr and ECDSA signatures (when wrongly implemented)</p>
+</div>
+<div class="section" id="Back-to-Knowledge-of-set-of-vector-case">
+<h4>Back to Knowledge of set of vector case<a class="headerlink" href="#Back-to-Knowledge-of-set-of-vector-case" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>First point:</p></li>
+</ul>
+<p>We need to get the Prover to output not just two transcripts, but m+1. This will be enough to prevent the system of equations from being underdetermined, i.e. it will give us a unique solution.</p>
+<p>we have the Extractor start the Prover, who gener- ates here a <span class="math notranslate nohighlight">\(C_0\)</span> , then provide it with a random challenge <span class="math notranslate nohighlight">\(e\)</span>, then retrieve from it a pair <span class="math notranslate nohighlight">\((\mathbf{z}, s)\)</span>. Assuming that this response is valid, we can repeat the process, a total of <span class="math notranslate nohighlight">\(m + 1\)</span> times, resulting in this set of transcripts:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">gen_ts</span><span class="p">():</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="p">[</span><span class="n">random_cf</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">)]</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">random_cf</span><span class="p">()</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">random_cf</span><span class="p">()</span>
+    <span class="n">C_0</span> <span class="o">=</span> <span class="n">H</span> <span class="o">@</span> <span class="n">s</span> <span class="o">+</span> <span class="n">vgm</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="o">-</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">,</span> <span class="p">[</span><span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">@</span> <span class="n">e</span> <span class="o">**</span> <span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">m</span><span class="p">)])</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">C_0</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">ts_set</span> <span class="o">=</span> <span class="p">[</span><span class="n">gen_ts</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<p>Then Extractor start to constructing the Vandermonde matrix:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">matrix</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">A_rev</span> <span class="o">=</span> <span class="p">[[</span><span class="n">ts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">**</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span> <span class="k">for</span> <span class="n">ts</span> <span class="ow">in</span> <span class="n">ts_set</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbb{A}^{-1}= \begin{bmatrix}
+    1       &amp; e_0 &amp; e_{0}^2 &amp; \dots &amp; e_0^m \\
+    1       &amp; e_1 &amp; e_1^2 &amp; \dots &amp; e_1^m \\
+    \vdots \\
+    1       &amp; e_m &amp; e_m^2 &amp; \dots &amp; e_m^m
+\end{bmatrix}\end{split}\]</div>
+<p>The Vandermonde matrix, acting on the column vector of a set of coeﬃcients of a polynomial, outputs a new column vec- tor which represents the evaluation of that polynomial at each of the points.</p>
+<p>this means the <span class="math notranslate nohighlight">\(inverse\)</span> of that matrix, if it <span class="math notranslate nohighlight">\(exists\)</span>, therefore maps a set of <span class="math notranslate nohighlight">\(m+1\)</span> polynomial evaluations (the polynomial here has degree <span class="math notranslate nohighlight">\(m\)</span>), back to its set of coeﬃcients, and most crucially that mapping is one-one and therefore the solution is unique.</p>
+<p><strong>a set of :math:`N + 1` evaluations ﬁxes a polynomial of degree :math:`N`.</strong></p>
+<div class="section" id="To-be-continue-....">
+<h5>To be continue ….<a class="headerlink" href="#To-be-continue-...." title="Permalink to this headline">¶</a></h5>
+</div>
+</div>
+</div>
+<div class="section" id="Aside:-the-Sigma-protocol">
+<h3>Aside: the Sigma protocol<a class="headerlink" href="#Aside:-the-Sigma-protocol" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(P\rightarrow V:R\)</span> (a new random curve point, but <span class="math notranslate nohighlight">\(P\)</span> knows <span class="math notranslate nohighlight">\(k\)</span> s.t. <span class="math notranslate nohighlight">\(R=kG\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(V \rightarrow P: e\)</span> (a random salar)</p></li>
+<li><p><span class="math notranslate nohighlight">\(P \rightarrow V: s\)</span> (which <span class="math notranslate nohighlight">\(P\)</span> calculated from eq. <span class="math notranslate nohighlight">\(s=k+ex\)</span></p></li>
+</ol>
+<p>The transcript is: <span class="math notranslate nohighlight">\((R, e, s)\)</span></p>
+<p>===== And =====</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(P \rightarrow V: C_0\)</span> (a new commitment to a newly chosen random vector of dim N)</p></li>
+<li><p><span class="math notranslate nohighlight">\(V \rightarrow P: e\)</span> (a random scalar)</p></li>
+<li><p><span class="math notranslate nohighlight">\(P \rightarrow V:(\mathbf{z}, s)\)</span> (a single vector of fim <span class="math notranslate nohighlight">\(N\)</span>, and another scalar)</p></li>
+</ol>
+<p>The transcript is: <span class="math notranslate nohighlight">\((C_0, e, (\mathbf{z}, s))\)</span></p>
+<p>(the ﬁrst was Schnorr’s identity protocol; the second was the proof of knowledge of a set of vectors).</p>
+<p><strong>These are both examples of Sigma protocols</strong>, so called because of a vague resemblance to the greek letter <span class="math notranslate nohighlight">\(\Sigma\)</span>, in that the process goes forwards once, then backwards, then forwards ﬁnally. The common pattern, though, is more than this three step interactive process. We generalise it as something like:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(P\rightarrow V:\)</span> commitment</p></li>
+<li><p><span class="math notranslate nohighlight">\(V \rightarrow P\)</span>: callange</p></li>
+<li><p><span class="math notranslate nohighlight">\(P \rightarrow V\)</span>: response (proof)</p></li>
+</ol>
+</div>
+</div>
+<div class="section" id="V-An-inner-product-proof">
+<h2>V An inner product proof<a class="headerlink" href="#V-An-inner-product-proof" title="Permalink to this headline">¶</a></h2>
+<p>In Groth’s paper, he presents the core algorithm, which probably- not-coincidentally is also the core of Bulletproofs. The inner product proof here uses all the same elements as we’ve discussed above, although in a slightly more complicated structure.</p>
+<p><strong>It starts by assuming that the Prover has two vectors :math:`x` and :math:`y`, and obviously knows the inner product of those, which we’ll now call :math:`z`.</strong></p>
+<p>The Prover’s job will now be to convince the veriﬁer that Pedersen commitments to these three quantities obey <span class="math notranslate nohighlight">\(z = \mathbf{x}· \mathbf{y}\)</span>; so we assume upfront that the three commitments are known, we’ll call them from now <span class="math notranslate nohighlight">\(Cz , C_x , C_y\)</span> :</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}C_z=tH+zG\\
+C_x=rH+\mathbf{xG}\\
+C_y=sH+\mathbf{yG}\end{split}\]</div>
+<div class="section" id="1.-The-commitment-step">
+<h3>1. The commitment step<a class="headerlink" href="#1.-The-commitment-step" title="Permalink to this headline">¶</a></h3>
+<p>Analogous to the <span class="math notranslate nohighlight">\(R\)</span> value of above two, The Prover <span class="math notranslate nohighlight">\(P\)</span> will need to send commitments to two nonce vectors (<span class="math notranslate nohighlight">\(\mathbf{x, y}\)</span>).</p>
+<p>These nonce vectors will be called <span class="math notranslate nohighlight">\(\mathbf{d}_x, \mathbf{d}y\)</span>.</p>
+<p>Instead of sending <span class="math notranslate nohighlight">\(\mathbf{d}_x , \mathbf{d}_y\)</span> , the Prover will instead send Pedersen commitments to them:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">random_cf</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">m</span><span class="p">)]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">random_cf</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">m</span><span class="p">)]</span>
+
+<span class="k">def</span> <span class="nf">inner_product</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="p">[</span><span class="n">CF</span><span class="p">],</span> <span class="n">y</span><span class="p">:</span> <span class="p">[</span><span class="n">CF</span><span class="p">]):</span>
+    <span class="k">return</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">,</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)))</span>
+
+<span class="n">z</span> <span class="o">=</span> <span class="n">inner_product</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">H</span> <span class="o">=</span> <span class="n">G</span> <span class="o">@</span> <span class="n">random_cf</span><span class="p">()</span>
+
+<span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">random_cf</span><span class="p">(),</span> <span class="n">random_cf</span><span class="p">(),</span> <span class="n">random_cf</span><span class="p">()</span>
+
+<span class="n">C_z</span> <span class="o">=</span> <span class="n">H</span><span class="nd">@t</span> <span class="o">+</span> <span class="n">G</span><span class="nd">@z</span>
+<span class="n">C_x</span> <span class="o">=</span> <span class="n">H</span><span class="nd">@r</span> <span class="o">+</span> <span class="n">vgm</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">C_y</span> <span class="o">=</span> <span class="n">H</span><span class="nd">@s</span> <span class="o">+</span> <span class="n">vgm</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}A_d = r_dH + \mathbf{d}_x\mathbf{G}\\
+B_d = s_dH + \mathbf{d}_y\mathbf{G}\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(r_d , s_d\)</span> will be random values as usual for Pedersen commitments.</p>
+<p>Just as the ﬁnal Schnorr response is <span class="math notranslate nohighlight">\(ex + k\)</span>, so here our ﬁnal response(s) are of the form <span class="math notranslate nohighlight">\(e\mathbf{x} + \mathbf{d}\)</span>, more speciﬁcally, one for each:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}e\mathbf{x} + \mathbf{d}_x\\
+e\mathbf{y} + \mathbf{d}_y\\\end{split}\]</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">dx</span> <span class="o">=</span> <span class="p">[</span><span class="n">random_cf</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">m</span><span class="p">)]</span>
+<span class="n">dy</span> <span class="o">=</span> <span class="p">[</span><span class="n">random_cf</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">m</span><span class="p">)]</span>
+<span class="n">r_d</span><span class="p">,</span> <span class="n">s_d</span> <span class="o">=</span> <span class="n">random_cf</span><span class="p">(),</span> <span class="n">random_cf</span><span class="p">()</span>
+
+<span class="n">A_d</span> <span class="o">=</span> <span class="n">H</span> <span class="o">@</span> <span class="n">r_d</span> <span class="o">+</span> <span class="n">vgm</span><span class="p">(</span><span class="n">dx</span><span class="p">)</span>
+<span class="n">B_d</span> <span class="o">=</span> <span class="n">H</span> <span class="o">@</span> <span class="n">s_d</span> <span class="o">+</span> <span class="n">vgm</span><span class="p">(</span><span class="n">dy</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>However, that’s not enough; we’re trying to prove an inner product, too.</p>
+<p>What we’ll have to do also in the commitment step is to send a commitment to the expected inner product of this <span class="math notranslate nohighlight">\(blinded\)</span> form of our vectors. The blinded form has already been mentioned as <span class="math notranslate nohighlight">\(e\mathbf{x} + \mathbf{d}_x\)</span> , <span class="math notranslate nohighlight">\(e\mathbf{y} + \mathbf{d}_y\)</span> , but we don’t yet know the challenge <span class="math notranslate nohighlight">\(e\)</span>, so we have to factor that out somehow.</p>
+<p>Now, <strong>:math:`e` is a linear factor</strong> in each of these terms, so dot-product-ing them<span class="math notranslate nohighlight">\((e\mathbf{x} + \mathbf{d}_x)\cdot(e\mathbf{y} + \mathbf{d}_y)\)</span>will result in a <strong>quadratic in :math:`e`</strong>, so there will be three coeﬃcients, and we’ll therefore need to provide commitments in advance for each of these three coeﬃcients.</p>
+<div class="math notranslate nohighlight">
+\begin{align*}
+(e\mathbf{x} + \mathbf{d}_x)·(e\mathbf{y} + \mathbf{d}_y) &amp;= e\mathbf{x}·(e\mathbf{y}+\mathbf{d}_y) + \mathbf{d}_x·(e\mathbf{y}+\mathbf{d}_y) \\
+&amp;= e^2\mathbf{x} · \mathbf{y} + e^2(\mathbf{x} ·\mathbf{d}_y + \mathbf{y}· \mathbf{d}_x) + \mathbf{d}_x· \mathbf{d}_y
+\end{align*}</div><p>We known that:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}z = \mathbf{d}_x· \mathbf{d}_y\\
+C_z=tH+zG\\\end{split}\]</div>
+<p>So we’ll therefore need to provide two additional commitments:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}C_1 = t_1H + (\mathbf{x}·\mathbf{d}_y+\mathbf{y}·\mathbf{d}_x)G\\
+C_0 = t_0H+(\mathbf{d}_x·\mathbf{d}_y)G\\\end{split}\]</div>
+<p>Thus we got (Comm stand for Pedersen commitment) :</p>
+<div class="math notranslate nohighlight">
+\[Comm((e\mathbf{x} + \mathbf{d}_x)\cdot(e\mathbf{y} + \mathbf{d}_y)) = e^2C_z + e^2C_1 + C_0\]</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">t1</span><span class="p">,</span> <span class="n">t0</span> <span class="o">=</span> <span class="n">random_cf</span><span class="p">(),</span> <span class="n">random_cf</span><span class="p">()</span>
+
+<span class="n">C_1</span> <span class="o">=</span> <span class="n">H</span><span class="nd">@t1</span> <span class="o">+</span> <span class="n">G</span><span class="o">@</span><span class="p">(</span><span class="n">inner_product</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dy</span><span class="p">)</span> <span class="o">+</span> <span class="n">inner_product</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">dx</span><span class="p">))</span>
+<span class="n">C_0</span> <span class="o">=</span> <span class="n">H</span><span class="nd">@t0</span> <span class="o">+</span> <span class="n">G</span><span class="nd">@inner_product</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<p>So to do all this in the commitment step, the Prover had to come up with 4 random scalars <span class="math notranslate nohighlight">\(r_d\)</span> , <span class="math notranslate nohighlight">\(s_d\)</span> , <span class="math notranslate nohighlight">\(t_1\)</span> , <span class="math notranslate nohighlight">\(t_0\)</span> and two random vectors <span class="math notranslate nohighlight">\(\mathbf{d}_x\)</span> , <span class="math notranslate nohighlight">\(\mathbf{d}_y\)</span> and then send 4 Pedersen commitments using this data: <span class="math notranslate nohighlight">\(A_d , B_d , C_1 , C_0\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[(r_d , s_d , t_1 , t_0, A_d , B_d , C_1 , C_0)\]</div>
+<p>The commitment should be:</p>
+<div class="math notranslate nohighlight">
+\[(A_d, B_d, C_1, C_0)\]</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="p">(</span><span class="n">A_d</span><span class="p">,</span> <span class="n">B_d</span><span class="p">,</span> <span class="n">C_1</span><span class="p">,</span> <span class="n">C_0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(EllipticCurveGroupSecp256k1::(FiniteFieldSecp256k1::107296709053369096896019338157260914018838120260700826036278518553079215056466, FiniteFieldSecp256k1::77568923792984566617605484883939490785699525518622088879361106068326887339150),
+ EllipticCurveGroupSecp256k1::(FiniteFieldSecp256k1::110615271327284575327623265355917185658846175240444091042980971154499916523599, FiniteFieldSecp256k1::87739299285397358992301153180942992237469949801877638244691286647809203570976),
+ EllipticCurveGroupSecp256k1::(FiniteFieldSecp256k1::63332741828529211778439861392811059766246385579451319379906017464478470924295, FiniteFieldSecp256k1::68926615334820379836895905128027899357626545050561183660245822174315433904240),
+ EllipticCurveGroupSecp256k1::(FiniteFieldSecp256k1::40310417929055891074976476877034803677213564495612382129320555979658680066630, FiniteFieldSecp256k1::80021093934540213408010330224258582906083447608942586519179154315665352282518))
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="2.-The-challange-step">
+<h3>2. The challange step<a class="headerlink" href="#2.-The-challange-step" title="Permalink to this headline">¶</a></h3>
+<p>Nothing to discuss here – the Veriﬁer simply sends a single scalar value <span class="math notranslate nohighlight">\(e\)</span>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">e</span> <span class="o">=</span> <span class="n">random_cf</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="3.-The-response-step">
+<h3>3. The response step<a class="headerlink" href="#3.-The-response-step" title="Permalink to this headline">¶</a></h3>
+<p>The above detailed discussion will hopefully make the following set of data, sent by the Prover, less bewildering:</p>
+<div class="math notranslate nohighlight">
+\begin{align*}
+\mathbf{f}_x &amp;= e\mathbf{x}+\mathbf{d}_x \\
+\mathbf{f}_y &amp;= e\mathbf{y}+\mathbf{d}_y \\
+r_x&amp;=er+r_d\\
+s_y&amp;=es+s_d\\
+t_z&amp;=e^2t+et_1+t_0
+\end{align*}</div><div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fx</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">dx</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">m</span><span class="p">)]</span>
+<span class="n">fy</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="o">*</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">dy</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">m</span><span class="p">)]</span>
+<span class="n">rx</span> <span class="o">=</span> <span class="n">e</span><span class="o">*</span><span class="n">r</span> <span class="o">+</span> <span class="n">r_d</span>
+<span class="n">sy</span> <span class="o">=</span> <span class="n">e</span><span class="o">*</span><span class="n">s</span> <span class="o">+</span> <span class="n">s_d</span>
+<span class="n">tz</span> <span class="o">=</span> <span class="p">(</span><span class="n">e</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">t</span> <span class="o">+</span> <span class="n">e</span> <span class="o">*</span> <span class="n">t1</span> <span class="o">+</span> <span class="n">t0</span>
+</pre></div>
+</div>
+</div>
+<p>note that here we are sending the blinded forms <span class="math notranslate nohighlight">\(f_x , f_y\)</span> of the two vectors, not the Pedersen commitments – the idea is that the Veriﬁer will verify precisely by reconstructing the commitments and checking they match <span class="math notranslate nohighlight">\(C_x , C+y\)</span> . Those two checks are:</p>
+<div class="math notranslate nohighlight">
+\begin{align*}
+eC_x+A_d &amp;\stackrel{?}{=} r_xH+\mathbf{f}_x\mathbf{G}\\
+eC_y+B_d &amp;\stackrel{?}{=} s_yH+\mathbf{f}_y\mathbf{G}\\
+t_zH+ (\mathbf{f}_x \cdot \mathbf{f}_y)G &amp;\stackrel{?}{=}e^2C_z + eC_1 + C_0
+\end{align*}</div><div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">assert</span> <span class="n">C_x</span> <span class="o">@</span> <span class="n">e</span> <span class="o">+</span> <span class="n">A_d</span> <span class="o">==</span> <span class="n">H</span> <span class="o">@</span> <span class="n">rx</span> <span class="o">+</span> <span class="n">vgm</span><span class="p">(</span><span class="n">fx</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">C_y</span> <span class="o">@</span> <span class="n">e</span> <span class="o">+</span> <span class="n">B_d</span> <span class="o">==</span> <span class="n">H</span> <span class="o">@</span> <span class="n">sy</span> <span class="o">+</span> <span class="n">vgm</span><span class="p">(</span><span class="n">fy</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">assert</span> <span class="n">H</span> <span class="o">@</span> <span class="n">tz</span> <span class="o">+</span> <span class="n">G</span> <span class="o">@</span> <span class="n">inner_product</span><span class="p">(</span><span class="n">fx</span><span class="p">,</span> <span class="n">fy</span><span class="p">)</span> <span class="o">==</span> <span class="n">C_z</span> <span class="o">@</span> <span class="p">(</span><span class="n">e</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">C_1</span> <span class="o">@</span> <span class="n">e</span> <span class="o">+</span> <span class="n">C_0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Overview:">
+<h4>Overview:<a class="headerlink" href="#Overview:" title="Permalink to this headline">¶</a></h4>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(P \rightarrow V: (A_d, B_d, C_1, C_0)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(V \rightarrow P: e\)</span></p></li>
+<li><p>:math:<a href="#id1"><span class="problematic" id="id2">`</span></a>P rightarrow V: (mathbf{f}_x,mathbf{f}_y, r_x, s_y, t_z) `</p></li>
+</ol>
+<p>The transcript is <span class="math notranslate nohighlight">\(((A_d, B_d, C_1, C_0), e, ( \mathbf{f}_x,\mathbf{f}_y, r_x, s_y, t_z))\)</span></p>
+</div>
+<div class="section" id="Completeness">
+<h4>Completeness<a class="headerlink" href="#Completeness" title="Permalink to this headline">¶</a></h4>
+<p>The <span class="math notranslate nohighlight">\(r_x , s_y\)</span> were chosen to make the random values equate in the relevant Peder- sen commitments. It’s not hard to see that these equations will verify for honest behaviour:</p>
+<div class="math notranslate nohighlight">
+\begin{align*}
+eC_x+A_d&amp;=e(rH+\mathbf{xG})+r_dH+\mathbf{d}_x\mathbf{G}\\
+&amp;=(er+r_d)H+(e\mathbf{x}+\mathbf{d}_x)G\\
+&amp;=r_xH+\mathbf{f}_x\mathbf{G}
+\end{align*}</div><div class="math notranslate nohighlight">
+\begin{align*}
+eC_y+B_d&amp;=e(rH+\mathbf{yG})+s_dH+\mathbf{d}_y\mathbf{G}\\
+&amp;=(er+s_d)H+(ey+\mathbf{d}_y)G\\
+&amp;=s_yH+\mathbf{f}_y\mathbf{G}
+\end{align*}</div><p>To ensures that the inner product is correct, <span class="math notranslate nohighlight">\(t_z\)</span> is needed for the third check.</p>
+<div class="math notranslate nohighlight">
+\begin{align*}
+\mathbf{f}_x \cdot \mathbf{f}_y &amp;\stackrel{?}{=} e^2\mathbf{x} · \mathbf{y} + e(\mathbf{x} ·\mathbf{d}_y + \mathbf{y}· \mathbf{d}_x) + \mathbf{d}_x· \mathbf{d}_y\\
+&amp;\stackrel{?}{=} e^2z + e(\mathbf{x} ·\mathbf{d}_y + \mathbf{y}· \mathbf{d}_x) + \mathbf{d}_x· \mathbf{d}_y\\
+Comm(\mathbf{f}_x \cdot \mathbf{f}_y) &amp;\stackrel{?}{=} e^2(Comm(z)) + e(Comm(\mathbf{x} ·\mathbf{d}_y + \mathbf{y}· \mathbf{d}_x)) + Comm(\mathbf{d}_x· \mathbf{d}_y)\\
+Comm(\mathbf{f}_x \cdot \mathbf{f}_y) &amp;\stackrel{?}{=} e^2C_z + e(Comm(\mathbf{x} ·\mathbf{d}_y + \mathbf{y}· \mathbf{d}_x)) + Comm(\mathbf{d}_x· \mathbf{d}_y)\\
+Comm(\mathbf{f}_x \cdot \mathbf{f}_y) &amp;\stackrel{?}{=} e^2C_z + eC_1 + C_0\\
+t_zH+ (\mathbf{f}_x \cdot \mathbf{f}_y)G &amp;\stackrel{?}{=}e^2C_z + eC_1 + C_0
+\end{align*}</div></div>
+</div>
+</div>
+<div class="section" id="VI-Ref:">
+<h2>VI Ref:<a class="headerlink" href="#VI-Ref:" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>[1] From ZK to bulletproof, Adam Gibson, <a class="reference external" href="https://github.com/AdamISZ">https://github.com/AdamISZ</a></p></li>
+<li><p>[2] Interactive Proofs and Zero Knowledge, Ran Canetti, Alon Rosen, Fall 2009</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <a href="https://github.com/ryankung/klefki">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
+    </a>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">klefki</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="README.html">TL;DR</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Non-interactive%20and%20Reusable%20Non-malleable%20Commitment%20Schemes.html">Non-interactive and Reusable Non-malleable Commitment Schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pedersen%20Commitment.html">Pedersen Commitment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="On%20Sigma%20Protocols.html"><span class="math notranslate nohighlight">\(\Sigma\)</span> Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Abstract%20Algebra%20Types.html">Abstract Algebra Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Homomorphic%20Encryption.html">Homomorphic Encryption</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">From ZK to Bulletproofsproof via Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Paillier%27s%20encryption%20Scheme.html">Paillier’s encryption Scheme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ElGamal.html">ElGamal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Shamir%27s%20secret%20sharing%20scheme.html">Shamir’s secret sharing scheme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Trapdoor%20Commitment%20Schemes.html">Discrete-Logarithm-Based Trapdoor Commitment Schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Threshold%20ECDSA.html">Threshold ECDSA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="POD-Mini%20and%20POD-AS.html">POD-Mini and POD-AS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Damgard-Jurik%20Scheme%20of%20Paillier.html">Damgard-Jurik Scheme of Paillier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Threshold%20Paillier%20Cryptosystem.html">Threshold Paillier Cryptosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="R1CS%20to%20QAP.html">R1CS to QAP to BulletProof</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MimbleWimble.html">Play MimbleWimble with klefki</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MimbleWimble.html#Ownership">Ownership</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="Homomorphic%20Encryption.html" title="previous chapter">Homomorphic Encryption</a></li>
+      <li>Next: <a href="Paillier%27s%20encryption%20Scheme.html" title="next chapter">Paillier’s encryption Scheme</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Ryan Kung.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/From ZK to Bulletproofs.ipynb.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

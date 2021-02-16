@@ -1,0 +1,27 @@
+:mod:`klefki.curves`
+====================
+
+.. py:module:: klefki.curves
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   barreto_naehrig/index.rst
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   arith/index.rst
+   baby_jubjub/index.rst
+   ed25519/index.rst
+   secp256k1/index.rst
+
+
