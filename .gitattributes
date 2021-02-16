@@ -1,2 +1,3 @@
 docs/* linguist-documentation
-notes/* -linguist-documentation
+notes/* linguist-documentation
+*.py linguist-detectable
