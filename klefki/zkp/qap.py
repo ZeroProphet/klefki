@@ -43,7 +43,8 @@ def R1CS2QAP(a, b, c, x=None, field=int):
     B = transfer(b, field)
     C = transfer(c, field)
 
-    def Z(x): return reduce(mul, [(x - field(i)) for i in range(1, len(a)+1)])
+    def Z(x):
+        return reduce(mul, [(x - field(i)) for i in range(1, len(a)+1)])
     if not x:
         return A, B, C, Z
     return (A(x), B(x), C(x), Z(x))

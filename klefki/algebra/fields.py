@@ -118,17 +118,21 @@ class PolyExtField(Field):
         if isinstance(rhs, self.F):
             return self.__class__([c * rhs for c in self.value])
         else:
-            b = [self.F.zero() for i in range(len(self.P) * 2 - 1)]
+            degree = len(self.P)
+            b = [self.F.zero() for i in range(degree) * 2 - 1)]
             inner_enumerate = list(enumerate(rhs.value))
 
+            # mul
             for i, eli in enumerate(self.value):
                 for j, elj in inner_enumerate:
                     b[i + j] += eli * elj
+            # mod
             for exp in range(len(self.P) - 2, -1, -1):
                 top = b.pop()
                 for i, c in [(i, c) for i, c in enumerate(self.P) if c]:
                     b[exp + i] -= top * c
-            return self.__class__([x for x in b])
+
+            return self.type(b)
 
 
 PrimeField = FiniteField
