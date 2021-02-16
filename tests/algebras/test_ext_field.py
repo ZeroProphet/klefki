@@ -8,7 +8,7 @@ modulus_coeffs = [82, 0, 0, 0, 0, 0, 18, 0, 0, 0, 0, 0]
 
 class FQ12(PolyExtField):
     F = FQ
-    E = modulus_coeffs
+    P = modulus_coeffs
 
 
 def test_field():

@@ -19,9 +19,14 @@ def transfer(v, field=int):
     for n in range(len(v[0])):
         a = []
         for i in range(len(v)):
-            a.append(v[i][n])
-        ret.append(lagrange_polynomial([field(i)
-                                        for i in range(1, len(a)+1)], a, field))
+            a.append(field(v[i][n]))
+        ret.append(
+            lagrange_polynomial(
+                [field(i) for i in range(1, len(a)+1)],
+                a,
+                field
+            )
+        )
     return lambda x: [f(x) for f in ret]
 
 

@@ -1,6 +1,7 @@
 """
 ref: https://github.com/ethereum/research/blob/711bd9532b4534ef5ae6277bd7afe625195506d5/zksnark/bn128_field_elements.py
 """
+import abc
 import klefki.const as const
 from klefki.algebra.fields import FiniteField
 from klefki.algebra.fields import PolyExtField
@@ -15,12 +16,12 @@ class BN128FP(FiniteField):
 
 class BN128FP2(PolyExtField):
     F = BN128FP
-    E = const.BN128_FP2_E
+    P = const.BN128_FP2_E
 
 
 class BN128FP12(PolyExtField):
     F = BN128FP
-    E = const.BN128_FP12_E
+    P = const.BN128_FP12_E
 
     @classmethod
     def from_fp(cls, v):
@@ -50,7 +51,7 @@ class ECGBN128(EllipticCurveGroup):
             field.zero(),
             field.zero(),
             field(self.A),
-            field(self.B(type(self.x))),
+            self.B(type(self.x)),
             field
         )
         if x == y == field.zero():
@@ -147,19 +148,19 @@ class ECGBN128(EllipticCurveGroup):
         return self.y**2 - self.x**3 == self.B(type(self.x))
 
     @staticmethod
-    def B(t=BN128FP):
+    def B(F=BN128FP):
         return {
-            BN128FP2: BN128FP2([3, 0]) / BN128FP2([0, 1]),
-            BN128FP12: BN128FP12([3] + [0] * 11),
-            BN128FP: BN128FP(3)
-        }[t]
+            "BN128FP2": BN128FP2([3, 0]) / BN128FP2([0, 1]),
+            "BN128FP12": BN128FP12([3] + [0] * 11),
+            "BN128FP": BN128FP(3)
+        }[F.__name__]
 
 
     @classmethod
     def lift_x(cls, x):
         F = x.type
 #        y = (x**3 + F(cls.A) * x + F(cls.B))**(1/2)
-        y = (x**3 + x*F(cls.A) + F(cls.B))**(1/2)
+        y = (x**3 + x*F(cls.A) + F(cls.B(F)))**(1/2)
         return cls((x, y))
 
 
