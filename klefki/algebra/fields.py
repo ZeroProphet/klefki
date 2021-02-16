@@ -119,7 +119,7 @@ class PolyExtField(Field):
             return self.__class__([c * rhs for c in self.value])
         else:
             degree = len(self.P)
-            b = [self.F.zero() for i in range(degree) * 2 - 1)]
+            b = [self.F.zero() for i in range(degree * 2 - 1)]
             inner_enumerate = list(enumerate(rhs.value))
 
             # mul
@@ -131,7 +131,6 @@ class PolyExtField(Field):
                 top = b.pop()
                 for i, c in [(i, c) for i, c in enumerate(self.P) if c]:
                     b[exp + i] -= top * c
-
             return self.type(b)
 
 
