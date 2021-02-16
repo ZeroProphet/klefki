@@ -1,3 +1,4 @@
 docs/* linguist-documentation
 notes/* linguist-documentation
 *.py linguist-detectable
+Makefile -linguist-detectable
