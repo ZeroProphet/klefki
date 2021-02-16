@@ -18,24 +18,24 @@ class PGHR13:
 
     @property
     def toxic(self):
-        return (self.t, self.k_a, self.k_b, self.k_c)
+        return (self.k_a, self.k_b, self.k_c)
 
     def setup(self, A, B, C, H, Z):
-        self.pi_a = reduce(add, [self.G@a for a in A(self.t)])
+        self.pi_a = reduce(add, [self.G@a for a in A])
         self.pi_a_ = self.pi_a @ self.k_a
 
-        self.pi_b = reduce(add, [self.G@b for b in B(self.t)])
+        self.pi_b = reduce(add, [self.G@b for b in B])
         self.pi_b_ = self.pi_b @ self.k_b
 
-        self.pi_c = reduce(add, [self.G@c for c in C(self.t)])
+        self.pi_c = reduce(add, [self.G@c for c in C])
         self.pi_c_ = self.pi_c @ self.k_c
 
-        self.pi_h = self.G @ H(self.t)
-        self.pi_z = self.G @ Z(self.t)
 
     @property
     def pi(self):
         return (self.pi_a, self.pi_b, self.pi_c)
 
-    def check(self):
+    def check(self, H, Z):
+        self.pi_h = self.G @ H
+        self.pi_z = self.G @ Z
         return G.e(self.pi_a, self.pi_b) / G.e(self.pi_c, self.G) == G.e(self.pi_h, self.pi_z)
