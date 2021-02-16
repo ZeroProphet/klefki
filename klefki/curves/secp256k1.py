@@ -38,6 +38,13 @@ class EllipticCurveGroupSecp256k1(EllipticCurveGroup):
             return self.__class__(0)
         return self.__class__((x, y))
 
+    @classmethod
+    def lift_x(cls, x: FiniteField):
+        F = x.__class__
+#        y = (x**3 + F(cls.A) * x + F(cls.B))**(1/2)
+        y = (x**3 + x*F(cls.A) + F(cls.B))**(1/2)
+        return cls((x, y))
+
 
 EllipticCurveGroupSecp256k1.G = EllipticCurveGroupSecp256k1(
     (

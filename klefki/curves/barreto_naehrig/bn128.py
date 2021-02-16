@@ -28,6 +28,9 @@ class BN128FP12(PolyExtField):
 
 
 class ECGBN128(EllipticCurveGroup):
+    """
+    y^2 = x^3 + A * x + B
+    """
     A = const.BN128_A
 
     N = const.BN128_N
@@ -47,7 +50,7 @@ class ECGBN128(EllipticCurveGroup):
             field.zero(),
             field.zero(),
             field(self.A),
-            field(self.B),
+            field(self.B(type(self.x))),
             field
         )
         if x == y == field.zero():
@@ -141,15 +144,23 @@ class ECGBN128(EllipticCurveGroup):
         return cls.pairing(P, Q)
 
     def is_on_curve(self):
-        return self.y**2 - self.x**3 == self.B
+        return self.y**2 - self.x**3 == self.B(type(self.x))
 
-    @property
-    def B(self):
-        if isinstance(self.x, BN128FP2):
-            return BN128FP2([3, 0]) / BN128FP2([0, 1])
-        elif isinstance(self.x, BN128FP12):
-            return BN128FP12([3] + [0] * 11)
-        return BN128FP(3)
+    @staticmethod
+    def B(t=BN128FP):
+        return {
+            BN128FP2: BN128FP2([3, 0]) / BN128FP2([0, 1]),
+            BN128FP12: BN128FP12([3] + [0] * 11),
+            BN128FP: BN128FP(3)
+        }[t]
+
+
+    @classmethod
+    def lift_x(cls, x):
+        F = x.type
+#        y = (x**3 + F(cls.A) * x + F(cls.B))**(1/2)
+        y = (x**3 + x*F(cls.A) + F(cls.B))**(1/2)
+        return cls((x, y))
 
 
 ECGBN128.G1 = ECGBN128(
