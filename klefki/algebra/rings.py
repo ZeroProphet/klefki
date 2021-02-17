@@ -2,6 +2,7 @@ from klefki.algebra.abstract import Ring
 from operator import add, mul
 from operator import neg
 from itertools import starmap
+from functools import partial
 
 __all__ = ["PolyRing"]
 
@@ -44,6 +45,19 @@ def _div_polys(a, b):
     return o
 
 
+# Make a polynomial which is zero at {1, 2 ... total_pts}, except
+# for `point_loc` where the value is `height`
+def mk_singleton(point_loc, total_pts, height):
+    fac = 1
+    for i in range(1, total_pts + 1):
+        if i != point_loc:
+            fac *= point_loc - i
+    o = [height * 1.0 // fac]
+    for i in range(1, total_pts + 1):
+        if i != point_loc:
+            o = multiply_polys(o, [-i, 1])
+    return o
+
 
 class PolyRing(Ring):
     @property
@@ -72,7 +86,7 @@ class PolyRing(Ring):
         for i in range(1, total_pts + 1):
             if i != point_loc:
                 fac *= point_loc - i
-        o = cls([height // fac])
+        o = cls([height // height.__class__(fac)])
         for i in range(1, total_pts + 1):
             if i != point_loc:
                 o = cls.lift_fmap(mul)(o.id, [-i, 1])
