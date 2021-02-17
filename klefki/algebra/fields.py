@@ -9,7 +9,7 @@ class FiniteField(Field):
 
     P = abstractproperty()
 
-    def fmap(self, o):
+    def craft(self, o):
         value = getattr(o, 'value', o)
         if isinstance(value, complex):
             return complex((value.real % self.P), (value.imag % self.P))
@@ -61,7 +61,7 @@ class PolyExtField(Field):
     F = abstractproperty()
     P = abstractproperty()
 
-    def fmap(self, value):
+    def craft(self, value):
         # map Maybe<int> top Field
         if value == 0:
             return self.zero().id

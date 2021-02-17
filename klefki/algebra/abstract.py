@@ -1,4 +1,6 @@
 from abc import ABCMeta, abstractmethod, abstractproperty
+from typing import Callable, Iterable, Any
+from operator import eq
 from klefki.algorithms import double_and_add_algorithm
 from klefki.algorithms import complex_truediv_algorithm
 from klefki.algorithms import fast_pow
@@ -6,7 +8,7 @@ from klefki.numbers import modular_sqrt
 import sys
 
 
-class Generic(metaclass=ABCMeta):
+class Functor(metaclass=ABCMeta):
 
     __slots__ = ['value']
 
@@ -20,11 +22,11 @@ class Generic(metaclass=ABCMeta):
             if isinstance(args, self.type):
                 self.value = args.value
             else:
-                self.value = self.fmap(args)
+                self.value = self.craft(args)
         else:
-            self.value = self.fmap(args)
+            self.value = self.craft(args)
 
-    def fmap(self, o):
+    def craft(self, o):
         return o
 
     @property
@@ -35,8 +37,20 @@ class Generic(metaclass=ABCMeta):
     def id(self):
         return self.value
 
+    @classmethod
+    def fmap(cls, f: Callable[[Any], Any]):
+        return lambda xs: cls(f(*[x.id for x in xs]))
 
-class Groupoid(Generic):
+    @classmethod
+    def seq_map(cls, f: Callable[[Iterable[Any]], Iterable]):
+        return lambda xs: map(cls.fmap(f), xs)
+
+    @classmethod
+    def lift_map(cls, f: Callable[[Any], Any]):
+        return lambda xs: f(*(cls(x) for x in xs)).id
+
+
+class Groupoid(Functor):
 
     __slots__ = ()
 

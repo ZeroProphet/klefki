@@ -9,7 +9,7 @@ class EllipticCurveGroup(Group):
     A = abstractproperty()
     B = abstractproperty()
 
-    def fmap(self, o):
+    def craft(self, o):
         if isinstance(o, JacobianGroup):
             z = ~(o.value[2])
             return (o.value[0] * z ** 2, o.value[1] * z ** 3)
@@ -63,7 +63,7 @@ class CyclicAddGroup(Group):
     # Order of subgroup
     N = abstractproperty()
 
-    def fmap(self, o):
+    def craft(self, o):
         value = getattr(o, 'value', o)
         return value % self.N
 
@@ -106,7 +106,7 @@ class JacobianGroup(Group):
     A = abstractproperty()
     B = abstractproperty()
 
-    def fmap(self, o):
+    def craft(self, o):
         if isinstance(o, EllipticCurveGroup):
             field = o.value[0].__class__
             return [o.value[0], o.value[1], field(1)]
