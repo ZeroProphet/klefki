@@ -76,17 +76,18 @@ class PolyRing(Ring):
     def div(self, rhs: Ring):
         return self.fmap(_div_polys)(self, rhs)
 
-    def __truediv__(self, rhs: Ring):
+    def __floordiv__(self, rhs: Ring):
         return self.div(rhs)
 
 
     @classmethod
     def singleton(cls, point_loc, height, total_pts):
+        field = height.__class__
         fac = 1
         for i in range(1, total_pts + 1):
             if i != point_loc:
                 fac *= point_loc - i
-        o = cls([height // height.__class__(fac)])
+        o = cls([height / height.__class__(fac)])
         for i in range(1, total_pts + 1):
             if i != point_loc:
                 o = cls.lift_fmap(mul)(o.id, [-i, 1])

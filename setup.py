@@ -1,8 +1,9 @@
 import os
-
+import platform
 from setuptools import setup, find_packages, Extension
 
 here = os.path.abspath(os.path.dirname(__file__))
+platform = platform.python_implementation()
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()

@@ -223,8 +223,3 @@ class Field(Ring):
         if isinstance(g.id, complex):
             return complex_truediv_algorithm(complex(1), self.id, self.type)
         return self.sec_op(g.sec_inverse())
-
-    def __floordiv__(self, g: 'Field') -> 'Field':
-        if isinstance(g.id, complex):
-            return complex_truediv_algorithm(complex(1), self.id, self.type)
-        return self.sec_op(g.sec_inverse())
