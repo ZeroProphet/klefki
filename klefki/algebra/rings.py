@@ -78,6 +78,10 @@ class PolyRing(Ring):
     def div(self, rhs: Ring):
         return self.fmap(_div_polys)(self, rhs)
 
+    @classmethod
+    def identity(cls):
+        return PolyRing([])
+
     def __floordiv__(self, rhs: Ring):
         return self.div(rhs)
 

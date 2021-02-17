@@ -42,6 +42,12 @@ Classes
    .. method:: div(self, rhs: Ring)
 
 
+   .. method:: identity(cls)
+      :classmethod:
+
+      The value for obeying axiom `identity` (3)
+
+
    .. method:: __floordiv__(self, rhs: Ring)
 
 

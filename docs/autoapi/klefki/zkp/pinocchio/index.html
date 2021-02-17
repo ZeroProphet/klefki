@@ -51,7 +51,7 @@ ref: <a class="reference external" href="https://eprint.iacr.org/2013/279.pdf">h
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#klefki.zkp.pinocchio.PGHR13" title="klefki.zkp.pinocchio.PGHR13"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PGHR13</span></code></a></p></td>
-<td><p></p></td>
+<td><p>Given $n$ equations we pick arbitrary distinct $r_1,cdots,r_n in mathbb{F}$ and define</p></td>
 </tr>
 </tbody>
 </table>
@@ -59,6 +59,18 @@ ref: <a class="reference external" href="https://eprint.iacr.org/2013/279.pdf">h
 <dt id="klefki.zkp.pinocchio.PGHR13">
 <em class="property">class </em><code class="sig-prename descclassname">klefki.zkp.pinocchio.</code><code class="sig-name descname">PGHR13</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span><span class="o">=</span><span class="default_value">Iterable</span></em>, <em class="sig-param"><span class="n">B</span><span class="o">=</span><span class="default_value">Iterable</span></em>, <em class="sig-param"><span class="n">C</span><span class="o">=</span><span class="default_value">Iterable</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.zkp.pinocchio.PGHR13" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../qap/index.html#klefki.zkp.qap.QAP" title="klefki.zkp.qap.QAP"><code class="xref py py-class docutils literal notranslate"><span class="pre">klefki.zkp.qap.QAP</span></code></a></p>
+<p>Given $n$ equations we pick arbitrary distinct $r_1,cdots,r_n in mathbb{F}$ and define
+$$
+t(x) = prod_{q=1}^n (x - r_q)
+$$
+Since $t(X)$ is the lowest degreee monomial with $t(r_q) = 0 $ in each point, we can refomulate as:
+$$
+sum_{i=0}^m a_i u_i(X) circ sum_{i=0}^m a_i v_i(X) = sum_{i=0}^m a_i w_i(X) mod t(X)
+$$
+we will be working with quadratic arithmetic programsRthat have thefollowing description</p>
+<p>$$
+R = (mathbb{F}, aux, l, {u_i(X), v_i(X), w_i(X)}_{i=0}^n, t(X))
+$$</p>
 <dl class="py method">
 <dt id="klefki.zkp.pinocchio.PGHR13.toxic">
 <em class="property">property </em><code class="sig-name descname">toxic</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.zkp.pinocchio.PGHR13.toxic" title="Permalink to this definition">¶</a></dt>

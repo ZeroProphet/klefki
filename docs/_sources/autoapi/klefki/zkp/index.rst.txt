@@ -12,7 +12,8 @@ Submodules
 
    commitment/index.rst
    flatcode/index.rst
-   gorth03/index.rst
+   groth03/index.rst
+   groth16/index.rst
    pedersen/index.rst
    pinocchio/index.rst
    qap/index.rst

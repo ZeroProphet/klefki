@@ -108,7 +108,7 @@ class ECGBN128(EllipticCurveGroup):
 
     @classmethod
     def miller_loop(cls, Q, P):
-        # https://crypto.stanford.edu/pbc/notes/ep/miller.htm
+        # https://crypto.stanford.edu/pbc/notes/ep/miller.html
         # ref: https://github.com/ethereum/research/blob/9a7b6825b0dee7a59a03f8ca1d1ec3ae7fb6d598/zksnark/bn128_pairing.py
         log_ate_loop_count = 63
         ate_loop_count = 29793968203157093288
@@ -129,7 +129,7 @@ class ECGBN128(EllipticCurveGroup):
         f = f * cls.linefunc(R, Q1, P)
         R = R + Q1
         f = f * cls.linefunc(R, nQ2, P)
-        R = R + nQ2
+#        R = R + nQ2
         return f ** ((BN128FP.P ** 12 - 1) // cls.N)
 
     @classmethod
@@ -161,6 +161,7 @@ class ECGBN128(EllipticCurveGroup):
 #        y = (x**3 + F(cls.A) * x + F(cls.B))**(1/2)
         y = (x**3 + x*F(cls.A) + F(cls.B(F)))**(1/2)
         return cls((x, y))
+
 
 
 ECGBN128.G1 = ECGBN128(
