@@ -21,11 +21,11 @@ email = 'ryankung@ieee.org'
 
 setup(
     name='klefki',
-    description='Klefki is a playground for researching elliptic curve group based cryptocoins, such as Bitcoin and Ethereum. All data types & structures are based on mathematical defination of abstract algebra.',  # noqa
+    description="Klefki is a playground for researching elliptic curve group based algorithms & applications, such as MPC, HE, ZKP, and Bitcoin/Ethereum. All data types & structures are based on mathematical defination of abstract algebra.", # noqa
     long_description=long_description,
     long_description_content_type="text/markdown",
     url='https://github.com/RyanKung/klefki',
-    version='1.5.5',
+    version='1.5.6',
     packages=find_packages(here, exclude=['tests', "notes"]),
     license='GPL',
     author=author,
