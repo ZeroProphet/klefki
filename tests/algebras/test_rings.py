@@ -14,6 +14,7 @@ def test_lagrange_poly():
     ret = PolyRing.lagrange_interp(vec)
     assert list(map(int, ret.id)) == [0, 1, 0, 0]
 
+
 def test_over_field():
     vec = [F(1), F(2), F(3), F(4)]
     r = PolyRing(vec)

@@ -54,5 +54,7 @@ class PrimeField(Field):
                 (self.value * g.value), self.P
             )
         )
+
+
 FiniteField = PrimeField
 Fq = FiniteField

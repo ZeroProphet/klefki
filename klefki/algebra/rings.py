@@ -6,6 +6,7 @@ from functools import partial
 
 __all__ = ["PolyRing"]
 
+
 def _multiply_polys(a, b):
     o = [0] * (len(a) + len(b) - 1)
     for i in range(len(a)):
@@ -21,6 +22,7 @@ def _add_polys(a, b):
     for i in range(len(b)):
         o[i] += b[i]
     return o
+
 
 def _neg_poly(a):
     return [-x for x in a]
@@ -79,7 +81,6 @@ class PolyRing(Ring):
     def __floordiv__(self, rhs: Ring):
         return self.div(rhs)
 
-
     @classmethod
     def singleton(cls, point_loc, height, total_pts):
         field = height.__class__
@@ -99,3 +100,6 @@ class PolyRing(Ring):
         for i in range(len(vec)):
             o = o + cls.singleton(i + 1, vec[i], len(vec))
         return o
+
+    def __call__(self, x):
+        return sum([self.id[i] * x**i for i in range(self.degree)])

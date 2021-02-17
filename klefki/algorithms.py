@@ -202,3 +202,12 @@ def newton_iterator_sqrt(x: T):
         last = res
         res = (res + x / res) / x.__class__(2)
     return res
+
+
+def lagrange_polynomial(xs, ys, field=int):
+    k = len(xs)
+
+    def l(j): return lambda x: reduce(
+        mul, [(x-xs[m])/(xs[j]-xs[m]) for m in range(0, k) if m != j])
+
+    return lambda x: field(reduce(add, [ys[j] * l(j)(x) for j in range(0, k)]))
