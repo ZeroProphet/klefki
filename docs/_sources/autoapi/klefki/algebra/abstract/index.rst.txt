@@ -12,7 +12,7 @@ Classes
 
 .. autoapisummary::
 
-   klefki.algebra.abstract.Generic
+   klefki.algebra.abstract.Functor
    klefki.algebra.abstract.Groupoid
    klefki.algebra.abstract.SemiGroup
    klefki.algebra.abstract.Monoid
@@ -22,7 +22,7 @@ Classes
 
 
 
-.. py:class:: Generic(*args)
+.. py:class:: Functor(*args)
 
    .. attribute:: __slots__
       :annotation: = ['value']
@@ -33,7 +33,7 @@ Classes
       :classmethod:
 
 
-   .. method:: fmap(self, o)
+   .. method:: craft(self, o)
 
 
    .. method:: type(self)
@@ -44,10 +44,18 @@ Classes
       :property:
 
 
+   .. method:: fmap(cls, f: Callable[[Any], Any]) -> Callable[['Functor'], 'Functor']
+      :classmethod:
+
+
+   .. method:: lift_fmap(cls, f: Callable[['Functor'], 'Functor']) -> Callable[[Any], 'Functor']
+      :classmethod:
+
+
 
 .. py:class:: Groupoid(*args)
 
-   Bases: :class:`klefki.algebra.abstract.Generic`
+   Bases: :class:`klefki.algebra.abstract.Functor`
 
    .. attribute:: __slots__
       :annotation: = []
@@ -235,9 +243,6 @@ Classes
 
 
    .. method:: __truediv__(self, g: Field) -> 'Field'
-
-
-   .. method:: __floordiv__(self, g: Field) -> 'Field'
 
 
 

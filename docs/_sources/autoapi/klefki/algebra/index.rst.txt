@@ -9,6 +9,15 @@
 
 
 
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   fields/index.rst
+
+
 Submodules
 ----------
 .. toctree::
@@ -17,10 +26,10 @@ Submodules
 
    abstract/index.rst
    concrete/index.rst
-   fields/index.rst
    groups/index.rst
    isomorphism/index.rst
    meta/index.rst
+   rings/index.rst
    utils/index.rst
 
 

@@ -58,7 +58,7 @@
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#klefki.curves.barreto_naehrig.bn128.ECGBN128" title="klefki.curves.barreto_naehrig.bn128.ECGBN128"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ECGBN128</span></code></a></p></td>
-<td><p></p></td>
+<td><p>y^2 = x^3 + A * x + B</p></td>
 </tr>
 </tbody>
 </table>
@@ -83,8 +83,8 @@
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="klefki.curves.barreto_naehrig.bn128.BN128FP2.E">
-<code class="sig-name descname">E</code><a class="headerlink" href="#klefki.curves.barreto_naehrig.bn128.BN128FP2.E" title="Permalink to this definition">¶</a></dt>
+<dt id="klefki.curves.barreto_naehrig.bn128.BN128FP2.P">
+<code class="sig-name descname">P</code><a class="headerlink" href="#klefki.curves.barreto_naehrig.bn128.BN128FP2.P" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -99,8 +99,8 @@
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="klefki.curves.barreto_naehrig.bn128.BN128FP12.E">
-<code class="sig-name descname">E</code><a class="headerlink" href="#klefki.curves.barreto_naehrig.bn128.BN128FP12.E" title="Permalink to this definition">¶</a></dt>
+<dt id="klefki.curves.barreto_naehrig.bn128.BN128FP12.P">
+<code class="sig-name descname">P</code><a class="headerlink" href="#klefki.curves.barreto_naehrig.bn128.BN128FP12.P" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -114,6 +114,7 @@
 <dt id="klefki.curves.barreto_naehrig.bn128.ECGBN128">
 <em class="property">class </em><code class="sig-prename descclassname">klefki.curves.barreto_naehrig.bn128.</code><code class="sig-name descname">ECGBN128</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.curves.barreto_naehrig.bn128.ECGBN128" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../../../algebra/groups/index.html#klefki.algebra.groups.EllipticCurveGroup" title="klefki.algebra.groups.EllipticCurveGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">klefki.algebra.groups.EllipticCurveGroup</span></code></a></p>
+<p>y^2 = x^3 + A * x + B</p>
 <dl class="py attribute">
 <dt id="klefki.curves.barreto_naehrig.bn128.ECGBN128.A">
 <code class="sig-name descname">A</code><a class="headerlink" href="#klefki.curves.barreto_naehrig.bn128.ECGBN128.A" title="Permalink to this definition">¶</a></dt>
@@ -174,7 +175,12 @@ e(P + Q, R) = e(P, R) * e(Q, R)</p>
 
 <dl class="py method">
 <dt id="klefki.curves.barreto_naehrig.bn128.ECGBN128.B">
-<em class="property">property </em><code class="sig-name descname">B</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.curves.barreto_naehrig.bn128.ECGBN128.B" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="sig-name descname">B</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">F</span><span class="o">=</span><span class="default_value">BN128FP</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.curves.barreto_naehrig.bn128.ECGBN128.B" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="klefki.curves.barreto_naehrig.bn128.ECGBN128.lift_x">
+<em class="property">classmethod </em><code class="sig-name descname">lift_x</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cls</span></em>, <em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.curves.barreto_naehrig.bn128.ECGBN128.lift_x" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -237,7 +243,7 @@ e(P + Q, R) = e(P, R) * e(Q, R)</p>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../POD-Mini%20and%20POD-AS.html">POD-Mini and POD-AS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../Damgard-Jurik%20Scheme%20of%20Paillier.html">Damgard-Jurik Scheme of Paillier</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../Threshold%20Paillier%20Cryptosystem.html">Threshold Paillier Cryptosystem</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../R1CS%20to%20QAP.html">R1CS to QAP to BulletProof</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../R1CS%20to%20QAP.html">R1CS to QAP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../MimbleWimble.html">Play MimbleWimble with klefki</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../MimbleWimble.html#Ownership">Ownership</a></li>
 </ul>

@@ -71,6 +71,10 @@ Classes
       The Operator for obeying axiom `associativity` (2)
 
 
+   .. method:: lift_x(cls, x: FiniteField)
+      :classmethod:
+
+
 
 .. py:class:: JacobianGroupSecp256k1(*args)
 

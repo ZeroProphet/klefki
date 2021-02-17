@@ -1,0 +1,59 @@
+:mod:`klefki.algebra.rings`
+===========================
+
+.. py:module:: klefki.algebra.rings
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   klefki.algebra.rings.PolyRing
+
+
+
+.. py:class:: PolyRing(*args)
+
+   Bases: :class:`klefki.algebra.abstract.Ring`
+
+   .. method:: degree(self)
+      :property:
+
+
+   .. method:: op(self, rhs: Ring)
+
+      The Operator for obeying axiom `associativity` (2)
+
+
+   .. method:: inverse(self)
+
+      Implement for axiom `inverse`
+
+
+   .. method:: sec_op(self, rhs: Ring)
+
+      The Operator for obeying axiom `associativity` (2)
+
+
+   .. method:: div(self, rhs: Ring)
+
+
+   .. method:: __floordiv__(self, rhs: Ring)
+
+
+   .. method:: singleton(cls, point_loc, height, total_pts)
+      :classmethod:
+
+
+   .. method:: lagrange_interp(cls, vec)
+      :classmethod:
+
+
+   .. method:: __call__(self, x)
+
+
+

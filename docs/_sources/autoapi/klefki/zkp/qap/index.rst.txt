@@ -7,35 +7,28 @@
 Module Contents
 ---------------
 
-
-Functions
-~~~~~~~~~
+Classes
+~~~~~~~
 
 .. autoapisummary::
 
-   klefki.zkp.qap.lagrange_polynomial
-   klefki.zkp.qap.transfer
-   klefki.zkp.qap.map2field
-   klefki.zkp.qap.R1CS2QAP
-   klefki.zkp.qap.proof
-   klefki.zkp.qap.verify
+   klefki.zkp.qap.QAP
 
 
-.. function:: lagrange_polynomial(xs, ys, field=int)
+
+.. py:class:: QAP(A=Iterable, B=Iterable, C=Iterable)
+
+   .. method:: qap(self)
+      :property:
 
 
-.. function:: transfer(v, field=int)
+   .. method:: proof(self, c: FiniteField, s: Iterable[FiniteField])
+
+      c: Callange
+      s: witness vertex
 
 
-.. function:: map2field(v, field=int)
+   .. method:: verify(s, A, B, C, Z, H)
 
-
-.. function:: R1CS2QAP(a, b, c, x=None, field=int)
-
-
-.. function:: proof(s, A, B, C, Z, field=int)
-
-
-.. function:: verify(s, A, B, C, Z, H)
 
 

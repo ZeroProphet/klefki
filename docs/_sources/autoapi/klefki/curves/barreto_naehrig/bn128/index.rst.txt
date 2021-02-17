@@ -43,7 +43,7 @@ Classes
 
       
 
-   .. attribute:: E
+   .. attribute:: P
       
 
       
@@ -58,7 +58,7 @@ Classes
 
       
 
-   .. attribute:: E
+   .. attribute:: P
       
 
       
@@ -71,6 +71,8 @@ Classes
 .. py:class:: ECGBN128(*args)
 
    Bases: :class:`klefki.algebra.groups.EllipticCurveGroup`
+
+   y^2 = x^3 + A * x + B
 
    .. attribute:: A
       
@@ -120,8 +122,12 @@ Classes
    .. method:: is_on_curve(self)
 
 
-   .. method:: B(self)
-      :property:
+   .. method:: B(F=BN128FP)
+      :staticmethod:
+
+
+   .. method:: lift_x(cls, x)
+      :classmethod:
 
 
 

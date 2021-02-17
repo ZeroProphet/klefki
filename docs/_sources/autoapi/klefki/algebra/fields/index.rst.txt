@@ -4,52 +4,26 @@
 .. py:module:: klefki.algebra.fields
 
 
-Module Contents
----------------
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   polyfield/index.rst
+   primefield/index.rst
+
+
+Package Contents
+----------------
 
 Classes
 ~~~~~~~
 
 .. autoapisummary::
 
-   klefki.algebra.fields.FiniteField
    klefki.algebra.fields.PolyExtField
-
-
-
-.. py:class:: FiniteField(*args)
-
-   Bases: :class:`klefki.algebra.abstract.Field`
-
-   .. attribute:: P
-      
-
-      
-
-   .. method:: fmap(self, o)
-
-
-   .. method:: inverse(self)
-
-      Implement for axiom `inverse`
-
-
-   .. method:: mod(self, a, b)
-
-
-   .. method:: sec_inverse(self)
-
-      Implement for axiom `inverse`
-
-
-   .. method:: op(self, g)
-
-      The Operator for obeying axiom `associativity` (2)
-
-
-   .. method:: sec_op(self, g)
-
-      The Operator for obeying axiom `associativity` (2)
+   klefki.algebra.fields.PrimeField
 
 
 
@@ -62,12 +36,12 @@ Classes
 
       
 
-   .. attribute:: E
+   .. attribute:: P
       
 
       
 
-   .. method:: fmap(self, value)
+   .. method:: craft(self, value)
 
 
    .. method:: op(self, rhs)
@@ -101,13 +75,44 @@ Classes
 
 
 
-.. data:: PrimeField
+.. data:: FiniteField
    
 
    
 
-.. data:: Fq
-   
+.. py:class:: PrimeField(*args)
 
-   
+   Bases: :class:`klefki.algebra.abstract.Field`
+
+   .. attribute:: P
+      
+
+      
+
+   .. method:: craft(self, o)
+
+
+   .. method:: inverse(self)
+
+      Implement for axiom `inverse`
+
+
+   .. method:: mod(self, a, b)
+
+
+   .. method:: sec_inverse(self)
+
+      Implement for axiom `inverse`
+
+
+   .. method:: op(self, g)
+
+      The Operator for obeying axiom `associativity` (2)
+
+
+   .. method:: sec_op(self, g)
+
+      The Operator for obeying axiom `associativity` (2)
+
+
 
