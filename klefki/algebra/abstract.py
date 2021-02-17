@@ -38,16 +38,12 @@ class Functor(metaclass=ABCMeta):
         return self.value
 
     @classmethod
-    def fmap(cls, f: Callable[[Any], Any]):
-        return lambda xs: cls(f(*[x.id for x in xs]))
+    def fmap(cls, f: Callable[[Any], Any]) -> Callable[["Functor"], "Functor"]:
+        return lambda *xs: cls(f(*[x.id for x in xs]))
 
     @classmethod
-    def seq_map(cls, f: Callable[[Iterable[Any]], Iterable]):
-        return lambda xs: map(cls.fmap(f), xs)
-
-    @classmethod
-    def lift_map(cls, f: Callable[[Any], Any]):
-        return lambda xs: f(*(cls(x) for x in xs)).id
+    def lift_fmap(cls, f: Callable[["Functor"], "Functor"]) -> Callable[[Any], "Functor"]:
+        return lambda *xs: f(*(cls(x) for x in xs))
 
 
 class Groupoid(Functor):
