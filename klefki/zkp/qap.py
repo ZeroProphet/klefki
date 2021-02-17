@@ -1,5 +1,8 @@
 # ref: https://blog.decentriq.ch/zk-snarks-primer-part-one/
 
+from typing import Iterable
+from typing import Type
+from klefki.algebra.fields import FiniteField
 from klefki.zkp.r1cs import R1CS, mul as vmul
 from functools import partial, reduce
 from operator import add, mul
@@ -31,7 +34,7 @@ def transfer(v, field=int):
 
 
 def map2field(v, field=int):
-    return [[field(j) for j in i]for i in v]
+    return [[field(j) for j in i] for i in v]
 
 
 def R1CS2QAP(a, b, c, x=None, field=int):
@@ -50,15 +53,21 @@ def R1CS2QAP(a, b, c, x=None, field=int):
     return (A(x), B(x), C(x), Z(x))
 
 
-def proof(s, A, B, C, Z, field=int):
-    s = [field(i) for i in s]
-    A = sum(vmul(A, s))
-    B = sum(vmul(B, s))
-    C = sum(vmul(C, s))
-    H = (A * B - C) * (Z ** (-1))
-    assert A * B - C == H * Z
-    return (s, H)
+class QAP:
+    def __init__(self, F: Type[FiniteField], A=Iterable[F], B=Iterable[F], C=Iterable[F]):
+        (self.A, self.B, self.C, self.Z) = R1CS2QAP(A, B, C, field=F)
 
+    def proof(self, c: Field, s: Iterable[FiniteField]):
+        """
+        c: Callange
+        s: witness vertex
+        """
+        A = sum(vmul(self.A(st), s))
+        B = sum(vmul(self.B(st), s))
+        C = sum(vmul(self.C(st), s))
+        Z = self.Z(st)
+        H = (A * B - C) * (Z ** (-1))
+        return (A, B, C, Z, H)
 
-def verify(s, A, B, C, Z, H):
-    return sum(vmul(A, s)) * sum(vmul(B, s)) - sum(vmul(C, s)) == H * Z
+    def verify(s, A, B, C, Z, H):
+        return A * B - C == H * Z

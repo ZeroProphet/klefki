@@ -59,6 +59,7 @@ def test_paring_bilinearity():
     # Pairing bilinearity in G2 passed
     assert p1 * p1 == po2
 
+
 def test_paring_KoE():
     # e(G2 @ 27 , G1 @ 37) == (G2, G1 @ (27 * 37))
     p3 = e(G2 @ 27, G1 @ 37)

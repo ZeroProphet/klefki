@@ -155,7 +155,6 @@ class ECGBN128(EllipticCurveGroup):
             "BN128FP": BN128FP(3)
         }[F.__name__]
 
-
     @classmethod
     def lift_x(cls, x):
         F = x.type
