@@ -4,7 +4,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# Gorth09"
+    "# Groth09"
    ]
   },
   {
