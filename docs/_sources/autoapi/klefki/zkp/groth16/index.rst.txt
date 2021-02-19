@@ -1,0 +1,34 @@
+:mod:`klefki.zkp.groth16`
+=========================
+
+.. py:module:: klefki.zkp.groth16
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   klefki.zkp.groth16.setup
+   klefki.zkp.groth16.proof
+   klefki.zkp.groth16.verify
+
+
+.. data:: RationalGenerator
+   
+
+   
+
+.. function:: setup(R: RationalGenerator) -> Tuple[Iterable, Tuple[R.G1, R.G2]]
+
+
+.. function:: proof(R, tau, sigma, a) -> Tuple[R.G1, R.G1, R.G2]
+
+
+.. function:: verify(R, tau, a, pi) -> bool
+
+
