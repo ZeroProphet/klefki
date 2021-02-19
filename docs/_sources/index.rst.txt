@@ -36,6 +36,8 @@ Academic Notes
    Threshold Paillier Cryptosystem
    R1CS to QAP
    MimbleWimble
+   Groth16
+   Groth09
 
 
 Documents

@@ -25,15 +25,14 @@ def setup(R: RationalGenerator) -> Tuple[Iterable, Tuple[R.G1, R.G2]]:
     return tau, sigma
 
 
-def proof(R, tau, sigma, a) -> Tuple[R.G1, R.G1, R.G2]:
-    r, s = randfield(R.F), randfield(R.F)
+def prov(R, tau, sigma, a, r=None, s=None) -> Tuple[R.G1, R.G1, R.G2]:
+    r = r or randfield(R.F)
+    s = s or randfield(R.F)
     alpha, beta, delta, gamma, x = tau
     m = len(a)
-    A = alpha + reduce(add, [a[i] * (R.U[i](x))
-                             for i in range(0, m)]) + r * delta
-    B = beta + reduce(add, [a[i] * (R.V[i](x))
-                            for i in range(0, m)]) + s * delta
-    C = (reduce(add, [a[i]*(beta * R.U[i](x) + alpha * R.V[i](x) + R.W[i](x)) for i in range(R.l + 1, m)]) + H(x) * R.T(x)) / ~delta \
+    A = alpha + reduce(add, [a[i] * (R.U[i](x)) for i in range(0, m)]) + r * delta
+    B = beta + reduce(add, [a[i] * (R.V[i](x)) for i in range(0, m)]) + s * delta
+    C = (reduce(add, [a[i]*(beta * R.U[i](x) + alpha * R.V[i](x) + R.W[i](x)) for i in range(R.l, m)]) + H(x) * R.T(x)) / delta \
         + (A * s + B * r - r * s * delta)
     return (R.g @ A, R.g @ C, R.h @ B)
 

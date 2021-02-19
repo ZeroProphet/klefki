@@ -1,8 +1,19 @@
 {
  "cells": [
   {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "functional-china",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "%load_ext autoreload\n",
+    "%autoreload 2"
+   ]
+  },
+  {
    "cell_type": "markdown",
-   "id": "sharp-jewel",
+   "id": "adopted-spare",
    "metadata": {},
    "source": [
     "Gorth16 in Klefki\n",
@@ -11,7 +22,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "capable-financing",
+   "id": "criminal-flour",
    "metadata": {},
    "source": [
     "## Bilinear groups"
@@ -19,7 +30,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "intelligent-portland",
+   "id": "sixth-legislature",
    "metadata": {},
    "source": [
     "We will work over bilinear groups $(p,\\mathbb{G}_1,\\mathbb{G}_2,\\mathbb{G}_T,e,g,h)$ with the following properties:\n",
@@ -35,8 +46,8 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 15,
-   "id": "based-analyst",
+   "execution_count": 2,
+   "id": "instructional-strategy",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -46,8 +57,8 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 16,
-   "id": "confused-mixture",
+   "execution_count": 3,
+   "id": "instant-elements",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -57,7 +68,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "southwest-semester",
+   "id": "early-thriller",
    "metadata": {},
    "source": [
     "We write $[a]_1$ for $g^a$, $[b]_2$ for $h^b$, and $[c]_T$ for $e(g, h)^c$. A vector of group elements will be represented as $[\\mathbf{a}]_i$. We defined dot product as $[\\mathbf{a}]_1 \\circ [\\mathbf{b}]_2 = [\\mathbf{a}\\circ \\mathbf{b}]_T$"
@@ -65,7 +76,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "proper-scale",
+   "id": "democratic-thumb",
    "metadata": {},
    "source": [
     "## NIZK"
@@ -73,7 +84,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "circular-garlic",
+   "id": "parental-shock",
    "metadata": {},
    "source": [
     "let $R$ be a relation generator that given a security parameter $λ$ in unary returns a polynomial time decidable binary relation $R$. For pairs $(\\phi, \\omega) \\in R$.\n",
@@ -83,7 +94,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "above-liechtenstein",
+   "id": "oriental-hierarchy",
    "metadata": {},
    "source": [
     "An efficient prover publicly verifiable non-interactive argument for $R$ is a quadruple of probabilistic polynomial algorithms $(Setup,Prove,Vfy,Sim)$ such that\n",
@@ -99,7 +110,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "strategic-booking",
+   "id": "undefined-print",
    "metadata": {},
    "source": [
     "## QAP"
@@ -107,7 +118,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "public-causing",
+   "id": "early-bubble",
    "metadata": {},
    "source": [
     "Given $n$ equations we pick arbitrary distinct $r_1,\\cdots,r_n \\in \\mathbb{F}$ and define\n",
@@ -118,7 +129,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "personalized-uncertainty",
+   "id": "advisory-bunch",
    "metadata": {},
    "source": [
     "$$\n",
@@ -128,7 +139,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "macro-boutique",
+   "id": "partial-triple",
    "metadata": {},
    "source": [
     " we will be working with quadratic arithmetic programsRthat have thefollowing description\n",
@@ -140,7 +151,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "dietary-invasion",
+   "id": "outdoor-arizona",
    "metadata": {},
    "source": [
     "with $|p|=\\lambda$. The realation defineds a field $\\mathbb{Z}_p$ and a language of statement $(a_i,\\cdots, a_l) \\in \\mathbb{Z}_p^l$ and witness $(a_{l+1}, \\cdots, a_m) \\in \\mathbb{Z}_p^{m-l}$ such that with $a_0=1$"
@@ -148,8 +159,8 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 17,
-   "id": "minor-atmosphere",
+   "execution_count": 4,
+   "id": "overhead-dylan",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -160,8 +171,8 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 18,
-   "id": "treated-coupon",
+   "execution_count": 5,
+   "id": "active-edward",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -171,8 +182,8 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 19,
-   "id": "consolidated-selection",
+   "execution_count": 6,
+   "id": "typical-translation",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -184,8 +195,8 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 20,
-   "id": "acquired-mechanism",
+   "execution_count": 7,
+   "id": "brief-therapy",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -196,17 +207,38 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 21,
-   "id": "broadband-turner",
+   "execution_count": 8,
+   "id": "incredible-vanilla",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "8"
+      ]
+     },
+     "execution_count": 8,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "len(a)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "toxic-germany",
    "metadata": {},
    "outputs": [],
    "source": [
-    "R = RationalGenerator(FP, ECG, ECG, ECG, ECG.e, ECG.G1, ECG.G2, 3, U, V, W, T)"
+    "R = RationalGenerator(FP, ECG, ECG, ECG, ECG.e, ECG.G1, ECG.G2, 4, U, V, W, T)"
    ]
   },
   {
    "cell_type": "markdown",
-   "id": "working-implement",
+   "id": "varying-modeling",
    "metadata": {},
    "source": [
     "## $(\\sigma,\\tau) \\leftarrow Setup(R)$:"
@@ -214,7 +246,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "sixth-annex",
+   "id": "threaded-productivity",
    "metadata": {},
    "source": [
     "Pick $\\alpha, \\beta, \\gamma, \\delta, x \\leftarrow \\mathbb{Z}_P^*$, Define $\\tau = (\\alpha, \\beta, \\gamma, \\delta, x)$ and compute $\\sigma = ([\\mathbf{\\sigma_1}]_1, [\\mathbf{\\sigma_2}]_2$ where"
@@ -222,7 +254,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "marked-documentary",
+   "id": "uniform-majority",
    "metadata": {},
    "source": [
     "$$\n",
@@ -238,8 +270,8 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 22,
-   "id": "amino-range",
+   "execution_count": 10,
+   "id": "attractive-pittsburgh",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -247,18 +279,17 @@
     "from operator import add\n",
     "from functools import reduce\n",
     "\n",
-    "def setup(R, n) -> Tuple[Iterable, Tuple[R.G1, R.G2]]:\n",
+    "def setup(R, m) -> Tuple[Iterable, Tuple[R.G1, R.G2]]:\n",
     "    tau = alpha, beta, delta, gamma, x = \\\n",
     "        randfield(R.F), randfield(R.F), randfield(R.F), randfield(R.F), randfield(R.F)\n",
     "    n = R.U[0].degree\n",
     "    sigma_1 = [alpha, beta, delta] + \\\n",
-    "              [x ** i for i in range(0, n-1)] + \\\n",
+    "              [x ** i for i in range(0, n)] + \\\n",
     "              [(R.U[i](x) * beta + R.V[i](x) * alpha + R.W[i](x)) / gamma  for i in range(0, R.l)] + \\\n",
-    "              [(R.U[i](x) * beta + R.V[i](x) * alpha + R.W[i](x)) / delta  for i in range(R.l + 1, len(R.U))] + \\\n",
-    "              [(x ** i * R.T(x)) / delta for i in range(0, n-2)]\n",
-    "    \n",
+    "              [(R.U[i](x) * beta + R.V[i](x) * alpha + R.W[i](x)) / delta  for i in range(R.l, m)] + \\\n",
+    "              [(x ** i * R.T(x)) / delta for i in range(0, n-1)]\n",
     "    sigma_2 = [beta, gamma, delta] + \\\n",
-    "              [x**i for i in (0, n-1)]\n",
+    "              [x**i for i in (0, n)]\n",
     "    \n",
     "    sigma = ([R.g @ s for s in sigma_1], [R.h @ s for s in sigma_2])\n",
     "    return tau, sigma"
@@ -266,17 +297,17 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 23,
-   "id": "strategic-superior",
+   "execution_count": 11,
+   "id": "fifty-throat",
    "metadata": {},
    "outputs": [],
    "source": [
-    "tau, sigma = setup(R, 3)"
+    "tau, sigma = setup(R, len(a))"
    ]
   },
   {
    "cell_type": "markdown",
-   "id": "opposite-homeless",
+   "id": "dramatic-suite",
    "metadata": {},
    "source": [
     "## $\\pi \\leftarrow Prov(R, \\tau, \\sigma, a_1, \\cdots, a_m)$"
@@ -284,7 +315,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "radical-alabama",
+   "id": "sacred-casino",
    "metadata": {},
    "source": [
     "Pick $r, s \\leftarrow \\mathbb{Z}_p$ and compute $\\pi = ([A]_1, [C]_1, [B]_2$ where"
@@ -292,7 +323,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "banned-offset",
+   "id": "structural-chocolate",
    "metadata": {},
    "source": [
     "$$\n",
@@ -310,28 +341,30 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 24,
-   "id": "strategic-intention",
+   "execution_count": 12,
+   "id": "elder-executive",
    "metadata": {},
    "outputs": [],
    "source": [
-    "H = qap.H(a)"
+    "H = qap.H(a)\n",
+    "r, s = randfield(R.F), randfield(R.F)"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 25,
-   "id": "seeing-reducing",
+   "execution_count": 13,
+   "id": "raised-appointment",
    "metadata": {},
    "outputs": [],
    "source": [
-    "def prov(R, tau, sigma, a) -> Tuple[R.G1, R.G1, R.G2]:\n",
-    "    r, s = randfield(R.F), randfield(R.F)\n",
+    "def prov(R, tau, sigma, a, r=None, s=None) -> Tuple[R.G1, R.G1, R.G2]:\n",
+    "    r = r or randfield(R.F)\n",
+    "    s = s or randfield(R.F)\n",
     "    alpha, beta, delta, gamma, x = tau\n",
     "    m = len(a)\n",
     "    A = alpha + reduce(add, [a[i] * (R.U[i](x)) for i in range(0, m)]) + r * delta\n",
     "    B = beta + reduce(add, [a[i] * (R.V[i](x)) for i in range(0, m)]) + s * delta\n",
-    "    C = (reduce(add, [a[i]*(beta * R.U[i](x) + alpha * R.V[i](x) + R.W[i](x)) for i in range(R.l + 1, m)]) + H(x) * R.T(x)) / ~delta \\\n",
+    "    C = (reduce(add, [a[i]*(beta * R.U[i](x) + alpha * R.V[i](x) + R.W[i](x)) for i in range(R.l, m)]) + H(x) * R.T(x)) / delta \\\n",
     "        + (A * s + B * r - r * s * delta)\n",
     "    return (R.g @ A, R.g @ C, R.h @ B)\n",
     "    \n",
@@ -342,31 +375,31 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 26,
-   "id": "mechanical-serve",
+   "execution_count": 14,
+   "id": "neither-matthew",
    "metadata": {},
    "outputs": [
     {
      "data": {
       "text/plain": [
-       "(ECGBN128::(BN128FP::18516648705834430349939177579536019654324296679099543941908707472729509911126, BN128FP::17698670626348665920227842489245758548471684407485634495490912829277994864858),\n",
-       " ECGBN128::(BN128FP::8488791507382916376996280129956285730041643084428968020606257167760402216404, BN128FP::4082680017939613116097175823429222055736854009148188310405390025884468064986),\n",
-       " ECGBN128::(BN128FP2::[BN128FP::4633278075369866772831604094151143656179576404021857223005441199765708572437, BN128FP::6462225141696652563619115122425856136710130657871571271798221292817136010061], BN128FP2::[BN128FP::1694515370192953786638105026398607108129046797030149208530707508305574614357, BN128FP::4110349820884174906704555092802266024988418670442760401126407706931213959511]))"
+       "(ECGBN128::(BN128FP::281310725290666030206366069317222884517966662075706611566485183815163112332, BN128FP::541395234746644492961869912378820509015814567228705139788995088820815380843),\n",
+       " ECGBN128::(BN128FP::21674701336930079718699836919101012933310610226916221837212176739600678116454, BN128FP::3910949947198748869737832941355822079718355141175871797899075959619262502889),\n",
+       " ECGBN128::(BN128FP2::[BN128FP::10554078494814173896352153020611964781690436455454402770033426366954360885030, BN128FP::13948166196858543184115853215378799493814149634918174810126119853058155200177], BN128FP2::[BN128FP::7068156277073286431755378318831850182213699935107164712926020763518941543754, BN128FP::16977681661032304994362014249913566848822132944048783556149813069918307688961]))"
       ]
      },
-     "execution_count": 26,
+     "execution_count": 14,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
-    "pi = prov(R, tau, sigma, a)\n",
+    "pi = prov(R, tau, sigma, a, r, s)\n",
     "pi"
    ]
   },
   {
    "cell_type": "markdown",
-   "id": "amber-excerpt",
+   "id": "complex-destiny",
    "metadata": {},
    "source": [
     "## $0/1 \\leftarrow Vfy(R, \\tau, a_1, \\cdots, a_l, \\pi)$"
@@ -374,7 +407,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "empirical-priest",
+   "id": "intended-trailer",
    "metadata": {},
    "source": [
     "Parse $\\pi = ([A]_1, [C]_1, [B]_2 \\in G_1^2 x G_2$. Accept the proof iff:"
@@ -382,7 +415,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "expected-workplace",
+   "id": "domestic-treasure",
    "metadata": {},
    "source": [
     "$$\n",
@@ -392,8 +425,8 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 27,
-   "id": "accepting-clarity",
+   "execution_count": 43,
+   "id": "ready-citizenship",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -401,24 +434,19 @@
     "    alpha, beta, delta, gamma, x = tau\n",
     "    A_1, C_1, B_2 = pi\n",
     "    lhs = R.e(A_1, B_2)\n",
+    "    D = R.g @ (reduce(add, [\n",
+    "                a[i] * (beta * R.U[i](x) + alpha * R.V[i](x) + R.W[i](x))\n",
+    "                for i in range(0, R.l)]) / gamma)\n",
     "    rhs = R.e(R.g @ alpha, R.h @ beta) + \\\n",
-    "        reduce(add, \n",
-    "            [\n",
-    "                R.e(\n",
-    "                    R.g @ ((beta * R.U[i](x) + alpha * R.V[i](x) + R.W[i](x)) / gamma),\n",
-    "                    R.h @ gamma\n",
-    "                ) * a[i]\n",
-    "                for i in range(0, R.l)\n",
-    "            ]\n",
-    "        ) + \\\n",
-    "        R.e(C_1, R.h @ delta)\n",
+    "          R.e(D, R.h @ gamma) + \\\n",
+    "          R.e(C_1, R.h @ delta)\n",
     "    return lhs == rhs"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 28,
-   "id": "compound-supplement",
+   "execution_count": 16,
+   "id": "expired-trinidad",
    "metadata": {},
    "outputs": [
     {
@@ -427,27 +455,224 @@
        "False"
       ]
      },
-     "execution_count": 28,
+     "execution_count": 16,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
-    "vfy(R, tau, a[:R.l], pi)"
+    "vfy(R, tau, a, pi)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "awful-massachusetts",
+   "metadata": {},
+   "source": [
+    "## Explain"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "trained-office",
+   "metadata": {},
+   "source": [
+    "On $Prov$ phase:\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "ruled-touch",
+   "metadata": {},
+   "source": [
+    "\\begin{aligned}\n",
+    "A &= \\alpha + \\sum_{i=0}^m a_i u_i(x) + r\\delta \\\\\n",
+    "&= \\alpha + A_{qap} + r\\delta\n",
+    "\\end{aligned}\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "enhanced-leeds",
+   "metadata": {},
+   "source": [
+    "\\begin{aligned}\n",
+    "C &= \\frac{\\sum_{i=l+1}^m a_i(\\beta u_i(x) + \\alpha v_i(x) + w_i(x)) + h(x)t(x)}{\\delta} + As + Br - rs\\delta\\\\\n",
+    "&= \\frac{1}{\\delta} \\sum_{i=l+1}^m \\left(a_i(\\beta u_i(x) + \\alpha v_i(x) + w_i(x)) + h(x)t(x)\\right) + As + Br - rs\\delta \\\\ \n",
+    "&=\\frac{\\beta}{\\delta}\\sum_{i=l+1}^m a_i u_i(x) + \\frac{\\alpha}{\\delta} \\sum_{i=l+1}^m a_i v_i(x) +\\frac{1}{\\delta} \\sum_{i=l+1}^m w(x)t(x)+\n",
+    "\\frac{1}{\\delta} \\sum_{i=l+1}^m h(x)t(x) + As + Br - rs \\delta \\\\\n",
+    "&=\\frac{\\beta}{\\delta}A_{qap_{l+1, m}}+ \\frac{\\alpha}{\\delta} B_{qap_{l+1, m}} +\n",
+    "\\frac{1}{\\delta} H_{qap_{l+1, m}}T_{qap_{l+1, m}} + s\\alpha + sA_{qap} + sr\\delta + r\\beta + B_{qap}(x) + rs\\delta - rs \\delta \\\\\n",
+    "&=\\frac{\\beta}{\\delta}A_{qap_{l+1, m}}+ \\frac{\\alpha}{\\delta} B_{qap_{l+1, m}} + \\frac{1}{\\delta} C_{qap_{l+1, m}} +\n",
+    "\\frac{1}{\\delta} H_{qap_{l+1, m}}T_{qap_{l+1, m}} + s\\alpha + r\\beta + sA_{qap} + rB_{qap} + sr\\delta\n",
+    "\\end{aligned}"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 35,
+   "id": "cheap-wagon",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "A_1, C_1, B_2 = prov(R, tau, sigma, a, r, s)\n",
+    "alpha, beta, delta, gamma, x = tau"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 46,
+   "id": "dangerous-uncertainty",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "A_qap, B_qap, C_qap, T_qap, H_qap = qap.proof(x, a)\n",
+    "assert A_qap * B_qap == C_qap + T_qap * H_qap"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "id": "furnished-stability",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "A_qap_l2m, B_qap_l2m, C_qap_l2m, T_qap_l2m, H_qap_l2m = qap.proof(x, a, R.l, len(a))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 24,
+   "id": "level-dependence",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "A_qap_02l, B_qap_02l, C_qap_02l, T_qap_02l, H_qap_02l = qap.proof(x, a, 0, R.l)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 25,
+   "id": "finnish-level",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "assert A_qap_l2m + A_qap_02l == A_qap"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 39,
+   "id": "lesser-sharing",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "assert A_1 == R.g @ (alpha + A_qap + r * delta)\n",
+    "assert B_2 == R.h @ (beta + B_qap + s * delta)\n",
+    "assert C_1 == R.g @ (beta/delta * A_qap_l2m + alpha/delta * B_qap_l2m + C_qap_l2m / delta + T_qap_l2m * H_qap_l2m / delta + \\\n",
+    "s * alpha + r * beta + s * A_qap + r * B_qap + s * r * delta)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "illegal-northeast",
+   "metadata": {},
+   "source": [
+    "On Vry phase, On RHS\n",
+    "\n",
+    "\n",
+    "\\begin{aligned}\n",
+    "Rhs &= [\\alpha]_1 \\circ [\\beta]_2 + \\sum_{i=0}^l a_i \\left[ \\frac{\\beta u_i(x) + \\alpha v_i(x) + w_i(x)}{\\gamma} \\right]_1 \\circ [\\gamma]_2 + [C]_1 \\circ [\\delta]_2\n",
+    "\\end{aligned}\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "lucky-costs",
+   "metadata": {},
+   "source": [
+    "let $D$ be:\n",
+    "\n",
+    "\\begin{aligned}\n",
+    "D &= \\sum_{i=0}^l a_i \\left[ \\frac{\\beta u_i(x) + \\alpha v_i(x) + w_i(x)}{\\gamma} \\right]_1\\\\\n",
+    "&= \\left[ \\frac{\\beta}{\\gamma} A_{qap_{0,l}} + \\frac{\\alpha}{\\gamma} B_{qap_{0,l}} + \\frac{1}{\\gamma}C_{qap{0,l}} \\right]_1\n",
+    "\\end{aligned}\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "suffering-transcript",
+   "metadata": {},
+   "source": [
+    "on LHS\n",
+    "\n",
+    "\\begin{aligned}\n",
+    "Lhs &= [A]_1 \\circ [B]_2 \\\\\n",
+    "    &= [\\alpha + A_{qap} + r\\delta]_1 \\circ [\\beta + B_{qap} + s\\delta]_2\\\\\n",
+    "    &= [\\alpha]_1 \\circ [\\beta]_2 + [\\alpha]_1 \\circ [B_{qap}]_2 + [\\alpha]_1 \\circ [s\\delta]_2 +\n",
+    "        [A_{qap}]_1 \\circ [\\beta]_2 + [A_{qap}]_1 \\circ [B_{qap}]_2 + [A_{qap}]_1 \\circ [s\\delta]_2 + \n",
+    "        [r\\delta]_1 \\circ [\\beta]_2 + [r\\delta]_1 \\circ [B_{qap}]_2 + [r\\delta]_1 \\circ [s\\delta]_2      \\\\   \n",
+    "\\end{aligned}\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 30,
+   "id": "greek-terminal",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "D = R.g @ ((beta * A_qap_02l / gamma) + (alpha * B_qap_02l / gamma) + (C_qap_02l / gamma))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 42,
+   "id": "annoying-transmission",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "BN128FP12::[BN128FP::9330449265283841176651423630334483389881271944891602221114362827661055476293, BN128FP::3354409673755371983280255478421534248748733526128671779037339027769562921653, BN128FP::9032943893224560533813494353778033815265280494725552701223466306532562408363, BN128FP::20088728969940215183321814935550029996608041242640605356704549980047320518049, BN128FP::18030228504134844122494323508821756770511416763855727297876063120856341757160, BN128FP::169325934333137158517685284296403162501205545486135580450364020437116714121, BN128FP::2845441260958762360823588804277393235774535289370341647579920801708029399089, BN128FP::10940039976724277233478837743677779394199086163351327945629536143944039064233, BN128FP::7038628046749229038243203404847452197603537491890897146413361893444672993311, BN128FP::13886748842474463072057568402134672461509900194438327696809994126109587422429, BN128FP::20703668335252942867379546492016929329676903203769776526305103410617787659489, BN128FP::4673216773223394541912141566654478945079014193902245062343096269276884772425]"
+      ]
+     },
+     "execution_count": 42,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "R.e(R.g@alpha, R.h@beta) + R.e(D, R.h@gamma) + R.e(C_1, R.h@delta)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 33,
+   "id": "passive-helena",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "BN128FP12::[BN128FP::17252391017434909372428091732675408363546428331052505370006235005243072106548, BN128FP::9482680340098112675210043059897047779410721310912427267073025212303117051848, BN128FP::1979584153737159189781096664810374928769307629354083262267236814150536292558, BN128FP::18553690925490717331955593639751088143014200052200032708180322291330312954472, BN128FP::3422840256232188361602700148153052192378175106399788917506939063277417346537, BN128FP::1639772524891448783297385090513301389765667623937208567483411831082273837215, BN128FP::8141520494985817575748668702412180678900365908129992123055634895095155403782, BN128FP::16886973294915502824782251771281740500390285925622576687967426891145831086648, BN128FP::16890753527222819075534913824361172222899002510613833924976229985315094619348, BN128FP::19886816564075747290106381107593544762203390373908994317863546846690349303720, BN128FP::21314553503412483507970416454110849304489072462045768696711860285228335516595, BN128FP::12172984512938111340656482701386396306914480007409327527952299174551848419868]"
+      ]
+     },
+     "execution_count": 33,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "R.e(A_1, B_2)"
    ]
   },
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "adjustable-conducting",
-   "metadata": {},
-   "outputs": [],
-   "source": []
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "noted-isaac",
+   "id": "focused-ceramic",
    "metadata": {},
    "outputs": [],
    "source": []

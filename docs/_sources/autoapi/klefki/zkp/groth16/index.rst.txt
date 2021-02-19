@@ -14,7 +14,7 @@ Functions
 .. autoapisummary::
 
    klefki.zkp.groth16.setup
-   klefki.zkp.groth16.proof
+   klefki.zkp.groth16.prov
    klefki.zkp.groth16.verify
 
 
@@ -26,7 +26,7 @@ Functions
 .. function:: setup(R: RationalGenerator) -> Tuple[Iterable, Tuple[R.G1, R.G2]]
 
 
-.. function:: proof(R, tau, sigma, a) -> Tuple[R.G1, R.G1, R.G2]
+.. function:: prov(R, tau, sigma, a, r=None, s=None) -> Tuple[R.G1, R.G1, R.G2]
 
 
 .. function:: verify(R, tau, a, pi) -> bool

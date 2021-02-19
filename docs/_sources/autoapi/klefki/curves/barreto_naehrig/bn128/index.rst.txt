@@ -108,7 +108,7 @@ Classes
       :classmethod:
 
 
-   .. method:: pairing(cls, Q, P)
+   .. method:: pairing(cls, P, Q)
       :classmethod:
 
       e(P, Q + R) = e(P, Qj * e(P, R)

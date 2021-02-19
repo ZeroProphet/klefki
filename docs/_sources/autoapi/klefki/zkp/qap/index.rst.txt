@@ -42,7 +42,7 @@ Classes
       :property:
 
 
-   .. method:: proof(self, c: FiniteField, s: Iterable[FiniteField])
+   .. method:: proof(self, x: FiniteField, s: Iterable[FiniteField], start=0, end=None)
 
       c: Callange
       s: witness vertex

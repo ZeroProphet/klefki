@@ -50,7 +50,7 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#klefki.zkp.groth16.setup" title="klefki.zkp.groth16.setup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup</span></code></a>(R: RationalGenerator) → Tuple[Iterable, Tuple[R.G1, R.G2]]</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#klefki.zkp.groth16.proof" title="klefki.zkp.groth16.proof"><code class="xref py py-obj docutils literal notranslate"><span class="pre">proof</span></code></a>(R, tau, sigma, a) → Tuple[R.G1, R.G1, R.G2]</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#klefki.zkp.groth16.prov" title="klefki.zkp.groth16.prov"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prov</span></code></a>(R, tau, sigma, a, r=None, s=None) → Tuple[R.G1, R.G1, R.G2]</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#klefki.zkp.groth16.verify" title="klefki.zkp.groth16.verify"><code class="xref py py-obj docutils literal notranslate"><span class="pre">verify</span></code></a>(R, tau, a, pi) → bool</p></td>
@@ -69,8 +69,8 @@
 <dd></dd></dl>
 
 <dl class="py function">
-<dt id="klefki.zkp.groth16.proof">
-<code class="sig-prename descclassname">klefki.zkp.groth16.</code><code class="sig-name descname">proof</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">R</span></em>, <em class="sig-param"><span class="n">tau</span></em>, <em class="sig-param"><span class="n">sigma</span></em>, <em class="sig-param"><span class="n">a</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>R.G1<span class="p">, </span>R.G1<span class="p">, </span>R.G2<span class="p">]</span><a class="headerlink" href="#klefki.zkp.groth16.proof" title="Permalink to this definition">¶</a></dt>
+<dt id="klefki.zkp.groth16.prov">
+<code class="sig-prename descclassname">klefki.zkp.groth16.</code><code class="sig-name descname">prov</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">R</span></em>, <em class="sig-param"><span class="n">tau</span></em>, <em class="sig-param"><span class="n">sigma</span></em>, <em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">r</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">s</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>R.G1<span class="p">, </span>R.G1<span class="p">, </span>R.G2<span class="p">]</span><a class="headerlink" href="#klefki.zkp.groth16.prov" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
