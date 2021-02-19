@@ -133,11 +133,13 @@ class ECGBN128(EllipticCurveGroup):
         return f ** ((BN128FP.P ** 12 - 1) // cls.N)
 
     @classmethod
-    def pairing(cls, Q, P):
+    def pairing(cls, P, Q):
         """
         e(P, Q + R) = e(P, Qj * e(P, R)
         e(P + Q, R) = e(P, R) * e(Q, R)
         """
+        assert isinstance(Q.x, BN128FP2)
+        assert isinstance(P.x, BN128FP)
         return cls.miller_loop(Q.twist(), P.twist())
 
     @classmethod

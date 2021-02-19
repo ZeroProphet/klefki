@@ -7,6 +7,7 @@ from klefki.algebra.rings import PolyRing
 from klefki.algebra.utils import randfield
 from klefki.zkp.r1cs import R1CS, mul as vmul
 from functools import partial, reduce
+from itertools import starmap
 from operator import add, mul
 
 __all__ = ["QAP"]
@@ -73,17 +74,18 @@ class QAP:
     def qap(self):
         return (self.A, self.B, self.C, self.Z)
 
-    def proof(self, c: FiniteField, s: Iterable[FiniteField]):
+    def proof(self, x: FiniteField, s: Iterable[FiniteField], start=0, end=None):
         """
         c: Callange
         s: witness vertex
         """
-        A = sum(vmul([f(c) for f in self.A], s))
-        B = sum(vmul([f(c) for f in self.B], s))
-        C = sum(vmul([f(c) for f in self.C], s))
-        Z = self.Z(c)
-        H = self.H(s)(c)
+        end = end or len(s)
+        A = reduce(add, starmap(mul, zip(s[start:end], map(lambda a: a(x), self.A[start:end]))))
+        B = reduce(add, starmap(mul, zip(s[start:end], map(lambda b: b(x), self.B[start:end]))))
+        C = reduce(add, starmap(mul, zip(s[start:end], map(lambda c: c(x), self.C[start:end]))))
+        Z = self.Z(x)
+        H = self.H(s)(x)
         return (A, B, C, Z, H)
 
     def verify(s, A, B, C, Z, H):
-        return A * B - C == H * Z
+        return A * B == H * Z + C

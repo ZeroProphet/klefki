@@ -36,12 +36,12 @@ def test_bn128():
 def test_paring_check_against_neg():
     one = bn128.BN128FP12.one()
     # e(G2, G1) * e(G2, -G1) == e(G2, G1 + (- G1))
-    p1 = e(G2, G1)
-    pn1 = e(G2, -G1)
+    p1 = e(G1, G2)
+    pn1 = e(G1, -G2)
     # Pairing check against negative in G1
     assert p1 * pn1 == one
 
-    np1 = e(-G2, G1)
+    np1 = e(-G1, G2)
     # Pairing check against negative in G2
     assert p1 * np1 == one
     assert pn1 == np1
@@ -50,19 +50,19 @@ def test_paring_check_against_neg():
 
 def test_paring_bilinearity():
     one = bn128.BN128FP12.one()
-    p1 = e(G2, G1)
-    p2 = e(G2, G1 @ 2)
+    p1 = e(G1, G2)
+    p2 = e(G1, G2 @ 2)
     # Pairing bilinearity in G1 passed
     assert p1 * p1 == p2
     # Pairing is non-degenerate
-    po2 = e(G2 @ 2, G1)
+    po2 = e(G1 @ 2, G2)
     # Pairing bilinearity in G2 passed
     assert p1 * p1 == po2
 
 
 def test_paring_KoE():
     # e(G2 @ 27 , G1 @ 37) == (G2, G1 @ (27 * 37))
-    p3 = e(G2 @ 27, G1 @ 37)
-    po3 = e(G2, G1 @ 999)
+    p3 = e(G1 @ 27, G2 @ 37)
+    po3 = e(G1, G2 @ 999)
     # Composite check passed
     assert p3 == po3
