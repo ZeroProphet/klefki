@@ -52,6 +52,10 @@ Classes
       :classmethod:
 
 
+   .. method:: as_map(cls, target: Type['Functor'], f: Callable[['Functor'], 'Functor']) -> Callable[[Any], 'Functor']
+      :classmethod:
+
+
 
 .. py:class:: Groupoid(*args)
 

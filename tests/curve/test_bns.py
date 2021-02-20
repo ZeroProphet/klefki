@@ -48,7 +48,7 @@ def test_paring_check_against_neg():
     # Pairing output has correct order
 
 
-def test_paring_bilinearity():
+def test_bilinearity():
     one = bn128.BN128FP12.one()
     p1 = e(G1, G2)
     p2 = e(G1, G2 @ 2)

@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod, abstractproperty
-from typing import Callable, Iterable, Any
+from typing import Callable, Iterable, Any, Type
 from operator import eq
 from klefki.algorithms import double_and_add_algorithm
 from klefki.algorithms import complex_truediv_algorithm
@@ -44,6 +44,10 @@ class Functor(metaclass=ABCMeta):
     @classmethod
     def lift_fmap(cls, f: Callable[["Functor"], "Functor"]) -> Callable[[Any], "Functor"]:
         return lambda *xs: f(*(cls(x) for x in xs))
+
+    @classmethod
+    def as_map(cls, target: Type["Functor"], f: Callable[["Functor"], "Functor"]) -> Callable[[Any], "Functor"]:
+        return lambda *xs: cls(f(target(*[x.id for x in xs])).id)
 
 
 class Groupoid(Functor):

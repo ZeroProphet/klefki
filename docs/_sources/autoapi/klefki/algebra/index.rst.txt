@@ -16,6 +16,7 @@ Subpackages
    :maxdepth: 3
 
    fields/index.rst
+   groups/index.rst
 
 
 Submodules
@@ -26,7 +27,6 @@ Submodules
 
    abstract/index.rst
    concrete/index.rst
-   groups/index.rst
    isomorphism/index.rst
    meta/index.rst
    rings/index.rst
