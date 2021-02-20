@@ -80,9 +80,12 @@ class QAP:
         s: witness vertex
         """
         end = end or len(s)
-        A = reduce(add, starmap(mul, zip(s[start:end], map(lambda a: a(x), self.A[start:end]))))
-        B = reduce(add, starmap(mul, zip(s[start:end], map(lambda b: b(x), self.B[start:end]))))
-        C = reduce(add, starmap(mul, zip(s[start:end], map(lambda c: c(x), self.C[start:end]))))
+        A = reduce(add, starmap(
+            mul, zip(s[start:end], map(lambda a: a(x), self.A[start:end]))))
+        B = reduce(add, starmap(
+            mul, zip(s[start:end], map(lambda b: b(x), self.B[start:end]))))
+        C = reduce(add, starmap(
+            mul, zip(s[start:end], map(lambda c: c(x), self.C[start:end]))))
         Z = self.Z(x)
         H = self.H(s)(x)
         return (A, B, C, Z, H)

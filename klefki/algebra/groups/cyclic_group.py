@@ -4,6 +4,7 @@ from abc import abstractproperty
 
 __all__ = ["FiniteCycicGroup"]
 
+
 class FiniteCycicGroup(Group):
     # Order of subgroup
     N = abstractproperty()

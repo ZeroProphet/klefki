@@ -50,7 +50,7 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#klefki.algebra.groups.ecg.EllipticCurveGroup" title="klefki.algebra.groups.ecg.EllipticCurveGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EllipticCurveGroup</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#klefki.algebra.groups.ecg.FiniteGroup" title="klefki.algebra.groups.ecg.FiniteGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FiniteGroup</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#klefki.algebra.groups.ecg.PairFriendlyEllipticCurveGroup" title="klefki.algebra.groups.ecg.PairFriendlyEllipticCurveGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PairFriendlyEllipticCurveGroup</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#klefki.algebra.groups.ecg.EllipicCyclicSubgroup" title="klefki.algebra.groups.ecg.EllipicCyclicSubgroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EllipicCyclicSubgroup</span></code></a></p></td>
@@ -111,40 +111,17 @@
 </dd></dl>
 
 <dl class="py class">
-<dt id="klefki.algebra.groups.ecg.FiniteGroup">
-<em class="property">class </em><code class="sig-prename descclassname">klefki.algebra.groups.ecg.</code><code class="sig-name descname">FiniteGroup</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.groups.ecg.FiniteGroup" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../../abstract/index.html#klefki.algebra.abstract.Group" title="klefki.algebra.abstract.Group"><code class="xref py py-class docutils literal notranslate"><span class="pre">klefki.algebra.abstract.Group</span></code></a></p>
+<dt id="klefki.algebra.groups.ecg.PairFriendlyEllipticCurveGroup">
+<em class="property">class </em><code class="sig-prename descclassname">klefki.algebra.groups.ecg.</code><code class="sig-name descname">PairFriendlyEllipticCurveGroup</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.groups.ecg.PairFriendlyEllipticCurveGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#klefki.algebra.groups.ecg.EllipticCurveGroup" title="klefki.algebra.groups.ecg.EllipticCurveGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">klefki.algebra.groups.ecg.EllipticCurveGroup</span></code></a></p>
 <dl class="py attribute">
-<dt id="klefki.algebra.groups.ecg.FiniteGroup.N">
-<code class="sig-name descname">N</code><a class="headerlink" href="#klefki.algebra.groups.ecg.FiniteGroup.N" title="Permalink to this definition">¶</a></dt>
+<dt id="klefki.algebra.groups.ecg.PairFriendlyEllipticCurveGroup.e">
+<code class="sig-name descname">e</code><a class="headerlink" href="#klefki.algebra.groups.ecg.PairFriendlyEllipticCurveGroup.e" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="klefki.algebra.groups.ecg.FiniteGroup.craft">
-<code class="sig-name descname">craft</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">o</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.groups.ecg.FiniteGroup.craft" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="klefki.algebra.groups.ecg.FiniteGroup.identity">
-<em class="property">classmethod </em><code class="sig-name descname">identity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cls</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.groups.ecg.FiniteGroup.identity" title="Permalink to this definition">¶</a></dt>
-<dd><p>The value for obeying axiom <cite>identity</cite> (3)</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="klefki.algebra.groups.ecg.FiniteGroup.inverse">
-<code class="sig-name descname">inverse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.groups.ecg.FiniteGroup.inverse" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implement for axiom <cite>inverse</cite></p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="klefki.algebra.groups.ecg.FiniteGroup.op">
-<code class="sig-name descname">op</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">g</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.groups.ecg.FiniteGroup.op" title="Permalink to this definition">¶</a></dt>
-<dd><p>The Operator for obeying axiom <cite>associativity</cite> (2)</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="klefki.algebra.groups.ecg.FiniteGroup.__pow__">
-<code class="sig-name descname">__pow__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">times</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.groups.ecg.FiniteGroup.__pow__" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt id="klefki.algebra.groups.ecg.PairFriendlyEllipticCurveGroup.F">
+<code class="sig-name descname">F</code><a class="headerlink" href="#klefki.algebra.groups.ecg.PairFriendlyEllipticCurveGroup.F" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

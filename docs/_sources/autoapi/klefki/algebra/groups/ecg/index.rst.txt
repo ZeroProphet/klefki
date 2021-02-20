@@ -13,7 +13,7 @@ Classes
 .. autoapisummary::
 
    klefki.algebra.groups.ecg.EllipticCurveGroup
-   klefki.algebra.groups.ecg.FiniteGroup
+   klefki.algebra.groups.ecg.PairFriendlyEllipticCurveGroup
    klefki.algebra.groups.ecg.EllipicCyclicSubgroup
    klefki.algebra.groups.ecg.JacobianGroup
 
@@ -61,36 +61,19 @@ Classes
 
 
 
-.. py:class:: FiniteGroup(*args)
+.. py:class:: PairFriendlyEllipticCurveGroup(*args)
 
-   Bases: :class:`klefki.algebra.abstract.Group`
+   Bases: :class:`klefki.algebra.groups.ecg.EllipticCurveGroup`
 
-   .. attribute:: N
+   .. attribute:: e
       
 
       
 
-   .. method:: craft(self, o)
+   .. attribute:: F
+      
 
-
-   .. method:: identity(cls)
-      :classmethod:
-
-      The value for obeying axiom `identity` (3)
-
-
-   .. method:: inverse(self)
-
-      Implement for axiom `inverse`
-
-
-   .. method:: op(self, g)
-
-      The Operator for obeying axiom `associativity` (2)
-
-
-   .. method:: __pow__(self, times)
-
+      
 
 
 .. py:class:: EllipicCyclicSubgroup(*args)

@@ -20,6 +20,7 @@ Classes
    klefki.curves.barreto_naehrig.bn128.BN128FP
    klefki.curves.barreto_naehrig.bn128.BN128FP2
    klefki.curves.barreto_naehrig.bn128.BN128FP12
+   klefki.curves.barreto_naehrig.bn128.BN128ScalarFP
    klefki.curves.barreto_naehrig.bn128.ECGBN128
 
 
@@ -68,9 +69,19 @@ Classes
 
 
 
+.. py:class:: BN128ScalarFP(*args)
+
+   Bases: :class:`klefki.algebra.fields.FiniteField`
+
+   .. attribute:: P
+      
+
+      
+
+
 .. py:class:: ECGBN128(*args)
 
-   Bases: :class:`klefki.algebra.groups.EllipticCurveGroup`
+   Bases: :class:`klefki.algebra.groups.ecg.PairFriendlyEllipticCurveGroup`
 
    y^2 = x^3 + A * x + B
 
@@ -80,6 +91,11 @@ Classes
       
 
    .. attribute:: N
+      
+
+      
+
+   .. attribute:: F
       
 
       

@@ -27,6 +27,7 @@ Classes
    klefki.algebra.groups.EllipticCurveGroup
    klefki.algebra.groups.EllipicCyclicSubgroup
    klefki.algebra.groups.JacobianGroup
+   klefki.algebra.groups.PairFriendlyEllipticCurveGroup
 
 
 
@@ -155,5 +156,20 @@ Classes
 
       The Operator for obeying axiom `associativity` (2)
 
+
+
+.. py:class:: PairFriendlyEllipticCurveGroup(*args)
+
+   Bases: :class:`klefki.algebra.groups.ecg.EllipticCurveGroup`
+
+   .. attribute:: e
+      
+
+      
+
+   .. attribute:: F
+      
+
+      
 
 

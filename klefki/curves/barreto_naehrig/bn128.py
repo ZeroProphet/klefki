@@ -5,8 +5,7 @@ import abc
 import klefki.const as const
 from klefki.algebra.fields import FiniteField
 from klefki.algebra.fields import PolyExtField
-from klefki.algebra.groups import EllipticCurveGroup
-from klefki.algebra.groups import EllipicCyclicSubgroup
+from klefki.algebra.groups.ecg import PairFriendlyEllipticCurveGroup
 from klefki.curves.arith import short_weierstrass_form_curve_addition2
 
 
@@ -28,13 +27,17 @@ class BN128FP12(PolyExtField):
         return cls([v] + ([cls.F.zero()] * 11))
 
 
-class ECGBN128(EllipticCurveGroup):
+class BN128ScalarFP(FiniteField):
+    P = const.BN128_N
+
+
+class ECGBN128(PairFriendlyEllipticCurveGroup):
     """
     y^2 = x^3 + A * x + B
     """
     A = const.BN128_A
-
     N = const.BN128_N
+    F = BN128ScalarFP
 
     def op(self, g):
         if g == self.zero():
@@ -163,7 +166,6 @@ class ECGBN128(EllipticCurveGroup):
 #        y = (x**3 + F(cls.A) * x + F(cls.B))**(1/2)
         y = (x**3 + x*F(cls.A) + F(cls.B(F)))**(1/2)
         return cls((x, y))
-
 
 
 ECGBN128.G1 = ECGBN128(

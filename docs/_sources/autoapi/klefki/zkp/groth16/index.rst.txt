@@ -15,7 +15,7 @@ Functions
 
    klefki.zkp.groth16.setup
    klefki.zkp.groth16.prov
-   klefki.zkp.groth16.verify
+   klefki.zkp.groth16.vfy
 
 
 .. data:: RationalGenerator
@@ -23,12 +23,12 @@ Functions
 
    
 
-.. function:: setup(R: RationalGenerator) -> Tuple[Iterable, Tuple[R.G1, R.G2]]
+.. function:: setup(R: RationalGenerator, m: int) -> Tuple[Iterable, Tuple]
 
 
-.. function:: prov(R, tau, sigma, a, r=None, s=None) -> Tuple[R.G1, R.G1, R.G2]
+.. function:: prov(R: RationalGenerator, H, tau, sigma, a) -> Tuple
 
 
-.. function:: verify(R, tau, a, pi) -> bool
+.. function:: vfy(R, tau, a, pi)
 
 

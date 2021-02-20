@@ -4,7 +4,6 @@ from klefki.algebra.fields import FiniteField
 from klefki.numbers import invmod
 
 
-
 class EllipticCurveGroup(Group):
     # for y^2 = x^3 + A * x + B
     A = abstractproperty()
@@ -60,32 +59,11 @@ class EllipticCurveGroup(Group):
         return self.value[1]
 
 
-class FiniteGroup(Group):
-    # Order of subgroup
-    N = abstractproperty()
-
-    def craft(self, o):
-        value = getattr(o, 'value', o)
-        return value % self.N
-
-    @classmethod
-    def identity(cls):
-        return cls(0)
-
-    def inverse(self):
-        return self.__class__(invmod(self.value, self.N))
-
-    def op(self, g):
-        if isinstance(g, int):
-            g = self.type(g)
-        return self.__class__(
-            (self.value + g.value) % self.N
-        )
-
-    def __pow__(self, times):
-        return self.__class__(
-            pow(self.value, times, self.N)
-        )
+class PairFriendlyEllipticCurveGroup(EllipticCurveGroup):
+    # Pairing functrion
+    e = abstractproperty()
+    # Scalar Field
+    F = abstractproperty()
 
 
 class EllipicCyclicSubgroup(EllipticCurveGroup):

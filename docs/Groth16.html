@@ -284,8 +284,8 @@ div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
 </style>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[65]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -293,15 +293,6 @@ div.rendered_html tbody tr:hover {
 <span class="o">%</span><span class="k">autoreload</span> 2
 </pre></div>
 </div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-The autoreload extension is already loaded. To reload it, use:
-  %reload_ext autoreload
-</pre></div></div>
 </div>
 <div class="section" id="Gorth16-in-Klefki">
 <h1>Gorth16 in Klefki<a class="headerlink" href="#Gorth16-in-Klefki" title="Permalink to this headline">¶</a></h1>
@@ -315,17 +306,17 @@ The autoreload extension is already loaded. To reload it, use:
 <li><p>There are efficient algorithms for computing group operations, evaluating the bilinearmap, deciding membership of the groups, deciding equality of group elements andsampling generators of the groups. We refer to these as the generic group operations.</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[66]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">klefki.curves.barreto_naehrig.bn128</span> <span class="kn">import</span> <span class="n">BN128FP</span> <span class="k">as</span> <span class="n">FP</span><span class="p">,</span> <span class="n">BN128FP2</span> <span class="k">as</span> <span class="n">FP2</span><span class="p">,</span> <span class="n">BN128FP12</span> <span class="k">as</span> <span class="n">FP12</span><span class="p">,</span> <span class="n">ECGBN128</span> <span class="k">as</span> <span class="n">ECG</span>
+<span></span><span class="kn">from</span> <span class="nn">klefki.curves.barreto_naehrig.bn128</span> <span class="kn">import</span> <span class="n">BN128ScalarFP</span> <span class="k">as</span> <span class="n">FP</span><span class="p">,</span> <span class="n">ECGBN128</span> <span class="k">as</span> <span class="n">ECG</span>
 <span class="kn">from</span> <span class="nn">klefki.algebra.utils</span> <span class="kn">import</span> <span class="n">randfield</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[67]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -360,7 +351,7 @@ The autoreload extension is already loaded. To reload it, use:
 \[R = (p, \mathbb{G}_1,\mathbb{G}_2, \mathbb{G}_T, e, g, h, l, \{u_i(X), v_i(X), w_i(X)\}_{i=0}^n, t(X))\]</div>
 <p>with <span class="math notranslate nohighlight">\(|p|=\lambda\)</span>. The realation defineds a field <span class="math notranslate nohighlight">\(\mathbb{Z}_p\)</span> and a language of statement <span class="math notranslate nohighlight">\((a_i,\cdots, a_l) \in \mathbb{Z}_p^l\)</span> and witness <span class="math notranslate nohighlight">\((a_{l+1}, \cdots, a_m) \in \mathbb{Z}_p^{m-l}\)</span> such that with <span class="math notranslate nohighlight">\(a_0=1\)</span></p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[68]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -371,7 +362,7 @@ The autoreload extension is already loaded. To reload it, use:
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[69]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -382,7 +373,7 @@ The autoreload extension is already loaded. To reload it, use:
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[70]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -395,7 +386,7 @@ The autoreload extension is already loaded. To reload it, use:
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[71]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -406,7 +397,7 @@ The autoreload extension is already loaded. To reload it, use:
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[72]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -427,7 +418,7 @@ The autoreload extension is already loaded. To reload it, use:
 \end{split}\right) , \left(\beta, \gamma, \delta, \{x^i\}^{n-1}_{i=0} \right)
 \right)\end{split}\]</div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[73]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -453,7 +444,7 @@ The autoreload extension is already loaded. To reload it, use:
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[74]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -472,17 +463,16 @@ The autoreload extension is already loaded. To reload it, use:
 <div class="math notranslate nohighlight">
 \[C = \frac{\sum_{i=l+1}^m a_i(\beta u_i(x) + \alpha v_i(x) + w_i(x)) + h(x)t(x)}{\delta} + As + Br - rs\delta\]</div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[75]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">H</span> <span class="o">=</span> <span class="n">qap</span><span class="o">.</span><span class="n">H</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-<span class="n">r</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">R</span><span class="o">.</span><span class="n">F</span><span class="p">),</span> <span class="n">randfield</span><span class="p">(</span><span class="n">R</span><span class="o">.</span><span class="n">F</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[89]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -502,7 +492,7 @@ The autoreload extension is already loaded. To reload it, use:
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[102]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -517,7 +507,7 @@ The autoreload extension is already loaded. To reload it, use:
 <div class="math notranslate nohighlight">
 \[[A]_1 \circ [B]_2 = [\alpha]_1 \circ [\beta]_2 + \sum_{i=0}^l a_i \left[ \frac{\beta u_i(x) + \alpha v_i(x) + w_i(x)}{\gamma} \right]_1 \circ [\gamma]_2 + [C]_1 \circ [\delta]_2\]</div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[107]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -536,7 +526,7 @@ The autoreload extension is already loaded. To reload it, use:
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[106]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -545,7 +535,7 @@ The autoreload extension is already loaded. To reload it, use:
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[106]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -572,7 +562,7 @@ C &amp;= \frac{\sum_{i=l+1}^m a_i(\beta u_i(x) + \alpha v_i(x) + w_i(x)) + h(x)t
 &amp;=\frac{\beta}{\delta}A_{qap_{l+1, m}}+ \frac{\alpha}{\delta} B_{qap_{l+1, m}} + \frac{1}{\delta} C_{qap_{l+1, m}} +
 \frac{1}{\delta} H_{qap}T_{qap} + s\alpha + r\beta + sA_{qap} + rB_{qap} + sr\delta
 \end{aligned}</div><div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[94]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -582,7 +572,7 @@ C &amp;= \frac{\sum_{i=l+1}^m a_i(\beta u_i(x) + \alpha v_i(x) + w_i(x)) + h(x)t
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[95]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -592,7 +582,7 @@ C &amp;= \frac{\sum_{i=l+1}^m a_i(\beta u_i(x) + \alpha v_i(x) + w_i(x)) + h(x)t
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[96]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -601,7 +591,7 @@ C &amp;= \frac{\sum_{i=l+1}^m a_i(\beta u_i(x) + \alpha v_i(x) + w_i(x)) + h(x)t
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[97]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -610,7 +600,7 @@ C &amp;= \frac{\sum_{i=l+1}^m a_i(\beta u_i(x) + \alpha v_i(x) + w_i(x)) + h(x)t
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[98]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -619,7 +609,7 @@ C &amp;= \frac{\sum_{i=l+1}^m a_i(\beta u_i(x) + \alpha v_i(x) + w_i(x)) + h(x)t
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[99]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -650,18 +640,16 @@ P1 + P2 + P3 &amp;= [\alpha\beta + \beta A_{qap_{0,l}} + \alpha B_{qap_{0,l}} + 
 \begin{aligned}
 Lhs &amp;= [A]_1 \circ [B]_2 \\
     &amp;= [\alpha + A_{qap} + r\delta]_1 \circ [\beta + B_{qap} + s\delta]_2\\
-    &amp;= [\alpha]_1 \circ [\beta]_2 + [\alpha]_1 \circ [B_{qap}]_2 + [\alpha]_1 \circ [s\delta]_2 +
-        [A_{qap}]_1 \circ [\beta]_2 + [A_{qap}]_1 \circ [B_{qap}]_2 + [A_{qap}]_1 \circ [s\delta]_2 +
-        [r\delta]_1 \circ [\beta]_2 + [r\delta]_1 \circ [B_{qap}]_2 + [r\delta]_1 \circ [s\delta]_2      \\
-    &amp;= [\alpha\beta + \beta A_{qap} + \alpha B_{qap}   + A_{qap} B_{qap} + s\delta A_{qap} + r\delta B_{qap} + \alpha s \delta +
-        r\beta \delta  + sr \delta^2]_1[1]_2
+    &amp;= [(\alpha + A_{qap} + r\delta)(\beta + B_{qap} + s\delta)]_1[1]_2
 \end{aligned}</div><p>We knows that</p>
 <div class="math notranslate nohighlight">
 \[A_{qap}B_{qap} = C_{qap} + H_{qap}C_{qap}\]</div>
 <p>so</p>
 <div class="math notranslate nohighlight">
-\[Rhs = [\alpha\beta + \beta A_{qap} + \alpha B_{qap} + A_{qap}B_{qap} + s\delta A_{qap} + r\delta B_{qap} + s\alpha\delta + r\beta\delta  + sr\delta^2]_1  [1]_2\]</div>
-<div class="math notranslate nohighlight">
+\begin{aligned}
+Rhs &amp;= [\alpha\beta + \beta A_{qap} + \alpha B_{qap} + A_{qap}B_{qap} + s\delta A_{qap} + r\delta B_{qap} + s\alpha\delta + r\beta\delta  + sr\delta^2]_1 [1]_2\\
+&amp;= [(\alpha + A_{qap} + r\delta)(\beta + B_{qap} + s\delta)]_1[1]_2
+\end{aligned}</div><div class="math notranslate nohighlight">
 \[Lhs = Rhs\]</div>
 </div>
 </div>
