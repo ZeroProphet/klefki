@@ -66,3 +66,8 @@ def test_paring_KoE():
     po3 = e(G1, G2 @ 999)
     # Composite check passed
     assert p3 == po3
+
+def test_pairing_largenumber():
+    a = 9330449265283841176651423630334483389881271944891602221114362827661055476293
+    b = 4463072057568402134672461509900194438327696809994126109587422429
+    assert e(G1 @ a, G2 @ b) == e(G1, G2 @ (a * b))

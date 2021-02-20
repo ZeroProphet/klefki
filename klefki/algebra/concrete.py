@@ -1,5 +1,5 @@
-from .groups import EllipticCurveGroup, EllipicCyclicSubgroup, JacobianGroup
-from .fields import FiniteField
+from klefki.algebra.groups import EllipticCurveGroup, EllipicCyclicSubgroup, JacobianGroup
+from klefki.algebra.fields import FiniteField
 import klefki.const as const
 
 __all__ = [

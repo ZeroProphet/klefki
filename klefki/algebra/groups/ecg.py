@@ -1,7 +1,8 @@
 from abc import abstractproperty
-from .abstract import Group
-from .fields import FiniteField
+from klefki.algebra.abstract import Group
+from klefki.algebra.fields import FiniteField
 from klefki.numbers import invmod
+
 
 
 class EllipticCurveGroup(Group):
@@ -59,7 +60,7 @@ class EllipticCurveGroup(Group):
         return self.value[1]
 
 
-class CyclicAddGroup(Group):
+class FiniteGroup(Group):
     # Order of subgroup
     N = abstractproperty()
 
