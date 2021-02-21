@@ -6,7 +6,7 @@ Klefki
 [![PyPI version klefki](https://badge.fury.io/py/klefki.svg)](https://pypi.python.org/pypi/klefki/)
 [![PyPI license](https://img.shields.io/pypi/l/klefki.svg)](https://pypi.python.org/pypi/klefki/)
 [![PyPI status](https://img.shields.io/pypi/status/klefki.svg)](https://pypi.python.org/pypi/klefki/)
-[![Generic badge](https://img.shields.io/badge/Document-passing-blue.svg)](https://ryankung.github.io/klefki/)
+[![Generic badge](https://img.shields.io/badge/Document-passing-blue.svg)](https://zeroprophet.github.io/klefki/)
 
 ![klefki](res/707Klefki.png)
 
