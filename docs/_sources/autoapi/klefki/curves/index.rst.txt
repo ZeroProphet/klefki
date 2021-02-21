@@ -21,7 +21,6 @@ Submodules
 
    arith/index.rst
    baby_jubjub/index.rst
-   ed25519/index.rst
    secp256k1/index.rst
 
 

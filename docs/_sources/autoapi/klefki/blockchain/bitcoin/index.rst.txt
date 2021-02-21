@@ -4,15 +4,6 @@
 .. py:module:: klefki.blockchain.bitcoin
 
 
-Subpackages
------------
-.. toctree::
-   :titlesonly:
-   :maxdepth: 3
-
-   script/index.rst
-
-
 Submodules
 ----------
 .. toctree::

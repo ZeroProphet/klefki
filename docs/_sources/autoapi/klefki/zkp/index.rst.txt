@@ -15,7 +15,6 @@ Submodules
    groth03/index.rst
    groth16/index.rst
    pedersen/index.rst
-   pinocchio/index.rst
    qap/index.rst
    r1cs/index.rst
    schnorr/index.rst
