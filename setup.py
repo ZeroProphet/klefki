@@ -25,7 +25,7 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url='https://github.com/RyanKung/klefki',
-    version='1.6.1',
+    version='1.6.2',
     packages=find_packages(here, exclude=['tests', "notes"]),
     license='GPL',
     author=author,
