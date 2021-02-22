@@ -1,7 +1,7 @@
 Klefki
 ===================
 
-[![travis](https://travis-ci.org/RyanKung/klefki.svg?branch=master)](https://travis-ci.org/RyanKung/klefki)
+[![travis](https://api.travis-ci.com/ZeroProphet/klefki.svg)](https://travis-ci.com/github/ZeroProphet/klefki)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/RyanKung/klefki/graphs/commit-activity)
 [![PyPI version klefki](https://badge.fury.io/py/klefki.svg)](https://pypi.python.org/pypi/klefki/)
 [![PyPI license](https://img.shields.io/pypi/l/klefki.svg)](https://pypi.python.org/pypi/klefki/)
