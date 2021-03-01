@@ -96,10 +96,7 @@ class ECGBN128(PairFriendlyEllipticCurveGroup):
         w = BN128FP12([zero, one] + [zero] * 10)
         nx = BN128FP12.from_fp2(x)
         ny = BN128FP12.from_fp2(y)
-
-        ny = BN128FP12([y.id[0]] + [zero] * 5 + [y.id[1]] + [zero] * 5)
-        # (x * f(x)) ** 2 , (y * (fx)) ** 3
-        ret = cls((nx * w ** 2, ny * w ** 3))
+        ret = cls((nx * (w ** 2), ny * (w ** 3)))
         assert ret.is_on_curve()
         return ret
 
@@ -166,15 +163,14 @@ class ECGBN128(PairFriendlyEllipticCurveGroup):
     @staticmethod
     def B(F=BN128FP):
         return {
-            "BN128FP2": BN128FP2([3, 0]) / BN128FP2([0, 1]),
-            "BN128FP12": BN128FP12([3] + [0] * 11),
-            "BN128FP": BN128FP(3)
+            "BN128FP2": BN128FP2([const.BN128_B, 0]) / BN128FP2([0, 1]),
+            "BN128FP12": BN128FP12([const.BN128_B] + [0] * 11),
+            "BN128FP": BN128FP(const.BN128_B)
         }[F.__name__]
 
     @classmethod
     def lift_x(cls, x):
         F = x.type
-#        y = (x**3 + F(cls.A) * x + F(cls.B))**(1/2)
         y = (x**3 + x*F(cls.A) + F(cls.B(F)))**(1/2)
         return cls((x, y))
 
