@@ -1,3 +1,10 @@
+"""
+ref:
+https://github.com/miracl/core/blob/master/python/fp12.py
+https://github.com/miracl/core/blob/master/python/fp2.py
+"""
+
+
 from abc import abstractproperty
 from klefki.algebra.abstract import Field
 
