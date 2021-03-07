@@ -8,17 +8,18 @@ class PolyExtField(Field):
     F = abstractproperty()
     P = abstractproperty()
 
-    def craft(self, value):
-        # map Maybe<int> top Field
-        if value == 0:
+
+    def from_int(self, o):
+        if o == 0:
             return self.zero().id
-        if value == 1:
+        if o == 1:
             return self.one().id
-        if isinstance(value, list):
-            assert len(value) == len(self.P)
-            return [self.F(p) for p in value]
-        # support inner field
-        return self.F(value)
+        else:
+            return self.F(o)
+
+    def from_list(self, o):
+        assert len(o) == len(self.P)
+        return [self.F(p) for p in o]
 
     def op(self, rhs):
         if isinstance(rhs, int):

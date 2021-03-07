@@ -1,4 +1,4 @@
-from .cycic_group import FiniteCycicGroup
+from .cyclic_group import FiniteCycicGroup
 from .ecg import EllipticCurveGroup, EllipicCyclicSubgroup
 from .ecg import PairFriendlyEllipticCurveGroup
 from .ecg import JacobianGroup

@@ -6,10 +6,11 @@ class JacobianGroup(Group):
     A = abstractproperty()
     B = abstractproperty()
 
-    def craft(self, o):
-        if isinstance(o, EllipticCurveGroup):
-            field = o.value[0].__class__
-            return [o.value[0], o.value[1], field(1)]
+    def from_EllipticCurveGroup(self, o):
+        field = o.value[0].__class__
+        return [o.value[0], o.value[1], field(1)]
+
+    def from_list(self, o):
         return o
 
     def double(self, n=None):

@@ -7,8 +7,42 @@ from klefki.algorithms import fast_pow
 from klefki.numbers import modular_sqrt
 import sys
 
+class Transformer(metaclass=ABCMeta):
+    def __new__(cls, *args, **kwargs):
+        if isinstance(args[0], cls):
+            return args[0]
+        return super().__new__(cls)
 
-class Functor(metaclass=ABCMeta):
+    @property
+    def trans(self):
+        if not hasattr(self, "_trans"):
+            self._trans = [
+                k.split("_")[1] for k in dir(self)
+                if "from_" in k
+            ]
+        return self._trans
+
+
+    def craft(self, *args):
+        if len(args) == 1:
+            args = args[0]
+
+        kind = args.__class__
+        while True:
+            name = kind.__name__
+            if name in self.trans:
+                return getattr(
+                    self, "from_%s" % kind.__name__
+                )(args)
+            else:
+                kind = kind.__bases__[0]
+            if name in ["object", "ABCMeta"]:
+                raise NotImplementedError(
+                    "Transformer From<%s> is not implemented by <%s>"
+                    % (args.__class__, self.__class__.__name__)
+                )
+
+class Functor(Transformer):
 
     __slots__ = ['value']
 
@@ -17,17 +51,10 @@ class Functor(metaclass=ABCMeta):
         return type(name, (cls, ), dict(**kwargs))
 
     def __init__(self, *args):
-        if len(args) == 1:
-            args = args[0]
-            if isinstance(args, self.type):
-                self.value = args.value
-            else:
-                self.value = self.craft(args)
+        if len(args) == 1 and isinstance(args[0], self.__class__):
+            self.value = args[0].value
         else:
-            self.value = self.craft(args)
-
-    def craft(self, o):
-        return o
+            self.value = self.craft(*args)
 
     @property
     def type(self):

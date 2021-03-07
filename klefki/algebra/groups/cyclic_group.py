@@ -9,9 +9,11 @@ class FiniteCycicGroup(Group):
     # Order of subgroup
     N = abstractproperty()
 
-    def craft(self, o):
-        value = getattr(o, 'value', o)
-        return value % self.N
+    def from_int(self, o):
+        return o % self.N
+
+    def from_FiniteField(self, o):
+        return o.value % self.N
 
     @classmethod
     def identity(cls):

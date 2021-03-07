@@ -62,6 +62,9 @@ def mk_singleton(point_loc, total_pts, height):
 
 
 class PolyRing(Ring):
+    def from_list(self, o):
+        return o
+
     @property
     def degree(self):
         return len(self.id)
