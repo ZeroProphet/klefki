@@ -6,7 +6,7 @@ import klefki.const as const
 from klefki.algebra.fields import FiniteField
 from klefki.algebra.fields import PolyExtField
 from klefki.algebra.groups.ecg import PairFriendlyEllipticCurveGroup
-from klefki.curves.arith import short_weierstrass_form_curve_addition2
+from klefki.curves.arith import short_weierstrass_form_curve_addition
 
 
 class BN128FP(FiniteField):
@@ -16,6 +16,10 @@ class BN128FP(FiniteField):
 class BN128FP2(PolyExtField):
     F = BN128FP
     P = const.BN128_FP2_E
+
+    @classmethod
+    def from_fp(cls, v):
+        return cls([v, cls.F.zero()])
 
 
 class BN128FP12(PolyExtField):
@@ -52,7 +56,7 @@ class ECGBN128(PairFriendlyEllipticCurveGroup):
         field = self.id[0].type
 
         # a1,a3,a2,a4,a6 = 0, 0, 0, a, b
-        x, y = short_weierstrass_form_curve_addition2(
+        x, y = short_weierstrass_form_curve_addition(
             self.x, self.y,
             g.x, g.y,
             field.zero(),
@@ -90,10 +94,11 @@ class ECGBN128(PairFriendlyEllipticCurveGroup):
         # "Twist" a point in E(FQ2) into a point in E(FQ12)
         zero = BN128FP.zero()
         one = BN128FP.one()
-
-        # [0, 1, 0, 0 ,0 ,0, 0...]
-        # w = f(x)
+        # https://crypto.stackexchange.com/questions/14669/sextic-twist-optimization-of-bn-pairing-cubic-root-extraction-required/14680#14680
+        # "define" the sextic root of 𝜉 as w
+        # w=0x^5+0X^4+0X^3+0X^2+1X^1+0X^0).
         w = BN128FP12([zero, one] + [zero] * 10)
+
         nx = BN128FP12.from_fp2(x)
         ny = BN128FP12.from_fp2(y)
         ret = cls((nx * (w ** 2), ny * (w ** 3)))

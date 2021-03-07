@@ -5,7 +5,7 @@ import klefki.const as const
 from klefki.algebra.fields import FiniteField
 from klefki.algebra.groups import EllipticCurveGroup
 from klefki.algebra.groups import EllipicCyclicSubgroup
-from klefki.curves.arith import short_weierstrass_form_curve_addition2
+from klefki.curves.arith import short_weierstrass_form_curve_addition
 
 
 class FiniteFieldBabyJubjub(FiniteField):
