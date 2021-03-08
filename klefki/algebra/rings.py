@@ -62,10 +62,14 @@ def mk_singleton(point_loc, total_pts, height):
 
 
 class PolyRing(Ring):
-    def from_list(self, o):
+    def from_list(self, o: list):
         return o
 
-    def from_tuple(self, o):
+    def from_int(self, o: int):
+        if o in [0, 1]:
+            return o
+
+    def from_tuple(self, o: tuple):
         return list(o)
 
     @property
