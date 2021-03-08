@@ -254,8 +254,7 @@ class Ring(Group):
 
 class Field(Ring):
     """
-    A FIELD is a set F
-    which is closed under two operations + and × s.t.
+    A FIELD is a set F which is closed under two operations + and × s.t.
     (1) Fis an abelian group under + and
     (2) F-{0} (the set F without the additive identity 0) is an abelian group under ×.
     """
