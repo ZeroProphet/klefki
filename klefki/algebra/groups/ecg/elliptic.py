@@ -20,7 +20,7 @@ class EllipticCurveGroup(Group):
         if o == 0:
             return o
         else:
-            raise Exception("cannot cover integer %s to ECG" %)
+            raise Exception("Cannot cover integer %s to ECG" % o)
 
     def from_tuple(self, o):
         return o
