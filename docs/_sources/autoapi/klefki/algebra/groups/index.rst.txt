@@ -4,15 +4,23 @@
 .. py:module:: klefki.algebra.groups
 
 
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   ecg/index.rst
+
+
 Submodules
 ----------
 .. toctree::
    :titlesonly:
    :maxdepth: 1
 
-   cycic_group/index.rst
    cyclic_group/index.rst
-   ecg/index.rst
+   jacobian/index.rst
 
 
 Package Contents
@@ -26,8 +34,8 @@ Classes
    klefki.algebra.groups.FiniteCycicGroup
    klefki.algebra.groups.EllipticCurveGroup
    klefki.algebra.groups.EllipicCyclicSubgroup
-   klefki.algebra.groups.JacobianGroup
    klefki.algebra.groups.PairFriendlyEllipticCurveGroup
+   klefki.algebra.groups.JacobianGroup
 
 
 
@@ -35,12 +43,18 @@ Classes
 
    Bases: :class:`klefki.algebra.abstract.Group`
 
+   A Transformer, is a Object implemented  methods like
+   `from_int`, `from_list`, `from_SomeType`.
+
    .. attribute:: N
       
 
       
 
-   .. method:: craft(self, o)
+   .. method:: from_int(self, o)
+
+
+   .. method:: from_FiniteField(self, o)
 
 
    .. method:: identity(cls)
@@ -67,6 +81,9 @@ Classes
 
    Bases: :class:`klefki.algebra.abstract.Group`
 
+   A Transformer, is a Object implemented  methods like
+   `from_int`, `from_list`, `from_SomeType`.
+
    .. attribute:: A
       
 
@@ -77,7 +94,16 @@ Classes
 
       
 
-   .. method:: craft(self, o)
+   .. method:: from_JacobianGroup(self, o)
+
+
+   .. method:: from_list(self, o)
+
+
+   .. method:: from_int(self, o)
+
+
+   .. method:: from_tuple(self, o)
 
 
    .. method:: op(self, g)
@@ -107,7 +133,7 @@ Classes
 
 .. py:class:: EllipicCyclicSubgroup(*args)
 
-   Bases: :class:`klefki.algebra.groups.ecg.EllipticCurveGroup`
+   Bases: :class:`klefki.algebra.groups.ecg.elliptic.EllipticCurveGroup`
 
    With Lagrange's therem
    the order of a subgroup is a divisor of the order of the parent group
@@ -121,9 +147,30 @@ Classes
 
 
 
+.. py:class:: PairFriendlyEllipticCurveGroup(*args)
+
+   Bases: :class:`klefki.algebra.groups.ecg.elliptic.EllipticCurveGroup`
+
+   A Transformer, is a Object implemented  methods like
+   `from_int`, `from_list`, `from_SomeType`.
+
+   .. attribute:: e
+      
+
+      
+
+   .. attribute:: F
+      
+
+      
+
+
 .. py:class:: JacobianGroup(*args)
 
    Bases: :class:`klefki.algebra.abstract.Group`
+
+   A Transformer, is a Object implemented  methods like
+   `from_int`, `from_list`, `from_SomeType`.
 
    .. attribute:: A
       
@@ -136,6 +183,8 @@ Classes
       
 
    .. method:: craft(self, o)
+
+      Automatic lookup method like `from_{type}` of Class Object.
 
 
    .. method:: double(self, n=None)
@@ -156,20 +205,5 @@ Classes
 
       The Operator for obeying axiom `associativity` (2)
 
-
-
-.. py:class:: PairFriendlyEllipticCurveGroup(*args)
-
-   Bases: :class:`klefki.algebra.groups.ecg.EllipticCurveGroup`
-
-   .. attribute:: e
-      
-
-      
-
-   .. attribute:: F
-      
-
-      
 
 

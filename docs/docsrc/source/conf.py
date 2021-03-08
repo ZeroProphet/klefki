@@ -22,7 +22,7 @@ copyright = '2019, Ryan Kung'
 author = 'Ryan Kung'
 
 # The full version, including alpha/beta/rc tags
-release = '1.0-rc'
+release = '1.7'
 
 
 # -- General configuration ---------------------------------------------------

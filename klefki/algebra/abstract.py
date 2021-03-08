@@ -9,12 +9,22 @@ import sys
 
 
 class Transformer(metaclass=ABCMeta):
+    """
+    A Transformer, is a Object implemented  methods like
+    `from_int`, `from_list`, `from_SomeType`.
+    """
     def __new__(cls, *args, **kwargs):
+        """
+        A<A<T>> -> A<T>
+        """
         if isinstance(args[0], cls):
             return args[0]
         return super().__new__(cls)
 
     def craft(self, *args):
+        """
+        Automatic lookup method like `from_{type}` of Class Object.
+        """
         if len(args) == 1:
             args = args[0]
 

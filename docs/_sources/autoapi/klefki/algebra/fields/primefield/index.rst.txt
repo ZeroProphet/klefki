@@ -20,12 +20,21 @@ Classes
 
    Bases: :class:`klefki.algebra.abstract.Field`
 
+   A Transformer, is a Object implemented  methods like
+   `from_int`, `from_list`, `from_SomeType`.
+
    .. attribute:: P
       
 
       
 
-   .. method:: craft(self, o)
+   .. method:: from_int(self, o)
+
+
+   .. method:: from_PrimeField(self, o)
+
+
+   .. method:: from_complex(self, o)
 
 
    .. method:: inverse(self)

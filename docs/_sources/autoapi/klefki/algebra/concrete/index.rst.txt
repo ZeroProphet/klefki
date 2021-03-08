@@ -29,6 +29,9 @@ Classes
 
    Bases: :class:`klefki.algebra.fields.FiniteField`
 
+   A Transformer, is a Object implemented  methods like
+   `from_int`, `from_list`, `from_SomeType`.
+
    .. attribute:: P
       
 
@@ -38,6 +41,9 @@ Classes
 .. py:class:: FiniteFieldCyclicSecp256k1(*args)
 
    Bases: :class:`klefki.algebra.fields.FiniteField`
+
+   A Transformer, is a Object implemented  methods like
+   `from_int`, `from_list`, `from_SomeType`.
 
    .. attribute:: P
       
@@ -80,6 +86,9 @@ Classes
 
    Bases: :class:`klefki.algebra.groups.JacobianGroup`
 
+   A Transformer, is a Object implemented  methods like
+   `from_int`, `from_list`, `from_SomeType`.
+
    .. attribute:: __slots__
       :annotation: = []
 
@@ -100,6 +109,9 @@ Classes
 
    Bases: :class:`klefki.algebra.fields.FiniteField`
 
+   A Transformer, is a Object implemented  methods like
+   `from_int`, `from_list`, `from_SomeType`.
+
    .. attribute:: __slots__
       :annotation: = []
 
@@ -115,6 +127,9 @@ Classes
 
    Bases: :class:`klefki.algebra.fields.FiniteField`
 
+   A Transformer, is a Object implemented  methods like
+   `from_int`, `from_list`, `from_SomeType`.
+
    .. attribute:: __slots__
       :annotation: = []
 
@@ -129,6 +144,9 @@ Classes
 .. py:class:: EllipticCurveGroupSecp256r1(*args)
 
    Bases: :class:`klefki.algebra.groups.EllipticCurveGroup`
+
+   A Transformer, is a Object implemented  methods like
+   `from_int`, `from_list`, `from_SomeType`.
 
    .. attribute:: __slots__
       :annotation: = []
@@ -149,6 +167,9 @@ Classes
 .. py:class:: JacobianGroupSecp256r1(*args)
 
    Bases: :class:`klefki.algebra.groups.JacobianGroup`
+
+   A Transformer, is a Object implemented  methods like
+   `from_int`, `from_list`, `from_SomeType`.
 
    .. attribute:: __slots__
       :annotation: = []
@@ -192,6 +213,9 @@ Classes
 .. py:class:: EllipticCurveGroupSecp256r1(*args)
 
    Bases: :class:`klefki.algebra.groups.EllipticCurveGroup`
+
+   A Transformer, is a Object implemented  methods like
+   `from_int`, `from_list`, `from_SomeType`.
 
    .. attribute:: A
       

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>klefki.algebra.groups &#8212; klefki 1.0-rc documentation</title>
+    <title>klefki.algebra.groups &#8212; klefki 1.7 documentation</title>
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
@@ -37,13 +37,23 @@
             
   <div class="section" id="module-klefki.algebra.groups">
 <span id="klefki-algebra-groups"></span><h1><a class="reference internal" href="#module-klefki.algebra.groups" title="klefki.algebra.groups"><code class="xref py py-mod docutils literal notranslate"><span class="pre">klefki.algebra.groups</span></code></a><a class="headerlink" href="#module-klefki.algebra.groups" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ecg/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">klefki.algebra.groups.ecg</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ecg/elliptic/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">klefki.algebra.groups.ecg.elliptic</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="cycic_group/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">klefki.algebra.groups.cycic_group</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="cyclic_group/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">klefki.algebra.groups.cyclic_group</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="ecg/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">klefki.algebra.groups.ecg</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="jacobian/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">klefki.algebra.groups.jacobian</span></code></a></li>
 </ul>
 </div>
 </div>
@@ -58,19 +68,19 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#klefki.algebra.groups.FiniteCycicGroup" title="klefki.algebra.groups.FiniteCycicGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FiniteCycicGroup</span></code></a></p></td>
-<td><p></p></td>
+<td><p>A Transformer, is a Object implemented  methods like</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#klefki.algebra.groups.EllipticCurveGroup" title="klefki.algebra.groups.EllipticCurveGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EllipticCurveGroup</span></code></a></p></td>
-<td><p></p></td>
+<td><p>A Transformer, is a Object implemented  methods like</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#klefki.algebra.groups.EllipicCyclicSubgroup" title="klefki.algebra.groups.EllipicCyclicSubgroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EllipicCyclicSubgroup</span></code></a></p></td>
 <td><p>With Lagrange’s therem</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#klefki.algebra.groups.JacobianGroup" title="klefki.algebra.groups.JacobianGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JacobianGroup</span></code></a></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#klefki.algebra.groups.PairFriendlyEllipticCurveGroup" title="klefki.algebra.groups.PairFriendlyEllipticCurveGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PairFriendlyEllipticCurveGroup</span></code></a></p></td>
+<td><p>A Transformer, is a Object implemented  methods like</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#klefki.algebra.groups.PairFriendlyEllipticCurveGroup" title="klefki.algebra.groups.PairFriendlyEllipticCurveGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PairFriendlyEllipticCurveGroup</span></code></a></p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#klefki.algebra.groups.JacobianGroup" title="klefki.algebra.groups.JacobianGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JacobianGroup</span></code></a></p></td>
+<td><p>A Transformer, is a Object implemented  methods like</p></td>
 </tr>
 </tbody>
 </table>
@@ -78,14 +88,21 @@
 <dt id="klefki.algebra.groups.FiniteCycicGroup">
 <em class="property">class </em><code class="sig-prename descclassname">klefki.algebra.groups.</code><code class="sig-name descname">FiniteCycicGroup</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.groups.FiniteCycicGroup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../abstract/index.html#klefki.algebra.abstract.Group" title="klefki.algebra.abstract.Group"><code class="xref py py-class docutils literal notranslate"><span class="pre">klefki.algebra.abstract.Group</span></code></a></p>
+<p>A Transformer, is a Object implemented  methods like
+<cite>from_int</cite>, <cite>from_list</cite>, <cite>from_SomeType</cite>.</p>
 <dl class="py attribute">
 <dt id="klefki.algebra.groups.FiniteCycicGroup.N">
 <code class="sig-name descname">N</code><a class="headerlink" href="#klefki.algebra.groups.FiniteCycicGroup.N" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="klefki.algebra.groups.FiniteCycicGroup.craft">
-<code class="sig-name descname">craft</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">o</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.groups.FiniteCycicGroup.craft" title="Permalink to this definition">¶</a></dt>
+<dt id="klefki.algebra.groups.FiniteCycicGroup.from_int">
+<code class="sig-name descname">from_int</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">o</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.groups.FiniteCycicGroup.from_int" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="klefki.algebra.groups.FiniteCycicGroup.from_FiniteField">
+<code class="sig-name descname">from_FiniteField</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">o</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.groups.FiniteCycicGroup.from_FiniteField" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -117,6 +134,8 @@
 <dt id="klefki.algebra.groups.EllipticCurveGroup">
 <em class="property">class </em><code class="sig-prename descclassname">klefki.algebra.groups.</code><code class="sig-name descname">EllipticCurveGroup</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.groups.EllipticCurveGroup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../abstract/index.html#klefki.algebra.abstract.Group" title="klefki.algebra.abstract.Group"><code class="xref py py-class docutils literal notranslate"><span class="pre">klefki.algebra.abstract.Group</span></code></a></p>
+<p>A Transformer, is a Object implemented  methods like
+<cite>from_int</cite>, <cite>from_list</cite>, <cite>from_SomeType</cite>.</p>
 <dl class="py attribute">
 <dt id="klefki.algebra.groups.EllipticCurveGroup.A">
 <code class="sig-name descname">A</code><a class="headerlink" href="#klefki.algebra.groups.EllipticCurveGroup.A" title="Permalink to this definition">¶</a></dt>
@@ -128,8 +147,23 @@
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="klefki.algebra.groups.EllipticCurveGroup.craft">
-<code class="sig-name descname">craft</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">o</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.groups.EllipticCurveGroup.craft" title="Permalink to this definition">¶</a></dt>
+<dt id="klefki.algebra.groups.EllipticCurveGroup.from_JacobianGroup">
+<code class="sig-name descname">from_JacobianGroup</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">o</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.groups.EllipticCurveGroup.from_JacobianGroup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="klefki.algebra.groups.EllipticCurveGroup.from_list">
+<code class="sig-name descname">from_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">o</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.groups.EllipticCurveGroup.from_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="klefki.algebra.groups.EllipticCurveGroup.from_int">
+<code class="sig-name descname">from_int</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">o</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.groups.EllipticCurveGroup.from_int" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="klefki.algebra.groups.EllipticCurveGroup.from_tuple">
+<code class="sig-name descname">from_tuple</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">o</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.groups.EllipticCurveGroup.from_tuple" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -165,7 +199,7 @@
 <dl class="py class">
 <dt id="klefki.algebra.groups.EllipicCyclicSubgroup">
 <em class="property">class </em><code class="sig-prename descclassname">klefki.algebra.groups.</code><code class="sig-name descname">EllipicCyclicSubgroup</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.groups.EllipicCyclicSubgroup" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="ecg/index.html#klefki.algebra.groups.ecg.EllipticCurveGroup" title="klefki.algebra.groups.ecg.EllipticCurveGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">klefki.algebra.groups.ecg.EllipticCurveGroup</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="ecg/elliptic/index.html#klefki.algebra.groups.ecg.elliptic.EllipticCurveGroup" title="klefki.algebra.groups.ecg.elliptic.EllipticCurveGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">klefki.algebra.groups.ecg.elliptic.EllipticCurveGroup</span></code></a></p>
 <p>With Lagrange’s therem
 the order of a subgroup is a divisor of the order of the parent group</p>
 <dl class="py attribute">
@@ -181,9 +215,29 @@ the order of a subgroup is a divisor of the order of the parent group</p>
 </dd></dl>
 
 <dl class="py class">
+<dt id="klefki.algebra.groups.PairFriendlyEllipticCurveGroup">
+<em class="property">class </em><code class="sig-prename descclassname">klefki.algebra.groups.</code><code class="sig-name descname">PairFriendlyEllipticCurveGroup</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.groups.PairFriendlyEllipticCurveGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="ecg/elliptic/index.html#klefki.algebra.groups.ecg.elliptic.EllipticCurveGroup" title="klefki.algebra.groups.ecg.elliptic.EllipticCurveGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">klefki.algebra.groups.ecg.elliptic.EllipticCurveGroup</span></code></a></p>
+<p>A Transformer, is a Object implemented  methods like
+<cite>from_int</cite>, <cite>from_list</cite>, <cite>from_SomeType</cite>.</p>
+<dl class="py attribute">
+<dt id="klefki.algebra.groups.PairFriendlyEllipticCurveGroup.e">
+<code class="sig-name descname">e</code><a class="headerlink" href="#klefki.algebra.groups.PairFriendlyEllipticCurveGroup.e" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="klefki.algebra.groups.PairFriendlyEllipticCurveGroup.F">
+<code class="sig-name descname">F</code><a class="headerlink" href="#klefki.algebra.groups.PairFriendlyEllipticCurveGroup.F" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt id="klefki.algebra.groups.JacobianGroup">
 <em class="property">class </em><code class="sig-prename descclassname">klefki.algebra.groups.</code><code class="sig-name descname">JacobianGroup</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.groups.JacobianGroup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../abstract/index.html#klefki.algebra.abstract.Group" title="klefki.algebra.abstract.Group"><code class="xref py py-class docutils literal notranslate"><span class="pre">klefki.algebra.abstract.Group</span></code></a></p>
+<p>A Transformer, is a Object implemented  methods like
+<cite>from_int</cite>, <cite>from_list</cite>, <cite>from_SomeType</cite>.</p>
 <dl class="py attribute">
 <dt id="klefki.algebra.groups.JacobianGroup.A">
 <code class="sig-name descname">A</code><a class="headerlink" href="#klefki.algebra.groups.JacobianGroup.A" title="Permalink to this definition">¶</a></dt>
@@ -197,7 +251,8 @@ the order of a subgroup is a divisor of the order of the parent group</p>
 <dl class="py method">
 <dt id="klefki.algebra.groups.JacobianGroup.craft">
 <code class="sig-name descname">craft</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">o</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.groups.JacobianGroup.craft" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Automatic lookup method like <cite>from_{type}</cite> of Class Object.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="klefki.algebra.groups.JacobianGroup.double">
@@ -221,22 +276,6 @@ the order of a subgroup is a divisor of the order of the parent group</p>
 <code class="sig-name descname">op</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">g</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.groups.JacobianGroup.op" title="Permalink to this definition">¶</a></dt>
 <dd><p>The Operator for obeying axiom <cite>associativity</cite> (2)</p>
 </dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="klefki.algebra.groups.PairFriendlyEllipticCurveGroup">
-<em class="property">class </em><code class="sig-prename descclassname">klefki.algebra.groups.</code><code class="sig-name descname">PairFriendlyEllipticCurveGroup</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.groups.PairFriendlyEllipticCurveGroup" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="ecg/index.html#klefki.algebra.groups.ecg.EllipticCurveGroup" title="klefki.algebra.groups.ecg.EllipticCurveGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">klefki.algebra.groups.ecg.EllipticCurveGroup</span></code></a></p>
-<dl class="py attribute">
-<dt id="klefki.algebra.groups.PairFriendlyEllipticCurveGroup.e">
-<code class="sig-name descname">e</code><a class="headerlink" href="#klefki.algebra.groups.PairFriendlyEllipticCurveGroup.e" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="klefki.algebra.groups.PairFriendlyEllipticCurveGroup.F">
-<code class="sig-name descname">F</code><a class="headerlink" href="#klefki.algebra.groups.PairFriendlyEllipticCurveGroup.F" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 

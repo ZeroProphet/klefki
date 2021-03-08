@@ -1,7 +1,7 @@
-:mod:`klefki.algebra.groups.cyclic_group`
-=========================================
+:mod:`klefki.algebra.groups.jacobian`
+=====================================
 
-.. py:module:: klefki.algebra.groups.cyclic_group
+.. py:module:: klefki.algebra.groups.jacobian
 
 
 Module Contents
@@ -12,26 +12,34 @@ Classes
 
 .. autoapisummary::
 
-   klefki.algebra.groups.cyclic_group.FiniteCycicGroup
+   klefki.algebra.groups.jacobian.JacobianGroup
 
 
 
-.. py:class:: FiniteCycicGroup(*args)
+.. py:class:: JacobianGroup(*args)
 
    Bases: :class:`klefki.algebra.abstract.Group`
 
    A Transformer, is a Object implemented  methods like
    `from_int`, `from_list`, `from_SomeType`.
 
-   .. attribute:: N
+   .. attribute:: A
       
 
       
 
-   .. method:: from_int(self, o)
+   .. attribute:: B
+      
+
+      
+
+   .. method:: from_EllipticCurveGroup(self, o)
 
 
-   .. method:: from_FiniteField(self, o)
+   .. method:: from_list(self, o)
+
+
+   .. method:: double(self, n=None)
 
 
    .. method:: identity(cls)
@@ -48,9 +56,6 @@ Classes
    .. method:: op(self, g)
 
       The Operator for obeying axiom `associativity` (2)
-
-
-   .. method:: __pow__(self, times)
 
 
 

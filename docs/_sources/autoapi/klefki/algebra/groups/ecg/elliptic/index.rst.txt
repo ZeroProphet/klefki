@@ -1,29 +1,21 @@
-:mod:`klefki.algebra.groups.ecg`
-================================
+:mod:`klefki.algebra.groups.ecg.elliptic`
+=========================================
 
-.. py:module:: klefki.algebra.groups.ecg
-
-
-Submodules
-----------
-.. toctree::
-   :titlesonly:
-   :maxdepth: 1
-
-   elliptic/index.rst
+.. py:module:: klefki.algebra.groups.ecg.elliptic
 
 
-Package Contents
-----------------
+Module Contents
+---------------
 
 Classes
 ~~~~~~~
 
 .. autoapisummary::
 
-   klefki.algebra.groups.ecg.EllipticCurveGroup
-   klefki.algebra.groups.ecg.PairFriendlyEllipticCurveGroup
-   klefki.algebra.groups.ecg.JacobianGroup
+   klefki.algebra.groups.ecg.elliptic.EllipticCurveGroup
+   klefki.algebra.groups.ecg.elliptic.PairFriendlyEllipticCurveGroup
+   klefki.algebra.groups.ecg.elliptic.EllipicCyclicSubgroup
+   klefki.algebra.groups.ecg.elliptic.JacobianGroup
 
 
 
@@ -97,6 +89,22 @@ Classes
       
 
       
+
+
+.. py:class:: EllipicCyclicSubgroup(*args)
+
+   Bases: :class:`klefki.algebra.groups.ecg.elliptic.EllipticCurveGroup`
+
+   With Lagrange's therem
+   the order of a subgroup is a divisor of the order of the parent group
+
+   .. attribute:: N
+      
+
+      
+
+   .. method:: scalar(self, times)
+
 
 
 .. py:class:: JacobianGroup(*args)

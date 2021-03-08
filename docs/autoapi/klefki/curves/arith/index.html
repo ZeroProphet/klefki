@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>klefki.curves.arith &#8212; klefki 1.0-rc documentation</title>
+    <title>klefki.curves.arith &#8212; klefki 1.7 documentation</title>
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
@@ -47,14 +47,17 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#klefki.curves.arith.short_weierstrass_form_curve_addition2" title="klefki.curves.arith.short_weierstrass_form_curve_addition2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">short_weierstrass_form_curve_addition2</span></code></a>(u1, v1, u2, v2, a1, a3, a2, a4, a6, f: FiniteField) → (FiniteField, FiniteField)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#klefki.curves.arith.short_weierstrass_form_curve_addition" title="klefki.curves.arith.short_weierstrass_form_curve_addition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">short_weierstrass_form_curve_addition</span></code></a>(u1, v1, u2, v2, a1, a3, a2, a4, a6, f: FiniteField) → (FiniteField, FiniteField)</p></td>
 <td><p><a class="reference external" href="https://core.ac.uk/download/pdf/10898289.pdf">https://core.ac.uk/download/pdf/10898289.pdf</a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#klefki.curves.arith.short_weierstrass_form_curve_twist_addition" title="klefki.curves.arith.short_weierstrass_form_curve_twist_addition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">short_weierstrass_form_curve_twist_addition</span></code></a>(u1, v1, u2, v2, a1, a3, a2, a4, a6, f: FiniteField, d)</p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py function">
-<dt id="klefki.curves.arith.short_weierstrass_form_curve_addition2">
-<code class="sig-prename descclassname">klefki.curves.arith.</code><code class="sig-name descname">short_weierstrass_form_curve_addition2</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">u1</span></em>, <em class="sig-param"><span class="n">v1</span></em>, <em class="sig-param"><span class="n">u2</span></em>, <em class="sig-param"><span class="n">v2</span></em>, <em class="sig-param"><span class="n">a1</span></em>, <em class="sig-param"><span class="n">a3</span></em>, <em class="sig-param"><span class="n">a2</span></em>, <em class="sig-param"><span class="n">a4</span></em>, <em class="sig-param"><span class="n">a6</span></em>, <em class="sig-param"><span class="n">f</span><span class="p">:</span> <span class="n">FiniteField</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.curves.arith.short_weierstrass_form_curve_addition2" title="Permalink to this definition">¶</a></dt>
+<dt id="klefki.curves.arith.short_weierstrass_form_curve_addition">
+<code class="sig-prename descclassname">klefki.curves.arith.</code><code class="sig-name descname">short_weierstrass_form_curve_addition</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">u1</span></em>, <em class="sig-param"><span class="n">v1</span></em>, <em class="sig-param"><span class="n">u2</span></em>, <em class="sig-param"><span class="n">v2</span></em>, <em class="sig-param"><span class="n">a1</span></em>, <em class="sig-param"><span class="n">a3</span></em>, <em class="sig-param"><span class="n">a2</span></em>, <em class="sig-param"><span class="n">a4</span></em>, <em class="sig-param"><span class="n">a6</span></em>, <em class="sig-param"><span class="n">f</span><span class="p">:</span> <span class="n">FiniteField</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.curves.arith.short_weierstrass_form_curve_addition" title="Permalink to this definition">¶</a></dt>
 <dd><p><a class="reference external" href="https://core.ac.uk/download/pdf/10898289.pdf">https://core.ac.uk/download/pdf/10898289.pdf</a>
 E_{W,a1a3a2a4a6} = v^2 + a1uv + a3v = u^3 + a2u^2 + a4u + a6
 for k256 curve: v^2 = u^3 + a * u + b
@@ -62,6 +65,11 @@ a1,a3,a2,a4,a6 = 0, 0, 0, a, b
 for baby_jubjub curve: Bv^2 = x^3 + Ax^2 + x
 a1,a3,a2,a4,a6 = 0, 0, a, 1, 0</p>
 </dd></dl>
+
+<dl class="py function">
+<dt id="klefki.curves.arith.short_weierstrass_form_curve_twist_addition">
+<code class="sig-prename descclassname">klefki.curves.arith.</code><code class="sig-name descname">short_weierstrass_form_curve_twist_addition</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">u1</span></em>, <em class="sig-param"><span class="n">v1</span></em>, <em class="sig-param"><span class="n">u2</span></em>, <em class="sig-param"><span class="n">v2</span></em>, <em class="sig-param"><span class="n">a1</span></em>, <em class="sig-param"><span class="n">a3</span></em>, <em class="sig-param"><span class="n">a2</span></em>, <em class="sig-param"><span class="n">a4</span></em>, <em class="sig-param"><span class="n">a6</span></em>, <em class="sig-param"><span class="n">f</span><span class="p">:</span> <span class="n">FiniteField</span></em>, <em class="sig-param"><span class="n">d</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.curves.arith.short_weierstrass_form_curve_twist_addition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </div>
 </div>

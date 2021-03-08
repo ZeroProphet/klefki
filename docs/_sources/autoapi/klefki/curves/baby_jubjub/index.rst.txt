@@ -26,6 +26,9 @@ Classes
 
    Bases: :class:`klefki.algebra.fields.FiniteField`
 
+   A Transformer, is a Object implemented  methods like
+   `from_int`, `from_list`, `from_SomeType`.
+
    .. attribute:: P
       
 

@@ -29,6 +29,9 @@ Classes
 
    Bases: :class:`klefki.algebra.fields.FiniteField`
 
+   A Transformer, is a Object implemented  methods like
+   `from_int`, `from_list`, `from_SomeType`.
+
    .. attribute:: P
       
 
@@ -39,20 +42,8 @@ Classes
 
    Bases: :class:`klefki.algebra.fields.PolyExtField`
 
-   .. attribute:: F
-      
-
-      
-
-   .. attribute:: P
-      
-
-      
-
-
-.. py:class:: BN128FP12(*args)
-
-   Bases: :class:`klefki.algebra.fields.PolyExtField`
+   A Transformer, is a Object implemented  methods like
+   `from_int`, `from_list`, `from_SomeType`.
 
    .. attribute:: F
       
@@ -69,9 +60,38 @@ Classes
 
 
 
+.. py:class:: BN128FP12(*args)
+
+   Bases: :class:`klefki.algebra.fields.PolyExtField`
+
+   A Transformer, is a Object implemented  methods like
+   `from_int`, `from_list`, `from_SomeType`.
+
+   .. attribute:: F
+      
+
+      
+
+   .. attribute:: P
+      
+
+      
+
+   .. method:: from_fp(cls, v)
+      :classmethod:
+
+
+   .. method:: from_fp2(cls, v)
+      :classmethod:
+
+
+
 .. py:class:: BN128ScalarFP(*args)
 
    Bases: :class:`klefki.algebra.fields.FiniteField`
+
+   A Transformer, is a Object implemented  methods like
+   `from_int`, `from_list`, `from_SomeType`.
 
    .. attribute:: P
       

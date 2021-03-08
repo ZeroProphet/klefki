@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>klefki.algebra.fields &#8212; klefki 1.0-rc documentation</title>
+    <title>klefki.algebra.fields &#8212; klefki 1.7 documentation</title>
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
@@ -57,10 +57,10 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#klefki.algebra.fields.PolyExtField" title="klefki.algebra.fields.PolyExtField"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PolyExtField</span></code></a></p></td>
-<td><p></p></td>
+<td><p>A Transformer, is a Object implemented  methods like</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#klefki.algebra.fields.PrimeField" title="klefki.algebra.fields.PrimeField"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PrimeField</span></code></a></p></td>
-<td><p></p></td>
+<td><p>A Transformer, is a Object implemented  methods like</p></td>
 </tr>
 </tbody>
 </table>
@@ -68,6 +68,8 @@
 <dt id="klefki.algebra.fields.PolyExtField">
 <em class="property">class </em><code class="sig-prename descclassname">klefki.algebra.fields.</code><code class="sig-name descname">PolyExtField</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.fields.PolyExtField" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../abstract/index.html#klefki.algebra.abstract.Field" title="klefki.algebra.abstract.Field"><code class="xref py py-class docutils literal notranslate"><span class="pre">klefki.algebra.abstract.Field</span></code></a></p>
+<p>A Transformer, is a Object implemented  methods like
+<cite>from_int</cite>, <cite>from_list</cite>, <cite>from_SomeType</cite>.</p>
 <dl class="py attribute">
 <dt id="klefki.algebra.fields.PolyExtField.F">
 <code class="sig-name descname">F</code><a class="headerlink" href="#klefki.algebra.fields.PolyExtField.F" title="Permalink to this definition">¶</a></dt>
@@ -79,8 +81,13 @@
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="klefki.algebra.fields.PolyExtField.craft">
-<code class="sig-name descname">craft</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.fields.PolyExtField.craft" title="Permalink to this definition">¶</a></dt>
+<dt id="klefki.algebra.fields.PolyExtField.from_int">
+<code class="sig-name descname">from_int</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">o</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.fields.PolyExtField.from_int" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="klefki.algebra.fields.PolyExtField.from_list">
+<code class="sig-name descname">from_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">o</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.fields.PolyExtField.from_list" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -129,14 +136,26 @@
 <dt id="klefki.algebra.fields.PrimeField">
 <em class="property">class </em><code class="sig-prename descclassname">klefki.algebra.fields.</code><code class="sig-name descname">PrimeField</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.fields.PrimeField" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../abstract/index.html#klefki.algebra.abstract.Field" title="klefki.algebra.abstract.Field"><code class="xref py py-class docutils literal notranslate"><span class="pre">klefki.algebra.abstract.Field</span></code></a></p>
+<p>A Transformer, is a Object implemented  methods like
+<cite>from_int</cite>, <cite>from_list</cite>, <cite>from_SomeType</cite>.</p>
 <dl class="py attribute">
 <dt id="klefki.algebra.fields.PrimeField.P">
 <code class="sig-name descname">P</code><a class="headerlink" href="#klefki.algebra.fields.PrimeField.P" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="klefki.algebra.fields.PrimeField.craft">
-<code class="sig-name descname">craft</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">o</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.fields.PrimeField.craft" title="Permalink to this definition">¶</a></dt>
+<dt id="klefki.algebra.fields.PrimeField.from_int">
+<code class="sig-name descname">from_int</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">o</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.fields.PrimeField.from_int" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="klefki.algebra.fields.PrimeField.from_PrimeField">
+<code class="sig-name descname">from_PrimeField</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">o</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.fields.PrimeField.from_PrimeField" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="klefki.algebra.fields.PrimeField.from_complex">
+<code class="sig-name descname">from_complex</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">o</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.fields.PrimeField.from_complex" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">

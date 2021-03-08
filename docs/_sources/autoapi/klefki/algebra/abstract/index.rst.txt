@@ -12,6 +12,7 @@ Classes
 
 .. autoapisummary::
 
+   klefki.algebra.abstract.Transformer
    klefki.algebra.abstract.Functor
    klefki.algebra.abstract.Groupoid
    klefki.algebra.abstract.SemiGroup
@@ -22,7 +23,23 @@ Classes
 
 
 
+.. py:class:: Transformer
+
+   A Transformer, is a Object implemented  methods like
+   `from_int`, `from_list`, `from_SomeType`.
+
+   .. method:: craft(self, *args)
+
+      Automatic lookup method like `from_{type}` of Class Object.
+
+
+
 .. py:class:: Functor(*args)
+
+   Bases: :class:`klefki.algebra.abstract.Transformer`
+
+   A Transformer, is a Object implemented  methods like
+   `from_int`, `from_list`, `from_SomeType`.
 
    .. attribute:: __slots__
       :annotation: = ['value']
@@ -31,9 +48,6 @@ Classes
 
    .. method:: construct(cls, name, **kwargs)
       :classmethod:
-
-
-   .. method:: craft(self, o)
 
 
    .. method:: type(self)
@@ -60,6 +74,9 @@ Classes
 .. py:class:: Groupoid(*args)
 
    Bases: :class:`klefki.algebra.abstract.Functor`
+
+   A Transformer, is a Object implemented  methods like
+   `from_int`, `from_list`, `from_SomeType`.
 
    .. attribute:: __slots__
       :annotation: = []
@@ -123,6 +140,9 @@ Classes
 
    Bases: :class:`klefki.algebra.abstract.Groupoid`
 
+   A Transformer, is a Object implemented  methods like
+   `from_int`, `from_list`, `from_SomeType`.
+
    .. attribute:: __slots__
       :annotation: = []
 
@@ -138,6 +158,9 @@ Classes
 .. py:class:: Monoid(*args)
 
    Bases: :class:`klefki.algebra.abstract.SemiGroup`
+
+   A Transformer, is a Object implemented  methods like
+   `from_int`, `from_list`, `from_SomeType`.
 
    .. attribute:: __slots__
       :annotation: = []
@@ -174,6 +197,9 @@ Classes
 
    Bases: :class:`klefki.algebra.abstract.Monoid`
 
+   A Transformer, is a Object implemented  methods like
+   `from_int`, `from_list`, `from_SomeType`.
+
    .. attribute:: __slots__
       :annotation: = []
 
@@ -197,6 +223,9 @@ Classes
 .. py:class:: Ring(*args)
 
    Bases: :class:`klefki.algebra.abstract.Group`
+
+   A Transformer, is a Object implemented  methods like
+   `from_int`, `from_list`, `from_SomeType`.
 
    .. attribute:: __slots__
       :annotation: = []
@@ -223,6 +252,9 @@ Classes
 .. py:class:: Field(*args)
 
    Bases: :class:`klefki.algebra.abstract.Ring`
+
+   A Transformer, is a Object implemented  methods like
+   `from_int`, `from_list`, `from_SomeType`.
 
    .. attribute:: __slots__
       :annotation: = []

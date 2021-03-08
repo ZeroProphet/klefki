@@ -20,6 +20,15 @@ Classes
 
    Bases: :class:`klefki.algebra.abstract.Ring`
 
+   A Transformer, is a Object implemented  methods like
+   `from_int`, `from_list`, `from_SomeType`.
+
+   .. method:: from_list(self, o)
+
+
+   .. method:: from_tuple(self, o)
+
+
    .. method:: degree(self)
       :property:
 
