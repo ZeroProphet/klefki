@@ -20,8 +20,11 @@ Classes
 
    Bases: :class:`klefki.algebra.abstract.Ring`
 
-   A Transformer, is a Object implemented  methods like
-   `from_int`, `from_list`, `from_SomeType`.
+   RING is a setRwhich is CLOSED under two operations+and×andsatisfying the following properties:
+   (1) R is an abelian group under+.
+   (2)Associativity of × For every a,b,c∈R,a×(b×c) = (a×b)×c
+   (3)Distributive Properties – For everya,b,c∈Rthe following identities hold:
+   a×(b+c) = (a×b) + (a×c)and(b+c)×a=b×a+c×a
 
    .. method:: from_list(self, o)
 

@@ -48,36 +48,35 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#klefki.algebra.abstract.Transformer" title="klefki.algebra.abstract.Transformer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Transformer</span></code></a></p></td>
-<td><p>A Transformer, is a Object implemented  methods like</p></td>
+<td><p>A Transformer, is a Object implemented  methods like <cite>from_int</cite>, <cite>from_list</cite>, <cite>from_SomeType</cite>.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#klefki.algebra.abstract.Functor" title="klefki.algebra.abstract.Functor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Functor</span></code></a></p></td>
-<td><p>A Transformer, is a Object implemented  methods like</p></td>
+<td><p>Functor provide help function like <cite>fmap</cite>, <cite>lift_fmap</cite></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#klefki.algebra.abstract.Groupoid" title="klefki.algebra.abstract.Groupoid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Groupoid</span></code></a></p></td>
-<td><p>A Transformer, is a Object implemented  methods like</p></td>
+<td><p>A groupoid is an algebraic structure consisting of a non-empty set G and a binary operation o on G. The pair (G, o) is called groupoid.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#klefki.algebra.abstract.SemiGroup" title="klefki.algebra.abstract.SemiGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SemiGroup</span></code></a></p></td>
-<td><p>A Transformer, is a Object implemented  methods like</p></td>
+<td><p>If (G, o) is a groupoid and if the associative rule (aob)oc = ao(boc) holds for all a, b, c ∈ G, then (G, o) is called a semigroup.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#klefki.algebra.abstract.Monoid" title="klefki.algebra.abstract.Monoid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Monoid</span></code></a></p></td>
-<td><p>A Transformer, is a Object implemented  methods like</p></td>
+<td><p>A semigroup with identity element is called a monoid.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#klefki.algebra.abstract.Group" title="klefki.algebra.abstract.Group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Group</span></code></a></p></td>
-<td><p>A Transformer, is a Object implemented  methods like</p></td>
+<td><p>A monoid in which every element has an inverse is called group.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#klefki.algebra.abstract.Ring" title="klefki.algebra.abstract.Ring"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Ring</span></code></a></p></td>
-<td><p>A Transformer, is a Object implemented  methods like</p></td>
+<td><p>RING is a setRwhich is CLOSED under two operations+and×andsatisfying the following properties:</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#klefki.algebra.abstract.Field" title="klefki.algebra.abstract.Field"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Field</span></code></a></p></td>
-<td><p>A Transformer, is a Object implemented  methods like</p></td>
+<td><p>A FIELD is a set F</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py class">
 <dt id="klefki.algebra.abstract.Transformer">
 <em class="property">class </em><code class="sig-prename descclassname">klefki.algebra.abstract.</code><code class="sig-name descname">Transformer</code><a class="headerlink" href="#klefki.algebra.abstract.Transformer" title="Permalink to this definition">¶</a></dt>
-<dd><p>A Transformer, is a Object implemented  methods like
-<cite>from_int</cite>, <cite>from_list</cite>, <cite>from_SomeType</cite>.</p>
+<dd><p>A Transformer, is a Object implemented  methods like <cite>from_int</cite>, <cite>from_list</cite>, <cite>from_SomeType</cite>.</p>
 <dl class="py method">
 <dt id="klefki.algebra.abstract.Transformer.craft">
 <code class="sig-name descname">craft</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.abstract.Transformer.craft" title="Permalink to this definition">¶</a></dt>
@@ -90,8 +89,7 @@
 <dt id="klefki.algebra.abstract.Functor">
 <em class="property">class </em><code class="sig-prename descclassname">klefki.algebra.abstract.</code><code class="sig-name descname">Functor</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.abstract.Functor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#klefki.algebra.abstract.Transformer" title="klefki.algebra.abstract.Transformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">klefki.algebra.abstract.Transformer</span></code></a></p>
-<p>A Transformer, is a Object implemented  methods like
-<cite>from_int</cite>, <cite>from_list</cite>, <cite>from_SomeType</cite>.</p>
+<p>Functor provide help function like <cite>fmap</cite>, <cite>lift_fmap</cite></p>
 <dl class="py attribute">
 <dt id="klefki.algebra.abstract.Functor.__slots__">
 <code class="sig-name descname">__slots__</code><em class="property"> = ['value']</em><a class="headerlink" href="#klefki.algebra.abstract.Functor.__slots__" title="Permalink to this definition">¶</a></dt>
@@ -133,8 +131,7 @@
 <dt id="klefki.algebra.abstract.Groupoid">
 <em class="property">class </em><code class="sig-prename descclassname">klefki.algebra.abstract.</code><code class="sig-name descname">Groupoid</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.abstract.Groupoid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#klefki.algebra.abstract.Functor" title="klefki.algebra.abstract.Functor"><code class="xref py py-class docutils literal notranslate"><span class="pre">klefki.algebra.abstract.Functor</span></code></a></p>
-<p>A Transformer, is a Object implemented  methods like
-<cite>from_int</cite>, <cite>from_list</cite>, <cite>from_SomeType</cite>.</p>
+<p>A groupoid is an algebraic structure consisting of a non-empty set G and a binary operation o on G. The pair (G, o) is called groupoid.</p>
 <dl class="py attribute">
 <dt id="klefki.algebra.abstract.Groupoid.__slots__">
 <code class="sig-name descname">__slots__</code><em class="property"> = []</em><a class="headerlink" href="#klefki.algebra.abstract.Groupoid.__slots__" title="Permalink to this definition">¶</a></dt>
@@ -211,8 +208,7 @@ For obeying axiom <cite>closure</cite> (1)</p>
 <dt id="klefki.algebra.abstract.SemiGroup">
 <em class="property">class </em><code class="sig-prename descclassname">klefki.algebra.abstract.</code><code class="sig-name descname">SemiGroup</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.abstract.SemiGroup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#klefki.algebra.abstract.Groupoid" title="klefki.algebra.abstract.Groupoid"><code class="xref py py-class docutils literal notranslate"><span class="pre">klefki.algebra.abstract.Groupoid</span></code></a></p>
-<p>A Transformer, is a Object implemented  methods like
-<cite>from_int</cite>, <cite>from_list</cite>, <cite>from_SomeType</cite>.</p>
+<p>If (G, o) is a groupoid and if the associative rule (aob)oc = ao(boc) holds for all a, b, c ∈ G, then (G, o) is called a semigroup.</p>
 <dl class="py attribute">
 <dt id="klefki.algebra.abstract.SemiGroup.__slots__">
 <code class="sig-name descname">__slots__</code><em class="property"> = []</em><a class="headerlink" href="#klefki.algebra.abstract.SemiGroup.__slots__" title="Permalink to this definition">¶</a></dt>
@@ -230,8 +226,7 @@ For obeying axiom <cite>closure</cite> (1)</p>
 <dt id="klefki.algebra.abstract.Monoid">
 <em class="property">class </em><code class="sig-prename descclassname">klefki.algebra.abstract.</code><code class="sig-name descname">Monoid</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.abstract.Monoid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#klefki.algebra.abstract.SemiGroup" title="klefki.algebra.abstract.SemiGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">klefki.algebra.abstract.SemiGroup</span></code></a></p>
-<p>A Transformer, is a Object implemented  methods like
-<cite>from_int</cite>, <cite>from_list</cite>, <cite>from_SomeType</cite>.</p>
+<p>A semigroup with identity element is called a monoid.</p>
 <dl class="py attribute">
 <dt id="klefki.algebra.abstract.Monoid.__slots__">
 <code class="sig-name descname">__slots__</code><em class="property"> = []</em><a class="headerlink" href="#klefki.algebra.abstract.Monoid.__slots__" title="Permalink to this definition">¶</a></dt>
@@ -279,8 +274,7 @@ For obeying axiom <cite>closure</cite> (1)</p>
 <dt id="klefki.algebra.abstract.Group">
 <em class="property">class </em><code class="sig-prename descclassname">klefki.algebra.abstract.</code><code class="sig-name descname">Group</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.abstract.Group" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#klefki.algebra.abstract.Monoid" title="klefki.algebra.abstract.Monoid"><code class="xref py py-class docutils literal notranslate"><span class="pre">klefki.algebra.abstract.Monoid</span></code></a></p>
-<p>A Transformer, is a Object implemented  methods like
-<cite>from_int</cite>, <cite>from_list</cite>, <cite>from_SomeType</cite>.</p>
+<p>A monoid in which every element has an inverse is called group.</p>
 <dl class="py attribute">
 <dt id="klefki.algebra.abstract.Group.__slots__">
 <code class="sig-name descname">__slots__</code><em class="property"> = []</em><a class="headerlink" href="#klefki.algebra.abstract.Group.__slots__" title="Permalink to this definition">¶</a></dt>
@@ -309,8 +303,11 @@ For obeying axiom <cite>closure</cite> (1)</p>
 <dt id="klefki.algebra.abstract.Ring">
 <em class="property">class </em><code class="sig-prename descclassname">klefki.algebra.abstract.</code><code class="sig-name descname">Ring</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.abstract.Ring" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#klefki.algebra.abstract.Group" title="klefki.algebra.abstract.Group"><code class="xref py py-class docutils literal notranslate"><span class="pre">klefki.algebra.abstract.Group</span></code></a></p>
-<p>A Transformer, is a Object implemented  methods like
-<cite>from_int</cite>, <cite>from_list</cite>, <cite>from_SomeType</cite>.</p>
+<p>RING is a setRwhich is CLOSED under two operations+and×andsatisfying the following properties:
+(1) R is an abelian group under+.
+(2)Associativity of × For every a,b,c∈R,a×(b×c) = (a×b)×c
+(3)Distributive Properties – For everya,b,c∈Rthe following identities hold:
+a×(b+c) = (a×b) + (a×c)and(b+c)×a=b×a+c×a</p>
 <dl class="py attribute">
 <dt id="klefki.algebra.abstract.Ring.__slots__">
 <code class="sig-name descname">__slots__</code><em class="property"> = []</em><a class="headerlink" href="#klefki.algebra.abstract.Ring.__slots__" title="Permalink to this definition">¶</a></dt>
@@ -341,8 +338,10 @@ For obeying axiom <cite>closure</cite> (1)</p>
 <dt id="klefki.algebra.abstract.Field">
 <em class="property">class </em><code class="sig-prename descclassname">klefki.algebra.abstract.</code><code class="sig-name descname">Field</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.abstract.Field" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#klefki.algebra.abstract.Ring" title="klefki.algebra.abstract.Ring"><code class="xref py py-class docutils literal notranslate"><span class="pre">klefki.algebra.abstract.Ring</span></code></a></p>
-<p>A Transformer, is a Object implemented  methods like
-<cite>from_int</cite>, <cite>from_list</cite>, <cite>from_SomeType</cite>.</p>
+<p>A FIELD is a set F
+which is closed under two operations + and × s.t.
+(1) Fis an abelian group under + and
+(2) F-{0} (the set F without the additive identity 0) is an abelian group under ×.</p>
 <dl class="py attribute">
 <dt id="klefki.algebra.abstract.Field.__slots__">
 <code class="sig-name descname">__slots__</code><em class="property"> = []</em><a class="headerlink" href="#klefki.algebra.abstract.Field.__slots__" title="Permalink to this definition">¶</a></dt>

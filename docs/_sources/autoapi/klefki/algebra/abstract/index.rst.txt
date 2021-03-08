@@ -25,8 +25,7 @@ Classes
 
 .. py:class:: Transformer
 
-   A Transformer, is a Object implemented  methods like
-   `from_int`, `from_list`, `from_SomeType`.
+   A Transformer, is a Object implemented  methods like `from_int`, `from_list`, `from_SomeType`.
 
    .. method:: craft(self, *args)
 
@@ -38,8 +37,7 @@ Classes
 
    Bases: :class:`klefki.algebra.abstract.Transformer`
 
-   A Transformer, is a Object implemented  methods like
-   `from_int`, `from_list`, `from_SomeType`.
+   Functor provide help function like `fmap`, `lift_fmap`
 
    .. attribute:: __slots__
       :annotation: = ['value']
@@ -75,8 +73,7 @@ Classes
 
    Bases: :class:`klefki.algebra.abstract.Functor`
 
-   A Transformer, is a Object implemented  methods like
-   `from_int`, `from_list`, `from_SomeType`.
+   A groupoid is an algebraic structure consisting of a non-empty set G and a binary operation o on G. The pair (G, o) is called groupoid.
 
    .. attribute:: __slots__
       :annotation: = []
@@ -140,8 +137,7 @@ Classes
 
    Bases: :class:`klefki.algebra.abstract.Groupoid`
 
-   A Transformer, is a Object implemented  methods like
-   `from_int`, `from_list`, `from_SomeType`.
+   If (G, o) is a groupoid and if the associative rule (aob)oc = ao(boc) holds for all a, b, c ∈ G, then (G, o) is called a semigroup.
 
    .. attribute:: __slots__
       :annotation: = []
@@ -159,8 +155,7 @@ Classes
 
    Bases: :class:`klefki.algebra.abstract.SemiGroup`
 
-   A Transformer, is a Object implemented  methods like
-   `from_int`, `from_list`, `from_SomeType`.
+   A semigroup with identity element is called a monoid.
 
    .. attribute:: __slots__
       :annotation: = []
@@ -197,8 +192,7 @@ Classes
 
    Bases: :class:`klefki.algebra.abstract.Monoid`
 
-   A Transformer, is a Object implemented  methods like
-   `from_int`, `from_list`, `from_SomeType`.
+   A monoid in which every element has an inverse is called group.
 
    .. attribute:: __slots__
       :annotation: = []
@@ -224,8 +218,11 @@ Classes
 
    Bases: :class:`klefki.algebra.abstract.Group`
 
-   A Transformer, is a Object implemented  methods like
-   `from_int`, `from_list`, `from_SomeType`.
+   RING is a setRwhich is CLOSED under two operations+and×andsatisfying the following properties:
+   (1) R is an abelian group under+.
+   (2)Associativity of × For every a,b,c∈R,a×(b×c) = (a×b)×c
+   (3)Distributive Properties – For everya,b,c∈Rthe following identities hold:
+   a×(b+c) = (a×b) + (a×c)and(b+c)×a=b×a+c×a
 
    .. attribute:: __slots__
       :annotation: = []
@@ -253,8 +250,10 @@ Classes
 
    Bases: :class:`klefki.algebra.abstract.Ring`
 
-   A Transformer, is a Object implemented  methods like
-   `from_int`, `from_list`, `from_SomeType`.
+   A FIELD is a set F
+   which is closed under two operations + and × s.t.
+   (1) Fis an abelian group under + and
+   (2) F-{0} (the set F without the additive identity 0) is an abelian group under ×.
 
    .. attribute:: __slots__
       :annotation: = []

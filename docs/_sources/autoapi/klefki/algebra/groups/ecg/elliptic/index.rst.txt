@@ -23,8 +23,7 @@ Classes
 
    Bases: :class:`klefki.algebra.abstract.Group`
 
-   A Transformer, is a Object implemented  methods like
-   `from_int`, `from_list`, `from_SomeType`.
+   A monoid in which every element has an inverse is called group.
 
    .. attribute:: A
       
@@ -77,8 +76,7 @@ Classes
 
    Bases: :class:`klefki.algebra.groups.ecg.elliptic.EllipticCurveGroup`
 
-   A Transformer, is a Object implemented  methods like
-   `from_int`, `from_list`, `from_SomeType`.
+   A monoid in which every element has an inverse is called group.
 
    .. attribute:: e
       
@@ -111,8 +109,7 @@ Classes
 
    Bases: :class:`klefki.algebra.abstract.Group`
 
-   A Transformer, is a Object implemented  methods like
-   `from_int`, `from_list`, `from_SomeType`.
+   A monoid in which every element has an inverse is called group.
 
    .. attribute:: A
       

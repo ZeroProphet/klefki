@@ -48,7 +48,7 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#klefki.algebra.rings.PolyRing" title="klefki.algebra.rings.PolyRing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PolyRing</span></code></a></p></td>
-<td><p>A Transformer, is a Object implemented  methods like</p></td>
+<td><p>RING is a setRwhich is CLOSED under two operations+and×andsatisfying the following properties:</p></td>
 </tr>
 </tbody>
 </table>
@@ -56,8 +56,11 @@
 <dt id="klefki.algebra.rings.PolyRing">
 <em class="property">class </em><code class="sig-prename descclassname">klefki.algebra.rings.</code><code class="sig-name descname">PolyRing</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.rings.PolyRing" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../abstract/index.html#klefki.algebra.abstract.Ring" title="klefki.algebra.abstract.Ring"><code class="xref py py-class docutils literal notranslate"><span class="pre">klefki.algebra.abstract.Ring</span></code></a></p>
-<p>A Transformer, is a Object implemented  methods like
-<cite>from_int</cite>, <cite>from_list</cite>, <cite>from_SomeType</cite>.</p>
+<p>RING is a setRwhich is CLOSED under two operations+and×andsatisfying the following properties:
+(1) R is an abelian group under+.
+(2)Associativity of × For every a,b,c∈R,a×(b×c) = (a×b)×c
+(3)Distributive Properties – For everya,b,c∈Rthe following identities hold:
+a×(b+c) = (a×b) + (a×c)and(b+c)×a=b×a+c×a</p>
 <dl class="py method">
 <dt id="klefki.algebra.rings.PolyRing.from_list">
 <code class="sig-name descname">from_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">o</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.rings.PolyRing.from_list" title="Permalink to this definition">¶</a></dt>

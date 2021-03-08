@@ -29,8 +29,10 @@ Classes
 
    Bases: :class:`klefki.algebra.fields.FiniteField`
 
-   A Transformer, is a Object implemented  methods like
-   `from_int`, `from_list`, `from_SomeType`.
+   A FIELD is a set F
+   which is closed under two operations + and × s.t.
+   (1) Fis an abelian group under + and
+   (2) F-{0} (the set F without the additive identity 0) is an abelian group under ×.
 
    .. attribute:: P
       
@@ -42,8 +44,10 @@ Classes
 
    Bases: :class:`klefki.algebra.fields.FiniteField`
 
-   A Transformer, is a Object implemented  methods like
-   `from_int`, `from_list`, `from_SomeType`.
+   A FIELD is a set F
+   which is closed under two operations + and × s.t.
+   (1) Fis an abelian group under + and
+   (2) F-{0} (the set F without the additive identity 0) is an abelian group under ×.
 
    .. attribute:: P
       
@@ -86,8 +90,7 @@ Classes
 
    Bases: :class:`klefki.algebra.groups.JacobianGroup`
 
-   A Transformer, is a Object implemented  methods like
-   `from_int`, `from_list`, `from_SomeType`.
+   A monoid in which every element has an inverse is called group.
 
    .. attribute:: __slots__
       :annotation: = []
@@ -109,8 +112,10 @@ Classes
 
    Bases: :class:`klefki.algebra.fields.FiniteField`
 
-   A Transformer, is a Object implemented  methods like
-   `from_int`, `from_list`, `from_SomeType`.
+   A FIELD is a set F
+   which is closed under two operations + and × s.t.
+   (1) Fis an abelian group under + and
+   (2) F-{0} (the set F without the additive identity 0) is an abelian group under ×.
 
    .. attribute:: __slots__
       :annotation: = []
@@ -127,8 +132,10 @@ Classes
 
    Bases: :class:`klefki.algebra.fields.FiniteField`
 
-   A Transformer, is a Object implemented  methods like
-   `from_int`, `from_list`, `from_SomeType`.
+   A FIELD is a set F
+   which is closed under two operations + and × s.t.
+   (1) Fis an abelian group under + and
+   (2) F-{0} (the set F without the additive identity 0) is an abelian group under ×.
 
    .. attribute:: __slots__
       :annotation: = []
@@ -145,8 +152,7 @@ Classes
 
    Bases: :class:`klefki.algebra.groups.EllipticCurveGroup`
 
-   A Transformer, is a Object implemented  methods like
-   `from_int`, `from_list`, `from_SomeType`.
+   A monoid in which every element has an inverse is called group.
 
    .. attribute:: __slots__
       :annotation: = []
@@ -168,8 +174,7 @@ Classes
 
    Bases: :class:`klefki.algebra.groups.JacobianGroup`
 
-   A Transformer, is a Object implemented  methods like
-   `from_int`, `from_list`, `from_SomeType`.
+   A monoid in which every element has an inverse is called group.
 
    .. attribute:: __slots__
       :annotation: = []
@@ -214,8 +219,7 @@ Classes
 
    Bases: :class:`klefki.algebra.groups.EllipticCurveGroup`
 
-   A Transformer, is a Object implemented  methods like
-   `from_int`, `from_list`, `from_SomeType`.
+   A monoid in which every element has an inverse is called group.
 
    .. attribute:: A
       

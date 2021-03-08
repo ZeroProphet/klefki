@@ -10,8 +10,7 @@ import sys
 
 class Transformer(metaclass=ABCMeta):
     """
-    A Transformer, is a Object implemented  methods like
-    `from_int`, `from_list`, `from_SomeType`.
+    A Transformer, is a Object implemented  methods like `from_int`, `from_list`, `from_SomeType`.
     """
     def __new__(cls, *args, **kwargs):
         """
@@ -44,6 +43,9 @@ class Transformer(metaclass=ABCMeta):
 
 
 class Functor(Transformer):
+    """
+    Functor provide help function like `fmap`, `lift_fmap`
+    """
 
     __slots__ = ['value']
 
@@ -79,7 +81,9 @@ class Functor(Transformer):
 
 
 class Groupoid(Functor):
-
+    """
+    A groupoid is an algebraic structure consisting of a non-empty set G and a binary operation o on G. The pair (G, o) is called groupoid.
+    """
     __slots__ = ()
 
     @abstractmethod
@@ -128,6 +132,10 @@ class Groupoid(Functor):
 
 
 class SemiGroup(Groupoid):
+    """
+    If (G, o) is a groupoid and if the associative rule (aob)oc = ao(boc) holds for all a, b, c ∈ G, then (G, o) is called a semigroup.
+
+    """
 
     __slots__ = ()
 
@@ -140,6 +148,10 @@ class SemiGroup(Groupoid):
 
 
 class Monoid(SemiGroup):
+    """
+    A semigroup with identity element is called a monoid.
+    """
+
     __slots__ = ()
 
     @classmethod
@@ -174,6 +186,9 @@ class Monoid(SemiGroup):
 
 
 class Group(Monoid):
+    """
+    A monoid in which every element has an inverse is called group.
+    """
     __slots__ = ()
 
     @abstractmethod
@@ -194,6 +209,13 @@ class Group(Monoid):
 
 
 class Ring(Group):
+    """
+    RING is a setRwhich is CLOSED under two operations+and×andsatisfying the following properties:
+    (1) R is an abelian group under+.
+    (2)Associativity of × For every a,b,c∈R,a×(b×c) = (a×b)×c
+    (3)Distributive Properties – For everya,b,c∈Rthe following identities hold:
+    a×(b+c) = (a×b) + (a×c)and(b+c)×a=b×a+c×a
+    """
     __slots__ = ()
 
     @abstractmethod
@@ -231,6 +253,12 @@ class Ring(Group):
 
 
 class Field(Ring):
+    """
+    A FIELD is a set F
+    which is closed under two operations + and × s.t.
+    (1) Fis an abelian group under + and
+    (2) F-{0} (the set F without the additive identity 0) is an abelian group under ×.
+    """
     __slots__ = ()
 
     @abstractmethod

@@ -20,8 +20,7 @@ Classes
 
    Bases: :class:`klefki.algebra.abstract.Group`
 
-   A Transformer, is a Object implemented  methods like
-   `from_int`, `from_list`, `from_SomeType`.
+   A monoid in which every element has an inverse is called group.
 
    .. attribute:: N
       

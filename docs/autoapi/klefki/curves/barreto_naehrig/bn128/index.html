@@ -49,16 +49,16 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#klefki.curves.barreto_naehrig.bn128.BN128FP" title="klefki.curves.barreto_naehrig.bn128.BN128FP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BN128FP</span></code></a></p></td>
-<td><p>A Transformer, is a Object implemented  methods like</p></td>
+<td><p>A FIELD is a set F</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#klefki.curves.barreto_naehrig.bn128.BN128FP2" title="klefki.curves.barreto_naehrig.bn128.BN128FP2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BN128FP2</span></code></a></p></td>
-<td><p>A Transformer, is a Object implemented  methods like</p></td>
+<td><p>A FIELD is a set F</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#klefki.curves.barreto_naehrig.bn128.BN128FP12" title="klefki.curves.barreto_naehrig.bn128.BN128FP12"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BN128FP12</span></code></a></p></td>
-<td><p>A Transformer, is a Object implemented  methods like</p></td>
+<td><p>A FIELD is a set F</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#klefki.curves.barreto_naehrig.bn128.BN128ScalarFP" title="klefki.curves.barreto_naehrig.bn128.BN128ScalarFP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BN128ScalarFP</span></code></a></p></td>
-<td><p>A Transformer, is a Object implemented  methods like</p></td>
+<td><p>A FIELD is a set F</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#klefki.curves.barreto_naehrig.bn128.ECGBN128" title="klefki.curves.barreto_naehrig.bn128.ECGBN128"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ECGBN128</span></code></a></p></td>
 <td><p>y^2 = x^3 + A * x + B</p></td>
@@ -69,8 +69,10 @@
 <dt id="klefki.curves.barreto_naehrig.bn128.BN128FP">
 <em class="property">class </em><code class="sig-prename descclassname">klefki.curves.barreto_naehrig.bn128.</code><code class="sig-name descname">BN128FP</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.curves.barreto_naehrig.bn128.BN128FP" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../../../algebra/fields/index.html#klefki.algebra.fields.FiniteField" title="klefki.algebra.fields.FiniteField"><code class="xref py py-class docutils literal notranslate"><span class="pre">klefki.algebra.fields.FiniteField</span></code></a></p>
-<p>A Transformer, is a Object implemented  methods like
-<cite>from_int</cite>, <cite>from_list</cite>, <cite>from_SomeType</cite>.</p>
+<p>A FIELD is a set F
+which is closed under two operations + and × s.t.
+(1) Fis an abelian group under + and
+(2) F-{0} (the set F without the additive identity 0) is an abelian group under ×.</p>
 <dl class="py attribute">
 <dt id="klefki.curves.barreto_naehrig.bn128.BN128FP.P">
 <code class="sig-name descname">P</code><a class="headerlink" href="#klefki.curves.barreto_naehrig.bn128.BN128FP.P" title="Permalink to this definition">¶</a></dt>
@@ -82,8 +84,10 @@
 <dt id="klefki.curves.barreto_naehrig.bn128.BN128FP2">
 <em class="property">class </em><code class="sig-prename descclassname">klefki.curves.barreto_naehrig.bn128.</code><code class="sig-name descname">BN128FP2</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.curves.barreto_naehrig.bn128.BN128FP2" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../../../algebra/fields/index.html#klefki.algebra.fields.PolyExtField" title="klefki.algebra.fields.PolyExtField"><code class="xref py py-class docutils literal notranslate"><span class="pre">klefki.algebra.fields.PolyExtField</span></code></a></p>
-<p>A Transformer, is a Object implemented  methods like
-<cite>from_int</cite>, <cite>from_list</cite>, <cite>from_SomeType</cite>.</p>
+<p>A FIELD is a set F
+which is closed under two operations + and × s.t.
+(1) Fis an abelian group under + and
+(2) F-{0} (the set F without the additive identity 0) is an abelian group under ×.</p>
 <dl class="py attribute">
 <dt id="klefki.curves.barreto_naehrig.bn128.BN128FP2.F">
 <code class="sig-name descname">F</code><a class="headerlink" href="#klefki.curves.barreto_naehrig.bn128.BN128FP2.F" title="Permalink to this definition">¶</a></dt>
@@ -105,8 +109,10 @@
 <dt id="klefki.curves.barreto_naehrig.bn128.BN128FP12">
 <em class="property">class </em><code class="sig-prename descclassname">klefki.curves.barreto_naehrig.bn128.</code><code class="sig-name descname">BN128FP12</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.curves.barreto_naehrig.bn128.BN128FP12" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../../../algebra/fields/index.html#klefki.algebra.fields.PolyExtField" title="klefki.algebra.fields.PolyExtField"><code class="xref py py-class docutils literal notranslate"><span class="pre">klefki.algebra.fields.PolyExtField</span></code></a></p>
-<p>A Transformer, is a Object implemented  methods like
-<cite>from_int</cite>, <cite>from_list</cite>, <cite>from_SomeType</cite>.</p>
+<p>A FIELD is a set F
+which is closed under two operations + and × s.t.
+(1) Fis an abelian group under + and
+(2) F-{0} (the set F without the additive identity 0) is an abelian group under ×.</p>
 <dl class="py attribute">
 <dt id="klefki.curves.barreto_naehrig.bn128.BN128FP12.F">
 <code class="sig-name descname">F</code><a class="headerlink" href="#klefki.curves.barreto_naehrig.bn128.BN128FP12.F" title="Permalink to this definition">¶</a></dt>
@@ -133,8 +139,10 @@
 <dt id="klefki.curves.barreto_naehrig.bn128.BN128ScalarFP">
 <em class="property">class </em><code class="sig-prename descclassname">klefki.curves.barreto_naehrig.bn128.</code><code class="sig-name descname">BN128ScalarFP</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.curves.barreto_naehrig.bn128.BN128ScalarFP" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../../../algebra/fields/index.html#klefki.algebra.fields.FiniteField" title="klefki.algebra.fields.FiniteField"><code class="xref py py-class docutils literal notranslate"><span class="pre">klefki.algebra.fields.FiniteField</span></code></a></p>
-<p>A Transformer, is a Object implemented  methods like
-<cite>from_int</cite>, <cite>from_list</cite>, <cite>from_SomeType</cite>.</p>
+<p>A FIELD is a set F
+which is closed under two operations + and × s.t.
+(1) Fis an abelian group under + and
+(2) F-{0} (the set F without the additive identity 0) is an abelian group under ×.</p>
 <dl class="py attribute">
 <dt id="klefki.curves.barreto_naehrig.bn128.BN128ScalarFP.P">
 <code class="sig-name descname">P</code><a class="headerlink" href="#klefki.curves.barreto_naehrig.bn128.BN128ScalarFP.P" title="Permalink to this definition">¶</a></dt>
