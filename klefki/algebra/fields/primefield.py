@@ -9,11 +9,14 @@ class PrimeField(Field):
 
     P = abstractproperty()
 
-    def craft(self, o):
-        value = getattr(o, 'value', o)
-        if isinstance(value, complex):
-            return complex((value.real % self.P), (value.imag % self.P))
-        return value % self.P
+    def from_int(self, o):
+        return o % self.P
+
+    def from_PrimeField(self, o):
+        return o.value % self.P
+
+    def from_complex(self, o):
+        return complex((o.real % self.P), (o.imag % self.P))
 
     def inverse(self):
         return self.__class__(self.P - self.value)

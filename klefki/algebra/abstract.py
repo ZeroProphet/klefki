@@ -8,7 +8,32 @@ from klefki.numbers import modular_sqrt
 import sys
 
 
-class Functor(metaclass=ABCMeta):
+class Transformer(metaclass=ABCMeta):
+    def __new__(cls, *args, **kwargs):
+        if isinstance(args[0], cls):
+            return args[0]
+        return super().__new__(cls)
+
+    def craft(self, *args):
+        if len(args) == 1:
+            args = args[0]
+
+        kind = args.__class__
+        while kind.__name__ not in ["object", "ABCMeta"]:
+            name = kind.__name__
+            if hasattr(self, "from_%s" % name):
+                return getattr(
+                    self, "from_%s" % kind.__name__
+                )(args)
+            else:
+                kind = kind.__bases__[0]
+        raise NotImplementedError(
+            "Transformer From<%s> is not implemented by <%s>"
+            % (args.__class__.__name__, self.__class__.__name__)
+        )
+
+
+class Functor(Transformer):
 
     __slots__ = ['value']
 
@@ -17,17 +42,10 @@ class Functor(metaclass=ABCMeta):
         return type(name, (cls, ), dict(**kwargs))
 
     def __init__(self, *args):
-        if len(args) == 1:
-            args = args[0]
-            if isinstance(args, self.type):
-                self.value = args.value
-            else:
-                self.value = self.craft(args)
+        if len(args) == 1 and isinstance(args[0], self.__class__):
+            self.value = args[0].value
         else:
-            self.value = self.craft(args)
-
-    def craft(self, o):
-        return o
+            self.value = self.craft(*args)
 
     @property
     def type(self):

@@ -9,10 +9,20 @@ class EllipticCurveGroup(Group):
     A = abstractproperty()
     B = abstractproperty()
 
-    def craft(self, o):
-        if isinstance(o, JacobianGroup):
-            z = ~(o.value[2])
-            return (o.value[0] * z ** 2, o.value[1] * z ** 3)
+    def from_JacobianGroup(self, o):
+        z = ~(o.value[2])
+        return (o.value[0] * z ** 2, o.value[1] * z ** 3)
+
+    def from_list(self, o):
+        return tuple(o)
+
+    def from_int(self, o):
+        if o == 0:
+            return o
+        else:
+            raise Exception("cannot cover integer %s to ECG" %)
+
+    def from_tuple(self, o):
         return o
 
     def op(self, g):
