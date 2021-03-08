@@ -7,40 +7,31 @@ from klefki.algorithms import fast_pow
 from klefki.numbers import modular_sqrt
 import sys
 
+
 class Transformer(metaclass=ABCMeta):
     def __new__(cls, *args, **kwargs):
         if isinstance(args[0], cls):
             return args[0]
         return super().__new__(cls)
 
-    @property
-    def trans(self):
-        if not hasattr(self, "_trans"):
-            self._trans = [
-                k.split("_")[1] for k in dir(self)
-                if "from_" in k
-            ]
-        return self._trans
-
-
     def craft(self, *args):
         if len(args) == 1:
             args = args[0]
 
         kind = args.__class__
-        while True:
+        while kind.__name__ not in ["object", "ABCMeta"]:
             name = kind.__name__
-            if name in self.trans:
+            if hasattr(self, "from_%s" % name):
                 return getattr(
                     self, "from_%s" % kind.__name__
                 )(args)
             else:
                 kind = kind.__bases__[0]
-            if name in ["object", "ABCMeta"]:
-                raise NotImplementedError(
-                    "Transformer From<%s> is not implemented by <%s>"
-                    % (args.__class__, self.__class__.__name__)
-                )
+        raise NotImplementedError(
+            "Transformer From<%s> is not implemented by <%s>"
+            % (args.__class__.__name__, self.__class__.__name__)
+        )
+
 
 class Functor(Transformer):
 

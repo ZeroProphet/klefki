@@ -65,6 +65,9 @@ class PolyRing(Ring):
     def from_list(self, o):
         return o
 
+    def from_tuple(self, o):
+        return list(o)
+
     @property
     def degree(self):
         return len(self.id)
