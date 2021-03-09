@@ -16,7 +16,7 @@ class BN128FP(FiniteField):
 class BN128FP2(PolyExtField):
     DEG = 2
     F = BN128FP
-    P = const.BN128_FP2_E
+    P = [BN128FP(e) for e in const.BN128_FP2_E]
 
     @classmethod
     def from_fp(cls, v):
@@ -26,7 +26,7 @@ class BN128FP2(PolyExtField):
 class BN128FP12(PolyExtField):
     DEG = 12
     F = BN128FP
-    P = const.BN128_FP12_E
+    P = [BN128FP(e) for e in const.BN128_FP12_E]
 
     @classmethod
     def from_fp(cls, v):

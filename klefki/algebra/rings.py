@@ -82,6 +82,7 @@ def mk_singleton(point_loc, total_pts, height):
 
 
 class PolyRing(Ring):
+
     def from_list(self, o: list):
         return o
 
@@ -112,7 +113,12 @@ class PolyRing(Ring):
         return self.fmap(_div_polys)(self, rhs)
 
     def mod(self, rhs: Ring):
-        return self.fmap(_mod_polys)(self, rhs)
+        poly = self.id
+        for exp in range(rhs.degree - 2, -1, -1):
+            top = poly.pop()
+            for i, c in [(i, c) for i, c in enumerate(rhs) if c]:
+                poly[exp + i] -= top * c
+        return self.type(poly)
 
     @classmethod
     def identity(cls):
@@ -120,6 +126,12 @@ class PolyRing(Ring):
 
     def __floordiv__(self, rhs: Ring):
         return self.div(rhs)
+
+    def __iter__(self):
+        return self.id.__iter__()
+
+    def __getitem__(self, i):
+        return self.id[i]
 
     @classmethod
     def singleton(cls, point_loc, height, total_pts):

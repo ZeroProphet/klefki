@@ -182,9 +182,6 @@ class Monoid(SemiGroup):
     def __matmul__(self, times):
         return self.scalar(times)
 
-    def __pow__(self, times) -> 'Group':
-        return self.scalar(times)
-
     def __xor__(self, times) -> 'Group':
         return self.__matmul__(times)
 

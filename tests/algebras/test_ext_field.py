@@ -8,7 +8,7 @@ modulus_coeffs = [82, 0, 0, 0, 0, 0, 18, 0, 0, 0, 0, 0]
 
 class FQ12(PolyExtField):
     F = FQ
-    P = modulus_coeffs
+    P = [FQ(m) for m in modulus_coeffs]
     DEG = 12
 
 
