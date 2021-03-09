@@ -22,15 +22,13 @@ class PolyExtField(Field, PolyRing):
             return self.F(o)
 
     def from_list(self, o):
-        assert len(o) == self.DEG
-        return [self.F(p) for p in o]
+        return [self.F(p) for p in o] + [self.F.zero()] * (self.DEG - len(o))
 
     def from_tuple(self, o):
-        assert len(o) == self.DEG
-        return [self.F(p) for p in o]
+        return [self.F(p) for p in o] + [self.F.zero()] * (self.DEG - len(o))
 
     def from_PolyRing(self, o):
-        return o.id
+        return o.id + [self.F.zero()] * (self.DEG - len(o.id))
 
     @classmethod
     def sec_identity(cls):

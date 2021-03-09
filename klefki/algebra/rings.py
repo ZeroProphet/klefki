@@ -48,25 +48,6 @@ def _div_polys(a, b):
     return o
 
 
-def _mod_polys(a, b):
-    o = [0] * (len(a) - len(b) + 1)
-    remainder = a
-    while len(remainder) >= len(b):
-        leading_fac = remainder[-1] / b[-1]
-        pos = len(remainder) - len(b)
-        o[pos] = leading_fac
-        remainder = _add_polys(
-            remainder,
-            _neg_poly(
-                _multiply_polys(
-                    b,
-                    [0] * pos + [leading_fac]
-                )
-            )
-        )[:-1]
-    return remainder
-
-
 # Make a polynomial which is zero at {1, 2 ... total_pts}, except
 # for `point_loc` where the value is `height`
 def mk_singleton(point_loc, total_pts, height):

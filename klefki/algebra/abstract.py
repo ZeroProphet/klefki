@@ -95,19 +95,19 @@ class Groupoid(Functor):
         pass
 
     def __eq__(self, b) -> bool:
-        return self.id == b.id
+        return self.id == getattr(b, "id", b)
 
     def __lt__(self, b) -> bool:
-        return self.id < b.id
+        return self.id < getattr(b, "id", b)
 
     def __le__(self, b) -> bool:
-        return self.id <= b.id
+        return self.id <= getattr(b, "id", b)
 
     def __gt__(self, b) -> bool:
-        return self.id > b.id
+        return self.id > getattr(b, "id", b)
 
     def __ge__(self, b) -> bool:
-        return self.id >= b.id
+        return self.id >= getattr(b, "id", b)
 
     def __add__(self, g: 'Group') -> 'Group':
         '''
