@@ -155,7 +155,7 @@ def extended_euclidean_algorithm(a: int, b: int, one=1, zero=0) -> Tuple[int, in
     algotithm and runs in O(log b) in the worst case
     '''
     s, t, r = zero, one, b
-    old_s, old_t, old_r = one, 0, a
+    old_s, old_t, old_r = one, zero, a
 
     while r != zero:
         quoient = old_r // r

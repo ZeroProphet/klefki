@@ -35,6 +35,7 @@ def _div_polys(a, b):
         leading_fac = remainder[-1] / b[-1]
         pos = len(remainder) - len(b)
         o[pos] = leading_fac
+        # rem = rem -(b * ([0, 0, 0] + rem[-1]/b[-1]))
         remainder = _add_polys(
             remainder,
             _neg_poly(
@@ -90,6 +91,9 @@ class PolyRing(Ring):
 
     def from_tuple(self, o: tuple):
         return list(o)
+
+    def from_PolyExtField(self, o):
+        return o.id
 
     @property
     def degree(self):

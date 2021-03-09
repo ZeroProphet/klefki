@@ -5,10 +5,13 @@ from klefki.algebra.abstract import Field
 
 
 class PolyExtField(Field, PolyRing):
-    # field
+    """
+    $U \subseteq F$, where F is subfield, P is its module cof
+    """
     F = abstractproperty()
     P = abstractproperty()
     DEG = abstractproperty()
+
 
     def from_int(self, o):
         if o == 0:
@@ -22,8 +25,12 @@ class PolyExtField(Field, PolyRing):
         assert len(o) == self.DEG
         return [self.F(p) for p in o]
 
+    def from_tuple(self, o):
+        assert len(o) == self.DEG
+        return [self.F(p) for p in o]
+
     def from_PolyRing(self, o):
-        return o
+        return o.id
 
     @classmethod
     def sec_identity(cls):
@@ -47,9 +54,9 @@ class PolyExtField(Field, PolyRing):
             r += [field.zero()] * (self.DEG + 1 - len(r))
             nm = [field(x) for x in hm]
             new = [field(x) for x in high]
-            assert len(lm) == len(hm) == len(low) == len(
-                high) == len(nm) == len(new) == self.DEG + 1
-            # xt Euclidean alog.
+            # assert len(lm) == len(hm) == len(low) == len(
+            #     high) == len(nm) == len(new) == self.DEG + 1
+            # et Euclidean alog.
             for i in range(self.DEG + 1):
                 for j in range(self.DEG + 1 - i):
                     nm[i+j] -= lm[i] * r[j]
@@ -66,9 +73,14 @@ class PolyExtField(Field, PolyRing):
         else:
             poly = PolyRing(self.id).sec_op(rhs).id
             # mod
-            m = PolyRing([self.F(p) for p in self.P]).id
             for exp in range(self.DEG - 2, -1, -1):
+                # if DEG == 2, exp = 0
+                # [DEG-2, ..., 0]
+                # From high to low
                 top = poly.pop()
+                # top is a0
                 for i, c in [(i, c) for i, c in enumerate(self.P) if c]:
+                    # for fp2:
+                    # poly[i] = poly[i] - top * P[i]
                     poly[exp + i] -= top * c
             return self.type(poly)

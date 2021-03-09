@@ -20,6 +20,10 @@ class Transformer(metaclass=ABCMeta):
             return args[0]
         return super().__new__(cls)
 
+    @classmethod
+    def derive(cls, name, *args, **kwargs):
+        return type(name, (cls,), kwargs)
+
     def craft(self, *args):
         """
         Automatic lookup method like `from_{type}` of Class Object.
