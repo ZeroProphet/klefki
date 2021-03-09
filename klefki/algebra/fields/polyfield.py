@@ -8,6 +8,7 @@ class PolyExtField(Field, PolyRing):
     # field
     F = abstractproperty()
     P = abstractproperty()
+    DEG = abstractproperty()
 
 
     def from_int(self, o):
@@ -19,7 +20,7 @@ class PolyExtField(Field, PolyRing):
             return self.F(o)
 
     def from_list(self, o):
-        assert len(o) == len(self.P)
+        assert len(o) == self.DEG
         return [self.F(p) for p in o]
 
     def from_PolyRing(self, o):
@@ -28,16 +29,16 @@ class PolyExtField(Field, PolyRing):
 
     @classmethod
     def sec_identity(cls):
-        return cls([cls.F.one()] + [cls.F.zero()] * (len(cls.P) - 1))
+        return cls([cls.F.one()] + [cls.F.zero()] * (cls.DEG - 1))
 
     @classmethod
     def identity(cls):
-        return cls([cls.F.zero()] * len(cls.P))
+        return cls([cls.F.zero()] * cls.DEG)
 
     def sec_inverse(self):
         field = self.F
         lm, hm = [self.F.one()] + [self.F.zero()] * \
-            len(self.P), [self.F.zero()] * (len(self.P) + 1)
+            self.DEG, [self.F.zero()] * (self.DEG + 1)
         low, high = (
             self.id + [self.F.zero()],
             [self.F(m) for m in self.P] + [field(1)]
@@ -45,19 +46,19 @@ class PolyExtField(Field, PolyRing):
 
         while deg(low):
             r = poly_rounded_div(high, low, field)
-            r += [field.zero()] * (len(self.P) + 1 - len(r))
+            r += [field.zero()] * (self.DEG + 1 - len(r))
             nm = [field(x) for x in hm]
             new = [field(x) for x in high]
             assert len(lm) == len(hm) == len(low) == len(
-                high) == len(nm) == len(new) == len(self.P) + 1
+                high) == len(nm) == len(new) == self.DEG + 1
             # xt Euclidean alog.
-            for i in range(len(self.P) + 1):
-                for j in range(len(self.P) + 1 - i):
+            for i in range(self.DEG + 1):
+                for j in range(self.DEG + 1 - i):
                     nm[i+j] -= lm[i] * r[j]
                     new[i+j] -= low[i] * r[j]
             lm, low, hm, high = nm, new, lm, low
 
-        return self.type([i / field(low[0]) for i in lm[:len(self.P)]])
+        return self.type([i / field(low[0]) for i in lm[:self.DEG]])
 
     def sec_op(self, rhs):
         if isinstance(rhs, int):
@@ -65,11 +66,11 @@ class PolyExtField(Field, PolyRing):
         if isinstance(rhs, self.F):
             return self.__class__([c * rhs for c in self.value])
         else:
-            degree = len(self.P)
+            degree = self.DEG
             poly = PolyRing(self.id).sec_op(rhs).id
             # mod
             m = PolyRing([self.F(p) for p in self.P]).id
-            for exp in range(len(self.P) - 2, -1, -1):
+            for exp in range(self.DEG - 2, -1, -1):
                 top = poly.pop()
                 for i, c in [(i, c) for i, c in enumerate(self.P) if c]:
                     poly[exp + i] -= top * c

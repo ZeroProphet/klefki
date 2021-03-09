@@ -14,6 +14,7 @@ class BN128FP(FiniteField):
 
 
 class BN128FP2(PolyExtField):
+    DEG = 2
     F = BN128FP
     P = const.BN128_FP2_E
 
@@ -23,6 +24,7 @@ class BN128FP2(PolyExtField):
 
 
 class BN128FP12(PolyExtField):
+    DEG = 12
     F = BN128FP
     P = const.BN128_FP12_E
 
