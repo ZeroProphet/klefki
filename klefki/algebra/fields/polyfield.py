@@ -22,6 +22,9 @@ class PolyExtField(Field, PolyRing):
         assert len(o) == len(self.P)
         return [self.F(p) for p in o]
 
+    def from_PolyRing(self, o):
+        return o
+
 
     @classmethod
     def sec_identity(cls):
@@ -63,15 +66,11 @@ class PolyExtField(Field, PolyRing):
             return self.__class__([c * rhs for c in self.value])
         else:
             degree = len(self.P)
-            b = [self.F.zero()] * (degree * 2 - 1)
-            # mul
-            for i in range(len(self.id)):
-                for j in range(len(rhs.id)):
-                    b[i+j] += self.id[i] * rhs.id[j]
-
+            poly = PolyRing(self.id).sec_op(rhs).id
             # mod
+            m = PolyRing([self.F(p) for p in self.P]).id
             for exp in range(len(self.P) - 2, -1, -1):
-                top = b.pop()
+                top = poly.pop()
                 for i, c in [(i, c) for i, c in enumerate(self.P) if c]:
-                    b[exp + i] -= top * c
-            return self.type(b)
+                    poly[exp + i] -= top * c
+            return self.type(poly)
