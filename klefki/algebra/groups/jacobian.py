@@ -2,6 +2,7 @@ from abc import abstractproperty
 from klefki.algebra.abstract import Group
 from klefki.algebra.groups.ecg import EllipticCurveGroup
 
+
 class JacobianGroup(Group):
     A = abstractproperty()
     B = abstractproperty()

@@ -46,6 +46,7 @@ def _div_polys(a, b):
         )[:-1]
     return o
 
+
 def _mod_polys(a, b):
     o = [0] * (len(a) - len(b) + 1)
     remainder = a

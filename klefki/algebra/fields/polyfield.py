@@ -10,7 +10,6 @@ class PolyExtField(Field, PolyRing):
     P = abstractproperty()
     DEG = abstractproperty()
 
-
     def from_int(self, o):
         if o == 0:
             return self.zero().id
@@ -25,7 +24,6 @@ class PolyExtField(Field, PolyRing):
 
     def from_PolyRing(self, o):
         return o
-
 
     @classmethod
     def sec_identity(cls):
@@ -66,7 +64,6 @@ class PolyExtField(Field, PolyRing):
         if isinstance(rhs, self.F):
             return self.__class__([c * rhs for c in self.value])
         else:
-            degree = self.DEG
             poly = PolyRing(self.id).sec_op(rhs).id
             # mod
             m = PolyRing([self.F(p) for p in self.P]).id

@@ -35,9 +35,10 @@ def short_weierstrass_form_curve_addition(
         v3 = lam * (u1-u3) - v1 - a1 * u3 - a3
         return (u3, v3)
 
+
 def short_weierstrass_form_curve_twist_addition(u1, v1, u2, v2, a1, a3, a2, a4, a6, f: FiniteField, d):
     # y^2 + a1 uv + a3v = u^3 + (a2 + da1^2) u^2 + a4u + a6 + da3^2
     # ref: https://en.wikipedia.org/wiki/Twists_of_curves
-    a2 = a2 + d* (a1 ** 2)
+    a2 = a2 + d * (a1 ** 2)
     a6 = a6 + d * (a3 ** 2)
     return short_weierstrass_form_curve_addition(u1, v1, u2, v2, a1, a3, a2, a4, a6, f)
