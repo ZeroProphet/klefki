@@ -43,9 +43,12 @@ Classes
 
    Bases: :class:`klefki.algebra.fields.PolyExtField`
 
-   A FIELD is a set F which is closed under two operations + and × s.t.
-   (1) Fis an abelian group under + and
-   (2) F-{0} (the set F without the additive identity 0) is an abelian group under ×.
+   $U \subseteq F$, where F is subfield, P is its module cof
+
+   .. attribute:: DEG
+      :annotation: = 2
+
+      
 
    .. attribute:: F
       
@@ -66,9 +69,12 @@ Classes
 
    Bases: :class:`klefki.algebra.fields.PolyExtField`
 
-   A FIELD is a set F which is closed under two operations + and × s.t.
-   (1) Fis an abelian group under + and
-   (2) F-{0} (the set F without the additive identity 0) is an abelian group under ×.
+   $U \subseteq F$, where F is subfield, P is its module cof
+
+   .. attribute:: DEG
+      :annotation: = 12
+
+      
 
    .. attribute:: F
       

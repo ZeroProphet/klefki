@@ -26,10 +26,16 @@ Classes
    (3)Distributive Properties – For everya,b,c∈Rthe following identities hold:
    a×(b+c) = (a×b) + (a×c)and(b+c)×a=b×a+c×a
 
-   .. method:: from_list(self, o)
+   .. method:: from_list(self, o: list)
 
 
-   .. method:: from_tuple(self, o)
+   .. method:: from_int(self, o: int)
+
+
+   .. method:: from_tuple(self, o: tuple)
+
+
+   .. method:: from_PolyExtField(self, o)
 
 
    .. method:: degree(self)
@@ -54,6 +60,12 @@ Classes
    .. method:: div(self, rhs: Ring)
 
 
+   .. method:: rdiv(self, rhs: Ring)
+
+
+   .. method:: mod(self, rhs: Ring)
+
+
    .. method:: identity(cls)
       :classmethod:
 
@@ -61,6 +73,12 @@ Classes
 
 
    .. method:: __floordiv__(self, rhs: Ring)
+
+
+   .. method:: __iter__(self)
+
+
+   .. method:: __getitem__(self, i)
 
 
    .. method:: singleton(cls, point_loc, height, total_pts)

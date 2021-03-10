@@ -57,7 +57,7 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#klefki.algebra.fields.PolyExtField" title="klefki.algebra.fields.PolyExtField"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PolyExtField</span></code></a></p></td>
-<td><p>A FIELD is a set F which is closed under two operations + and × s.t.</p></td>
+<td><p>$U subseteq F$, where F is subfield, P is its module cof</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#klefki.algebra.fields.PrimeField" title="klefki.algebra.fields.PrimeField"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PrimeField</span></code></a></p></td>
 <td><p>A FIELD is a set F which is closed under two operations + and × s.t.</p></td>
@@ -67,10 +67,8 @@
 <dl class="py class">
 <dt id="klefki.algebra.fields.PolyExtField">
 <em class="property">class </em><code class="sig-prename descclassname">klefki.algebra.fields.</code><code class="sig-name descname">PolyExtField</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.fields.PolyExtField" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../abstract/index.html#klefki.algebra.abstract.Field" title="klefki.algebra.abstract.Field"><code class="xref py py-class docutils literal notranslate"><span class="pre">klefki.algebra.abstract.Field</span></code></a></p>
-<p>A FIELD is a set F which is closed under two operations + and × s.t.
-(1) Fis an abelian group under + and
-(2) F-{0} (the set F without the additive identity 0) is an abelian group under ×.</p>
+<dd><p>Bases: <a class="reference internal" href="../abstract/index.html#klefki.algebra.abstract.Field" title="klefki.algebra.abstract.Field"><code class="xref py py-class docutils literal notranslate"><span class="pre">klefki.algebra.abstract.Field</span></code></a>, <a class="reference internal" href="../rings/index.html#klefki.algebra.rings.PolyRing" title="klefki.algebra.rings.PolyRing"><code class="xref py py-class docutils literal notranslate"><span class="pre">klefki.algebra.rings.PolyRing</span></code></a></p>
+<p>$U subseteq F$, where F is subfield, P is its module cof</p>
 <dl class="py attribute">
 <dt id="klefki.algebra.fields.PolyExtField.F">
 <code class="sig-name descname">F</code><a class="headerlink" href="#klefki.algebra.fields.PolyExtField.F" title="Permalink to this definition">¶</a></dt>
@@ -79,6 +77,11 @@
 <dl class="py attribute">
 <dt id="klefki.algebra.fields.PolyExtField.P">
 <code class="sig-name descname">P</code><a class="headerlink" href="#klefki.algebra.fields.PolyExtField.P" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="klefki.algebra.fields.PolyExtField.DEG">
+<code class="sig-name descname">DEG</code><a class="headerlink" href="#klefki.algebra.fields.PolyExtField.DEG" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -92,10 +95,14 @@
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="klefki.algebra.fields.PolyExtField.op">
-<code class="sig-name descname">op</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">rhs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.fields.PolyExtField.op" title="Permalink to this definition">¶</a></dt>
-<dd><p>The Operator for obeying axiom <cite>associativity</cite> (2)</p>
-</dd></dl>
+<dt id="klefki.algebra.fields.PolyExtField.from_tuple">
+<code class="sig-name descname">from_tuple</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">o</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.fields.PolyExtField.from_tuple" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="klefki.algebra.fields.PolyExtField.from_PolyRing">
+<code class="sig-name descname">from_PolyRing</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">o</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.fields.PolyExtField.from_PolyRing" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt id="klefki.algebra.fields.PolyExtField.sec_identity">
@@ -106,12 +113,6 @@
 <dt id="klefki.algebra.fields.PolyExtField.identity">
 <em class="property">classmethod </em><code class="sig-name descname">identity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cls</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.fields.PolyExtField.identity" title="Permalink to this definition">¶</a></dt>
 <dd><p>The value for obeying axiom <cite>identity</cite> (3)</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="klefki.algebra.fields.PolyExtField.inverse">
-<code class="sig-name descname">inverse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.fields.PolyExtField.inverse" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implement for axiom <cite>inverse</cite></p>
 </dd></dl>
 
 <dl class="py method">

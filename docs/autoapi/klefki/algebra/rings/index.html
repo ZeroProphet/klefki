@@ -63,12 +63,22 @@
 a×(b+c) = (a×b) + (a×c)and(b+c)×a=b×a+c×a</p>
 <dl class="py method">
 <dt id="klefki.algebra.rings.PolyRing.from_list">
-<code class="sig-name descname">from_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">o</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.rings.PolyRing.from_list" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">from_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">o</span><span class="p">:</span> <span class="n">list</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.rings.PolyRing.from_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="klefki.algebra.rings.PolyRing.from_int">
+<code class="sig-name descname">from_int</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">o</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.rings.PolyRing.from_int" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="klefki.algebra.rings.PolyRing.from_tuple">
-<code class="sig-name descname">from_tuple</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">o</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.rings.PolyRing.from_tuple" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">from_tuple</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">o</span><span class="p">:</span> <span class="n">tuple</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.rings.PolyRing.from_tuple" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="klefki.algebra.rings.PolyRing.from_PolyExtField">
+<code class="sig-name descname">from_PolyExtField</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">o</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.rings.PolyRing.from_PolyExtField" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -100,6 +110,16 @@ a×(b+c) = (a×b) + (a×c)and(b+c)×a=b×a+c×a</p>
 <dd></dd></dl>
 
 <dl class="py method">
+<dt id="klefki.algebra.rings.PolyRing.rdiv">
+<code class="sig-name descname">rdiv</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">rhs</span><span class="p">:</span> <span class="n">Ring</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.rings.PolyRing.rdiv" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="klefki.algebra.rings.PolyRing.mod">
+<code class="sig-name descname">mod</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">rhs</span><span class="p">:</span> <span class="n">Ring</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.rings.PolyRing.mod" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt id="klefki.algebra.rings.PolyRing.identity">
 <em class="property">classmethod </em><code class="sig-name descname">identity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cls</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.rings.PolyRing.identity" title="Permalink to this definition">¶</a></dt>
 <dd><p>The value for obeying axiom <cite>identity</cite> (3)</p>
@@ -108,6 +128,16 @@ a×(b+c) = (a×b) + (a×c)and(b+c)×a=b×a+c×a</p>
 <dl class="py method">
 <dt id="klefki.algebra.rings.PolyRing.__floordiv__">
 <code class="sig-name descname">__floordiv__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">rhs</span><span class="p">:</span> <span class="n">Ring</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.rings.PolyRing.__floordiv__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="klefki.algebra.rings.PolyRing.__iter__">
+<code class="sig-name descname">__iter__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.rings.PolyRing.__iter__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="klefki.algebra.rings.PolyRing.__getitem__">
+<code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">i</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.algebra.rings.PolyRing.__getitem__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">

@@ -27,6 +27,10 @@ Classes
 
    A Transformer, is a Object implemented  methods like `from_int`, `from_list`, `from_SomeType`.
 
+   .. method:: derive(cls, name, *args, **kwargs)
+      :classmethod:
+
+
    .. method:: craft(self, *args)
 
       Automatic lookup method like `from_{type}` of Class Object.
@@ -179,9 +183,6 @@ Classes
 
 
    .. method:: __matmul__(self, times)
-
-
-   .. method:: __pow__(self, times) -> 'Group'
 
 
    .. method:: __xor__(self, times) -> 'Group'

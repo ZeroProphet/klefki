@@ -18,11 +18,9 @@ Classes
 
 .. py:class:: PolyExtField(*args)
 
-   Bases: :class:`klefki.algebra.abstract.Field`
+   Bases: :class:`klefki.algebra.abstract.Field`, :class:`klefki.algebra.rings.PolyRing`
 
-   A FIELD is a set F which is closed under two operations + and × s.t.
-   (1) Fis an abelian group under + and
-   (2) F-{0} (the set F without the additive identity 0) is an abelian group under ×.
+   $U \subseteq F$, where F is subfield, P is its module cof
 
    .. attribute:: F
       
@@ -34,15 +32,21 @@ Classes
 
       
 
+   .. attribute:: DEG
+      
+
+      
+
    .. method:: from_int(self, o)
 
 
    .. method:: from_list(self, o)
 
 
-   .. method:: op(self, rhs)
+   .. method:: from_tuple(self, o)
 
-      The Operator for obeying axiom `associativity` (2)
+
+   .. method:: from_PolyRing(self, o)
 
 
    .. method:: sec_identity(cls)
@@ -53,11 +57,6 @@ Classes
       :classmethod:
 
       The value for obeying axiom `identity` (3)
-
-
-   .. method:: inverse(self)
-
-      Implement for axiom `inverse`
 
 
    .. method:: sec_inverse(self)
