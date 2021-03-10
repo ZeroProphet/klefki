@@ -1,18 +1,48 @@
-from klefki.algebra.abstract import Ring
+from klefki.algebra.abstract import Ring, Monoid
 from operator import add, mul
 from operator import neg
 from itertools import starmap
 from functools import partial
+from klefki.algorithms import deg
 
 __all__ = ["PolyRing"]
 
 
-def _multiply_polys(a, b):
-    if isinstance(a[0], int):
-        zero = 0
+def deg(p):
+    if isinstance(p[0], Monoid):
+        zero = p[0].__class__.zero()
     else:
-        zero = a[0].__class__.zero()
+        zero = 0
+    # rm tailing zeroo
+    d = len(p) - 1
+    while getattr(p[d], "id", p[d]) == 0 and d:
+        d -= 1
+    return d
 
+
+def _rounded_div_polys(a, b):
+    if isinstance(b[0], Monoid):
+        zero = b[0].__class__.zero()
+    else:
+        zero = 0
+    dega = deg(a)
+    degb = deg(b)
+    temp = [x for x in a]
+    o = [zero for x in a]
+    for i in range(dega - degb, -1, -1):
+        o[i] += temp[degb + i] / b[degb]
+        for c in range(degb + 1):
+            temp[c + i] -= o[c]
+    return o[:deg(o)+1]
+
+
+
+
+def _multiply_polys(a, b):
+    if isinstance(b[0], Monoid):
+        zero = b[0].__class__.zero()
+    else:
+        zero = 0
     o = [zero] * (len(a) + len(b) - 1)
     for i in range(len(a)):
         for j in range(len(b)):
@@ -21,11 +51,10 @@ def _multiply_polys(a, b):
 
 
 def _add_polys(a, b):
-    if isinstance(a[0], int):
-        zero = 0
+    if isinstance(b[0], Monoid):
+        zero = b[0].__class__.zero()
     else:
-        zero = a[0].__class__.zero()
-
+        zero = 0
     o = [zero] * max(len(a), len(b))
     for i in range(len(a)):
         o[i] += a[i]
@@ -93,7 +122,7 @@ class PolyRing(Ring):
 
     @property
     def degree(self):
-        return len(self.id)
+        return deg(self.id)
 
     def op(self, rhs: Ring):
         return self.fmap(_add_polys)(self, rhs)
@@ -107,9 +136,12 @@ class PolyRing(Ring):
     def div(self, rhs: Ring):
         return self.fmap(_div_polys)(self, rhs)
 
+    def rdiv(self, rhs: Ring):
+        return self.fmap(_rounded_div_polys)(self, rhs)
+
     def mod(self, rhs: Ring):
         poly = self.id
-        for exp in range(rhs.degree - 2, -1, -1):
+        for exp in range(len(rhs.id) - 2, -1, -1):
             top = poly.pop()
             for i, c in [(i, c) for i, c in enumerate(rhs) if c]:
                 poly[exp + i] -= top * c
@@ -149,4 +181,4 @@ class PolyRing(Ring):
         return o
 
     def __call__(self, x):
-        return sum([self.id[i] * x**i for i in range(self.degree)])
+        return sum([self.id[i] * x**i for i in range(len(self.id))])

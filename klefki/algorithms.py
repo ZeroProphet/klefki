@@ -12,17 +12,22 @@ T = TypeVar('T')
 
 
 def deg(p):
+    # rm tailing zeroo
     d = len(p) - 1
     while getattr(p[d], "id", p[d]) == 0 and d:
         d -= 1
     return d
 
 
-def poly_rounded_div(a, b, field=int):
+def poly_rounded_div(a, b):
+    if isinstance(a[0], int):
+        zero = 0
+    else:
+        zero = a[0].__class__.zero()
     dega = deg(a)
     degb = deg(b)
-    temp = [field(x) for x in a]
-    o = [field(0) for x in a]
+    temp = [x for x in a]
+    o = [zero for x in a]
     for i in range(dega - degb, -1, -1):
         o[i] += temp[degb + i] / b[degb]
         for c in range(degb + 1):

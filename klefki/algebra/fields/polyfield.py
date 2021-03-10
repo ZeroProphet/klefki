@@ -1,5 +1,4 @@
 from abc import abstractproperty
-from klefki.algorithms import deg, poly_rounded_div
 from klefki.algebra.rings import PolyRing
 from klefki.algebra.abstract import Field
 
@@ -50,8 +49,8 @@ class PolyExtField(Field, PolyRing):
             self.P + [self.F.one()]
         )
 
-        while deg(low):
-            r = poly_rounded_div(high, low, field)
+        while PolyRing(low).degree:
+            r = PolyRing(high).rdiv(PolyRing(low)).id
             r += [field.zero()] * (self.DEG + 1 - len(r))
             nm = hm
             new = high
