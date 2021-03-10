@@ -19,12 +19,34 @@ def deg(p):
     return d
 
 
-def _rounded_div_polys(a, b):
-    # https://en.wikipedia.org/wiki/Polynomial_greatest_common_divisor#Euclidean_division
+def lc(p):
+    return p[deb-1]
+
+def euclidean_division(a, b):
+    """
+    ref: https://en.wikipedia.org/wiki/Polynomial_greatest_common_divisor#Euclidean_division
+    Euclidean division
+
+    Input: a and b ≠ 0 two polynomials in the variable x;
+    Output: q, the quotient, and r, the remainder;
+    ```
+    q := 0
+    r := a
+    d := deg(b)
+    c := lc(b)
+    while deg(r) ≥ d do
+        s := lc(r)/c x^{deg(r)−d}
+        q := q + s
+        r := r − sb
+    end do
+    return (q, r)
+    ```
+    """
     if isinstance(b[0], Monoid):
         zero = b[0].__class__.zero()
     else:
         zero = 0
+
     dega = deg(a)
     degb = deg(b)
     temp = [x for x in a]
@@ -65,12 +87,29 @@ def _neg_poly(a):
     return [-x for x in a]
 
 
-def _div_polys(a, b):
+def polynomial_long_division(a, b):
+
     # https://en.wikipedia.org/wiki/Polynomial_long_division
+    """
+    function n / d is
+
+    require d ≠ 0
+    q ← 0
+    r ← n             // At each step n = d × q + r
+
+    while r ≠ 0 and degree(r) ≥ degree(d) do
+        t ← lead(r) / lead(d)       // Divide the leading terms
+        q ← q + t
+        r ← r − t × d
+
+    return (q, r)
+
+    """
     if isinstance(a[0], int):
         zero = 0
     else:
         zero = a[0].__class__.zero()
+
     o = [zero] * (len(a) - len(b) + 1)
     remainder = a
     while len(remainder) >= len(b):
@@ -133,10 +172,10 @@ class PolyRing(Ring):
         return self.fmap(_multiply_polys)(self, rhs)
 
     def div(self, rhs: Ring):
-        return self.fmap(_div_polys)(self, rhs)
+        return self.fmap(polynomial_long_division)(self, rhs)
 
     def rdiv(self, rhs: Ring):
-        return self.fmap(_rounded_div_polys)(self, rhs)
+        return self.fmap(euclidean_division)(self, rhs)
 
     def mod(self, rhs: Ring):
         poly = self.id
