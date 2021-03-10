@@ -11,7 +11,6 @@ class PolyExtField(Field, PolyRing):
     P = abstractproperty()
     DEG = abstractproperty()
 
-
     def from_int(self, o):
         if o == 0:
             return self.zero().id

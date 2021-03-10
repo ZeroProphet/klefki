@@ -3,7 +3,6 @@ from operator import add, mul
 from operator import neg
 from itertools import starmap
 from functools import partial
-from klefki.algorithms import deg
 
 __all__ = ["PolyRing"]
 
@@ -21,6 +20,7 @@ def deg(p):
 
 
 def _rounded_div_polys(a, b):
+    # https://en.wikipedia.org/wiki/Polynomial_greatest_common_divisor#Euclidean_division
     if isinstance(b[0], Monoid):
         zero = b[0].__class__.zero()
     else:
@@ -34,8 +34,6 @@ def _rounded_div_polys(a, b):
         for c in range(degb + 1):
             temp[c + i] -= o[c]
     return o[:deg(o)+1]
-
-
 
 
 def _multiply_polys(a, b):
@@ -68,6 +66,7 @@ def _neg_poly(a):
 
 
 def _div_polys(a, b):
+    # https://en.wikipedia.org/wiki/Polynomial_long_division
     if isinstance(a[0], int):
         zero = 0
     else:
