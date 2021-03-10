@@ -5,6 +5,7 @@ from klefki.algorithms import double_and_add_algorithm
 from klefki.algorithms import complex_truediv_algorithm
 from klefki.algorithms import fast_pow
 from klefki.numbers import modular_sqrt
+from copy import copy, deepcopy
 import sys
 
 
@@ -23,6 +24,12 @@ class Transformer(metaclass=ABCMeta):
     @classmethod
     def derive(cls, name, *args, **kwargs):
         return type(name, (cls,), kwargs)
+
+    def clone(self):
+        return self.type(copy(self.id))
+
+    def copy(self):
+        return self.type(deepcopy(self.id))
 
     def craft(self, *args):
         """
