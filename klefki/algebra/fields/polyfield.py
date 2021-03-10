@@ -37,6 +37,7 @@ class PolyExtField(Field, PolyRing):
         return cls([cls.F.zero()] * cls.DEG)
 
     def sec_inverse(self):
+        # http://www-users.math.umn.edu/~garrett/coding/Overheads/12_polyalg_bounds.pdf
         field = self.F
         lm, hm = (
             [self.F.one()] + self.zero().id,
@@ -49,7 +50,7 @@ class PolyExtField(Field, PolyRing):
         )
 
         while PolyRing(low).degree:
-            r = PolyRing(high).rdiv(PolyRing(low)).id
+            r = PolyRing(high).div(PolyRing(low)).id
             r += [field.zero()] * (self.DEG + 1 - len(r))
             nm = hm
             new = high

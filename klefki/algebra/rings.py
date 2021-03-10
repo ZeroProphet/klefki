@@ -22,6 +22,7 @@ def deg(p):
 def lc(p):
     return p[deb-1]
 
+
 def euclidean_division(a, b):
     """
     ref: https://en.wikipedia.org/wiki/Polynomial_greatest_common_divisor#Euclidean_division
