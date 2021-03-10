@@ -8,7 +8,12 @@ __all__ = ["PolyRing"]
 
 
 def _multiply_polys(a, b):
-    o = [0] * (len(a) + len(b) - 1)
+    if isinstance(a[0], int):
+        zero = 0
+    else:
+        zero = a[0].__class__.zero()
+
+    o = [zero] * (len(a) + len(b) - 1)
     for i in range(len(a)):
         for j in range(len(b)):
             o[i + j] += a[i] * b[j]
@@ -16,7 +21,12 @@ def _multiply_polys(a, b):
 
 
 def _add_polys(a, b):
-    o = [0] * max(len(a), len(b))
+    if isinstance(a[0], int):
+        zero = 0
+    else:
+        zero = a[0].__class__.zero()
+
+    o = [zero] * max(len(a), len(b))
     for i in range(len(a)):
         o[i] += a[i]
     for i in range(len(b)):
@@ -29,7 +39,11 @@ def _neg_poly(a):
 
 
 def _div_polys(a, b):
-    o = [0] * (len(a) - len(b) + 1)
+    if isinstance(a[0], int):
+        zero = 0
+    else:
+        zero = a[0].__class__.zero()
+    o = [zero] * (len(a) - len(b) + 1)
     remainder = a
     while len(remainder) >= len(b):
         leading_fac = remainder[-1] / b[-1]
@@ -41,7 +55,7 @@ def _div_polys(a, b):
             _neg_poly(
                 _multiply_polys(
                     b,
-                    [0] * pos + [leading_fac]
+                    [zero] * pos + [leading_fac]
                 )
             )
         )[:-1]
