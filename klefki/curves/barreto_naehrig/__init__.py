@@ -29,14 +29,6 @@ the cyclic group G1 (aka Ec1) is instantiated as E(Fp)[n] where n := p + 1 - t;
 the cyclic group G2 (aka Ec2) is instantiated as the inverse image of E'(Fp^2)[n] under a twisting isomorphism from E' to E; and
 the pairing e: G1 x G2 -> Fp12 is the optimal ate pairing.
 
-
-The field Fp12 is constructed via the following tower:
-
-    Fp2 = Fp[u] / (u^2 + 1)
-    Fp6 = Fp2[v] / (v^3 - Xi) where Xi = u + 1
-    Fp12 = Fp6[w] / (w^2 - v)
-
-
 ------------
 Note:
 Suppose that E/F is a field extension. Then E may be considered as a vector space over F (the field of scalars). The dimension of this vector space is called the degree of the field extension, and it is denoted by [E:F].
