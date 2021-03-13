@@ -19,8 +19,8 @@ class BN128FP2(PolyExtField):
     P = [BN128FP(e) for e in const.BN128_FP2_E]
 
     @classmethod
-    def from_fp(cls, v):
-        return cls([v, cls.F.zero()])
+    def from_BN128FP(cls, v):
+        return [v, cls.F.zero()]
 
 
 class BN128FP12(PolyExtField):
@@ -29,13 +29,13 @@ class BN128FP12(PolyExtField):
     P = [BN128FP(e) for e in const.BN128_FP12_E]
 
     @classmethod
-    def from_fp(cls, v):
-        return cls([v] + ([cls.F.zero()] * 11))
+    def from_BN128FP(cls, v):
+        return [v] + ([cls.F.zero()] * 11)
 
     @classmethod
-    def from_fp2(cls, v):
+    def from_BN128FP2(cls, v):
         zero = cls.F.zero()
-        return cls([v.id[0]] + [zero] * 5 + [v.id[1]] + [zero] * 5)
+        return [v.id[0]] + [zero] * 5 + [v.id[1]] + [zero] * 5
 
 
 class BN128ScalarFP(FiniteField):
@@ -87,7 +87,7 @@ class ECGBN128(PairFriendlyEllipticCurveGroup):
 
     @classmethod
     def twist_FP_to_FP12(cls, x, y):
-        ret = cls(BN128FP12.from_fp(x), BN128FP12.from_fp(y))
+        ret = cls(BN128FP12(x), BN128FP12(y))
         assert ret.is_on_curve()
         return ret
 
@@ -101,8 +101,8 @@ class ECGBN128(PairFriendlyEllipticCurveGroup):
         # w=0x^5+0X^4+0X^3+0X^2+1X^1+0X^0).
         w = BN128FP12([zero, one] + [zero] * 10)
 
-        nx = BN128FP12.from_fp2(x)
-        ny = BN128FP12.from_fp2(y)
+        nx = BN128FP12(x)
+        ny = BN128FP12(y)
         ret = cls((nx * (w ** 2), ny * (w ** 3)))
         assert ret.is_on_curve()
         return ret
