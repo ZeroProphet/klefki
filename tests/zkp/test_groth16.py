@@ -1,4 +1,4 @@
-from klefki.curves.barreto_naehrig.bn128 import BN128ScalarFP as FP, ECGBN128 as ECG
+from klefki.curves.bns.bn128 import BN128ScalarFP as FP, ECGBN128 as ECG
 from klefki.algebra.utils import randfield
 from klefki.zkp import groth16
 from klefki.zkp.r1cs import R1CS

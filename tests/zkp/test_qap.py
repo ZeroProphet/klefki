@@ -1,7 +1,7 @@
 from functools import partial
 from klefki.zkp.r1cs import R1CS, mul
 from klefki.zkp.qap import QAP
-from klefki.curves.barreto_naehrig.bn128 import BN128FP as F
+from klefki.curves.bns.bn128 import BN128FP as F
 from klefki.algebra.rings import PolyRing
 
 # map int to field
