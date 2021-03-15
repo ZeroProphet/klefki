@@ -106,7 +106,7 @@ def CF2Bytes(cf, l=32):
 
 
 def to_u32s(a: int, endian="little"):
-    l = math.ceil(a.bit_length() / 8)
+    l = 32
 
     def split():
         carry = a
@@ -129,3 +129,29 @@ def from_u32s(a: list, endian="little"):
         ret += i * (2**(32*pos))
         pos += 1
     return ret
+
+
+def from_u64s(a: list, endian="little"):
+    ret = 0
+    pos = 0
+    if endian == "big":
+        a = a[::-1]
+    for i in a:
+        ret += i * (2**(64*pos))
+        pos += 1
+    return ret
+
+
+def to_u64s(a: int, endian="little"):
+    l = 64
+
+    def split():
+        carry = a
+        while carry != 0:
+            yield carry % 2**64
+            carry = carry // (2 ** 64)
+
+    return {
+        "big": list(map(hex, split()))[::-1],
+        "little": list(map(hex, split()))
+    }[endian]

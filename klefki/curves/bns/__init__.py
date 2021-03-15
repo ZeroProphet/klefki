@@ -1,5 +1,6 @@
 """
 doc: https://tools.ietf.org/id/draft-kasamatsu-bncurves-01.html
+paper: https://eprint.iacr.org/2010/526.pdf
 paper: https://eprint.iacr.org/2005/133.pdf
 
 A BN curve [3] is one of the instantiations of pairing-friendly curves proposed in 2005. A pairing over BN curves constructs optimal Ate pairings.
