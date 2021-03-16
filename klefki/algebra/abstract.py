@@ -133,9 +133,13 @@ class Groupoid(Functor):
         return self.__add__(g)
 
     def __repr__(self):
+        value = self.id
+        if isinstance(value, int):
+            value = hex(value)
+
         return "%s::%s" % (
             type(self).__name__,
-            self.id
+            value
         )
 
     def __str__(self):
