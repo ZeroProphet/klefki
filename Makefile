@@ -5,7 +5,7 @@ dev-install:
 	python setup.py develop
 
 test:
-	pytest -sv
+	pytest -sv -n auto
 debug:
 	pytest -sv --pdb
 upload:
