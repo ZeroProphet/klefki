@@ -17,6 +17,7 @@ Subpackages
 
    fields/index.rst
    groups/index.rst
+   rings/index.rst
 
 
 Submodules
@@ -29,7 +30,6 @@ Submodules
    concrete/index.rst
    isomorphism/index.rst
    meta/index.rst
-   rings/index.rst
    utils/index.rst
 
 

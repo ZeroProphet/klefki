@@ -10,7 +10,7 @@ Subpackages
    :titlesonly:
    :maxdepth: 3
 
-   barreto_naehrig/index.rst
+   bns/index.rst
 
 
 Submodules
@@ -21,6 +21,7 @@ Submodules
 
    arith/index.rst
    baby_jubjub/index.rst
+   bls12_381/index.rst
    secp256k1/index.rst
 
 

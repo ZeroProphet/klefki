@@ -1,27 +1,18 @@
-:mod:`klefki.algebra.rings`
-===========================
+:mod:`klefki.algebra.rings.poly`
+================================
 
-.. py:module:: klefki.algebra.rings
-
-
-Submodules
-----------
-.. toctree::
-   :titlesonly:
-   :maxdepth: 1
-
-   poly/index.rst
+.. py:module:: klefki.algebra.rings.poly
 
 
-Package Contents
-----------------
+Module Contents
+---------------
 
 Classes
 ~~~~~~~
 
 .. autoapisummary::
 
-   klefki.algebra.rings.PolyRing
+   klefki.algebra.rings.poly.PolyRing
 
 
 

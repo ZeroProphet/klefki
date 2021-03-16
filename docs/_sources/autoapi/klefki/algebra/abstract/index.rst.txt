@@ -31,6 +31,12 @@ Classes
       :classmethod:
 
 
+   .. method:: clone(self)
+
+
+   .. method:: copy(self)
+
+
    .. method:: craft(self, *args)
 
       Automatic lookup method like `from_{type}` of Class Object.

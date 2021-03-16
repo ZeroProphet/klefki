@@ -34,6 +34,8 @@ Functions
    klefki.utils.CF2Bytes
    klefki.utils.to_u32s
    klefki.utils.from_u32s
+   klefki.utils.from_u64s
+   klefki.utils.to_u64s
 
 
 .. data:: b58encode
@@ -113,5 +115,11 @@ Functions
 
 
 .. function:: from_u32s(a: list, endian='little')
+
+
+.. function:: from_u64s(a: list, endian='little')
+
+
+.. function:: to_u64s(a: int, endian='little')
 
 
