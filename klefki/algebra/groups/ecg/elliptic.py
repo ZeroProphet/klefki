@@ -75,6 +75,14 @@ class PairFriendlyEllipticCurveGroup(EllipticCurveGroup):
     # Scalar Field
     F = abstractproperty()
 
+    @abstractproperty
+    def pairing(cls, P, Q):
+        pass
+
+    @classmethod
+    def e(cls, P, Q):
+        return cls.pairing(P, Q)
+
 
 class EllipicCyclicSubgroup(EllipticCurveGroup):
     '''

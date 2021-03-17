@@ -160,10 +160,6 @@ class ECGBN128(PairFriendlyEllipticCurveGroup):
         assert isinstance(P.x, BN128FP)
         return cls.miller_loop(Q.twist(), P.twist())
 
-    @classmethod
-    def e(cls, P, Q):
-        return cls.pairing(P, Q)
-
     def is_on_curve(self):
         return self.y**2 - self.x**3 == self.B(type(self.x))
 
