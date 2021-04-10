@@ -2,19 +2,25 @@ import ast
 from time import time
 from copy import deepcopy
 
+INSTRUCTION = ["set", "add", "sub", "mul", "div"]
 
 class Flattener:
     def __init__(self, src, ctx={}):
-        self.ops = ["set", "+", "-", "*", "/"]
+        self.ops = INSTRUCTION
         self.ctx = ctx
         # drop decorator
         src = "\n".join([r for r in src.split("\n") if not "@" in r])
+
         if 'arg' not in dir(ast):
             ast.arg = type(None)
+
         raw = ast.parse(src.lstrip()).body
+
         assert len(raw) == 1 and isinstance(
             raw[0], ast.FunctionDef), "only support function"
+
         self.raw = raw[0]
+
         self.extra_inputs()
         self.syms = [i for i in self.inputs]
         self.extra_body()
@@ -207,13 +213,13 @@ class Flattener:
         avalid_binop = (ast.Mult, ast.Add, ast.Sub, ast.Div, ast.Pow)
         assert type(expr.op) in avalid_binop
         if isinstance(expr.op, ast.Add):
-            op = '+'
+            op = 'add'
         elif isinstance(expr.op, ast.Mult):
-            op = '*'
+            op = 'mul'
         elif isinstance(expr.op, ast.Sub):
-            op = '-'
+            op = 'sub'
         elif isinstance(expr.op, ast.Div):
-            op = '/'
+            op = 'div'
         elif isinstance(expr.op, ast.Pow):
             return self.flatten_pow(target, expr)
 
@@ -273,5 +279,5 @@ class Flattener:
             for i in range(1, expr.right.n):
                 latest = self.latest_sym(nxt)
                 nxt = target if i == expr.right.n - 1 else self.mk_symbol()
-                o.append(['*', nxt, latest, base])
+                o.append(['mul', nxt, latest, base])
             return o

@@ -30,35 +30,52 @@ def get_var_placement(inputs, flatcode):
 # Convert the flattened code generated above into a rank-1 constraint system
 def flatcode_to_r1cs(inputs, flatcode, field=int):
     # f.var
+    # [~one, inputs, ~out, temp_vars]
     varz = get_var_placement(inputs, flatcode)
     A, B, C = [], [], []
+
+    # [true, true, true, ...]
     used = {i: True for i in inputs}
+
     for x in flatcode:
-        a, b, c = [field(0)] * len(varz), [field(0)] * \
-            len(varz), [field(0)] * len(varz)
-        if x[1] in used:
+        (a, b, c) = (
+            [field(0)] * len(varz),
+            [field(0)] * len(varz),
+            [field(0)] * len(varz)
+        )
+        # op var expr
+        (op, sym, expr) = (
+            x[0],
+            x[1],
+            x[2:]
+        )
+        if sym in used:
             raise Exception("Variable already used: %r" % x[1])
-        used[x[1]] = True
-        if x[0] == 'set':
-            a[varz.index(x[1])] += field(1)
+
+        used[sym] = True
+
+        if op == 'set':
+            a[varz.index(sym)] += field(1)
             insert_var(a, varz, x[2], used, reverse=True)
             b[0] = field(1)
-        elif x[0] == '+' or x[0] == '-':
-            c[varz.index(x[1])] = field(1)
-            insert_var(a, varz, x[2], used)
-            insert_var(a, varz, x[3], used, reverse=(x[0] == '-'))
+        elif op == 'add' or op == 'sub':
+            c[varz.index(sym)] = field(1)
+            insert_var(a, varz, expr[0], used)
+            insert_var(a, varz, expr[1], used, reverse=(op == 'sub'))
             b[0] = field(1)
-        elif x[0] == '*':
-            c[varz.index(x[1])] = field(1)
-            insert_var(a, varz, x[2], used)
-            insert_var(b, varz, x[3], used)
-        elif x[0] == '/':
-            insert_var(c, varz, x[2], used)
-            a[varz.index(x[1])] = field(1)
-            insert_var(b, varz, x[3], used)
+        elif op == 'mul':
+            c[varz.index(sym)] = field(1)
+            insert_var(a, varz, expr[0], used)
+            insert_var(b, varz, expr[1], used)
+        elif op == 'div':
+            insert_var(c, varz, expr[0], used)
+            a[varz.index(sym)] = field(1)
+            insert_var(b, varz, expr[1], used)
+
         A.append(a)
         B.append(b)
         C.append(c)
+
     return A, B, C
 
 # Get a variable or number given an existing input vector
@@ -85,10 +102,10 @@ def assign_variables(inputs, input_vars, flatcode, field):
     for x in flatcode:
         assignment[varz.index(x[1])] = {
             "set": lambda: field(grab_var(varz, assignment, x[2])),
-            "+": lambda: field(grab_var(varz, assignment, x[2])) + field(grab_var(varz, assignment, x[3])),
-            "-": lambda: field(grab_var(varz, assignment, x[2])) - field(grab_var(varz, assignment, x[3])),
-            "*": lambda: field(grab_var(varz, assignment, x[2])) * field(grab_var(varz, assignment, x[3])),
-            "/": lambda: field(grab_var(varz, assignment, x[2])) / field(grab_var(varz, assignment, x[3]))
+            "add": lambda: field(grab_var(varz, assignment, x[2])) + field(grab_var(varz, assignment, x[3])),
+            "sub": lambda: field(grab_var(varz, assignment, x[2])) - field(grab_var(varz, assignment, x[3])),
+            "mul": lambda: field(grab_var(varz, assignment, x[2])) * field(grab_var(varz, assignment, x[3])),
+            "div": lambda: field(grab_var(varz, assignment, x[2])) / field(grab_var(varz, assignment, x[3]))
         }[x[0]]()
     return assignment
 
