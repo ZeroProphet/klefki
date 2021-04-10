@@ -68,8 +68,8 @@ def flatcode_to_r1cs(inputs, flatcode, field=int):
             insert_var(a, varz, expr[0], used)
             insert_var(b, varz, expr[1], used)
         elif op == 'div':
-            insert_var(c, varz, expr[0], used)
             a[varz.index(sym)] = field(1)
+            insert_var(c, varz, expr[0], used)
             insert_var(b, varz, expr[1], used)
 
         A.append(a)
