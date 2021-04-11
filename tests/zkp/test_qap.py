@@ -1,6 +1,6 @@
 from functools import partial
-from klefki.zkp.r1cs import R1CS, mul
-from klefki.zkp.qap import QAP
+from klefki.zkp.groth16.r1cs import R1CS, mul
+from klefki.zkp.groth16.qap import QAP
 from klefki.curves.bns.bn128 import BN128FP as F
 from klefki.algebra.rings import PolyRing
 

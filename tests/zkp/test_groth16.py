@@ -1,8 +1,8 @@
 from klefki.curves.bns.bn128 import BN128ScalarFP as FP, ECGBN128 as ECG
 from klefki.algebra.utils import randfield
-from klefki.zkp import groth16
-from klefki.zkp.r1cs import R1CS
-from klefki.zkp.qap import QAP
+from klefki.zkp.groth16 import groth16
+from klefki.zkp.groth16.r1cs import R1CS
+from klefki.zkp.groth16.qap import QAP
 
 
 @R1CS.r1cs(FP)

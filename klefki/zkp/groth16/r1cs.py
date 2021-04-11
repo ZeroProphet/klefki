@@ -4,7 +4,7 @@ ref: https://medium.com/@VitalikButerin/quadratic-arithmetic-programs-from-zero-
 """
 
 import inspect
-from klefki.zkp.flatcode import Flattener
+from klefki.zkp.zkpy import Flattener
 import types
 
 
@@ -160,7 +160,6 @@ class R1CS:
             f = fn_or_field
             field = int
             return wrapper(f)
-            return ret
         else:
             field = fn_or_field
             return wrapper

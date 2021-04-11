@@ -5,7 +5,7 @@ from typing import Type
 from klefki.algebra.fields import FiniteField
 from klefki.algebra.rings import PolyRing
 from klefki.algebra.utils import randfield
-from klefki.zkp.r1cs import R1CS, mul as vmul
+from klefki.zkp.groth16.r1cs import R1CS, mul as vmul
 from functools import partial, reduce
 from itertools import starmap
 from operator import add, mul
