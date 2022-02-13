@@ -1,5 +1,6 @@
 import base58
 import base64
+import sha3
 from typing import Iterable, Iterator, Callable
 from klefki.algebra.isomorphism import bijection
 from klefki.curves.secp256k1 import (
@@ -25,6 +26,11 @@ def int_to_byte64(key: int) -> bytes:
 @bijection(int_to_byte)
 def byte_to_int(byte: bytes) -> CF:
     return int.from_bytes(byte, "big")
+
+def to_keccak256int(a: str) -> int:
+    h = sha3.keccak_256()
+    h.update(str.encode())
+    return int.from_bytes(h.digest(), "big")
 
 
 def dhash256(x: int) -> int:

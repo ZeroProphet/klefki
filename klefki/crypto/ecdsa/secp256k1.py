@@ -1,3 +1,4 @@
+from typing import Callable
 from typing import Tuple
 import random
 from klefki.utils import to_sha256int
@@ -34,12 +35,12 @@ def pubkey(priv: CF) -> CG:
     return CG(JG(G @ priv))
 
 
-def sign(priv: CF, m: str) -> SigType:
+def sign(priv: CF, m: str, hash_fn: Callable[[str], int]=to_sha256int) -> SigType:
     '''
     https://bitcoin.stackexchange.com/questions/38351/ecdsa-v-r-s-what-is-v
     '''
     k = CF(random_privkey())
-    z = CF(to_sha256int(m))
+    z = CF(hash_fn(m))
 
     P = G @ k
     r, y = CF(P.value[0]), P.value[1]
@@ -70,8 +71,8 @@ def verify_msghash(pub: CG, sig: tuple, mhash: int):
 def recover(sig: tuple, mhash: int):
     v, r, s = sig
     x = F(r)
-    xcubedaxb = x ** 3 + F(A) * x + F(B)
-    beta = pow(xcubedaxb.value, (P + 1) // 4, P)
+    sqrt_y = x ** 3 + F(A) * x + F(B)
+    beta = pow(sqrt_y.value, (P + 1) // 4, P)
     if v.value % 2 ^ beta % 2:
         y = beta
         print('case 1')
