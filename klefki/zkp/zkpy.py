@@ -1,6 +1,9 @@
 import ast
 from time import time
 from copy import deepcopy
+import inspect
+
+__all__ = ["zkpy", "Flattener"]
 
 INSTRUCTION = ["set", "add", "sub", "mul", "div"]
 
@@ -106,7 +109,7 @@ class Flattener:
         avalid_stmt = (ast.Assign, ast.Return, ast.For, ast.Assert)
         returned = False
         for c in self.raw.body:
-            assert isinstance(c, avalid_stmt)
+            assert isinstance(c, avalid_stmt), c
             assert not returned
             if isinstance(c, ast.For):
                 body += self.extra_loop(c)
@@ -281,3 +284,8 @@ class Flattener:
                 nxt = target if i == expr.right.n - 1 else self.mk_symbol()
                 o.append(['mul', nxt, latest, base])
             return o
+
+def zkpy(f, ctx={}):
+    src = inspect.getsource(f)
+    f.flatten = Flattener(src, ctx)
+    return f
