@@ -19,6 +19,7 @@ Academic Notes
    :maxdepth: 1
    :glob:
 
+   Vitalik's stealth addresses Step by Step with klekfi
    Non-interactive and Reusable Non-malleable Commitment Schemes
    Pedersen Commitment
    On Sigma Protocols
