@@ -26,7 +26,7 @@ Functions
 .. function:: pubkey(priv: CF) -> CG
 
 
-.. function:: sign(priv: CF, m: str) -> SigType
+.. function:: sign(priv: CF, m: str, hash_fn: Callable[[str], int] = to_sha256int) -> SigType
 
    https://bitcoin.stackexchange.com/questions/38351/ecdsa-v-r-s-what-is-v
 

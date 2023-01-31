@@ -53,7 +53,7 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#klefki.crypto.ecdsa.secp256k1.pubkey" title="klefki.crypto.ecdsa.secp256k1.pubkey"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pubkey</span></code></a>(priv: CF) → CG</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#klefki.crypto.ecdsa.secp256k1.sign" title="klefki.crypto.ecdsa.secp256k1.sign"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sign</span></code></a>(priv: CF, m: str) → SigType</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#klefki.crypto.ecdsa.secp256k1.sign" title="klefki.crypto.ecdsa.secp256k1.sign"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sign</span></code></a>(priv: CF, m: str, hash_fn: Callable[[str], int] = to_sha256int) → SigType</p></td>
 <td><p><a class="reference external" href="https://bitcoin.stackexchange.com/questions/38351/ecdsa-v-r-s-what-is-v">https://bitcoin.stackexchange.com/questions/38351/ecdsa-v-r-s-what-is-v</a></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#klefki.crypto.ecdsa.secp256k1.verify" title="klefki.crypto.ecdsa.secp256k1.verify"><code class="xref py py-obj docutils literal notranslate"><span class="pre">verify</span></code></a>(pub: CG, sig: tuple, msg: str)</p></td>
@@ -76,7 +76,7 @@
 
 <dl class="py function">
 <dt id="klefki.crypto.ecdsa.secp256k1.sign">
-<code class="sig-prename descclassname">klefki.crypto.ecdsa.secp256k1.</code><code class="sig-name descname">sign</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">priv</span><span class="p">:</span> <span class="n">CF</span></em>, <em class="sig-param"><span class="n">m</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; SigType<a class="headerlink" href="#klefki.crypto.ecdsa.secp256k1.sign" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">klefki.crypto.ecdsa.secp256k1.</code><code class="sig-name descname">sign</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">priv</span><span class="p">:</span> <span class="n">CF</span></em>, <em class="sig-param"><span class="n">m</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">hash_fn</span><span class="p">:</span> <span class="n">Callable<span class="p">[</span><span class="p">[</span>str<span class="p">]</span><span class="p">, </span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">to_sha256int</span></em><span class="sig-paren">)</span> &#x2192; SigType<a class="headerlink" href="#klefki.crypto.ecdsa.secp256k1.sign" title="Permalink to this definition">¶</a></dt>
 <dd><p><a class="reference external" href="https://bitcoin.stackexchange.com/questions/38351/ecdsa-v-r-s-what-is-v">https://bitcoin.stackexchange.com/questions/38351/ecdsa-v-r-s-what-is-v</a></p>
 </dd></dl>
 
@@ -127,6 +127,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../../From%20ZK%20to%20Bulletproofs.html">From ZK to Bulletproofsproof via Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../Paillier%27s%20encryption%20Scheme.html">Paillier’s encryption Scheme</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../ElGamal.html">ElGamal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../ElGamal.html#Test">Test</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../Shamir%27s%20secret%20sharing%20scheme.html">Shamir’s secret sharing scheme</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../Trapdoor%20Commitment%20Schemes.html">Discrete-Logarithm-Based Trapdoor Commitment Schemes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../Threshold%20ECDSA.html">Threshold ECDSA</a></li>

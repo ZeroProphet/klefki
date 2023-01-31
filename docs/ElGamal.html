@@ -303,8 +303,8 @@ K_{AB} &amp;\equiv \alpha^{x_ax_B} \mod p\\
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">klefki.numbers.primes</span> <span class="kn">import</span> <span class="n">generate_prime</span>
-<span class="kn">from</span> <span class="nn">klefki.types.algebra.meta</span> <span class="kn">import</span> <span class="n">field</span>
-<span class="kn">from</span> <span class="nn">klefki.types.algebra.utils</span> <span class="kn">import</span> <span class="n">randfield</span>
+<span class="kn">from</span> <span class="nn">klefki.algebra.meta</span> <span class="kn">import</span> <span class="n">field</span>
+<span class="kn">from</span> <span class="nn">klefki.algebra.utils</span> <span class="kn">import</span> <span class="n">randfield</span>
 <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">gcd</span>
 </pre></div>
 </div>
@@ -438,8 +438,10 @@ True
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">klefki.types.algebra.concrete</span> <span class="kn">import</span> <span class="n">EllipticCurveCyclicSubgroupSecp256k1</span> <span class="k">as</span> <span class="n">Curve</span>
-<span class="kn">from</span> <span class="nn">klefki.types.algebra.meta</span> <span class="kn">import</span> <span class="n">field</span>
+<span></span><span class="kn">from</span> <span class="nn">klefki.curves.secp256k1</span> <span class="kn">import</span> <span class="n">EllipticCurveGroupSecp256k1</span> <span class="k">as</span> <span class="n">Curve</span>
+<span class="kn">from</span> <span class="nn">klefki.curves.secp256k1</span> <span class="kn">import</span> <span class="n">FiniteFieldSecp256k1</span> <span class="k">as</span> <span class="n">F</span>
+
+<span class="kn">from</span> <span class="nn">klefki.algebra.meta</span> <span class="kn">import</span> <span class="n">field</span>
 </pre></div>
 </div>
 </div>
@@ -458,9 +460,8 @@ True
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">G</span> <span class="o">=</span> <span class="n">Curve</span><span class="o">.</span><span class="n">G</span>
-<span class="n">F</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">N</span><span class="p">,</span> <span class="s2">&quot;N&quot;</span><span class="p">)</span>
-<span class="n">sk</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">F</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
-<span class="n">H</span> <span class="o">=</span> <span class="n">G</span> <span class="o">**</span> <span class="n">sk</span>
+<span class="n">sk</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">F</span><span class="p">)</span>
+<span class="n">H</span> <span class="o">=</span> <span class="n">G</span> <span class="o">@</span> <span class="n">sk</span>
 
 </pre></div>
 </div>
@@ -493,11 +494,11 @@ True
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">r</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">F</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
-<span class="n">m</span> <span class="o">=</span> <span class="n">Curve</span><span class="o">.</span><span class="n">lift_x</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">functor</span><span class="p">(</span><span class="n">M</span><span class="p">))</span>
+<span></span><span class="n">y</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">F</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">Curve</span><span class="o">.</span><span class="n">lift_x</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
 
-<span class="n">c1</span> <span class="o">=</span> <span class="n">G</span> <span class="o">**</span> <span class="n">r</span>
-<span class="n">c2</span> <span class="o">=</span> <span class="n">H</span> <span class="o">**</span> <span class="n">r</span> <span class="o">*</span> <span class="n">m</span>
+<span class="n">c1</span> <span class="o">=</span> <span class="n">G</span> <span class="o">@</span> <span class="n">y</span>
+<span class="n">c2</span> <span class="o">=</span> <span class="n">H</span> <span class="o">@</span> <span class="n">y</span> <span class="o">+</span> <span class="n">m</span>
 
 <span class="p">(</span><span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">)</span>
 </pre></div>
@@ -509,8 +510,8 @@ True
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(EllipticCurveCyclicSubgroupSecp256k1::(FiniteFieldSecp256k1::50695783910046893601666390337786619587659246921908112925672115372148138900665, FiniteFieldSecp256k1::114406174390362987978349124809309676386946546953753080812602069581418585244744),
- EllipticCurveCyclicSubgroupSecp256k1::(FiniteFieldSecp256k1::70974968352896830540264905238426315678617660882922307546609957308559565418409, FiniteFieldSecp256k1::13734995876652768244494860365199198012026770801308456782571082504898450404863))
+(EllipticCurveGroupSecp256k1::(FiniteFieldSecp256k1::0xad78a3d6fd61dbf18585d0bdfc5263ead132b1dcb2fcf5d008e1f30662299c9e, FiniteFieldSecp256k1::0xc691845486a1ceebf28e1092de6b875f155b594e99036dc216207e36884167db),
+ EllipticCurveGroupSecp256k1::(FiniteFieldSecp256k1::0xa81a8ede02088dd0fabc535a5a58621ed70cdfdc34c5d71cec152845bffcb3d5, FiniteFieldSecp256k1::0x189dbf0231b9df69af56e5dd08fa5f7026078d9faf2480c32e5c5406de58cade))
 </pre></div></div>
 </div>
 </div>
@@ -530,7 +531,7 @@ m&amp;=\frac{c_2}{c_1^x}=\frac{H^{rm}}{G^{xr}}=\frac{G^{xrm}}{G^{xr}}
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">m</span> <span class="o">=</span> <span class="p">(</span><span class="n">c2</span> <span class="o">-</span> <span class="p">(</span><span class="n">c1</span> <span class="o">**</span> <span class="n">sk</span><span class="p">))</span>
+<span></span><span class="n">m</span> <span class="o">=</span> <span class="p">(</span><span class="n">c2</span> <span class="o">-</span> <span class="p">(</span><span class="n">c1</span> <span class="o">@</span> <span class="n">sk</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -554,41 +555,186 @@ True
 </div>
 </div>
 </div>
-<div class="section" id="Implentmentation-in-klefki">
-<h2>Implentmentation in klefki<a class="headerlink" href="#Implentmentation-in-klefki" title="Permalink to this headline">¶</a></h2>
-<p>Addressed to the <span class="math notranslate nohighlight">\(RMF\)</span>(reversible mapping function), secret <span class="math notranslate nohighlight">\(s \in Z_{P1}\)</span></p>
+</div>
+<div class="section" id="Test">
+<h1>Test<a class="headerlink" href="#Test" title="Permalink to this headline">¶</a></h1>
 <div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">klefki.curves.secp256k1</span> <span class="kn">import</span> <span class="n">EllipticCurveGroupSecp256k1</span> <span class="k">as</span> <span class="n">Curve</span>
+<span class="kn">from</span> <span class="nn">klefki.curves.secp256k1</span> <span class="kn">import</span> <span class="n">FiniteFieldCyclicSecp256k1</span> <span class="k">as</span> <span class="n">CF</span>
+<span class="kn">from</span> <span class="nn">klefki.curves.secp256k1</span> <span class="kn">import</span> <span class="n">FiniteFieldSecp256k1</span> <span class="k">as</span> <span class="n">F</span>
+<span class="kn">from</span> <span class="nn">klefki.algebra.meta</span> <span class="kn">import</span> <span class="n">field</span>
+<span class="kn">from</span> <span class="nn">klefki.blockchain.ethereum.private</span> <span class="kn">import</span> <span class="n">decode_privkey</span><span class="p">,</span> <span class="n">encode_privkey</span>
+<span class="kn">from</span> <span class="nn">klefki.crypto.ecdsa.secp256k1</span> <span class="kn">import</span> <span class="n">pubkey</span>
+
+
+<span class="kn">from</span> <span class="nn">klefki.utils</span> <span class="kn">import</span> <span class="n">int_to_byte</span><span class="p">,</span> <span class="n">byte_to_int</span>
+
+<span class="n">key</span> <span class="o">=</span> <span class="n">decode_privkey</span><span class="p">(</span><span class="s2">&quot;65860affb4b570dba06db294aa7c676f68e04a5bf2721243ad3cbc05a79c68c0&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+
+<span></span><span class="n">pubkey</span> <span class="o">=</span> <span class="n">G</span> <span class="o">@</span> <span class="n">F</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m_x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">253</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">116</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">115</span><span class="p">,</span> <span class="mi">116</span><span class="p">]</span>
+<span class="n">m_y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">102</span><span class="p">,</span> <span class="mi">240</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">242</span><span class="p">,</span> <span class="mi">139</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">202</span><span class="p">,</span> <span class="mi">191</span><span class="p">,</span> <span class="mi">92</span><span class="p">,</span> <span class="mi">132</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">205</span><span class="p">,</span> <span class="mi">187</span><span class="p">,</span> <span class="mi">196</span><span class="p">,</span> <span class="mi">131</span><span class="p">,</span> <span class="mi">154</span><span class="p">,</span> <span class="mi">248</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">123</span><span class="p">,</span> <span class="mi">242</span><span class="p">,</span> <span class="mi">215</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">237</span><span class="p">,</span> <span class="mi">38</span><span class="p">,</span> <span class="mi">195</span><span class="p">,</span> <span class="mi">221</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">137</span><span class="p">,</span> <span class="mi">141</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">132</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m_x</span> <span class="o">=</span> <span class="n">F</span><span class="p">(</span><span class="n">byte_to_int</span><span class="p">(</span><span class="n">m_x</span><span class="p">))</span>
+<span class="n">m_y</span> <span class="o">=</span> <span class="n">F</span><span class="p">(</span><span class="n">byte_to_int</span><span class="p">(</span><span class="n">m_y</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m</span> <span class="o">=</span> <span class="n">Curve</span><span class="p">(</span><span class="n">m_x</span><span class="p">,</span> <span class="n">m_y</span><span class="p">)</span>
+<span class="n">m</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+EllipticCurveGroupSecp256k1::(FiniteFieldSecp256k1::0xfd00000000000000000000000000000000000000000000000000000074657374, FiniteFieldSecp256k1::0x66f006f28b0dcabf5c84fa02cdbbc4839af85f7bf2d753ed26c3dd1d898d0284)
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">r</span> <span class="o">=</span> <span class="n">F</span><span class="p">(</span><span class="mh">0x1f9275dbafdfba81942eb3330b07f38cbee4ebb86bdc2174af9648d5f5509a54</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">c1</span> <span class="o">=</span> <span class="n">G</span> <span class="o">@</span> <span class="n">r</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">c1</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+EllipticCurveGroupSecp256k1::(FiniteFieldSecp256k1::0xfca855e9dc774cd9346ca71beabcc55f48d594d46fff063b09866f79af09bd69, FiniteFieldSecp256k1::0x142d0d3df53288b7b6d2a97854cc4d8a0c74320973628af5183ddf9037b4e73b)
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">ss</span> <span class="o">=</span> <span class="n">pubkey</span> <span class="o">@</span> <span class="n">r</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">klefki.crypto.elgamal</span> <span class="kn">import</span> <span class="n">ElGamal</span>
-<span class="kn">from</span> <span class="nn">klefki.types.algebra.concrete</span> <span class="kn">import</span> <span class="n">FiniteFieldCyclicSecp256k1</span> <span class="k">as</span> <span class="n">F</span>
+<span></span><span class="n">ss</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">value</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+98638154376543494645275106847376508464438552902924450790959126183159388906274
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">c2</span> <span class="o">=</span> <span class="n">ss</span> <span class="o">+</span> <span class="n">m</span>
+
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">M</span> <span class="o">=</span> <span class="n">F</span><span class="p">(</span><span class="mi">31415926</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">randfield</span><span class="p">(</span><span class="n">F</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
-<span class="n">el</span> <span class="o">=</span> <span class="n">ElGamal</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="k">assert</span> <span class="n">el</span><span class="o">.</span><span class="n">D</span><span class="p">(</span><span class="n">el</span><span class="o">.</span><span class="n">E</span><span class="p">(</span><span class="n">M</span><span class="p">))</span> <span class="o">==</span> <span class="n">M</span>
+<span></span><span class="n">t</span> <span class="o">=</span> <span class="n">c1</span> <span class="o">@</span> <span class="n">key</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">271828182</span>
-<span class="k">assert</span> <span class="n">el</span><span class="o">.</span><span class="n">D</span><span class="p">(</span><span class="n">el</span><span class="o">.</span><span class="n">E</span><span class="p">(</span><span class="n">N</span><span class="p">))</span> <span class="o">==</span> <span class="n">N</span>
+<span></span><span class="n">d</span> <span class="o">=</span> <span class="p">(</span><span class="n">c2</span> <span class="o">-</span> <span class="p">(</span><span class="n">c1</span> <span class="o">@</span> <span class="n">key</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">d</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">x</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True
+</pre></div></div>
 </div>
 <div class="section" id="Ref:">
 <h2>Ref:<a class="headerlink" href="#Ref:" title="Permalink to this headline">¶</a></h2>
@@ -600,6 +746,15 @@ True
 <li><p>ElGamal encryption <a class="reference external" href="https://en.wikipedia.org/wiki/ElGamal_encryption">https://en.wikipedia.org/wiki/ElGamal_encryption</a></p></li>
 <li><p><a class="reference external" href="http://www.docsdrive.com/pdfs/ansinet/itj/2005/299-306.pdf">http://www.docsdrive.com/pdfs/ansinet/itj/2005/299-306.pdf</a></p></li>
 </ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -645,6 +800,7 @@ True
 <li class="toctree-l1"><a class="reference internal" href="From%20ZK%20to%20Bulletproofs.html">From ZK to Bulletproofsproof via Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Paillier%27s%20encryption%20Scheme.html">Paillier’s encryption Scheme</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">ElGamal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#Test">Test</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Shamir%27s%20secret%20sharing%20scheme.html">Shamir’s secret sharing scheme</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Trapdoor%20Commitment%20Schemes.html">Discrete-Logarithm-Based Trapdoor Commitment Schemes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Threshold%20ECDSA.html">Threshold ECDSA</a></li>

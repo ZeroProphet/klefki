@@ -88,6 +88,14 @@ Classes
 
       
 
+   .. method:: pairing(cls, P, Q)
+      :property:
+
+
+   .. method:: e(cls, P, Q)
+      :classmethod:
+
+
 
 .. py:class:: EllipicCyclicSubgroup(*args)
 

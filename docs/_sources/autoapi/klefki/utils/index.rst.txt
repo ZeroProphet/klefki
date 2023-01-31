@@ -24,6 +24,7 @@ Functions
    klefki.utils.int_to_byte
    klefki.utils.int_to_byte64
    klefki.utils.byte_to_int
+   klefki.utils.to_keccak256int
    klefki.utils.dhash256
    klefki.utils.ripemd160
    klefki.utils.trunks
@@ -55,6 +56,9 @@ Functions
 
 
 .. function:: byte_to_int(byte: bytes) -> CF
+
+
+.. function:: to_keccak256int(a: str) -> int
 
 
 .. function:: dhash256(x: int) -> int

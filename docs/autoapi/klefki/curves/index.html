@@ -75,7 +75,10 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#klefki.curves.ECGBN128" title="klefki.curves.ECGBN128"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ECGBN128</span></code></a></p></td>
 <td><p>y^2 = x^3 + A * x + B</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#klefki.curves.EllipticCurveGroupSecp256k1" title="klefki.curves.EllipticCurveGroupSecp256k1"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EllipticCurveGroupSecp256k1</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#klefki.curves.ECGBLS12_381" title="klefki.curves.ECGBLS12_381"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ECGBLS12_381</span></code></a></p></td>
+<td><p>y**2 = x**3 + 4</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#klefki.curves.EllipticCurveGroupSecp256k1" title="klefki.curves.EllipticCurveGroupSecp256k1"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EllipticCurveGroupSecp256k1</span></code></a></p></td>
 <td><p>y^2 = x^3 + A * x + B</p></td>
 </tr>
 </tbody>
@@ -170,11 +173,6 @@ e(P + Q, R) = e(P, R) * e(Q, R)</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="klefki.curves.ECGBN128.e">
-<em class="property">classmethod </em><code class="sig-name descname">e</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cls</span></em>, <em class="sig-param"><span class="n">P</span></em>, <em class="sig-param"><span class="n">Q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.curves.ECGBN128.e" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
 <dt id="klefki.curves.ECGBN128.is_on_curve">
 <code class="sig-name descname">is_on_curve</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.curves.ECGBN128.is_on_curve" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -187,6 +185,81 @@ e(P + Q, R) = e(P, R) * e(Q, R)</p>
 <dl class="py method">
 <dt id="klefki.curves.ECGBN128.lift_x">
 <em class="property">classmethod </em><code class="sig-name descname">lift_x</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cls</span></em>, <em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.curves.ECGBN128.lift_x" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="klefki.curves.ECGBLS12_381">
+<em class="property">class </em><code class="sig-prename descclassname">klefki.curves.</code><code class="sig-name descname">ECGBLS12_381</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.curves.ECGBLS12_381" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../algebra/groups/ecg/index.html#klefki.algebra.groups.ecg.PairFriendlyEllipticCurveGroup" title="klefki.algebra.groups.ecg.PairFriendlyEllipticCurveGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">klefki.algebra.groups.ecg.PairFriendlyEllipticCurveGroup</span></code></a></p>
+<p>y**2 = x**3 + 4</p>
+<dl class="py attribute">
+<dt id="klefki.curves.ECGBLS12_381.A">
+<code class="sig-name descname">A</code><a class="headerlink" href="#klefki.curves.ECGBLS12_381.A" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="klefki.curves.ECGBLS12_381.N">
+<code class="sig-name descname">N</code><a class="headerlink" href="#klefki.curves.ECGBLS12_381.N" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="klefki.curves.ECGBLS12_381.F">
+<code class="sig-name descname">F</code><a class="headerlink" href="#klefki.curves.ECGBLS12_381.F" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="klefki.curves.ECGBLS12_381.op">
+<code class="sig-name descname">op</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">g</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.curves.ECGBLS12_381.op" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Operator for obeying axiom <cite>associativity</cite> (2)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="klefki.curves.ECGBLS12_381.twist">
+<code class="sig-name descname">twist</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.curves.ECGBLS12_381.twist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="klefki.curves.ECGBLS12_381.twist_FP_to_FP12">
+<em class="property">classmethod </em><code class="sig-name descname">twist_FP_to_FP12</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cls</span></em>, <em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.curves.ECGBLS12_381.twist_FP_to_FP12" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="klefki.curves.ECGBLS12_381.twist_FP2_to_FP12">
+<em class="property">classmethod </em><code class="sig-name descname">twist_FP2_to_FP12</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cls</span></em>, <em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.curves.ECGBLS12_381.twist_FP2_to_FP12" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="klefki.curves.ECGBLS12_381.linefunc">
+<em class="property">static </em><code class="sig-name descname">linefunc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">P1</span></em>, <em class="sig-param"><span class="n">P2</span></em>, <em class="sig-param"><span class="n">T</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.curves.ECGBLS12_381.linefunc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="klefki.curves.ECGBLS12_381.miller_loop">
+<em class="property">classmethod </em><code class="sig-name descname">miller_loop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cls</span></em>, <em class="sig-param"><span class="n">Q</span></em>, <em class="sig-param"><span class="n">P</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.curves.ECGBLS12_381.miller_loop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="klefki.curves.ECGBLS12_381.pairing">
+<em class="property">classmethod </em><code class="sig-name descname">pairing</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cls</span></em>, <em class="sig-param"><span class="n">P</span></em>, <em class="sig-param"><span class="n">Q</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.curves.ECGBLS12_381.pairing" title="Permalink to this definition">¶</a></dt>
+<dd><p>e(P, Q + R) = e(P, Qj * e(P, R)
+e(P + Q, R) = e(P, R) * e(Q, R)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="klefki.curves.ECGBLS12_381.is_on_curve">
+<code class="sig-name descname">is_on_curve</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.curves.ECGBLS12_381.is_on_curve" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="klefki.curves.ECGBLS12_381.B">
+<em class="property">static </em><code class="sig-name descname">B</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">F</span><span class="o">=</span><span class="default_value">BLS12_381FP</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.curves.ECGBLS12_381.B" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="klefki.curves.ECGBLS12_381.lift_x">
+<em class="property">classmethod </em><code class="sig-name descname">lift_x</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cls</span></em>, <em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="headerlink" href="#klefki.curves.ECGBLS12_381.lift_x" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -261,6 +334,7 @@ e(P + Q, R) = e(P, R) * e(Q, R)</p>
 <li class="toctree-l1"><a class="reference internal" href="../../../From%20ZK%20to%20Bulletproofs.html">From ZK to Bulletproofsproof via Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Paillier%27s%20encryption%20Scheme.html">Paillier’s encryption Scheme</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../ElGamal.html">ElGamal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ElGamal.html#Test">Test</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Shamir%27s%20secret%20sharing%20scheme.html">Shamir’s secret sharing scheme</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Trapdoor%20Commitment%20Schemes.html">Discrete-Logarithm-Based Trapdoor Commitment Schemes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Threshold%20ECDSA.html">Threshold ECDSA</a></li>

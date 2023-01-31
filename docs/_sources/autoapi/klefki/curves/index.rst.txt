@@ -35,6 +35,7 @@ Classes
 
    klefki.curves.EllipticCurveBabyJubjub
    klefki.curves.ECGBN128
+   klefki.curves.ECGBLS12_381
    klefki.curves.EllipticCurveGroupSecp256k1
 
 
@@ -121,14 +122,74 @@ Classes
       e(P + Q, R) = e(P, R) * e(Q, R)
 
 
-   .. method:: e(cls, P, Q)
+   .. method:: is_on_curve(self)
+
+
+   .. method:: B(F=BN128FP)
+      :staticmethod:
+
+
+   .. method:: lift_x(cls, x)
       :classmethod:
+
+
+
+.. py:class:: ECGBLS12_381(*args)
+
+   Bases: :class:`klefki.algebra.groups.ecg.PairFriendlyEllipticCurveGroup`
+
+   y**2 = x**3 + 4
+
+   .. attribute:: A
+      
+
+      
+
+   .. attribute:: N
+      
+
+      
+
+   .. attribute:: F
+      
+
+      
+
+   .. method:: op(self, g)
+
+      The Operator for obeying axiom `associativity` (2)
+
+
+   .. method:: twist(self)
+
+
+   .. method:: twist_FP_to_FP12(cls, x, y)
+      :classmethod:
+
+
+   .. method:: twist_FP2_to_FP12(cls, x, y)
+      :classmethod:
+
+
+   .. method:: linefunc(P1, P2, T)
+      :staticmethod:
+
+
+   .. method:: miller_loop(cls, Q, P)
+      :classmethod:
+
+
+   .. method:: pairing(cls, P, Q)
+      :classmethod:
+
+      e(P, Q + R) = e(P, Qj * e(P, R)
+      e(P + Q, R) = e(P, R) * e(Q, R)
 
 
    .. method:: is_on_curve(self)
 
 
-   .. method:: B(F=BN128FP)
+   .. method:: B(F=BLS12_381FP)
       :staticmethod:
 
 

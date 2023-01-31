@@ -11,13 +11,10 @@ Submodules
    :maxdepth: 1
 
    commitment/index.rst
-   flatcode/index.rst
    groth03/index.rst
-   groth16/index.rst
    pedersen/index.rst
-   qap/index.rst
-   r1cs/index.rst
    schnorr/index.rst
    sigma/index.rst
+   zkpy/index.rst
 
 

@@ -161,10 +161,6 @@ Classes
       e(P + Q, R) = e(P, R) * e(Q, R)
 
 
-   .. method:: e(cls, P, Q)
-      :classmethod:
-
-
    .. method:: is_on_curve(self)
 
 

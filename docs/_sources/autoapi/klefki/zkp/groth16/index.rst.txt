@@ -4,31 +4,14 @@
 .. py:module:: klefki.zkp.groth16
 
 
-Module Contents
----------------
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
 
-
-Functions
-~~~~~~~~~
-
-.. autoapisummary::
-
-   klefki.zkp.groth16.setup
-   klefki.zkp.groth16.prov
-   klefki.zkp.groth16.vfy
-
-
-.. data:: RationalGenerator
-   
-
-   
-
-.. function:: setup(R: RationalGenerator, m: int) -> Tuple[Iterable, Tuple]
-
-
-.. function:: prov(R: RationalGenerator, H, tau, sigma, a) -> Tuple
-
-
-.. function:: vfy(R, tau, a, pi)
+   groth16/index.rst
+   qap/index.rst
+   r1cs/index.rst
 
 
