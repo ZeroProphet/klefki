@@ -10,9 +10,7 @@ def map_to_curve(m, G=Curve.G, bias=1):
     try:
         sm = str(getattr(m, "value", m))
         im = int(str(bias) + sm)
-        if im > G.x.functor.P:
-            raise Exception("secret too large")
-        return Curve.lift_x(G.x.functor(im))
+        return Curve.lift_x(F(im))
     except AssertionError:
         return map_to_curve(m, G=G, bias=bias+1)
 
@@ -26,22 +24,22 @@ class ElGamal():
 
     def __init__(self, x, g=Curve.G):
         self.privkey = x
-        self.pubkey = g, g ** x
+        self.pubkey = g, g @ x
 
     @classmethod
     def encrypt(cls, m, pub):
         g, h = pub
-        y = randfield(field(g.N)).value
+        y = randfield(field(g.N))
         m_ = map_to_curve(m)
-        s = h ** y
-        c1 = g ** y
+        s = h @ y
+        c1 = g @ y
         c2 = s * m_
         return (c1, c2)
 
     @classmethod
     def decrypt(cls, x, c):
         c1, c2 = c
-        s = c1 ** x
+        s = c1 @ x
         m = (c2 - s)
         return map_from_curve(m)
 
