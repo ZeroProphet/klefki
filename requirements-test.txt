@@ -1,3 +1,2 @@
-#pytest==3.2.3
 pytest_xdist==2.2.1
 bitcoin==1.1.42
