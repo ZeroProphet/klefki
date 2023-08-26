@@ -42,6 +42,13 @@ class BLS12_381ScalarFP(FiniteField):
     P = const.BLS12_381_N
 
 
+# TODO: sets and caching by memoize() decorator do not work without hashing
+# It just a hack now and it should be rechecked
+class BLS12_381ScalarHashableFP(BLS12_381ScalarFP):
+    def __hash__(self):
+        return self.id
+
+
 class ECGBLS12_381(PairFriendlyEllipticCurveGroup):
     """
     y**2 = x**3 + 4

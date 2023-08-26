@@ -11,17 +11,19 @@
 #|  - Fast fourier transform for finite fields
 #|  - Interpolation and evaluation using FFT
 
-from finitefield.finitefield import FiniteField
-from finitefield.polynomial import polynomialsOver
-from finitefield.euclidean import extendedEuclideanAlgorithm
-import random
-from finitefield.numbertype import typecheck, memoize, DomainElement
 from functools import reduce
-import numpy as np
+
+from klefki.algebra.fields import FiniteField
+from klefki.algebra.utils import randfield
+from klefki.curves.bls12_381 import BLS12_381ScalarHashableFP as Fp
+
+from polynomial import polynomialsOver
+from numbertype import memoize
+from numbertype import typecheck
 
 
 #| ## Choosing roots of unity
-def get_omega(field, n, seed=None):
+def get_omega(field: FiniteField, n: int) -> FiniteField:
     """
     Given a field, this method returns an n^th root of unity.
     If the seed is not None then this method will return the
@@ -29,15 +31,18 @@ def get_omega(field, n, seed=None):
 
     This only makes sense if n is a power of 2.
     """
-    rnd = random.Random(seed)
+    # NOTE: The seed() function is used here in Plonk_Py library.
+    #  I think it is unnecessary - the function is processed once.
+    #  rnd = random.Random(seed)
     assert n & n - 1 == 0, "n must be a power of 2"
-    x = field(rnd.randint(0, field.p-1))
-    y = pow(x, (field.p - 1) // n)
+    x = randfield(field)
+    y = pow(x, (field.P - 1) // n)
     if y == 1 or pow(y, n // 2) == 1:
         return get_omega(field, n)
     assert pow(y, n) == 1, "omega must be 2n'th root of unity"
     assert pow(y, n // 2) != 1, "omega must be primitive 2n'th root of unity"
     return y
+
 
 #| ## Fast Fourier Transform on Finite Fields
 def fft_helper(a, omega, field):
@@ -112,7 +117,7 @@ def polynomialsEvalRep(field, omega, n):
             # The non-zero elements stored in self.evalmap, so we fill in the zero values
             # here.
             ys = [self.evalmap[x] if x in self.evalmap else field(0) for x in _powers]
-            coeffs = [b / field(n) for b in fft_helper(ys, 1 / omega, field)]
+            coeffs = [b / field(n) for b in fft_helper(ys, field(1) / omega, field)]
             return _poly_coeff(coeffs)
 
         _lagrange_cache = {}
@@ -245,65 +250,12 @@ def polynomialsEvalRep(field, omega, n):
             # assert p == t * h
             return h
 
-
     return PolynomialEvalRep
 
-#| ## Sparse Matrix
-#| In our setting, we have O(m*m) elements in the matrix, and expect the number of
-#| elements to be O(m).
-#| In this setting, it's appropriate to use a rowdict representation - a dense
-#| array of dictionaries, one for each row, where the keys of each dictionary
-#| are column indices.
-
-class RowDictSparseMatrix():
-    # Only a few necessary methods are included here.
-    # This could be replaced with a generic sparse matrix class, such as scipy.sparse,
-    # but this does not work as well with custom value types like Fp
-
-    def __init__(self, m, n, zero=None):
-        self.m = m
-        self.n = n
-        self.shape = (m,n)
-        self.zero = zero
-        self.rowdicts = [dict() for _ in range(m)]
-
-    def __setitem__(self, key, v):
-        i, j = key
-        self.rowdicts[i][j] = v
-
-    def __getitem__(self, key):
-        i, j = key
-        return self.rowdicts[i][j] if j in self.rowdicts[i] else self.zero
-
-    def items(self):
-        for i in range(self.m):
-            for j, v in self.rowdicts[i].items():
-                yield (i,j), v
-
-    def dot(self, other):
-        if isinstance(other, np.ndarray):
-            assert other.dtype == 'O'
-            assert other.shape in ((self.n,),(self.n,1))
-            ret = np.empty((self.m,), dtype='O')
-            ret.fill(self.zero)
-            for i in range(self.m):
-                for j, v in self.rowdicts[i].items():
-                    ret[i] += other[j] * v
-            return ret
-
-    def to_dense(self):
-        mat = np.empty((self.m, self.n), dtype='O')
-        mat.fill(self.zero)
-        for (i,j), val in self.items():
-            mat[i,j] = val
-        return mat
-
-    def __repr__(self): return repr(self.rowdicts)
 
 #-
 # Examples
 if __name__ == '__main__':
-    Fp = FiniteField(52435875175126190479447740508185965837690552500527637822603658699938581184513,1)  # (# noqa: E501)
     Poly = polynomialsOver(Fp)
 
     n = 8
@@ -316,4 +268,6 @@ if __name__ == '__main__':
     # print('xs:', xs)
     # print('ys:', ys)
 
+    print("Func: ", f)
+    print("Repr: ", PolyEvalRep(xs, ys).to_coeffs())
     assert f == PolyEvalRep(xs, ys).to_coeffs()

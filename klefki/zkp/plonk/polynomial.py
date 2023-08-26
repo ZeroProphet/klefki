@@ -4,7 +4,8 @@ except ImportError:
      from itertools import izip_longest as zip_longest
 import fractions
 from functools import reduce
-from .numbertype import *
+# TODO: should specify certain functions
+from numbertype import *
 
 # strip all copies of elt from the end of the list
 def strip(L, elt):
@@ -129,6 +130,12 @@ def polynomialsOver(field=fractions.Fraction):
             if self.isZero():
                 return self.field(0)
             y = self.leadingCoefficient()
+
+            # TODO: some additional checks may be required here
+            if type(y) is int:
+                y = self.field(y)
+            assert type(y) is self.field
+
             for coeff in self.coefficients[-2::-1]:
                 y = y * x + coeff
             return y
@@ -171,4 +178,3 @@ def polynomialsOver(field=fractions.Fraction):
     Polynomial.__name__ = '(%s)[x]' % field.__name__
     Polynomial.englishName = 'Polynomials in one variable over %s' % field.__name__
     return Polynomial
-

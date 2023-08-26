@@ -1,11 +1,11 @@
-import sys
-import numpy as np
-from setup import setup_algo
-from prover import prover_algo
-from verifier import verifier_algo
+# TODO: replace this file to tests
+
+from trusted_setup import setup_algo
+# from prover import prover_algo
+# from verifier import verifier_algo
 
 
-def permute_idices(wires):
+def permute_idices(wires: list[str]) -> list[int]:
     # This function takes an array "circuit" of arbitrary values and returns an
     # array with shuffles the indices of "circuit" for repeating values
     size = len(wires)
@@ -27,61 +27,43 @@ def test_plonk():
     wires = a + b + c
 
     # Gates
-    add = np.array([1, 1, 0, -1, 0])
-    mul = np.array([0, 0, 1, -1, 0])
-    const5 = np.array([0, 1, 0, 0, -5])
-    public_input = np.array([0, 1, 0, 0, 0])
-    empty = np.array([0, 0, 0, 0, 0])
+    add = [1, 1, 0, -1, 0]
+    mul = [0, 0, 1, -1, 0]
+    const5 = [0, 1, 0, 0, -5]
+    public_input = [0, 1, 0, 0, 0]
+    empty = [0, 0, 0, 0, 0]
 
-    gates_matrix = np.array([mul, mul, add, const5, public_input, add, empty, empty])
+    gates_matrix = [mul, mul, add, const5, public_input, add, empty, empty]
     permutation = permute_idices(wires)
+
     # We can provide public input 35. For that we need to specify the position
     # of the gate in L and the value of the public input in p_i
     L = [4]
     p_i = 35
+    public_inputs = (L, p_i)
 
     n = len(gates_matrix)
-    gates_matrix = gates_matrix.transpose()
+    # matrix transpose
+    gates_matrix = list(zip(*gates_matrix))
 
     # To get the witness, the prover applies his private input x=3 to the
     # circuit and writes down the value of every wire.
     witness = [
-        3,
-        9,
-        27,
-        1,
-        1,
-        30,
-        0,
-        0,
-        3,
-        3,
-        3,
-        5,
-        35,
-        5,
-        0,
-        0,
-        9,
-        27,
-        30,
-        5,
-        35,
-        35,
-        0,
-        0,
+        3, 9, 27, 1, 1, 30, 0, 0,
+        3, 3, 3, 5, 35, 5, 0, 0,
+        9, 27, 30, 5, 35, 35, 0, 0,
     ]
 
     # We start with a setup that computes the trusted setup and does some
     # precomputation
     CRS, Qs, p_i_poly, perm_prep, verifier_prep = setup_algo(
-        gates_matrix, permutation, L, p_i
+        gates_matrix, permutation, *public_inputs
     )
-    # The prover calculates the proof
-    proof_SNARK, u = prover_algo(witness, CRS, Qs, p_i_poly, perm_prep)
-
-    # Verifier checks if proof checks out
-    verifier_algo(proof_SNARK, n, p_i_poly, verifier_prep, perm_prep[2])
+    # # The prover calculates the proof
+    # proof_SNARK, u = prover_algo(witness, CRS, Qs, p_i_poly, perm_prep)
+    #
+    # # Verifier checks if proof checks out
+    # verifier_algo(proof_SNARK, n, p_i_poly, verifier_prep, perm_prep[2])
 
 
 test_plonk()

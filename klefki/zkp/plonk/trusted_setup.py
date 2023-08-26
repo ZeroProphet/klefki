@@ -1,12 +1,13 @@
-import sys
-from ssbls12 import Fp, Poly, Group
-import random
 from polynomial_evalrep import get_omega, polynomialsEvalRep
 
+from klefki.algebra.utils import randfield
+from klefki.curves.bls12_381 import BLS12_381ScalarHashableFP as Fp, ECGBLS12_381 as ECG
+
 # e(G,G) I am using a Type1 Bilinear group for simplicity
-G = Group.G
-G2 = G
-GT = Group.GT
+# TODO: should be rechecked, especially GT
+G = ECG.G
+G2 = ECG.G
+GT = ECG.G2
 
 # | # Choosing roots of unity
 # | The BLS12-381 is chosen in part because it's FFT friendly. To use radix-2
@@ -17,17 +18,17 @@ GT = Group.GT
 # | power of two n up to n <= 2^**32.
 # | This follows because for the ssbls12-381 exponent field Fp, we have
 # |    2^32 divides (p - 1).
+omega_base = get_omega(Fp, 2 ** 32)
 
-omega_base = get_omega(Fp, 2 ** 32, seed=0)
 
-
+# TODO: replace to randfield() in place
 def random_fp():
-    return Fp(random.randint(0, Fp.p-1))
+    return randfield(Fp)
 
 
 def setup_algo(gates_matrix, permutation, L, p_i):
     print("Starting Setup Phase...")
-    (m, n) = gates_matrix.shape
+    (m, n) = len(gates_matrix), len(gates_matrix[0])
 
     assert n & n - 1 == 0, "n must be a power of 2"
     omega = omega_base ** (2 ** 32 // n)
