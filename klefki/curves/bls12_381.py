@@ -48,6 +48,10 @@ class BLS12_381ScalarHashableFP(BLS12_381ScalarFP):
     def __hash__(self):
         return self.id
 
+    @property
+    def n(self):
+        return self.value
+
 
 class ECGBLS12_381(PairFriendlyEllipticCurveGroup):
     """

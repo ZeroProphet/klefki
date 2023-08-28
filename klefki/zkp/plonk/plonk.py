@@ -1,8 +1,13 @@
 # TODO: replace this file to tests
+import random
 
-from trusted_setup import setup_algo
-# from prover import prover_algo
-# from verifier import verifier_algo
+from .trusted_setup import setup_algo
+from .prover import prover_algo
+from .verifier import verifier_algo
+
+seed = 10
+random.seed(seed)
+print(f"RANDOM({seed=}): ", random.random())
 
 
 def permute_idices(wires: list[str]) -> list[int]:
@@ -59,11 +64,13 @@ def test_plonk():
     CRS, Qs, p_i_poly, perm_prep, verifier_prep = setup_algo(
         gates_matrix, permutation, *public_inputs
     )
-    # # The prover calculates the proof
-    # proof_SNARK, u = prover_algo(witness, CRS, Qs, p_i_poly, perm_prep)
-    #
-    # # Verifier checks if proof checks out
-    # verifier_algo(proof_SNARK, n, p_i_poly, verifier_prep, perm_prep[2])
 
+    # The prover calculates the proof
+    proof_SNARK, u = prover_algo(witness, CRS, Qs, p_i_poly, perm_prep)
 
-test_plonk()
+    # Verifier checks if proof checks out
+    verifier_algo(proof_SNARK, n, p_i_poly, verifier_prep, perm_prep[2])
+
+    return CRS, Qs, p_i_poly, perm_prep, verifier_prep, proof_SNARK, u
+
+# CRS, Qs, p_i_poly, perm_prep, verifier_prep, proof_SNARK, u = test_plonk()

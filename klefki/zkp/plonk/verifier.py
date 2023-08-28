@@ -1,9 +1,11 @@
-from ssbls12 import Fp, Poly, Group, SS_BLS12_381
 import random
-from polynomial_evalrep import get_omega, polynomialsEvalRep
-from finitefield.numbertype import typecheck, memoize, DomainElement
 
-omega_base = get_omega(Fp, 2 ** 32, seed=0)
+from klefki.algebra.utils import randfield
+
+from .polynomial_evalrep import get_omega, polynomialsEvalRep
+from .ssbls12 import Fp, Group, SS_BLS12_381
+
+omega_base = get_omega(Fp, 2 ** 32)
 G = Group.G
 # e(G,G) I am using a Type1 Bilinear group for simplicity
 G2 = G
@@ -12,7 +14,7 @@ GT = Group.GT
 
 def random_fp_seeded(seeded):
     random.seed(seeded)
-    return Fp(random.randint(0, Fp.p-1))
+    return randfield(Fp)
 
 
 def eval_poly(poly, domain, shift=Fp(1)):
@@ -60,8 +62,8 @@ def verifier_algo(proof_SNARK, n, p_i_poly, verifier_preprocessing, k):
     assert type(accumulator_shift_zeta) is Fp
 
     print("Check3: Public input in field?")
-    assert type(p_i_poly) == polynomialsEvalRep(Fp, omega, n)
     print(type(p_i_poly))
+    assert type(p_i_poly) == polynomialsEvalRep(Fp, omega, n)
 
     print("Step4: Recompute challenges from transcript")
     beta = random_fp_seeded(str(first_output) + "0")
@@ -80,7 +82,7 @@ def verifier_algo(proof_SNARK, n, p_i_poly, verifier_preprocessing, k):
     vanishing_poly_eval = zeta ** n - Fp(1)
 
     print("Step6: Evaluate lagrange polynomial at zeta")
-    L_1_zeta = (zeta ** n - Fp(1)) / (n*(zeta - Fp(1)))
+    L_1_zeta = (zeta ** n - Fp(1)) / ((zeta - Fp(1)) * n)
 
     print("Step7: Evaluate public input polynomial at zeta")
     p_i_poly_zeta = eval_poly(p_i_poly, [zeta])[0]

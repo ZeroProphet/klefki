@@ -4,8 +4,10 @@ except ImportError:
      from itertools import izip_longest as zip_longest
 import fractions
 from functools import reduce
-# TODO: should specify certain functions
-from numbertype import *
+
+from .numbertype import memoize
+from .numbertype import typecheck
+from .numbertype import DomainElement
 
 # strip all copies of elt from the end of the list
 def strip(L, elt):

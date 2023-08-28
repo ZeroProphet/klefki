@@ -1,11 +1,15 @@
-from ssbls12 import Fp, Poly, Group
 import random
-from polynomial_evalrep import get_omega, polynomialsEvalRep
+
+from klefki.algebra.utils import randfield
+
+from .polynomial_evalrep import get_omega
+from .polynomial_evalrep import polynomialsEvalRep
+from .ssbls12 import Fp, Poly, Group
 
 # Generator
 G = Group.G
 GT = Group.GT
-omega_base = get_omega(Fp, 2 ** 32, seed=0)
+omega_base = get_omega(Fp, 2 ** 32)
 
 
 def vanishing_poly(omega, n):
@@ -38,7 +42,7 @@ def eval_poly(poly, domain, shift=Fp(1)):
 
 def random_fp_seeded(seeded):
     random.seed(seeded)
-    return Fp(random.randint(0, Fp.p-1))
+    return randfield(Fp)
 
 
 def accumulator_factor(n, i, witness, beta, id_domain, perm_domain, gamma):

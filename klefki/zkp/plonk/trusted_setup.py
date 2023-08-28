@@ -1,13 +1,14 @@
-from polynomial_evalrep import get_omega, polynomialsEvalRep
-
 from klefki.algebra.utils import randfield
-from klefki.curves.bls12_381 import BLS12_381ScalarHashableFP as Fp, ECGBLS12_381 as ECG
+
+from .polynomial_evalrep import get_omega
+from .polynomial_evalrep import polynomialsEvalRep
+from .ssbls12 import Fp, Group
+
 
 # e(G,G) I am using a Type1 Bilinear group for simplicity
-# TODO: should be rechecked, especially GT
-G = ECG.G
-G2 = ECG.G
-GT = ECG.G2
+G = Group.G
+G2 = G
+GT = Group.GT
 
 # | # Choosing roots of unity
 # | The BLS12-381 is chosen in part because it's FFT friendly. To use radix-2

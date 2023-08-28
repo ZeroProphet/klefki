@@ -11,19 +11,25 @@
 #|  - Fast fourier transform for finite fields
 #|  - Interpolation and evaluation using FFT
 
+import random
 from functools import reduce
 
 from klefki.algebra.fields import FiniteField
 from klefki.algebra.utils import randfield
 from klefki.curves.bls12_381 import BLS12_381ScalarHashableFP as Fp
 
-from polynomial import polynomialsOver
-from numbertype import memoize
-from numbertype import typecheck
+from .numbertype import memoize
+from .numbertype import typecheck
+from .polynomial import polynomialsOver
+
+
+def random_fp_seeded(seeded):
+    random.seed(seeded)
+    return randfield(Fp)
 
 
 #| ## Choosing roots of unity
-def get_omega(field: FiniteField, n: int) -> FiniteField:
+def get_omega(field: FiniteField, n: int, seed: int = 0) -> FiniteField:
     """
     Given a field, this method returns an n^th root of unity.
     If the seed is not None then this method will return the
@@ -31,11 +37,8 @@ def get_omega(field: FiniteField, n: int) -> FiniteField:
 
     This only makes sense if n is a power of 2.
     """
-    # NOTE: The seed() function is used here in Plonk_Py library.
-    #  I think it is unnecessary - the function is processed once.
-    #  rnd = random.Random(seed)
     assert n & n - 1 == 0, "n must be a power of 2"
-    x = randfield(field)
+    x = random_fp_seeded(seed)
     y = pow(x, (field.P - 1) // n)
     if y == 1 or pow(y, n // 2) == 1:
         return get_omega(field, n)
