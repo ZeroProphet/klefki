@@ -29,7 +29,7 @@ def random_fp_seeded(seeded):
 
 
 #| ## Choosing roots of unity
-def get_omega(field: FiniteField, n: int, seed: int = 0) -> FiniteField:
+def get_omega(field: FiniteField, n: int, seed: int = None) -> FiniteField:
     """
     Given a field, this method returns an n^th root of unity.
     If the seed is not None then this method will return the

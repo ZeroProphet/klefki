@@ -94,7 +94,7 @@ def verifier_algo(proof_SNARK, n, p_i_poly, verifier_preprocessing, k):
               (c_zeta + gamma) * accumulator_shift_zeta * alpha -
               L_1_zeta * alpha ** 2) / vanishing_poly_eval
 
-    print("Step9: Comupte first part of batched polynomial commitment")
+    print("Step9: Compute first part of batched polynomial commitment")
     D_1_exp = (q_M_exp * a_zeta * b_zeta * nu +
                q_L_exp * a_zeta * nu +
                q_R_exp * b_zeta * nu +

@@ -12,10 +12,11 @@ GT = Group.GT
 omega_base = get_omega(Fp, 2 ** 32)
 
 
-def vanishing_poly(omega, n):
+def vanishing_poly(omega, n: int) -> Poly:
     # For the special case of evaluating at all n powers of omega,
     # the vanishing poly has a special form.
     #  t(X) = (X-1)(X-omega)....(X-omega^(n-1)) = X^n - 1
+    #  X^n - 1 == (-1) + (0*X^1 + 0*X^2 + 0*X^3 + ...) + (1*X^n)
     return Poly([Fp(-1)] + [Fp(0)] * (n - 1) + [Fp(1)])
 
 
@@ -264,7 +265,7 @@ def prover_algo(witness, CRS, Qs, p_i_poly, perm_precomp):
     print("Round 4 Finished with output: ", fourth_output)
 
     print("Starting Round 5...")
-    # Compute opening challeng
+    # Compute opening challenge
     nu = random_fp_seeded(str(first_output) +
                           str(second_output) +
                           str(third_output) +
