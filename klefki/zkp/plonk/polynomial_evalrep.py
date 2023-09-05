@@ -262,7 +262,7 @@ if __name__ == '__main__':
     Poly = polynomialsOver(Fp)
 
     n = 8
-    omega = get_omega(Fp, n)
+    omega = get_omega(Fp, n, seed=0)
     PolyEvalRep = polynomialsEvalRep(Fp, omega, n)
 
     f = Poly([1,2,3,4,5])

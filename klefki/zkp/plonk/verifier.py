@@ -5,7 +5,7 @@ from klefki.algebra.utils import randfield
 from .polynomial_evalrep import get_omega, polynomialsEvalRep
 from .ssbls12 import Fp, Group, SS_BLS12_381
 
-omega_base = get_omega(Fp, 2 ** 32)
+omega_base = get_omega(Fp, 2 ** 32, seed=0)
 G = Group.G
 # e(G,G) I am using a Type1 Bilinear group for simplicity
 G2 = G

@@ -1,13 +1,6 @@
-# TODO: replace this file to tests
-import random
-
-from .trusted_setup import setup_algo
-from .prover import prover_algo
-from .verifier import verifier_algo
-
-seed = 10
-random.seed(seed)
-print(f"RANDOM({seed=}): ", random.random())
+from klefki.zkp.plonk.trusted_setup import setup_algo
+from klefki.zkp.plonk.prover import prover_algo
+from klefki.zkp.plonk.verifier import verifier_algo
 
 
 def permute_idices(wires: list[str]) -> list[int]:
@@ -73,4 +66,5 @@ def test_plonk():
 
     return CRS, Qs, p_i_poly, perm_prep, verifier_prep, proof_SNARK, u
 
-# CRS, Qs, p_i_poly, perm_prep, verifier_prep, proof_SNARK, u = test_plonk()
+
+CRS, Qs, p_i_poly, perm_prep, verifier_prep, proof_SNARK, u = test_plonk()

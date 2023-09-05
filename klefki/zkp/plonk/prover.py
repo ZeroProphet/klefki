@@ -9,7 +9,7 @@ from .ssbls12 import Fp, Poly, Group
 # Generator
 G = Group.G
 GT = Group.GT
-omega_base = get_omega(Fp, 2 ** 32)
+omega_base = get_omega(Fp, 2 ** 32, seed=0)
 
 
 def vanishing_poly(omega, n: int) -> Poly:
@@ -211,7 +211,7 @@ def prover_algo(witness, CRS, Qs, p_i_poly, perm_precomp):
     t_coeff = t.coefficients
 
     # We split up the polynomial t in three polynomials so that:
-    # t= t_lo + x^n*t_mid + t^2n*t_hi
+    # t = t_lo + x^n*t_mid + x^2n*t_hi
     # I found that n has actually to be (n+2) to accomodate the CRS because
     # t can be of degree 4n+5
     t_lo = Poly(t_coeff[:n+2])
