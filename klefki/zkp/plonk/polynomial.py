@@ -9,6 +9,7 @@ from .numbertype import memoize
 from .numbertype import typecheck
 from .numbertype import DomainElement
 
+
 # strip all copies of elt from the end of the list
 def strip(L, elt):
     if len(L) == 0: return L
@@ -171,6 +172,13 @@ def polynomialsOver(field=fractions.Fraction):
             # for xi, yi in zip(xs, ys):
             #     assert eval_poly(f, xi) == yi
             return f
+
+        def evaluate(self, domain, shift):
+            evaluation = []
+            for j in range(len(domain)):
+                evaluation += [sum([(domain[j] * shift) ** i * self.coefficients[i]
+                               for i in range(self.degree() + 1)])]
+            return evaluation
 
     def Zero():
         return Polynomial([])

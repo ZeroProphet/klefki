@@ -1,3 +1,6 @@
+import random
+
+from klefki.algebra.utils import randfield
 from klefki.curves.bls12_381 import BLS12_381ScalarHashableFP as Fp
 from klefki.curves.bls12_381 import ECGBLS12_381 as ECG
 
@@ -24,9 +27,6 @@ class SS_BLS12_381:
 
     def __mul__(self, x):
         assert type(x) in (int, Fp)
-        # TODO: i think in klefki we can use x.value
-        # if type(x) is Fp:
-        #     x = x.n
         return SS_BLS12_381(self.m1 @ x, self.m2 @ x)
 
     def __rmul__(self, x):
@@ -48,3 +48,21 @@ class SS_BLS12_381:
 SS_BLS12_381.G = SS_BLS12_381(ECG.G1, ECG.G2)
 SS_BLS12_381.GT = SS_BLS12_381.G.pair(SS_BLS12_381.G)
 Group = SS_BLS12_381
+
+
+# TODO: move to the separate file
+# Evaluate a polynomial in exponent
+def evaluate_in_exponent(powers_of_tau, poly):
+    # powers_of_tau:
+    #    [G*0, G*tau, ...., G*(tau**m)]
+    # poly:
+    #    degree-m bound polynomial in coefficient form
+    # print("Poly", poly.degree(), " Tau: ", len(powers_of_tau))
+    assert poly.degree() < len(powers_of_tau)
+    return sum([powers_of_tau[i] * poly.coefficients[i] for i in
+                range(poly.degree()+1)], Group.G*0)
+
+
+def random_fp_seeded(seeded):
+    random.seed(seeded)
+    return randfield(Fp)

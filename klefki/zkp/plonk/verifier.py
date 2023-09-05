@@ -1,34 +1,15 @@
-import random
+from .polynomial_evalrep import get_omega
+from .polynomial_evalrep import polynomialsEvalRep
+from .ssbls12 import Fp, Group, random_fp_seeded
 
-from klefki.algebra.utils import randfield
 
-from .polynomial_evalrep import get_omega, polynomialsEvalRep
-from .ssbls12 import Fp, Group, SS_BLS12_381
-
-omega_base = get_omega(Fp, 2 ** 32, seed=0)
 G = Group.G
-# e(G,G) I am using a Type1 Bilinear group for simplicity
-G2 = G
-GT = Group.GT
-
-
-def random_fp_seeded(seeded):
-    random.seed(seeded)
-    return randfield(Fp)
-
-
-def eval_poly(poly, domain, shift=Fp(1)):
-    poly_coeff = poly.to_coeffs()
-    eval = []
-    for j in range(len(domain)):
-        eval += [sum([(domain[j] * shift) ** i * poly_coeff.coefficients[i]
-                 for i in range(poly_coeff.degree()+1)])]
-    return eval
+G2 = Group.G
 
 
 def verifier_algo(proof_SNARK, n, p_i_poly, verifier_preprocessing, k):
     print("Starting Verification...")
-    omega = omega_base ** (2 ** 32 // n)
+    omega = get_omega(Fp, n)
 
     first_output, second_output, third_output, fifth_output, fourth_output = proof_SNARK
     a_eval_exp, b_eval_exp, c_eval_exp = first_output
@@ -42,15 +23,15 @@ def verifier_algo(proof_SNARK, n, p_i_poly, verifier_preprocessing, k):
     s_1_exp, s_2_exp, s_3_exp = s_exp
 
     print("Check1: Elements in group?")
-    assert type(a_eval_exp) is SS_BLS12_381
-    assert type(b_eval_exp) is SS_BLS12_381
-    assert type(c_eval_exp) is SS_BLS12_381
-    assert type(z_eval_exp) is SS_BLS12_381
-    assert type(t_lo_eval_exp) is SS_BLS12_381
-    assert type(t_mid_eval_exp) is SS_BLS12_381
-    assert type(t_hi_eval_exp) is SS_BLS12_381
-    assert type(W_zeta_eval_exp) is SS_BLS12_381
-    assert type(W_zeta_omega_eval_exp) is SS_BLS12_381
+    assert type(a_eval_exp) is Group
+    assert type(b_eval_exp) is Group
+    assert type(c_eval_exp) is Group
+    assert type(z_eval_exp) is Group
+    assert type(t_lo_eval_exp) is Group
+    assert type(t_mid_eval_exp) is Group
+    assert type(t_hi_eval_exp) is Group
+    assert type(W_zeta_eval_exp) is Group
+    assert type(W_zeta_omega_eval_exp) is Group
 
     print("Check2: Elements in field?")
     assert type(a_zeta) is Fp
@@ -85,7 +66,7 @@ def verifier_algo(proof_SNARK, n, p_i_poly, verifier_preprocessing, k):
     L_1_zeta = (zeta ** n - Fp(1)) / ((zeta - Fp(1)) * n)
 
     print("Step7: Evaluate public input polynomial at zeta")
-    p_i_poly_zeta = eval_poly(p_i_poly, [zeta])[0]
+    p_i_poly_zeta = p_i_poly.evaluate([zeta])[0]
 
     print("Step8: Compute quotient polynomial evaluation")
     t_zeta = (r_zeta + p_i_poly_zeta -

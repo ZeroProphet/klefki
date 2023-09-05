@@ -2,37 +2,17 @@ from klefki.algebra.utils import randfield
 
 from .polynomial_evalrep import get_omega
 from .polynomial_evalrep import polynomialsEvalRep
-from .ssbls12 import Fp, Group
+from .ssbls12 import Fp, Group, evaluate_in_exponent
 
-
-# e(G,G) I am using a Type1 Bilinear group for simplicity
 G = Group.G
-G2 = G
-GT = Group.GT
-
-# | # Choosing roots of unity
-# | The BLS12-381 is chosen in part because it's FFT friendly. To use radix-2
-# | FFT, we need to find m^th roots of unity, where m is a power of two, and
-# | m is the degree bound of the polynomial we want to represent.
-# |
-# | In the BLS12-381, we can find primitive n^th roots of unity, for any
-# | power of two n up to n <= 2^**32.
-# | This follows because for the ssbls12-381 exponent field Fp, we have
-# |    2^32 divides (p - 1).
-omega_base = get_omega(Fp, 2 ** 32, seed=0)
-
-
-# TODO: replace to randfield() in place
-def random_fp():
-    return randfield(Fp)
+G2 = Group.G
 
 
 def setup_algo(gates_matrix, permutation, L, p_i):
     print("Starting Setup Phase...")
     (m, n) = len(gates_matrix), len(gates_matrix[0])
 
-    assert n & n - 1 == 0, "n must be a power of 2"
-    omega = omega_base ** (2 ** 32 // n)
+    omega = get_omega(Fp, n)
     ROOTS = [omega ** i for i in range(n)]
 
     PolyEvalRep = polynomialsEvalRep(Fp, omega, n)
@@ -53,7 +33,7 @@ def setup_algo(gates_matrix, permutation, L, p_i):
     p_i_poly = PolyEvalRep(ROOTS, public_input)
 
     # We generate domains on which we can evaluate the witness polynomials
-    k = random_fp()
+    k = randfield(Fp)
     id_domain_a = ROOTS
     id_domain_b = [k * root for root in ROOTS]
     id_domain_c = [k**2 * root for root in ROOTS]
@@ -75,7 +55,7 @@ def setup_algo(gates_matrix, permutation, L, p_i):
     perm_precomp = [id_domain, perm_domain, k, Ss]
 
     # We perform the trusted setup
-    tau = random_fp()
+    tau = randfield(Fp)
     CRS = [G * (tau ** i) for i in range(n + 3)]
 
     # We take some work off the shoulders of the verifier
@@ -88,15 +68,3 @@ def setup_algo(gates_matrix, permutation, L, p_i):
 
     return CRS, Qs, p_i_poly, perm_precomp, verifier_preprocessing
 
-
-# Evaluate a polynomial in exponent
-def evaluate_in_exponent(powers_of_tau, poly):
-    # powers_of_tau:
-    #    [G*0, G*tau, ...., G*(tau**m)]
-    # poly:
-    #    degree-m bound polynomial in coefficient form
-    # print('P.degree:', poly.degree())
-    # print('taus:', len(powers_of_tau))
-    assert poly.degree()+1 < len(powers_of_tau)
-    return sum([powers_of_tau[i] * poly.coefficients[i] for i in
-                range(poly.degree()+1)], G*0)

@@ -1,15 +1,6 @@
-import random
-
-from klefki.algebra.utils import randfield
-
 from .polynomial_evalrep import get_omega
 from .polynomial_evalrep import polynomialsEvalRep
-from .ssbls12 import Fp, Poly, Group
-
-# Generator
-G = Group.G
-GT = Group.GT
-omega_base = get_omega(Fp, 2 ** 32, seed=0)
+from .ssbls12 import Fp, Poly, evaluate_in_exponent, random_fp_seeded
 
 
 def vanishing_poly(omega, n: int) -> Poly:
@@ -18,32 +9,6 @@ def vanishing_poly(omega, n: int) -> Poly:
     #  t(X) = (X-1)(X-omega)....(X-omega^(n-1)) = X^n - 1
     #  X^n - 1 == (-1) + (0*X^1 + 0*X^2 + 0*X^3 + ...) + (1*X^n)
     return Poly([Fp(-1)] + [Fp(0)] * (n - 1) + [Fp(1)])
-
-
-# Evaluate a polynomial in exponent
-def evaluate_in_exponent(powers_of_tau, poly):
-    # powers_of_tau:
-    #    [G*0, G*tau, ...., G*(tau**m)]
-    # poly:
-    #    degree-m bound polynomial in coefficient form
-    # print("Poly", poly.degree(), " Tau: ", len(powers_of_tau))
-    assert poly.degree() < len(powers_of_tau)
-    return sum([powers_of_tau[i] * poly.coefficients[i] for i in
-                range(poly.degree()+1)], G*0)
-
-
-def eval_poly(poly, domain, shift=Fp(1)):
-    poly_coeff = poly.to_coeffs()
-    eval = []
-    for j in range(len(domain)):
-        eval += [sum([(domain[j] * shift) ** i * poly_coeff.coefficients[i]
-                 for i in range(poly_coeff.degree()+1)])]
-    return eval
-
-
-def random_fp_seeded(seeded):
-    random.seed(seeded)
-    return randfield(Fp)
 
 
 def accumulator_factor(n, i, witness, beta, id_domain, perm_domain, gamma):
@@ -67,7 +32,7 @@ def accumulator_factor(n, i, witness, beta, id_domain, perm_domain, gamma):
 def prover_algo(witness, CRS, Qs, p_i_poly, perm_precomp):
     print("Starting the Prover Algorithm")
     n = int(len(witness) / 3)
-    assert n & n - 1 == 0, "n must be a power of 2"
+
     id_domain, perm_domain, k, Ss = perm_precomp
 
     # We need to convert between representations to multiply and divide more
@@ -77,7 +42,7 @@ def prover_algo(witness, CRS, Qs, p_i_poly, perm_precomp):
     # order 8*n right away...
 
     # polys represented with n points
-    omega = omega_base ** (2 ** 32 // n)
+    omega = get_omega(Fp, n)
     ROOTS = [omega ** i for i in range(n)]
     PolyEvalRep = polynomialsEvalRep(Fp, omega, n)
     witness = [Fp(i) for i in witness]
@@ -87,7 +52,7 @@ def prover_algo(witness, CRS, Qs, p_i_poly, perm_precomp):
     vanishing_pol_coeff = vanishing_poly(omega, n)
 
     # polys represented with 2*n points
-    omega2 = omega_base ** (2 ** 32 // (2 * n))
+    omega2 = get_omega(Fp, 2 * n)
     PolyEvalRep2 = polynomialsEvalRep(Fp, omega2, 2 * n)
     vanishing_poly_ext = PolyEvalRep2.from_coeffs(vanishing_pol_coeff)
     witness_poly_a_ext = PolyEvalRep2.from_coeffs(witness_poly_a.to_coeffs())
@@ -95,7 +60,7 @@ def prover_algo(witness, CRS, Qs, p_i_poly, perm_precomp):
     witness_poly_c_ext = PolyEvalRep2.from_coeffs(witness_poly_c.to_coeffs())
 
     # polys represented with 8*n points
-    omega3 = omega_base ** (2 ** 32 // (8 * n))
+    omega3 = get_omega(Fp, 8 * n)
     PolyEvalRep3 = polynomialsEvalRep(Fp, omega3, 8 * n)
     roots3 = [omega3 ** i for i in range(8 * n)]
     S1, S2, S3 = Ss
@@ -167,9 +132,7 @@ def prover_algo(witness, CRS, Qs, p_i_poly, perm_precomp):
     accumulator_poly_ext3 = PolyEvalRep3.from_coeffs(accumulator_poly.to_coeffs())
 
     # The third summand of t has the accumulator poly evaluated at a shift
-    accumulator_poly_shift_evaluations = eval_poly(accumulator_poly,
-                                                   roots3,
-                                                   ROOTS[1])
+    accumulator_poly_shift_evaluations = accumulator_poly.evaluate(roots3, ROOTS[1])
     accumulator_poly_ext3_shift = PolyEvalRep3(roots3,
                                                accumulator_poly_shift_evaluations)
 
@@ -232,14 +195,13 @@ def prover_algo(witness, CRS, Qs, p_i_poly, perm_precomp):
                             str(third_output))
 
     # Compute the opening evaluations
-    a_zeta = eval_poly(a_poly_ext, [zeta])[0]
-    b_zeta = eval_poly(b_poly_ext, [zeta])[0]
-    c_zeta = eval_poly(c_poly_ext, [zeta])[0]
-    S_1_zeta = eval_poly(S1, [zeta])[0]
-    S_2_zeta = eval_poly(S2, [zeta])[0]
-    t_zeta = eval_poly(PolyEvalRep3.from_coeffs(t), [zeta])[0]
-    accumulator_shift_zeta = eval_poly(accumulator_poly_ext3,
-                                       [zeta * ROOTS[1]])[0]
+    a_zeta = a_poly_ext.evaluate([zeta])[0]
+    b_zeta = b_poly_ext.evaluate([zeta])[0]
+    c_zeta = c_poly_ext.evaluate([zeta])[0]
+    S_1_zeta = S1.evaluate([zeta])[0]
+    S_2_zeta = S2.evaluate([zeta])[0]
+    t_zeta = PolyEvalRep3.from_coeffs(t).evaluate([zeta])[0]
+    accumulator_shift_zeta = accumulator_poly_ext3.evaluate([zeta * ROOTS[1]])[0]
 
     # Compute linerisation polynomial
     r = (q_M_ext3 * a_zeta * b_zeta +
@@ -255,10 +217,10 @@ def prover_algo(witness, CRS, Qs, p_i_poly, perm_precomp):
           (a_zeta + beta * S_1_zeta + gamma) *
           (b_zeta + beta * S_2_zeta + gamma) *
           alpha * beta * accumulator_shift_zeta)
-    r += accumulator_poly_ext3 * eval_poly(L_1, [zeta])[0] * alpha ** 2
+    r += accumulator_poly_ext3 * L_1.evaluate([zeta])[0] * alpha ** 2
 
     # Evaluate r at zeta
-    r_zeta = eval_poly(r, [zeta])[0]
+    r_zeta = r.evaluate([zeta])[0]
 
     fourth_output = [a_zeta, b_zeta, c_zeta, S_1_zeta, S_2_zeta,
                      accumulator_shift_zeta, t_zeta, r_zeta]

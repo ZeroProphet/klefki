@@ -11,25 +11,18 @@
 #|  - Fast fourier transform for finite fields
 #|  - Interpolation and evaluation using FFT
 
-import random
 from functools import reduce
 
 from klefki.algebra.fields import FiniteField
-from klefki.algebra.utils import randfield
-from klefki.curves.bls12_381 import BLS12_381ScalarHashableFP as Fp
 
 from .numbertype import memoize
 from .numbertype import typecheck
 from .polynomial import polynomialsOver
-
-
-def random_fp_seeded(seeded):
-    random.seed(seeded)
-    return randfield(Fp)
+from .ssbls12 import Fp, random_fp_seeded
 
 
 #| ## Choosing roots of unity
-def get_omega(field: FiniteField, n: int, seed: int = None) -> FiniteField:
+def get_omega_base(field: FiniteField, n: int, seed: int = None) -> FiniteField:
     """
     Given a field, this method returns an n^th root of unity.
     If the seed is not None then this method will return the
@@ -41,10 +34,27 @@ def get_omega(field: FiniteField, n: int, seed: int = None) -> FiniteField:
     x = random_fp_seeded(seed)
     y = pow(x, (field.P - 1) // n)
     if y == 1 or pow(y, n // 2) == 1:
-        return get_omega(field, n)
+        return get_omega_base(field, n)
     assert pow(y, n) == 1, "omega must be 2n'th root of unity"
     assert pow(y, n // 2) != 1, "omega must be primitive 2n'th root of unity"
     return y
+
+
+# | # Choosing roots of unity
+# | The BLS12-381 is chosen in part because it's FFT friendly. To use radix-2
+# | FFT, we need to find m^th roots of unity, where m is a power of two, and
+# | m is the degree bound of the polynomial we want to represent.
+# |
+# | In the BLS12-381, we can find primitive n^th roots of unity, for any
+# | power of two n up to n <= 2^**32.
+# | This follows because for the ssbls12-381 exponent field Fp, we have
+# |    2^32 divides (p - 1).
+LIMIT_OMEGA_POWER = 2 ** 32
+
+
+def get_omega(field: FiniteField, n: int, limit_n: int = LIMIT_OMEGA_POWER):
+    assert n & n - 1 == 0, "n must be a power of 2"
+    return get_omega_base(field, limit_n, seed=0) ** (limit_n // n)
 
 
 #| ## Fast Fourier Transform on Finite Fields
@@ -122,6 +132,10 @@ def polynomialsEvalRep(field, omega, n):
             ys = [self.evalmap[x] if x in self.evalmap else field(0) for x in _powers]
             coeffs = [b / field(n) for b in fft_helper(ys, field(1) / omega, field)]
             return _poly_coeff(coeffs)
+
+        def evaluate(self, domain, shift=field(1)):
+            poly = self.to_coeffs()
+            return poly.evaluate(domain, shift)
 
         _lagrange_cache = {}
         def __call__(self, x):
@@ -262,7 +276,7 @@ if __name__ == '__main__':
     Poly = polynomialsOver(Fp)
 
     n = 8
-    omega = get_omega(Fp, n, seed=0)
+    omega = get_omega_base(Fp, n, seed=0)
     PolyEvalRep = polynomialsEvalRep(Fp, omega, n)
 
     f = Poly([1,2,3,4,5])
