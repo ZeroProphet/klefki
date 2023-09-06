@@ -1,0 +1,64 @@
+:mod:`zkp_playground.types.algebra.fields`
+==================================
+
+.. py:module:: zkp_playground.types.algebra.fields
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.types.algebra.fields.FiniteField
+
+
+
+.. py:class:: FiniteField(*args)
+
+   Bases: :class:`zkp_playground.types.algebra.abstract.Field`
+
+   .. attribute:: P
+      
+
+      
+
+   .. method:: fmap(self, o)
+
+
+   .. method:: identity(self)
+      :property:
+
+      The value for obeying axiom `identity` (3)
+
+
+   .. method:: sec_identity(self)
+      :property:
+
+
+   .. method:: inverse(self)
+
+      Implement for axiom `inverse`
+
+
+   .. method:: mod(self, a, b)
+
+
+   .. method:: sec_inverse(self)
+
+      Implement for axiom `inverse`
+
+
+   .. method:: op(self, g)
+
+      The Operator for obeying axiom `associativity` (2)
+
+
+   .. method:: sec_op(self, g)
+
+      The Operator for obeying axiom `associativity` (2)
+
+
+

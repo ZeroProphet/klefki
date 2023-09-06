@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Paillier’s encryption Scheme &#8212; klefki 1.7 documentation</title>
+    <title>Paillier’s encryption Scheme &#8212; zkp-playground 1.0 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
@@ -298,7 +298,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">klefki.const</span> <span class="kn">import</span> <span class="p">(</span><span class="n">SECP256K1_P</span> <span class="k">as</span> <span class="n">P</span><span class="p">,</span> <span class="n">SECP256K1_N</span> <span class="k">as</span> <span class="n">Q</span><span class="p">)</span>
+<span></span><span class="kn">from</span> <span class="nn">zkp_playground.const</span> <span class="kn">import</span> <span class="p">(</span><span class="n">SECP256K1_P</span> <span class="k">as</span> <span class="n">P</span><span class="p">,</span> <span class="n">SECP256K1_N</span> <span class="k">as</span> <span class="n">Q</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -321,7 +321,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">klefki.numbers</span> <span class="kn">import</span> <span class="n">lcm</span>
+<span></span><span class="kn">from</span> <span class="nn">zkp_playground.numbers</span> <span class="kn">import</span> <span class="n">lcm</span>
 </pre></div>
 </div>
 </div>
@@ -344,8 +344,8 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span>
-<span class="kn">from</span> <span class="nn">klefki.types.algebra.utils</span> <span class="kn">import</span> <span class="n">randfield</span>
-<span class="kn">from</span> <span class="nn">klefki.types.algebra.meta</span> <span class="kn">import</span> <span class="n">field</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.types.algebra.utils</span> <span class="kn">import</span> <span class="n">randfield</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.types.algebra.meta</span> <span class="kn">import</span> <span class="n">field</span>
 
 <span class="n">F</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="s2">&quot;N&quot;</span><span class="p">)</span>
 <span class="n">DF</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">N</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;N^2&quot;</span><span class="p">)</span>
@@ -480,9 +480,9 @@ m_i \in Z_N\end{split}\]</div>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">klefki.crypto.paillier</span> <span class="kn">import</span> <span class="n">Paillier</span>
-<span class="kn">from</span> <span class="nn">klefki.const</span> <span class="kn">import</span> <span class="p">(</span><span class="n">SECP256K1_P</span> <span class="k">as</span> <span class="n">P</span><span class="p">,</span> <span class="n">SECP256K1_N</span> <span class="k">as</span> <span class="n">Q</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">klefki.types.algebra.utils</span> <span class="kn">import</span> <span class="n">randfield</span>
+<span></span><span class="kn">from</span> <span class="nn">zkp_playground.crypto.paillier</span> <span class="kn">import</span> <span class="n">Paillier</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.const</span> <span class="kn">import</span> <span class="p">(</span><span class="n">SECP256K1_P</span> <span class="k">as</span> <span class="n">P</span><span class="p">,</span> <span class="n">SECP256K1_N</span> <span class="k">as</span> <span class="n">Q</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.types.algebra.utils</span> <span class="kn">import</span> <span class="n">randfield</span>
 </pre></div>
 </div>
 </div>
@@ -629,13 +629,13 @@ True
           
         </div>
       </div>
-    <a href="https://github.com/ZeroProphet/klefki">
+    <a href="https://github.com/oxor-io/zkp-playground">
         <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
     </a>
 
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">klefki</a></h1>
+<h1 class="logo"><a href="index.html">zkp-playground</a></h1>
 
 
 
@@ -664,8 +664,8 @@ True
 <li class="toctree-l1"><a class="reference internal" href="Damgard-Jurik%20Scheme%20of%20Paillier.html">Damgard-Jurik Scheme of Paillier</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Threshold%20Paillier%20Cryptosystem.html">Threshold Paillier Cryptosystem</a></li>
 <li class="toctree-l1"><a class="reference internal" href="R1CS%20to%20QAP.html">R1CS to QAP</a></li>
-<li class="toctree-l1"><a class="reference internal" href="MimbleWimble.html">Play MimbleWimble with klefki</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Groth16.html">Groth16 in Klefki</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MimbleWimble.html">Play MimbleWimble with zkp-playground</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Groth16.html">Groth16 in zkp-playground</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>

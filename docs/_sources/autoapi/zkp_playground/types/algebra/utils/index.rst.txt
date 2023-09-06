@@ -1,0 +1,33 @@
+:mod:`zkp_playground.types.algebra.utils`
+=================================
+
+.. py:module:: zkp_playground.types.algebra.utils
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.types.algebra.utils.encode
+   zkp_playground.types.algebra.utils.decode
+   zkp_playground.types.algebra.utils.randfield
+   zkp_playground.types.algebra.utils.randgroup
+
+
+.. function:: encode(key: ECG)
+
+
+.. function:: decode(key: str) -> ECG
+
+
+.. function:: randfield(F)
+
+
+.. function:: randgroup(G)
+
+

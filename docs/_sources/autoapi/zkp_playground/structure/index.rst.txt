@@ -1,0 +1,36 @@
+:mod:`zkp_playground.structure`
+=======================
+
+.. py:module:: zkp_playground.structure
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.structure.MerkleTree
+
+
+
+.. py:class:: MerkleTree(value, is_leaf=False, parent=None, hash_fn=lambda x, y: concat(sha256(x).digest(), sha256(y).digest()))
+
+   .. method:: _build_tree(self, leaves)
+
+
+   .. method:: height(self)
+      :property:
+
+
+   .. method:: root(self)
+      :property:
+
+
+   .. method:: value(self)
+      :property:
+
+
+

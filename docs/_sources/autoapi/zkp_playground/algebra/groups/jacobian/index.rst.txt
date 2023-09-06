@@ -1,0 +1,60 @@
+:mod:`zkp_playground.algebra.groups.jacobian`
+=====================================
+
+.. py:module:: zkp_playground.algebra.groups.jacobian
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.algebra.groups.jacobian.JacobianGroup
+
+
+
+.. py:class:: JacobianGroup(*args)
+
+   Bases: :class:`zkp_playground.algebra.abstract.Group`
+
+   A monoid in which every element has an inverse is called group.
+
+   .. attribute:: A
+      
+
+      
+
+   .. attribute:: B
+      
+
+      
+
+   .. method:: from_EllipticCurveGroup(self, o)
+
+
+   .. method:: from_list(self, o)
+
+
+   .. method:: double(self, n=None)
+
+
+   .. method:: identity(cls)
+      :classmethod:
+
+      The value for obeying axiom `identity` (3)
+
+
+   .. method:: inverse(self)
+
+      Implement for axiom `inverse`
+
+
+   .. method:: op(self, g)
+
+      The Operator for obeying axiom `associativity` (2)
+
+
+

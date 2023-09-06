@@ -1,0 +1,54 @@
+:mod:`zkp_playground.zkp.qap`
+=====================
+
+.. py:module:: zkp_playground.zkp.qap
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.zkp.qap.QAP
+
+
+
+.. py:class:: QAP(A=Iterable, B=Iterable, C=Iterable)
+
+   Given $n$ equations we pick arbitrary distinct $r_1,\cdots,r_n \in \mathbb{F}$ and define
+   $$
+   t(x) = \prod_{q=1}^n (x - r_q)
+   $$
+   Since $t(X)$ is the lowest degreee monomial with $t(r_q) = 0 $ in each point, we can refomulate as:
+   $$
+   \sum_{i=0}^m a_i u_i(X) \circ \sum_{i=0}^m a_i v_i(X) = \sum_{i=0}^m a_i w_i(X) \mod t(X)
+   $$
+   we will be working with quadratic arithmetic programsRthat have thefollowing description
+
+   $$
+   R = (\mathbb{F}, aux, l, \{u_i(X), v_i(X), w_i(X)\}_{i=0}^n, t(X))
+   $$
+
+   .. method:: O(self, ws)
+
+
+   .. method:: H(self, ws)
+
+
+   .. method:: qap(self)
+      :property:
+
+
+   .. method:: proof(self, x: FiniteField, s: Iterable[FiniteField], start=0, end=None)
+
+      c: Callange
+      s: witness vertex
+
+
+   .. method:: verify(s, A, B, C, Z, H)
+
+
+

@@ -1,0 +1,12 @@
+:mod:`zkp_playground.bitcoin.address`
+=============================
+
+.. py:module:: zkp_playground.bitcoin.address
+
+
+Module Contents
+---------------
+
+.. function:: gen_address(pub: ECG) -> str
+
+

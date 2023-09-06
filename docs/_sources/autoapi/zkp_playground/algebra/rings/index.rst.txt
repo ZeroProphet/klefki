@@ -1,0 +1,101 @@
+:mod:`zkp_playground.algebra.rings`
+===========================
+
+.. py:module:: zkp_playground.algebra.rings
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   poly/index.rst
+
+
+Package Contents
+----------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.algebra.rings.PolyRing
+
+
+
+.. py:class:: PolyRing(*args)
+
+   Bases: :class:`zkp_playground.algebra.abstract.Ring`
+
+   RING is a setRwhich is CLOSED under two operations+and×andsatisfying the following properties:
+   (1) R is an abelian group under+.
+   (2)Associativity of × For every a,b,c∈R,a×(b×c) = (a×b)×c
+   (3)Distributive Properties – For everya,b,c∈Rthe following identities hold:
+   a×(b+c) = (a×b) + (a×c)and(b+c)×a=b×a+c×a
+
+   .. method:: from_list(self, o: list)
+
+
+   .. method:: from_int(self, o: int)
+
+
+   .. method:: from_tuple(self, o: tuple)
+
+
+   .. method:: from_PolyExtField(self, o)
+
+
+   .. method:: degree(self)
+      :property:
+
+
+   .. method:: op(self, rhs: Ring)
+
+      The Operator for obeying axiom `associativity` (2)
+
+
+   .. method:: inverse(self)
+
+      Implement for axiom `inverse`
+
+
+   .. method:: sec_op(self, rhs: Ring)
+
+      The Operator for obeying axiom `associativity` (2)
+
+
+   .. method:: div(self, rhs: Ring)
+
+
+   .. method:: mod(self, rhs: Ring)
+
+
+   .. method:: identity(cls)
+      :classmethod:
+
+      The value for obeying axiom `identity` (3)
+
+
+   .. method:: __floordiv__(self, rhs: Ring)
+
+
+   .. method:: __iter__(self)
+
+
+   .. method:: __getitem__(self, i)
+
+
+   .. method:: singleton(cls, point_loc, height, total_pts)
+      :classmethod:
+
+
+   .. method:: lagrange_interp(cls, vec)
+      :classmethod:
+
+
+   .. method:: __call__(self, x)
+
+
+

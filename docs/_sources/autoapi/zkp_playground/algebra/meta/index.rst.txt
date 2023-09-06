@@ -1,0 +1,26 @@
+:mod:`zkp_playground.algebra.meta`
+==========================
+
+.. py:module:: zkp_playground.algebra.meta
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.algebra.meta.field
+
+
+.. function:: field(p, name='FiniteField')
+
+
+.. data:: finite_field
+   
+
+   
+

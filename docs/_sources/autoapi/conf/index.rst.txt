@@ -8,7 +8,7 @@ Module Contents
 ---------------
 
 .. data:: project
-   :annotation: = klefki
+   :annotation: = zkp-playground
 
    
 

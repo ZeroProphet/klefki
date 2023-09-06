@@ -1,0 +1,33 @@
+:mod:`zkp_playground.blockchain.ethereum.address`
+=========================================
+
+.. py:module:: zkp_playground.blockchain.ethereum.address
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.blockchain.ethereum.address.gen_address
+   zkp_playground.blockchain.ethereum.address.gen_address_from_bytes
+   zkp_playground.blockchain.ethereum.address.gen_address_from_priv
+   zkp_playground.blockchain.ethereum.address.gen_address_from_priv_bytes
+
+
+.. function:: gen_address(pub: ECG) -> str
+
+
+.. function:: gen_address_from_bytes(pub: bytes) -> str
+
+
+.. function:: gen_address_from_priv(priv: CF) -> str
+
+
+.. function:: gen_address_from_priv_bytes(priv: bytes) -> str
+
+

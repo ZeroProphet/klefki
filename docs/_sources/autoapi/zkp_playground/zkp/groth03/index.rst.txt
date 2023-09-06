@@ -1,0 +1,58 @@
+:mod:`zkp_playground.zkp.groth03`
+=========================
+
+.. py:module:: zkp_playground.zkp.groth03
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.zkp.groth03.NMCommitment
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.zkp.groth03.keygen
+
+
+.. data:: G
+   
+
+   
+
+.. data:: H
+   
+
+   
+
+.. function:: keygen(F)
+
+
+.. py:class:: NMCommitment(G, H, key=None)
+
+   Bases: :class:`zkp_playground.zkp.commitment.Commitment`
+
+   .. method:: commit(self, m, ak)
+
+
+   .. method:: C(self)
+      :property:
+
+
+   .. method:: D(self)
+      :property:
+
+
+   .. method:: open(self)
+
+
+

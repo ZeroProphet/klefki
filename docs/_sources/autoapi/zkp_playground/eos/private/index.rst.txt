@@ -1,0 +1,40 @@
+:mod:`zkp_playground.eos.private`
+=========================
+
+.. py:module:: zkp_playground.eos.private
+
+
+Module Contents
+---------------
+
+.. function:: to_cf(a: int) -> CF
+
+
+.. function:: from_cf(a: CF) -> int
+
+
+.. function:: add_version(a: bytes) -> bytes
+
+
+.. function:: remove_version(a: bytes) -> bytes
+
+
+.. function:: add_checksum(a: bytes) -> bytes
+
+
+.. function:: remove_checksum(a: bytes) -> bytes
+
+
+.. data:: encode_privkey
+   :annotation: :Callable[[CF], str]
+
+   
+
+.. data:: decode_privkey
+   :annotation: :Callable[[str], CF]
+
+   
+
+.. function:: gen_random_privkey()
+
+

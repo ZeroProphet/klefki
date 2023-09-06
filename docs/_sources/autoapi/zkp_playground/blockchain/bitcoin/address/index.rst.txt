@@ -1,0 +1,21 @@
+:mod:`zkp_playground.blockchain.bitcoin.address`
+========================================
+
+.. py:module:: zkp_playground.blockchain.bitcoin.address
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.blockchain.bitcoin.address.gen_address
+
+
+.. function:: gen_address(pub: ECG) -> str
+
+

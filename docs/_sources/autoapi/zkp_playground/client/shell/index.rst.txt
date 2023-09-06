@@ -1,0 +1,52 @@
+:mod:`zkp_playground.client.shell`
+==========================
+
+.. py:module:: zkp_playground.client.shell
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.client.shell.command
+   zkp_playground.client.shell.shell
+   zkp_playground.client.shell.help
+   zkp_playground.client.shell.not_found
+   zkp_playground.client.shell.output
+   zkp_playground.client.shell.router
+
+
+.. function:: command(fn, name=None)
+
+
+.. function:: shell()
+
+   default Shell
+
+
+.. function:: help()
+
+   This help command
+
+
+.. function:: not_found(cmd)
+
+
+.. function:: output(fn)
+
+
+.. function:: router(cmds)
+
+   fn a b c=1 d=2
+
+
+.. data:: main
+   
+
+   
+

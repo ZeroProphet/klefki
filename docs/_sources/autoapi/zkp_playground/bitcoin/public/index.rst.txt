@@ -1,0 +1,38 @@
+:mod:`zkp_playground.bitcoin.public`
+============================
+
+.. py:module:: zkp_playground.bitcoin.public
+
+
+Module Contents
+---------------
+
+.. data:: G
+   
+
+   
+
+.. data:: A
+   
+
+   
+
+.. data:: B
+   
+
+   
+
+.. data:: P
+   
+
+   
+
+.. function:: encode_pubkey(pub: CG) -> str
+
+
+.. function:: decode_pubkey(pub: str) -> CG
+
+
+.. function:: gen_pub_key(key: CF) -> str
+
+

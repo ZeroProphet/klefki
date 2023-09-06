@@ -1,0 +1,24 @@
+:mod:`zkp_playground.eos.public`
+========================
+
+.. py:module:: zkp_playground.eos.public
+
+
+Module Contents
+---------------
+
+.. function:: to_bytes(pub: ECG) -> str
+
+
+.. function:: from_bytes(a)
+
+
+.. function:: checksum(a) -> int
+
+
+.. function:: unchecksum(a)
+
+
+.. function:: gen_pub_key(key: CF)
+
+

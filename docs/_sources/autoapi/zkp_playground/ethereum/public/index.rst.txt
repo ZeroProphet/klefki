@@ -1,0 +1,18 @@
+:mod:`zkp_playground.ethereum.public`
+=============================
+
+.. py:module:: zkp_playground.ethereum.public
+
+
+Module Contents
+---------------
+
+.. function:: encode_pubkey(key: ECG)
+
+
+.. function:: decode_pubkey(key: str) -> ECG
+
+
+.. function:: gen_pub_key(key: CF) -> str
+
+

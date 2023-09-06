@@ -1,0 +1,74 @@
+:mod:`zkp_playground.zkp.groth16.r1cs`
+==============================
+
+.. py:module:: zkp_playground.zkp.groth16.r1cs
+
+.. autoapi-nested-parse::
+
+   from https://github.com/ethereum/research/blob/master/zksnark/code_to_r1cs.py
+   ref: https://medium.com/@VitalikButerin/quadratic-arithmetic-programs-from-zero-to-hero-f6d558cea649
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.zkp.groth16.r1cs.R1CS
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.zkp.groth16.r1cs.insert_var
+   zkp_playground.zkp.groth16.r1cs.get_var_placement
+   zkp_playground.zkp.groth16.r1cs.flatcode_to_r1cs
+   zkp_playground.zkp.groth16.r1cs.grab_var
+   zkp_playground.zkp.groth16.r1cs.assign_variables
+   zkp_playground.zkp.groth16.r1cs.code_to_r1cs_with_inputs
+   zkp_playground.zkp.groth16.r1cs.mul
+
+
+.. function:: insert_var(arr, varz, var, used, reverse=False)
+
+
+.. function:: get_var_placement(inputs, flatcode)
+
+
+.. function:: flatcode_to_r1cs(inputs, flatcode, field=int)
+
+
+.. function:: grab_var(varz, assignment, var)
+
+
+.. function:: assign_variables(inputs, input_vars, flatcode, field)
+
+
+.. function:: code_to_r1cs_with_inputs(code, input_vars, field)
+
+
+.. function:: mul(a, b)
+
+
+.. py:class:: R1CS
+
+   .. method:: parse(code, input_vals, field=int)
+      :staticmethod:
+
+
+   .. method:: verify(s, A, B, C)
+      :staticmethod:
+
+
+   .. method:: r1cs(fn_or_field=int, ctx={})
+      :staticmethod:
+
+
+

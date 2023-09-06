@@ -1,0 +1,6 @@
+:mod:`zkp_playground.curves.ed25519`
+============================
+
+.. py:module:: zkp_playground.curves.ed25519
+
+

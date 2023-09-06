@@ -1,0 +1,34 @@
+:mod:`zkp_playground.zkp.groth16.groth16`
+=================================
+
+.. py:module:: zkp_playground.zkp.groth16.groth16
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.zkp.groth16.groth16.setup
+   zkp_playground.zkp.groth16.groth16.prov
+   zkp_playground.zkp.groth16.groth16.vfy
+
+
+.. data:: RationalGenerator
+   
+
+   
+
+.. function:: setup(R: RationalGenerator, m: int) -> Tuple[Iterable, Tuple]
+
+
+.. function:: prov(R: RationalGenerator, H, tau, sigma, a) -> Tuple
+
+
+.. function:: vfy(R, tau, a, pi)
+
+

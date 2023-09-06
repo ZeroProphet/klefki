@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TL;DR &#8212; klefki 1.7 documentation</title>
+    <title>TL;DR &#8212; zkp-playground 1.0 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
@@ -19,7 +19,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Paillier’s encryption Scheme" href="Vitalik%27s%20stealth%20addresses%20Step%20by%20Step%20with%20klekfi.html" />
-    <link rel="prev" title="Welcome to klefki!" href="index.html" />
+    <link rel="prev" title="Welcome to zkp-playground!" href="index.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -37,8 +37,8 @@
 
           <div class="body" role="main">
             
-  <p><a class="reference external" href="https://travis-ci.org/RyanKung/klefki"><img alt="travis" src="https://travis-ci.org/RyanKung/klefki.svg?branch=master" /></a></p>
-<p><img alt="klefki" src="res/707Klefki.png" /></p>
+  <p><a class="reference external" href="https://travis-ci.org/RyanKung/klefki"><img alt="travis" src="https://travis-ci.org/RyanKung/zkp_playground.svg?branch=master" /></a></p>
+<p><img alt="zkp_playground" src="res/707Klefki.png" /></p>
 <hr class="docutils" />
 <blockquote>
 <div><p>Klefki (Japanese: クレッフィ Cleffy) is a dual-type Steel/Fairy Pokémon introduced in Generation VI. It is not known to evolve into or from any other Pokémon.</p>
@@ -52,9 +52,9 @@
 </div>
 <div class="section" id="for-installation-require-python-3-6">
 <h2>For Installation (require python&gt;=3.6):<a class="headerlink" href="#for-installation-require-python-3-6" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip3 install klefki
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip3 install zkp-playground
 
-klefki shell
+zkp-playground shell
 </pre></div>
 </div>
 <p>Have Fun!!!!</p>
@@ -64,8 +64,8 @@ klefki shell
 <p>With <code class="docutils literal notranslate"><span class="pre">AAT(Abstract</span> <span class="pre">Algebra</span> <span class="pre">Type)</span></code> you can easily implement the bitcoin <code class="docutils literal notranslate"><span class="pre">priv/pub</span> <span class="pre">key</span></code> and <code class="docutils literal notranslate"><span class="pre">sign/verify</span></code> algorithms like this:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
 <span class="kn">import</span> <span class="nn">random</span>
-<span class="kn">from</span> <span class="nn">klefki.utils</span> <span class="kn">import</span> <span class="n">to_sha256int</span>
-<span class="kn">from</span> <span class="nn">klefki.types.algebra.concrete</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.utils</span> <span class="kn">import</span> <span class="n">to_sha256int</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.types.algebra.concrete</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">JacobianGroupSecp256k1</span> <span class="k">as</span> <span class="n">JG</span><span class="p">,</span>
     <span class="n">EllipticCurveCyclicSubgroupSecp256k1</span> <span class="k">as</span> <span class="n">CG</span><span class="p">,</span>
     <span class="n">EllipticCurveGroupSecp256k1</span> <span class="k">as</span> <span class="n">ECG</span><span class="p">,</span>
@@ -126,9 +126,9 @@ klefki shell
 </pre></div>
 </div>
 <p>Or transform your Bitcoin Private Key to EOS Private/Pub key (or back)</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">klefki.bitcoin.private</span> <span class="kn">import</span> <span class="n">decode_privkey</span>
-<span class="kn">from</span> <span class="nn">klefki.eos.public</span> <span class="kn">import</span> <span class="n">gen_pub_key</span>
-<span class="kn">from</span> <span class="nn">klefki.eos.private</span> <span class="kn">import</span> <span class="n">encode_privkey</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">zkp_playground.bitcoin.private</span> <span class="kn">import</span> <span class="n">decode_privkey</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.eos.public</span> <span class="kn">import</span> <span class="n">gen_pub_key</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.eos.private</span> <span class="kn">import</span> <span class="n">encode_privkey</span>
 
 
 <span class="k">def</span> <span class="nf">test_to_eos</span><span class="p">(</span><span class="n">priv</span><span class="p">):</span>
@@ -143,8 +143,8 @@ klefki shell
 <h2>Bijection<a class="headerlink" href="#bijection" title="Permalink to this headline">¶</a></h2>
 <p>A morphism f : X → Y in a category is an isomorphism if it admits a two-sided inverse.</p>
 <p>You can define your bijection encoder/decoder like this.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">klefki.types.algebra.isomorphism</span> <span class="kn">import</span> <span class="n">bijection</span><span class="p">,</span> <span class="n">do</span>
-<span class="kn">from</span> <span class="nn">klefki.asn</span> <span class="kn">import</span> <span class="n">signature</span> <span class="k">as</span> <span class="n">sig</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">zkp_playground.types.algebra.isomorphism</span> <span class="kn">import</span> <span class="n">bijection</span><span class="p">,</span> <span class="n">do</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.asn</span> <span class="kn">import</span> <span class="n">signature</span> <span class="k">as</span> <span class="n">sig</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
 <span class="kn">import</span> <span class="nn">base58</span>
 <span class="kn">from</span> <span class="nn">pyasn1.codec.der.encoder</span> <span class="kn">import</span> <span class="n">encode</span>
@@ -175,13 +175,13 @@ klefki shell
           
         </div>
       </div>
-    <a href="https://github.com/ZeroProphet/klefki">
+    <a href="https://github.com/oxor-io/zkp-playground">
         <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
     </a>
 
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">klefki</a></h1>
+<h1 class="logo"><a href="index.html">zkp-playground</a></h1>
 
 
 
@@ -218,8 +218,8 @@ klefki shell
 <li class="toctree-l1"><a class="reference internal" href="Damgard-Jurik%20Scheme%20of%20Paillier.html">Damgard-Jurik Scheme of Paillier</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Threshold%20Paillier%20Cryptosystem.html">Threshold Paillier Cryptosystem</a></li>
 <li class="toctree-l1"><a class="reference internal" href="R1CS%20to%20QAP.html">R1CS to QAP</a></li>
-<li class="toctree-l1"><a class="reference internal" href="MimbleWimble.html">Play MimbleWimble with klefki</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Groth16.html">Groth16 in Klefki</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MimbleWimble.html">Play MimbleWimble with zkp-playground</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Groth16.html">Groth16 in zkp-playground</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
@@ -229,7 +229,7 @@ klefki shell
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="index.html" title="previous chapter">Welcome to klefki!</a></li>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to zkp-playground!</a></li>
       <li>Next: <a href="Vitalik%27s%20stealth%20addresses%20Step%20by%20Step%20with%20klekfi.html" title="next chapter">Paillier’s encryption Scheme</a></li>
   </ul></li>
 </ul>

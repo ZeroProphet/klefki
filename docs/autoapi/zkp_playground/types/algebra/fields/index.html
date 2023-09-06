@@ -1,0 +1,207 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>zkp_playground.types.algebra.fields &#8212; zkp-playground 1.0-rc documentation</title>
+    <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+    <script src="../../../../../_static/jquery.js"></script>
+    <script src="../../../../../_static/underscore.js"></script>
+    <script src="../../../../../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-zkp_playground.types.algebra.fields">
+<span id="zkp_playground-types-algebra-fields"></span><h1><a class="reference internal" href="#module-zkp_playground.types.algebra.fields" title="zkp_playground.types.algebra.fields"><code class="xref py py-mod docutils literal notranslate"><span class="pre">zkp_playground.types.algebra.fields</span></code></a><a class="headerlink" href="#module-zkp_playground.types.algebra.fields" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#zkp_playground.types.algebra.fields.FiniteField" title="zkp_playground.types.algebra.fields.FiniteField"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FiniteField</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="zkp_playground.types.algebra.fields.FiniteField">
+<em class="property">class </em><code class="sig-prename descclassname">zkp_playground.types.algebra.fields.</code><code class="sig-name descname">FiniteField</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zkp_playground.types.algebra.fields.FiniteField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../abstract/index.html#zkp_playground.types.algebra.abstract.Field" title="zkp_playground.types.algebra.abstract.Field"><code class="xref py py-class docutils literal notranslate"><span class="pre">zkp_playground.types.algebra.abstract.Field</span></code></a></p>
+<dl class="py attribute">
+<dt id="zkp_playground.types.algebra.fields.FiniteField.P">
+<code class="sig-name descname">P</code><a class="headerlink" href="#zkp_playground.types.algebra.fields.FiniteField.P" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zkp_playground.types.algebra.fields.FiniteField.fmap">
+<code class="sig-name descname">fmap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">o</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zkp_playground.types.algebra.fields.FiniteField.fmap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zkp_playground.types.algebra.fields.FiniteField.identity">
+<em class="property">property </em><code class="sig-name descname">identity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zkp_playground.types.algebra.fields.FiniteField.identity" title="Permalink to this definition">¶</a></dt>
+<dd><p>The value for obeying axiom <cite>identity</cite> (3)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zkp_playground.types.algebra.fields.FiniteField.sec_identity">
+<em class="property">property </em><code class="sig-name descname">sec_identity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zkp_playground.types.algebra.fields.FiniteField.sec_identity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zkp_playground.types.algebra.fields.FiniteField.inverse">
+<code class="sig-name descname">inverse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zkp_playground.types.algebra.fields.FiniteField.inverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implement for axiom <cite>inverse</cite></p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zkp_playground.types.algebra.fields.FiniteField.mod">
+<code class="sig-name descname">mod</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">b</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zkp_playground.types.algebra.fields.FiniteField.mod" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zkp_playground.types.algebra.fields.FiniteField.sec_inverse">
+<code class="sig-name descname">sec_inverse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zkp_playground.types.algebra.fields.FiniteField.sec_inverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implement for axiom <cite>inverse</cite></p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zkp_playground.types.algebra.fields.FiniteField.op">
+<code class="sig-name descname">op</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">g</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zkp_playground.types.algebra.fields.FiniteField.op" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Operator for obeying axiom <cite>associativity</cite> (2)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zkp_playground.types.algebra.fields.FiniteField.sec_op">
+<code class="sig-name descname">sec_op</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">g</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zkp_playground.types.algebra.fields.FiniteField.sec_op" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Operator for obeying axiom <cite>associativity</cite> (2)</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <a href="https://github.com/oxor-io/zkp-playground">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
+    </a>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../../index.html">zkp-playground</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../README.html">TL;DR</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../Non-interactive%20and%20Reusable%20Non-malleable%20Commitment%20Schemes.html">Non-interactive and Reusable Non-malleable Commitment Schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../Pedersen%20Commitment.html">Pedersen Commitment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../On%20Sigma%20Protocols.html"><span class="math notranslate nohighlight">\(\Sigma\)</span> Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../Abstract%20Algebra%20Types.html">Abstract Algebra Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../Homomorphic%20Encryption.html">Homomorphic Encryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../From%20ZK%20to%20Bulletproofs.html">From ZK to Bulletproofsproof via Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../Paillier%27s%20encryption%20Scheme.html">Paillier’s encryption Scheme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../ElGamal.html">ElGamal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../Shamir%27s%20secret%20sharing%20scheme.html">Shamir’s secret sharing scheme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../Trapdoor%20Commitment%20Schemes.html">Discrete-Logarithm-Based Trapdoor Commitment Schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../Threshold%20ECDSA.html">Threshold ECDSA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../POD-Mini%20and%20POD-AS.html">POD-Mini and POD-AS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../Damgard-Jurik%20Scheme%20of%20Paillier.html">Damgard-Jurik Scheme of Paillier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../Threshold%20Paillier%20Cryptosystem.html">Threshold Paillier Cryptosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../R1CS%20to%20QAP.html">R1CS to QAP to BulletProof</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../MimbleWimble.html">Play MimbleWimble with zkp-playground</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../MimbleWimble.html#Ownership">Ownership</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Ryan Kung.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../../../../_sources/autoapi/zkp_playground/types/algebra/fields/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

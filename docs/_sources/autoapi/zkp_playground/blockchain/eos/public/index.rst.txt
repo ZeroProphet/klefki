@@ -1,0 +1,37 @@
+:mod:`zkp_playground.blockchain.eos.public`
+===================================
+
+.. py:module:: zkp_playground.blockchain.eos.public
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.blockchain.eos.public.to_bytes
+   zkp_playground.blockchain.eos.public.from_bytes
+   zkp_playground.blockchain.eos.public.checksum
+   zkp_playground.blockchain.eos.public.unchecksum
+   zkp_playground.blockchain.eos.public.gen_pub_key
+
+
+.. function:: to_bytes(pub: ECG) -> str
+
+
+.. function:: from_bytes(a)
+
+
+.. function:: checksum(a) -> int
+
+
+.. function:: unchecksum(a)
+
+
+.. function:: gen_pub_key(key: CF)
+
+

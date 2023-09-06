@@ -1,0 +1,35 @@
+:mod:`zkp_playground.crypto.vss`
+========================
+
+.. py:module:: zkp_playground.crypto.vss
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.crypto.vss.VSS
+
+
+
+.. py:class:: VSS(G: EllipticCurveGroup, F: FiniteField, secret=None, k=None, n=None, poly_params=None)
+
+   Bases: :class:`zkp_playground.crypto.ssss.SSSS`
+
+   .. method:: setup(self, secret, k, n, poly_params=[])
+
+      k: threshold
+
+
+   .. method:: verify(self, x, y)
+
+
+   .. method:: verify_proofs(x, y, proofs, G, k)
+      :staticmethod:
+
+
+

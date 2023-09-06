@@ -19,9 +19,9 @@
 #### For Installation (require python>=3.6):
 
 ```shell
-pip3 install klefki
+pip3 install zkp-playground
 
-klefki shell
+zkp-playground shell
 ```
 
 Have Fun!!!!
@@ -33,8 +33,8 @@ With `AAT(Abstract Algebra Type)` you can easily implement the bitcoin `priv/pub
 ```python
 
 import random
-from klefki.utils import to_sha256int
-from klefki.types.algebra.concrete import (
+from zkp_playground.utils import to_sha256int
+from zkp_playground.types.algebra.concrete import (
     JacobianGroupSecp256k1 as JG,
     EllipticCurveCyclicSubgroupSecp256k1 as CG,
     EllipticCurveGroupSecp256k1 as ECG,
@@ -102,9 +102,9 @@ def proof():
 Or transform your Bitcoin Private Key to EOS Private/Pub key (or back)
 
 ```python
-from klefki.bitcoin.private import decode_privkey
-from klefki.eos.public import gen_pub_key
-from klefki.eos.private import encode_privkey
+from zkp_playground.bitcoin.private import decode_privkey
+from zkp_playground.eos.public import gen_pub_key
+from zkp_playground.eos.private import encode_privkey
 
 
 def test_to_eos(priv):
@@ -123,8 +123,8 @@ A morphism f : X → Y in a category is an isomorphism if it admits a two-sided 
 You can define your bijection encoder/decoder like this.
 
 ```python
-from klefki.types.algebra.isomorphism import bijection, do
-from klefki.asn import signature as sig
+from zkp_playground.types.algebra.isomorphism import bijection, do
+from zkp_playground.asn import signature as sig
 from functools import partial
 import base58
 from pyasn1.codec.der.encoder import encode

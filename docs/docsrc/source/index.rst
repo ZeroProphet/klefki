@@ -1,5 +1,5 @@
 
-Welcome to klefki!
+Welcome to zkp-playground!
 ==================================
 
 Klefki is a playground for researching elliptic curve group based cryptocoins, such as Bitcoin and Ethereum. All data types & structures are based on mathematical defination of abstract algebra.
@@ -25,7 +25,7 @@ Academic Notes
    On Sigma Protocols
    Abstract Algebra Types
    Homomorphic Encryption
-   Play MimbleWimble with klefki
+   Play MimbleWimble with zkp-playground
    From ZK to Bulletproofs
    Paillier's encryption Scheme
    ElGamal

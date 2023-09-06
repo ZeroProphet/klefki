@@ -1,0 +1,39 @@
+:mod:`zkp_playground.crypto.ecdsa.secp256r1`
+====================================
+
+.. py:module:: zkp_playground.crypto.ecdsa.secp256r1
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.crypto.ecdsa.secp256r1.random_privkey
+   zkp_playground.crypto.ecdsa.secp256r1.pubkey
+   zkp_playground.crypto.ecdsa.secp256r1.sign
+   zkp_playground.crypto.ecdsa.secp256r1.verify
+   zkp_playground.crypto.ecdsa.secp256r1.verify_msghash
+
+
+.. function:: random_privkey() -> CF
+
+
+.. function:: pubkey(priv: CF) -> CG
+
+
+.. function:: sign(priv: CF, m: str) -> SigType
+
+   https://bitcoin.stackexchange.com/questions/38351/ecdsa-v-r-s-what-is-v
+
+
+.. function:: verify(pub: CG, sig: tuple, msg: str)
+
+
+.. function:: verify_msghash(pub: CG, sig: tuple, mhash: int)
+
+

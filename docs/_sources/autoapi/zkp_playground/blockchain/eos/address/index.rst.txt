@@ -1,0 +1,25 @@
+:mod:`zkp_playground.blockchain.eos.address`
+====================================
+
+.. py:module:: zkp_playground.blockchain.eos.address
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.blockchain.eos.address.gen_address
+   zkp_playground.blockchain.eos.address.gen_address_from_priv
+
+
+.. function:: gen_address(pub: ECG)
+
+
+.. function:: gen_address_from_priv(priv: CF) -> str
+
+

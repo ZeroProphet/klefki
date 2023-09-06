@@ -1,0 +1,29 @@
+:mod:`zkp_playground.blockchain.ethereum.private`
+=========================================
+
+.. py:module:: zkp_playground.blockchain.ethereum.private
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.blockchain.ethereum.private.encode_privkey
+   zkp_playground.blockchain.ethereum.private.decode_privkey
+   zkp_playground.blockchain.ethereum.private.gen_random_privkey
+
+
+.. function:: encode_privkey(key: CF) -> str
+
+
+.. function:: decode_privkey(key: str) -> CF
+
+
+.. function:: gen_random_privkey()
+
+

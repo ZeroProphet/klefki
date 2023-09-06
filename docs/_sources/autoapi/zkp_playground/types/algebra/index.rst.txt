@@ -1,0 +1,26 @@
+:mod:`zkp_playground.types.algebra`
+===========================
+
+.. py:module:: zkp_playground.types.algebra
+
+.. autoapi-nested-parse::
+
+   Algebra types, including Group, field , etc...
+
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   abstract/index.rst
+   concrete/index.rst
+   fields/index.rst
+   groups/index.rst
+   isomorphism/index.rst
+   meta/index.rst
+   utils/index.rst
+
+

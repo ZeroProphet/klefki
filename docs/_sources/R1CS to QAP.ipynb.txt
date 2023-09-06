@@ -34,10 +34,10 @@
     "# ref: https://medium.com/@VitalikButerin/quadratic-arithmetic-programs-from-zero-to-hero-f6d558cea649\n",
     "\n",
     "from functools import partial\n",
-    "from klefki.zkp.r1cs import R1CS, mul\n",
-    "from klefki.zkp.qap import QAP\n",
-    "from klefki.curves.bns.bn128 import BN128FP as F\n",
-    "from klefki.algebra.rings import PolyRing\n",
+    "from zkp_playground.zkp.r1cs import R1CS, mul\n",
+    "from zkp_playground.zkp.qap import QAP\n",
+    "from zkp_playground.curves.bns.bn128 import BN128FP as F\n",
+    "from zkp_playground.algebra.rings import PolyRing\n",
     "import ast\n",
     "\n"
    ]
@@ -394,19 +394,19 @@
    "outputs": [
     {
      "ename": "ModuleNotFoundError",
-     "evalue": "No module named 'klefki.curves.barreto_naehrig'",
+     "evalue": "No module named 'zkp_playground.curves.barreto_naehrig'",
      "output_type": "error",
      "traceback": [
       "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
       "\u001b[0;31mModuleNotFoundError\u001b[0m                       Traceback (most recent call last)",
-      "\u001b[0;32m<ipython-input-17-90dc4368c687>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0;32mfrom\u001b[0m \u001b[0mklefki\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mcurves\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mbarreto_naehrig\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0mbn128\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      2\u001b[0m \u001b[0;32mfrom\u001b[0m \u001b[0mklefki\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0malgebra\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mutils\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0mrandfield\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      3\u001b[0m \u001b[0;32mfrom\u001b[0m \u001b[0moperator\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0madd\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      4\u001b[0m \u001b[0;32mfrom\u001b[0m \u001b[0mfunctools\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0mreduce\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      5\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
-      "\u001b[0;31mModuleNotFoundError\u001b[0m: No module named 'klefki.curves.barreto_naehrig'"
+      "\u001b[0;32m<ipython-input-17-90dc4368c687>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0;32mfrom\u001b[0m \u001b[0mzkp_playground\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mcurves\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mbarreto_naehrig\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0mbn128\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      2\u001b[0m \u001b[0;32mfrom\u001b[0m \u001b[0mzkp_playground\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0malgebra\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mutils\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0mrandfield\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      3\u001b[0m \u001b[0;32mfrom\u001b[0m \u001b[0moperator\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0madd\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      4\u001b[0m \u001b[0;32mfrom\u001b[0m \u001b[0mfunctools\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0mreduce\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      5\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;31mModuleNotFoundError\u001b[0m: No module named 'zkp_playground.curves.barreto_naehrig'"
      ]
     }
    ],
    "source": [
-    "from klefki.curves.barreto_naehrig import bn128\n",
-    "from klefki.algebra.utils import randfield\n",
+    "from zkp_playground.curves.barreto_naehrig import bn128\n",
+    "from zkp_playground.algebra.utils import randfield\n",
     "from operator import add\n",
     "from functools import reduce\n",
     "\n",

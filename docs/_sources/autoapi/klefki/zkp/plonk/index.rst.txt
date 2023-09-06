@@ -1,6 +1,0 @@
-:mod:`klefki.zkp.plonk`
-=======================
-
-.. py:module:: klefki.zkp.plonk
-
-

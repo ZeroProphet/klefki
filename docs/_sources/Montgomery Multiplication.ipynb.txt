@@ -65,8 +65,8 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "from klefki.curves.secp256k1 import FiniteFieldSecp256k1  as F\n",
-    "from klefki.numbers import invmod\n",
+    "from zkp_playground.curves.secp256k1 import FiniteFieldSecp256k1  as F\n",
+    "from zkp_playground.numbers import invmod\n",
     "from math import ceil"
    ]
   },
@@ -252,7 +252,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Klefki.algorithms.montgomery_mul"
+    "## zkp_playground.algorithms.montgomery_mul"
    ]
   },
   {
@@ -263,7 +263,7 @@
    "source": [
     "import random\n",
     "from time import time\n",
-    "from klefki.algorithms import montgomery_mul"
+    "from zkp_playground.algorithms import montgomery_mul"
    ]
   },
   {
@@ -272,7 +272,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "from klefki.curves.secp256k1 import FiniteFieldSecp256k1  as F\n"
+    "from zkp_playground.curves.secp256k1 import FiniteFieldSecp256k1  as F\n"
    ]
   },
   {
@@ -304,7 +304,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "def banchmark_klefki():\n",
+    "def banchmark_zkp_playground():\n",
     "    start = time()\n",
     "    for (a, b) in dataset:\n",
     "        montgomery_mul(a, b, F.P)\n",
@@ -349,7 +349,7 @@
     }
    ],
    "source": [
-    "banchmark_klefki()"
+    "banchmark_zkp_playground()"
    ]
   },
   {
@@ -366,7 +366,7 @@
    "outputs": [],
    "source": [
     "from math import ceil\n",
-    "from klefki.numbers import invmod\n",
+    "from zkp_playground.numbers import invmod\n",
     "\n",
     "def CIOS(a, b, P):\n",
     "    \"\"\"\n",

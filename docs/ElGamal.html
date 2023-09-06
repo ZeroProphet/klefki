@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ElGamal &#8212; klefki 1.7 documentation</title>
+    <title>ElGamal &#8212; zkp-playground 1.0 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
@@ -302,9 +302,9 @@ K_{AB} &amp;\equiv \alpha^{x_ax_B} \mod p\\
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">klefki.numbers.primes</span> <span class="kn">import</span> <span class="n">generate_prime</span>
-<span class="kn">from</span> <span class="nn">klefki.algebra.meta</span> <span class="kn">import</span> <span class="n">field</span>
-<span class="kn">from</span> <span class="nn">klefki.algebra.utils</span> <span class="kn">import</span> <span class="n">randfield</span>
+<span></span><span class="kn">from</span> <span class="nn">zkp_playground.numbers.primes</span> <span class="kn">import</span> <span class="n">generate_prime</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.algebra.meta</span> <span class="kn">import</span> <span class="n">field</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.algebra.utils</span> <span class="kn">import</span> <span class="n">randfield</span>
 <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">gcd</span>
 </pre></div>
 </div>
@@ -392,7 +392,7 @@ True
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">klefki.numbers</span> <span class="kn">import</span> <span class="n">invmod</span>
+<span></span><span class="kn">from</span> <span class="nn">zkp_playground.numbers</span> <span class="kn">import</span> <span class="n">invmod</span>
 <span class="n">r</span> <span class="o">=</span> <span class="p">(</span><span class="n">alpha</span> <span class="o">**</span> <span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
 <span class="n">s</span> <span class="o">=</span> <span class="p">((</span><span class="n">mF</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="o">-</span> <span class="n">mF</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">*</span> <span class="n">mF</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="o">*</span> <span class="o">~</span><span class="n">mF</span><span class="p">(</span><span class="n">k</span><span class="p">))</span><span class="o">.</span><span class="n">value</span>
 
@@ -438,10 +438,10 @@ True
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">klefki.curves.secp256k1</span> <span class="kn">import</span> <span class="n">EllipticCurveGroupSecp256k1</span> <span class="k">as</span> <span class="n">Curve</span>
-<span class="kn">from</span> <span class="nn">klefki.curves.secp256k1</span> <span class="kn">import</span> <span class="n">FiniteFieldSecp256k1</span> <span class="k">as</span> <span class="n">F</span>
+<span></span><span class="kn">from</span> <span class="nn">zkp_playground.curves.secp256k1</span> <span class="kn">import</span> <span class="n">EllipticCurveGroupSecp256k1</span> <span class="k">as</span> <span class="n">Curve</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.curves.secp256k1</span> <span class="kn">import</span> <span class="n">FiniteFieldSecp256k1</span> <span class="k">as</span> <span class="n">F</span>
 
-<span class="kn">from</span> <span class="nn">klefki.algebra.meta</span> <span class="kn">import</span> <span class="n">field</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.algebra.meta</span> <span class="kn">import</span> <span class="n">field</span>
 </pre></div>
 </div>
 </div>
@@ -563,15 +563,15 @@ True
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">klefki.curves.secp256k1</span> <span class="kn">import</span> <span class="n">EllipticCurveGroupSecp256k1</span> <span class="k">as</span> <span class="n">Curve</span>
-<span class="kn">from</span> <span class="nn">klefki.curves.secp256k1</span> <span class="kn">import</span> <span class="n">FiniteFieldCyclicSecp256k1</span> <span class="k">as</span> <span class="n">CF</span>
-<span class="kn">from</span> <span class="nn">klefki.curves.secp256k1</span> <span class="kn">import</span> <span class="n">FiniteFieldSecp256k1</span> <span class="k">as</span> <span class="n">F</span>
-<span class="kn">from</span> <span class="nn">klefki.algebra.meta</span> <span class="kn">import</span> <span class="n">field</span>
-<span class="kn">from</span> <span class="nn">klefki.blockchain.ethereum.private</span> <span class="kn">import</span> <span class="n">decode_privkey</span><span class="p">,</span> <span class="n">encode_privkey</span>
-<span class="kn">from</span> <span class="nn">klefki.crypto.ecdsa.secp256k1</span> <span class="kn">import</span> <span class="n">pubkey</span>
+<span></span><span class="kn">from</span> <span class="nn">zkp_playground.curves.secp256k1</span> <span class="kn">import</span> <span class="n">EllipticCurveGroupSecp256k1</span> <span class="k">as</span> <span class="n">Curve</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.curves.secp256k1</span> <span class="kn">import</span> <span class="n">FiniteFieldCyclicSecp256k1</span> <span class="k">as</span> <span class="n">CF</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.curves.secp256k1</span> <span class="kn">import</span> <span class="n">FiniteFieldSecp256k1</span> <span class="k">as</span> <span class="n">F</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.algebra.meta</span> <span class="kn">import</span> <span class="n">field</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.blockchain.ethereum.private</span> <span class="kn">import</span> <span class="n">decode_privkey</span><span class="p">,</span> <span class="n">encode_privkey</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.crypto.ecdsa.secp256k1</span> <span class="kn">import</span> <span class="n">pubkey</span>
 
 
-<span class="kn">from</span> <span class="nn">klefki.utils</span> <span class="kn">import</span> <span class="n">int_to_byte</span><span class="p">,</span> <span class="n">byte_to_int</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.utils</span> <span class="kn">import</span> <span class="n">int_to_byte</span><span class="p">,</span> <span class="n">byte_to_int</span>
 
 <span class="n">key</span> <span class="o">=</span> <span class="n">decode_privkey</span><span class="p">(</span><span class="s2">&quot;65860affb4b570dba06db294aa7c676f68e04a5bf2721243ad3cbc05a79c68c0&quot;</span><span class="p">)</span>
 </pre></div>
@@ -772,13 +772,13 @@ True
           
         </div>
       </div>
-    <a href="https://github.com/ZeroProphet/klefki">
+    <a href="https://github.com/oxor-io/zkp-playground">
         <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
     </a>
 
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">klefki</a></h1>
+<h1 class="logo"><a href="index.html">zkp-playground</a></h1>
 
 
 
@@ -808,8 +808,8 @@ True
 <li class="toctree-l1"><a class="reference internal" href="Damgard-Jurik%20Scheme%20of%20Paillier.html">Damgard-Jurik Scheme of Paillier</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Threshold%20Paillier%20Cryptosystem.html">Threshold Paillier Cryptosystem</a></li>
 <li class="toctree-l1"><a class="reference internal" href="R1CS%20to%20QAP.html">R1CS to QAP</a></li>
-<li class="toctree-l1"><a class="reference internal" href="MimbleWimble.html">Play MimbleWimble with klefki</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Groth16.html">Groth16 in Klefki</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MimbleWimble.html">Play MimbleWimble with zkp-playground</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Groth16.html">Groth16 in zkp-playground</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>

@@ -1,0 +1,72 @@
+:mod:`zkp_playground.algebra.fields.polyfield`
+======================================
+
+.. py:module:: zkp_playground.algebra.fields.polyfield
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.algebra.fields.polyfield.PolyExtField
+
+
+
+.. py:class:: PolyExtField(*args)
+
+   Bases: :class:`zkp_playground.algebra.abstract.Field`, :class:`zkp_playground.algebra.rings.PolyRing`
+
+   $U \subseteq F$, where F is subfield, P is its module cof
+
+   .. attribute:: F
+      
+
+      
+
+   .. attribute:: P
+      
+
+      
+
+   .. attribute:: DEG
+      
+
+      
+
+   .. method:: from_int(self, o)
+
+
+   .. method:: from_list(self, o)
+
+
+   .. method:: from_tuple(self, o)
+
+
+   .. method:: from_PolyRing(self, o)
+
+
+   .. method:: sec_identity(cls)
+      :classmethod:
+
+
+   .. method:: identity(cls)
+      :classmethod:
+
+      The value for obeying axiom `identity` (3)
+
+
+   .. method:: sec_inverse(self)
+
+      Implement for axiom `inverse`
+
+
+   .. method:: sec_op(self, rhs)
+
+      The Operator for obeying axiom `associativity` (2)
+
+
+

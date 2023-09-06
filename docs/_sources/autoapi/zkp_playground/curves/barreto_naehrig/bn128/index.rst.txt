@@ -1,0 +1,194 @@
+:mod:`zkp_playground.curves.barreto_naehrig.bn128`
+==========================================
+
+.. py:module:: zkp_playground.curves.barreto_naehrig.bn128
+
+.. autoapi-nested-parse::
+
+   ref: https://github.com/ethereum/research/blob/711bd9532b4534ef5ae6277bd7afe625195506d5/zksnark/bn128_field_elements.py
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.curves.barreto_naehrig.bn128.BN128FP
+   zkp_playground.curves.barreto_naehrig.bn128.BN128FP2
+   zkp_playground.curves.barreto_naehrig.bn128.BN128FP12
+   zkp_playground.curves.barreto_naehrig.bn128.BN128ScalarFP
+   zkp_playground.curves.barreto_naehrig.bn128.ECGBN128
+
+
+
+.. py:class:: BN128FP(*args)
+
+   Bases: :class:`zkp_playground.algebra.fields.FiniteField`
+
+   A FIELD is a set F which is closed under two operations + and × s.t.
+   (1) Fis an abelian group under + and
+   (2) F-{0} (the set F without the additive identity 0) is an abelian group under ×.
+
+   .. attribute:: P
+      
+
+      
+
+
+.. py:class:: BN128FP2(*args)
+
+   Bases: :class:`zkp_playground.algebra.fields.PolyExtField`
+
+   $U \subseteq F$, where F is subfield, P is its module cof
+
+   .. attribute:: DEG
+      :annotation: = 2
+
+      
+
+   .. attribute:: F
+      
+
+      
+
+   .. attribute:: P
+      
+
+      
+
+   .. method:: from_fp(cls, v)
+      :classmethod:
+
+
+
+.. py:class:: BN128FP12(*args)
+
+   Bases: :class:`zkp_playground.algebra.fields.PolyExtField`
+
+   $U \subseteq F$, where F is subfield, P is its module cof
+
+   .. attribute:: DEG
+      :annotation: = 12
+
+      
+
+   .. attribute:: F
+      
+
+      
+
+   .. attribute:: P
+      
+
+      
+
+   .. method:: from_fp(cls, v)
+      :classmethod:
+
+
+   .. method:: from_fp2(cls, v)
+      :classmethod:
+
+
+
+.. py:class:: BN128ScalarFP(*args)
+
+   Bases: :class:`zkp_playground.algebra.fields.FiniteField`
+
+   A FIELD is a set F which is closed under two operations + and × s.t.
+   (1) Fis an abelian group under + and
+   (2) F-{0} (the set F without the additive identity 0) is an abelian group under ×.
+
+   .. attribute:: P
+      
+
+      
+
+
+.. py:class:: ECGBN128(*args)
+
+   Bases: :class:`zkp_playground.algebra.groups.ecg.PairFriendlyEllipticCurveGroup`
+
+   y^2 = x^3 + A * x + B
+
+   .. attribute:: A
+      
+
+      
+
+   .. attribute:: N
+      
+
+      
+
+   .. attribute:: F
+      
+
+      
+
+   .. method:: op(self, g)
+
+      The Operator for obeying axiom `associativity` (2)
+
+
+   .. method:: twist(self)
+
+
+   .. method:: twist_FP_to_FP12(cls, x, y)
+      :classmethod:
+
+
+   .. method:: twist_FP2_to_FP12(cls, x, y)
+      :classmethod:
+
+
+   .. method:: linefunc(P1, P2, T)
+      :staticmethod:
+
+
+   .. method:: miller_loop(cls, Q, P)
+      :classmethod:
+
+
+   .. method:: pairing(cls, P, Q)
+      :classmethod:
+
+      e(P, Q + R) = e(P, Qj * e(P, R)
+      e(P + Q, R) = e(P, R) * e(Q, R)
+
+
+   .. method:: e(cls, P, Q)
+      :classmethod:
+
+
+   .. method:: is_on_curve(self)
+
+
+   .. method:: B(F=BN128FP)
+      :staticmethod:
+
+
+   .. method:: lift_x(cls, x)
+      :classmethod:
+
+
+
+.. data:: G1
+   
+
+   
+
+.. data:: G2
+   
+
+   
+
+.. data:: G
+   
+
+   
+

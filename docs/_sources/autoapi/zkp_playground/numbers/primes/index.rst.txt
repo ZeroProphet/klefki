@@ -1,0 +1,52 @@
+:mod:`zkp_playground.numbers.primes`
+============================
+
+.. py:module:: zkp_playground.numbers.primes
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.numbers.primes.ipow
+   zkp_playground.numbers.primes.rabin_miller_witness
+   zkp_playground.numbers.primes.default_k
+   zkp_playground.numbers.primes.is_probably_prime
+   zkp_playground.numbers.primes.generate_prime
+
+
+.. function:: ipow(a, b, n)
+
+   calculates (a**b) % n via binary exponentiation, yielding itermediate
+   results as Rabin-Miller requires
+
+
+.. function:: rabin_miller_witness(test, possible)
+
+   Using Rabin-Miller witness test, will return True if possible is
+   definitely not prime (composite), False if it may be prime.
+
+
+.. data:: smallprimes
+   :annotation: = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
+
+   
+
+.. function:: default_k(bits)
+
+
+.. function:: is_probably_prime(possible, k=None)
+
+
+.. function:: generate_prime(bits, k=None)
+
+   Will generate an integer of b bits that is probably prime
+   (after k trials). Reasonably fast on current hardware for
+   values of up to around 512 bits.
+
+

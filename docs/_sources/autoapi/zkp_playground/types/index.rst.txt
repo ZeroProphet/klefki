@@ -1,0 +1,24 @@
+:mod:`zkp_playground.types`
+===================
+
+.. py:module:: zkp_playground.types
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   algebra/index.rst
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   structure/index.rst
+
+

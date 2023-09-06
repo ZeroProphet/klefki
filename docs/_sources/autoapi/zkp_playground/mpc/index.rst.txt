@@ -1,0 +1,15 @@
+:mod:`zkp_playground.mpc`
+=================
+
+.. py:module:: zkp_playground.mpc
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   secret_sharing/index.rst
+
+

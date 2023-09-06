@@ -1,0 +1,77 @@
+:mod:`zkp_playground.blockchain.bitcoin.sign`
+=====================================
+
+.. py:module:: zkp_playground.blockchain.bitcoin.sign
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.blockchain.bitcoin.sign.decode_edr
+   zkp_playground.blockchain.bitcoin.sign.to_sigtype
+   zkp_playground.blockchain.bitcoin.sign.from_sigtype
+   zkp_playground.blockchain.bitcoin.sign.msgsig_to_bytes
+   zkp_playground.blockchain.bitcoin.sign.msgid_from_bytes
+   zkp_playground.blockchain.bitcoin.sign.compose
+   zkp_playground.blockchain.bitcoin.sign.decompose
+   zkp_playground.blockchain.bitcoin.sign.sign
+   zkp_playground.blockchain.bitcoin.sign.sign_bytes
+   zkp_playground.blockchain.bitcoin.sign.verify
+
+
+.. function:: decode_edr(value)
+
+
+.. data:: sig_encode
+   
+
+   
+
+.. data:: sig_decode
+   
+
+   
+
+.. function:: to_sigtype(sig)
+
+
+.. function:: from_sigtype(sig)
+
+
+.. function:: msgsig_to_bytes(v, r, s)
+
+
+.. function:: msgid_from_bytes(v, r, s)
+
+
+.. function:: compose(v, r, s) -> bytes
+
+
+.. function:: decompose(b: bytes) -> ecdsa.SigType
+
+
+.. data:: msgsig_encode
+   :annotation: :Callable[[ecdsa.SigType], bytes]
+
+   
+
+.. data:: msgsig_decode
+   :annotation: :Callable[[bytes], ecdsa.SigType]
+
+   
+
+.. function:: sign(privkey: str, msg: str)
+
+
+.. function:: sign_bytes(privkey: str, msg: bytes)
+
+
+.. function:: verify(pubkey: str, sig: str, msg: str)
+
+

@@ -1,0 +1,35 @@
+:mod:`zkp_playground.crypto.sponge`
+===========================
+
+.. py:module:: zkp_playground.crypto.sponge
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.crypto.sponge.Sponge
+
+
+
+.. py:class:: Sponge(b, r, f=lambda x: x[::-1])
+
+   .. method:: S(self)
+      :property:
+
+
+   .. method:: padding(cls, dataset: bytes, r: int)
+      :classmethod:
+
+
+   .. method:: absorbs(self, dataset: bytes)
+
+
+   .. method:: squeezed(self, length)
+
+
+

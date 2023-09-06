@@ -1,0 +1,66 @@
+:mod:`zkp_playground.zkp.flatcode`
+==========================
+
+.. py:module:: zkp_playground.zkp.flatcode
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.zkp.flatcode.Flattener
+
+
+
+.. py:class:: Flattener(src, ctx={})
+
+   .. method:: closure_alias(self, sym, refs)
+
+
+   .. method:: mk_symbol(self, base='Sym')
+
+
+   .. method:: latest_sym(self, base, bias=1)
+
+
+   .. method:: extra_inputs(self)
+
+
+   .. method:: handle_subscript(self, s, index=None)
+
+
+   .. method:: extra_loop(self, loop)
+
+      only support:
+      for _ in range(3):
+
+
+   .. method:: extra_body(self)
+
+
+   .. method:: flatten_body(self)
+
+
+   .. method:: transfer_assert(self, stmt)
+
+
+   .. method:: flatten_stmt(self, s, force_target=None)
+
+
+   .. method:: flatten_expr(self, target, expr)
+
+
+   .. method:: flatten_call(self, target, expr)
+
+
+   .. method:: flatten_binop(self, target, expr)
+
+
+   .. method:: flatten_pow(self, target, expr)
+
+
+

@@ -1,0 +1,137 @@
+:mod:`zkp_playground.numbers`
+=====================
+
+.. py:module:: zkp_playground.numbers
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   primes/index.rst
+
+
+Package Contents
+----------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.numbers.rsa_lambda
+   zkp_playground.numbers.rsa_phi
+   zkp_playground.numbers.fn_lambda
+   zkp_playground.numbers.fn_phi
+   zkp_playground.numbers.lcm
+   zkp_playground.numbers.length
+   zkp_playground.numbers.Blength
+   zkp_playground.numbers.Dlength
+   zkp_playground.numbers.power
+   zkp_playground.numbers.invmod
+   zkp_playground.numbers.modpow
+   zkp_playground.numbers.modular_sqrt
+   zkp_playground.numbers.legendre_symbol
+   zkp_playground.numbers.crt
+
+
+.. function:: rsa_lambda(p, q)
+
+
+.. function:: rsa_phi(p, q)
+
+
+.. function:: fn_lambda(n)
+
+   Carmichael Function
+   A number n is said to be a Carmichael number if
+   it satisfies the following modular arithmetic condition:
+   power(b, n-1) MOD n = 1,
+   for all b ranging from 1 to n such that b and
+   n are relatively prime, i.e, gcd(b, n) = 1
+
+
+.. function:: fn_phi(n)
+
+   Eulers Totient Function
+   https://stackoverflow.com/questions/18114138/computing-eulers-totient-function
+
+
+.. data:: carmichael
+   
+
+   
+
+.. data:: totient
+   
+
+   
+
+.. function:: lcm(a, b)
+
+
+.. function:: length(n, base=10)
+
+
+.. function:: Blength(n, base=2)
+
+
+.. function:: Dlength(n, base=10)
+
+
+.. function:: power(base, exp)
+
+   Fast power calculation using repeated squaring 
+
+
+.. function:: invmod(a, p)
+
+
+.. function:: modpow(base, exponent, modulus)
+
+   Modular exponent:
+     c = b ^ e mod m
+   Returns c.
+   (http://www.programmish.com/?p=34)
+
+
+.. function:: modular_sqrt(a, p)
+
+   ref: https://gist.github.com/nakov/60d62bdf4067ea72b7832ce9f71ae079
+   Find a quadratic residue (mod p) of 'a'. p
+   must be an odd prime.
+   Solve the congruence of the form:
+   x^2 = a (mod p)
+   And returns x. Note that p - x is also a root.
+   0 is returned is no square root exists for
+   these a and p.
+   The Tonelli-Shanks algorithm is used (except
+   for some simple cases in which the solution
+   is known from an identity). This algorithm
+   runs in polynomial time (unless the
+   generalized Riemann hypothesis is false).
+
+
+.. function:: legendre_symbol(a, p)
+
+   Compute the Legendre symbol a|p using
+   Euler's criterion. p is a prime, a is
+   relatively prime to p (if p divides
+   a, then a|p = 0)
+   Returns 1 if a has a square root modulo
+   p, -1 otherwise.
+
+
+.. function:: crt(a_list, n_list) -> int
+
+   Applies the Chinese Remainder Theorem to find the unique x such that x = a_i (mod n_i) for all i.
+   :param a_list: A list of integers a_i in the above equation.
+   :param n_list: A list of integers b_i in the above equation.
+   :return: The unique integer x such that x = a_i (mod n_i) for all i.
+   copy from::
+   https://github.com/cryptovoting/damgard-jurik/blob/master/damgard_jurik/utils.py#L100
+
+

@@ -1,0 +1,14 @@
+:mod:`zkp_playground.bitcoin.const`
+===========================
+
+.. py:module:: zkp_playground.bitcoin.const
+
+
+Module Contents
+---------------
+
+.. data:: MAGIC
+   
+
+   
+

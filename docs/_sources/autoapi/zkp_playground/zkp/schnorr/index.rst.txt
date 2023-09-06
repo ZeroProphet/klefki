@@ -1,0 +1,34 @@
+:mod:`zkp_playground.zkp.schnorr`
+=========================
+
+.. py:module:: zkp_playground.zkp.schnorr
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.zkp.schnorr.NIZKSchnoor
+
+
+
+.. py:class:: NIZKSchnoor
+
+   Bases: :class:`zkp_playground.zkp.sigma.NIZK`
+
+   ref: https://crypto.stanford.edu/cs355/19sp/lec5.pdf
+   https://tools.ietf.org/html/rfc8235
+
+   .. method:: proof(x: CF)
+      :staticmethod:
+
+
+   .. method:: verify(u, h, c, z)
+      :staticmethod:
+
+
+

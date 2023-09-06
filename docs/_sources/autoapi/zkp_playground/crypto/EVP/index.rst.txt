@@ -1,0 +1,29 @@
+:mod:`zkp_playground.crypto.EVP`
+========================
+
+.. py:module:: zkp_playground.crypto.EVP
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.crypto.EVP.SymmetricEncryption
+
+
+
+.. py:class:: SymmetricEncryption(key, iv, alg='aes_128_cbc')
+
+   Bases: :class:`object`
+
+   .. method:: encrypt(self, plaintext)
+
+
+   .. method:: decrypt(self, cyphertext)
+
+
+

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Groth16 in Klefki &#8212; klefki 1.7 documentation</title>
+    <title>Groth16 in zkp-playground &#8212; zkp-playground 1.0 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
@@ -18,7 +18,7 @@
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Play MimbleWimble with klefki" href="MimbleWimble.html" />
+    <link rel="prev" title="Play MimbleWimble with zkp-playground" href="MimbleWimble.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -294,8 +294,8 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<div class="section" id="Groth16-in-Klefki">
-<h1>Groth16 in Klefki<a class="headerlink" href="#Groth16-in-Klefki" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Groth16-in-zkp-playground">
+<h1>Groth16 in zkp-playground<a class="headerlink" href="#Groth16-in-zkp-playground" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="Bilinear-groups">
 <h2>Bilinear groups<a class="headerlink" href="#Bilinear-groups" title="Permalink to this headline">¶</a></h2>
 <p>We will work over bilinear groups <span class="math notranslate nohighlight">\((p,\mathbb{G}_1,\mathbb{G}_2,\mathbb{G}_T,e,g,h)\)</span> with the following properties:</p>
@@ -310,8 +310,8 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">klefki.curves.barreto_naehrig.bn128</span> <span class="kn">import</span> <span class="n">BN128ScalarFP</span> <span class="k">as</span> <span class="n">FP</span><span class="p">,</span> <span class="n">ECGBN128</span> <span class="k">as</span> <span class="n">ECG</span>
-<span class="kn">from</span> <span class="nn">klefki.algebra.utils</span> <span class="kn">import</span> <span class="n">randfield</span>
+<span></span><span class="kn">from</span> <span class="nn">zkp_playground.curves.barreto_naehrig.bn128</span> <span class="kn">import</span> <span class="n">BN128ScalarFP</span> <span class="k">as</span> <span class="n">FP</span><span class="p">,</span> <span class="n">ECGBN128</span> <span class="k">as</span> <span class="n">ECG</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.algebra.utils</span> <span class="kn">import</span> <span class="n">randfield</span>
 </pre></div>
 </div>
 </div>
@@ -366,8 +366,8 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">klefki.zkp.r1cs</span> <span class="kn">import</span> <span class="n">R1CS</span>
-<span class="kn">from</span> <span class="nn">klefki.zkp.qap</span> <span class="kn">import</span> <span class="n">QAP</span>
+<span></span><span class="kn">from</span> <span class="nn">zkp_playground.zkp.r1cs</span> <span class="kn">import</span> <span class="n">R1CS</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.zkp.qap</span> <span class="kn">import</span> <span class="n">QAP</span>
 
 </pre></div>
 </div>
@@ -660,13 +660,13 @@ Rhs &amp;= [\alpha\beta + \beta A_{qap} + \alpha B_{qap} + A_{qap}B_{qap} + s\de
           
         </div>
       </div>
-    <a href="https://github.com/ZeroProphet/klefki">
+    <a href="https://github.com/oxor-io/zkp-playground">
         <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
     </a>
 
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">klefki</a></h1>
+<h1 class="logo"><a href="index.html">zkp-playground</a></h1>
 
 
 
@@ -695,8 +695,8 @@ Rhs &amp;= [\alpha\beta + \beta A_{qap} + \alpha B_{qap} + A_{qap}B_{qap} + s\de
 <li class="toctree-l1"><a class="reference internal" href="Damgard-Jurik%20Scheme%20of%20Paillier.html">Damgard-Jurik Scheme of Paillier</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Threshold%20Paillier%20Cryptosystem.html">Threshold Paillier Cryptosystem</a></li>
 <li class="toctree-l1"><a class="reference internal" href="R1CS%20to%20QAP.html">R1CS to QAP</a></li>
-<li class="toctree-l1"><a class="reference internal" href="MimbleWimble.html">Play MimbleWimble with klefki</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Groth16 in Klefki</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MimbleWimble.html">Play MimbleWimble with zkp-playground</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Groth16 in zkp-playground</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
@@ -706,7 +706,7 @@ Rhs &amp;= [\alpha\beta + \beta A_{qap} + \alpha B_{qap} + A_{qap}B_{qap} + s\de
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="MimbleWimble.html" title="previous chapter">Play MimbleWimble with klefki</a></li>
+      <li>Previous: <a href="MimbleWimble.html" title="previous chapter">Play MimbleWimble with zkp-playground</a></li>
   </ul></li>
 </ul>
 </div>

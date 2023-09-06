@@ -1,0 +1,289 @@
+:mod:`zkp_playground.algebra.abstract`
+==============================
+
+.. py:module:: zkp_playground.algebra.abstract
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.algebra.abstract.Transformer
+   zkp_playground.algebra.abstract.Functor
+   zkp_playground.algebra.abstract.Groupoid
+   zkp_playground.algebra.abstract.SemiGroup
+   zkp_playground.algebra.abstract.Monoid
+   zkp_playground.algebra.abstract.Group
+   zkp_playground.algebra.abstract.Ring
+   zkp_playground.algebra.abstract.Field
+
+
+
+.. py:class:: Transformer
+
+   A Transformer, is a Object implemented  methods like `from_int`, `from_list`, `from_SomeType`.
+
+   .. method:: derive(cls, name, *args, **kwargs)
+      :classmethod:
+
+
+   .. method:: clone(self)
+
+
+   .. method:: copy(self)
+
+
+   .. method:: craft(self, *args)
+
+      Automatic lookup method like `from_{type}` of Class Object.
+
+
+
+.. py:class:: Functor(*args)
+
+   Bases: :class:`zkp_playground.algebra.abstract.Transformer`
+
+   Functor provide help function like `fmap`, `lift_fmap`
+
+   .. attribute:: __slots__
+      :annotation: = ['value']
+
+      
+
+   .. method:: construct(cls, name, **kwargs)
+      :classmethod:
+
+
+   .. method:: type(self)
+      :property:
+
+
+   .. method:: id(self)
+      :property:
+
+
+   .. method:: fmap(cls, f: Callable[[Any], Any]) -> Callable[['Functor'], 'Functor']
+      :classmethod:
+
+
+   .. method:: lift_fmap(cls, f: Callable[['Functor'], 'Functor']) -> Callable[[Any], 'Functor']
+      :classmethod:
+
+
+   .. method:: as_map(cls, target: Type['Functor'], f: Callable[['Functor'], 'Functor']) -> Callable[[Any], 'Functor']
+      :classmethod:
+
+
+
+.. py:class:: Groupoid(*args)
+
+   Bases: :class:`zkp_playground.algebra.abstract.Functor`
+
+   A groupoid is an algebraic structure consisting of a non-empty set G and a binary operation o on G. The pair (G, o) is called groupoid.
+
+   .. attribute:: __slots__
+      :annotation: = []
+
+      
+
+   .. method:: op(self, g: Group) -> 'Group'
+      :abstractmethod:
+
+
+   .. method:: __eq__(self, b) -> bool
+
+      Return self==value.
+
+
+   .. method:: __lt__(self, b) -> bool
+
+      Return self<value.
+
+
+   .. method:: __le__(self, b) -> bool
+
+      Return self<=value.
+
+
+   .. method:: __gt__(self, b) -> bool
+
+      Return self>value.
+
+
+   .. method:: __ge__(self, b) -> bool
+
+      Return self>=value.
+
+
+   .. method:: __add__(self, g: Group) -> 'Group'
+
+      Allowing call associativity operator via A + B
+      Strict limit arg `g` and ret `res` should be subtype of Group,
+      For obeying axiom `closure` (1)
+
+
+   .. method:: __radd__(self, g)
+
+
+   .. method:: __mul__(self, g: Group) -> 'Group'
+
+
+   .. method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. method:: __str__(self)
+
+      Return str(self).
+
+
+
+.. py:class:: SemiGroup(*args)
+
+   Bases: :class:`zkp_playground.algebra.abstract.Groupoid`
+
+   If (G, o) is a groupoid and if the associative rule (aob)oc = ao(boc) holds for all a, b, c ∈ G, then (G, o) is called a semigroup.
+
+   .. attribute:: __slots__
+      :annotation: = []
+
+      
+
+   .. method:: op(self, g: Group) -> 'Group'
+      :abstractmethod:
+
+      The Operator for obeying axiom `associativity` (2)
+
+
+
+.. py:class:: Monoid(*args)
+
+   Bases: :class:`zkp_playground.algebra.abstract.SemiGroup`
+
+   A semigroup with identity element is called a monoid.
+
+   .. attribute:: __slots__
+      :annotation: = []
+
+      
+
+   .. method:: zero(cls)
+      :classmethod:
+
+
+   .. method:: identity(cls)
+      :classmethod:
+
+      The value for obeying axiom `identity` (3)
+
+
+   .. method:: __not__(self)
+
+
+   .. method:: scalar(self, times)
+
+
+   .. method:: __matmul__(self, times)
+
+
+   .. method:: __xor__(self, times) -> 'Group'
+
+
+
+.. py:class:: Group(*args)
+
+   Bases: :class:`zkp_playground.algebra.abstract.Monoid`
+
+   A monoid in which every element has an inverse is called group.
+
+   .. attribute:: __slots__
+      :annotation: = []
+
+      
+
+   .. method:: inverse(self: Group) -> 'Group'
+      :abstractmethod:
+
+      Implement for axiom `inverse`
+
+
+   .. method:: __sub__(self, g: Group) -> 'Group'
+
+      Allow to reverse op via a - b
+
+
+   .. method:: __neg__(self) -> 'Group'
+
+
+
+.. py:class:: Ring(*args)
+
+   Bases: :class:`zkp_playground.algebra.abstract.Group`
+
+   RING is a setRwhich is CLOSED under two operations+and×andsatisfying the following properties:
+   (1) R is an abelian group under+.
+   (2)Associativity of × For every a,b,c∈R,a×(b×c) = (a×b)×c
+   (3)Distributive Properties – For everya,b,c∈Rthe following identities hold:
+   a×(b+c) = (a×b) + (a×c)and(b+c)×a=b×a+c×a
+
+   .. attribute:: __slots__
+      :annotation: = []
+
+      
+
+   .. method:: sec_op(self, g: Field) -> 'Field'
+      :abstractmethod:
+
+      The Operator for obeying axiom `associativity` (2)
+
+
+   .. method:: __mul__(self, g: Field) -> 'Field'
+
+      Allowing call associativity operator via A * B
+      Strict limit arg `g` and ret `res` should be subtype of Group,
+      For obeying axiom `closure` (1)
+
+
+   .. method:: __pow__(self, b, m=None)
+
+
+
+.. py:class:: Field(*args)
+
+   Bases: :class:`zkp_playground.algebra.abstract.Ring`
+
+   A FIELD is a set F which is closed under two operations + and × s.t.
+   (1) Fis an abelian group under + and
+   (2) F-{0} (the set F without the additive identity 0) is an abelian group under ×.
+
+   .. attribute:: __slots__
+      :annotation: = []
+
+      
+
+   .. method:: sec_inverse(self) -> 'Field'
+      :abstractmethod:
+
+      Implement for axiom `inverse`
+
+
+   .. method:: sec_identity(cls)
+      :classmethod:
+
+
+   .. method:: one(cls)
+      :classmethod:
+
+
+   .. method:: __invert__(self)
+
+
+   .. method:: __truediv__(self, g: Field) -> 'Field'
+
+
+

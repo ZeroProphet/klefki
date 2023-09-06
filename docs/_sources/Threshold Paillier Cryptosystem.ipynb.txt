@@ -95,10 +95,10 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "from klefki.numbers.primes import generate_prime\n",
-    "from klefki.numbers import lcm\n",
-    "from klefki.mpc.secret_sharing import additive_share\n",
-    "from klefki.types.algebra.meta import field\n",
+    "from zkp_playground.numbers.primes import generate_prime\n",
+    "from zkp_playground.numbers import lcm\n",
+    "from zkp_playground.mpc.secret_sharing import additive_share\n",
+    "from zkp_playground.types.algebra.meta import field\n",
     "import random"
    ]
   },
@@ -129,7 +129,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "from klefki.crypto.elgamal import ElGamal"
+    "from zkp_playground.crypto.elgamal import ElGamal"
    ]
   },
   {
@@ -171,7 +171,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "from klefki.crypto.paillier import Paillier"
+    "from zkp_playground.crypto.paillier import Paillier"
    ]
   },
   {
@@ -256,8 +256,8 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "from klefki.types.algebra.utils import randfield\n",
-    "from klefki.types.algebra.meta import field\n",
+    "from zkp_playground.types.algebra.utils import randfield\n",
+    "from zkp_playground.types.algebra.meta import field\n",
     "from math import log"
    ]
   },
@@ -527,8 +527,8 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "from klefki.crypto.damgard_jurik import DJPaillier\n",
-    "from klefki.crypto.paillier import L"
+    "from zkp_playground.crypto.damgard_jurik import DJPaillier\n",
+    "from zkp_playground.crypto.paillier import L"
    ]
   },
   {
@@ -683,10 +683,10 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "from klefki.numbers.primes import generate_prime\n",
-    "from klefki.types.algebra.meta import field\n",
-    "from klefki.numbers import invmod\n",
-    "from klefki.mpc.secret_sharing import additive_share\n",
+    "from zkp_playground.numbers.primes import generate_prime\n",
+    "from zkp_playground.types.algebra.meta import field\n",
+    "from zkp_playground.numbers import invmod\n",
+    "from zkp_playground.mpc.secret_sharing import additive_share\n",
     "from functools import reduce\n",
     "from operator import add"
    ]

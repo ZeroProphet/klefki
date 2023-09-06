@@ -1,0 +1,17 @@
+:mod:`zkp_playground.blockchain.bitcoin.script`
+=======================================
+
+.. py:module:: zkp_playground.blockchain.bitcoin.script
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   consts/index.rst
+   interpreter/index.rst
+   script/index.rst
+
+

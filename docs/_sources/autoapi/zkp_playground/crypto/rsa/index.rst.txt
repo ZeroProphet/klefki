@@ -1,0 +1,98 @@
+:mod:`zkp_playground.crypto.rsa`
+========================
+
+.. py:module:: zkp_playground.crypto.rsa
+
+.. autoapi-nested-parse::
+
+   ref: https://www.wikiwand.com/zh-hans/%E8%BC%BE%E8%BD%89%E7%9B%B8%E9%99%A4%E6%B3%95
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.crypto.rsa.RSA
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.crypto.rsa.mod_inverse
+
+
+.. function:: mod_inverse(a, m)
+
+   gcd = as + mt
+   ab = 1 (mod m)
+   a and m are relatively prime
+
+
+.. py:class:: RSA(p, q)
+
+   ref: https://www.wikiwand.com/en/RSA_(cryptosystem)
+   You should always use encrypt and decrypt never use
+   encrypt/decrypt with xxx-key without knowing what you are doing.
+
+   .. attribute:: e
+      :annotation: = 65537
+
+      
+
+   .. attribute:: encrypt_block
+      
+
+      
+
+   .. attribute:: decrypt_block
+      
+
+      
+
+   .. method:: public_key(self)
+      :property:
+
+
+   .. method:: private_key(self)
+      :property:
+
+
+   .. method:: decrypt_with_pub_key(self, block: int)
+
+
+   .. method:: encrypt_with_private_key(self, block: int) -> int
+
+
+   .. method:: encrypt_with_pub_key(self, block: int)
+
+
+   .. method:: decrypt_with_private_key(self, block: int) -> int
+
+
+   .. method:: decrypt(msg, e, n)
+      :staticmethod:
+
+
+   .. method:: encrypt_string(self, message: str) -> list
+
+
+   .. method:: decrypt_string(self, encrypted: list)
+
+
+   .. method:: parse_lv_pubkey(pub)
+      :staticmethod:
+
+
+   .. method:: verify_ssh_rsa_sig(cls, sig, msg, pub, alog='SHA256')
+      :classmethod:
+
+
+

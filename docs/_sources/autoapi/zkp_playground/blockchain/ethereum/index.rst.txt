@@ -1,0 +1,32 @@
+:mod:`zkp_playground.blockchain.ethereum`
+=================================
+
+.. py:module:: zkp_playground.blockchain.ethereum
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   address/index.rst
+   private/index.rst
+   public/index.rst
+
+
+Package Contents
+----------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.blockchain.ethereum.gen_address_from_priv
+
+
+.. function:: gen_address_from_priv(priv: CF) -> str
+
+

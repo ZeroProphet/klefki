@@ -1,0 +1,50 @@
+:mod:`zkp_playground.algebra.groups.cycic_group`
+========================================
+
+.. py:module:: zkp_playground.algebra.groups.cycic_group
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.algebra.groups.cycic_group.FiniteCycicGroup
+
+
+
+.. py:class:: FiniteCycicGroup(*args)
+
+   Bases: :class:`zkp_playground.algebra.abstract.Group`
+
+   .. attribute:: N
+      
+
+      
+
+   .. method:: craft(self, o)
+
+
+   .. method:: identity(cls)
+      :classmethod:
+
+      The value for obeying axiom `identity` (3)
+
+
+   .. method:: inverse(self)
+
+      Implement for axiom `inverse`
+
+
+   .. method:: op(self, g)
+
+      The Operator for obeying axiom `associativity` (2)
+
+
+   .. method:: __pow__(self, times)
+
+
+

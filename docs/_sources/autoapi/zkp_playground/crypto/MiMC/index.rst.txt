@@ -1,0 +1,62 @@
+:mod:`zkp_playground.crypto.MiMC`
+=========================
+
+.. py:module:: zkp_playground.crypto.MiMC
+
+.. autoapi-nested-parse::
+
+   Ref: https://byt3bit.github.io/primesym/mimc/
+   Ref: https://eprint.iacr.org/2016/492.pdf
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.crypto.MiMC.MiMC
+   zkp_playground.crypto.MiMC.FeistelMiMC
+
+
+
+.. py:class:: MiMC(field, r)
+
+   .. method:: F(x, k, c)
+      :staticmethod:
+
+
+   .. method:: encrypt(self, x, k, r=None)
+
+
+   .. method:: r1cs(self)
+      :property:
+
+
+   .. method:: E(self, *args, **kwargs)
+
+
+   .. method:: constants(self)
+      :property:
+
+
+
+.. py:class:: FeistelMiMC(field, r)
+
+   Bases: :class:`zkp_playground.crypto.MiMC.MiMC`
+
+   .. method:: F(x, y, k, c)
+      :staticmethod:
+
+
+   .. method:: encrypt(self, x, y, k, r=None)
+
+
+   .. method:: r1cs(self)
+      :property:
+
+
+

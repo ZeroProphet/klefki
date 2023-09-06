@@ -1,0 +1,43 @@
+:mod:`zkp_playground.blockchain.bitcoin`
+================================
+
+.. py:module:: zkp_playground.blockchain.bitcoin
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   asn/index.rst
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   address/index.rst
+   const/index.rst
+   private/index.rst
+   public/index.rst
+   sign/index.rst
+
+
+Package Contents
+----------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.blockchain.bitcoin.gen_address_from_priv
+
+
+.. function:: gen_address_from_priv(key) -> str
+
+

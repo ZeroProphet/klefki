@@ -1,0 +1,58 @@
+:mod:`zkp_playground.zkp.commitment`
+============================
+
+.. py:module:: zkp_playground.zkp.commitment
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.zkp.commitment.Sigma
+   zkp_playground.zkp.commitment.Commitment
+   zkp_playground.zkp.commitment.TrapdoorCommitment
+
+
+
+.. py:class:: Sigma
+
+   .. method:: commit(self, m, r)
+      :property:
+
+
+   .. method:: challenge(self, e)
+      :property:
+
+
+   .. method:: proof(self)
+      :property:
+
+
+
+.. py:class:: Commitment
+
+   .. attribute:: C
+      
+
+      
+
+   .. attribute:: D
+      
+
+      
+
+
+.. py:class:: TrapdoorCommitment
+
+   Bases: :class:`zkp_playground.zkp.commitment.Commitment`
+
+   .. attribute:: trapdoor
+      
+
+      
+
+

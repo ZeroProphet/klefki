@@ -1,0 +1,15 @@
+:mod:`zkp_playground.client`
+====================
+
+.. py:module:: zkp_playground.client
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   shell/index.rst
+
+

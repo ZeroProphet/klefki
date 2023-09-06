@@ -1,0 +1,337 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>zkp_playground.types.algebra.abstract &#8212; zkp-playground 1.0-rc documentation</title>
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for zkp_playground.types.algebra.abstract</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABCMeta</span><span class="p">,</span> <span class="n">abstractmethod</span><span class="p">,</span> <span class="n">abstractproperty</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.algorithms</span> <span class="kn">import</span> <span class="n">double_and_add_algorithm</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.algorithms</span> <span class="kn">import</span> <span class="n">complex_truediv_algorithm</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.numbers</span> <span class="kn">import</span> <span class="n">modular_sqrt</span>
+
+
+<div class="viewcode-block" id="Functor"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Functor">[docs]</a><span class="k">class</span> <span class="nc">Functor</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Functor.__slots__"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Functor.__slots__">[docs]</a>    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Functor.construct"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Functor.construct">[docs]</a>    <span class="k">def</span> <span class="nf">construct</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="p">),</span> <span class="nb">dict</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">))</span></div>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmap</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmap</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Functor.fmap"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Functor.fmap">[docs]</a>    <span class="k">def</span> <span class="nf">fmap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">o</span></div>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Functor.functor"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Functor.functor">[docs]</a>    <span class="k">def</span> <span class="nf">functor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span></div>
+
+<div class="viewcode-block" id="Functor.id"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Functor.id">[docs]</a>    <span class="k">def</span> <span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span></div></div>
+
+<div class="viewcode-block" id="Groupoid"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Groupoid">[docs]</a><span class="k">class</span> <span class="nc">Groupoid</span><span class="p">(</span><span class="n">Functor</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Groupoid.__slots__"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Groupoid.__slots__">[docs]</a>    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">()</span></div>
+
+    <span class="nd">@abstractmethod</span>
+<div class="viewcode-block" id="Groupoid.op"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Groupoid.op">[docs]</a>    <span class="k">def</span> <span class="nf">op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="s1">&#39;Group&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Group&#39;</span><span class="p">:</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="Groupoid.__eq__"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Groupoid.__eq__">[docs]</a>    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">b</span><span class="o">.</span><span class="n">value</span></div>
+
+<div class="viewcode-block" id="Groupoid.__lt__"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Groupoid.__lt__">[docs]</a>    <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;</span> <span class="n">b</span><span class="o">.</span><span class="n">value</span></div>
+
+<div class="viewcode-block" id="Groupoid.__le__"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Groupoid.__le__">[docs]</a>    <span class="k">def</span> <span class="fm">__le__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;=</span> <span class="n">b</span><span class="o">.</span><span class="n">value</span></div>
+
+<div class="viewcode-block" id="Groupoid.__gt__"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Groupoid.__gt__">[docs]</a>    <span class="k">def</span> <span class="fm">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&gt;</span> <span class="n">b</span><span class="o">.</span><span class="n">value</span></div>
+
+<div class="viewcode-block" id="Groupoid.__ge__"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Groupoid.__ge__">[docs]</a>    <span class="k">def</span> <span class="fm">__ge__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="n">b</span><span class="o">.</span><span class="n">value</span></div>
+
+<div class="viewcode-block" id="Groupoid.__add__"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Groupoid.__add__">[docs]</a>    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="s1">&#39;Group&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Group&#39;</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Allowing call associativity operator via A + B</span>
+<span class="sd">        Strict limit arg `g` and ret `res` should be subtype of Group,</span>
+<span class="sd">        For obeying axiom `closure` (1)</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">res</span></div>
+
+<div class="viewcode-block" id="Groupoid.__radd__"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Groupoid.__radd__">[docs]</a>    <span class="k">def</span> <span class="fm">__radd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">g</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__add__</span><span class="p">(</span><span class="n">g</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Groupoid.__mul__"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Groupoid.__mul__">[docs]</a>    <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="s1">&#39;Group&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Group&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__add__</span><span class="p">(</span><span class="n">g</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Groupoid.__repr__"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Groupoid.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">::</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">value</span></div>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="Groupoid.__str__"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Groupoid.__str__">[docs]</a>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="SemiGroup"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.SemiGroup">[docs]</a><span class="k">class</span> <span class="nc">SemiGroup</span><span class="p">(</span><span class="n">Groupoid</span><span class="p">):</span>
+
+<div class="viewcode-block" id="SemiGroup.__slots__"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.SemiGroup.__slots__">[docs]</a>    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">()</span></div>
+
+    <span class="nd">@abstractmethod</span>
+<div class="viewcode-block" id="SemiGroup.op"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.SemiGroup.op">[docs]</a>    <span class="k">def</span> <span class="nf">op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="s1">&#39;Group&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Group&#39;</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        The Operator for obeying axiom `associativity` (2)</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">pass</span></div></div>
+
+
+<div class="viewcode-block" id="Monoid"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Monoid">[docs]</a><span class="k">class</span> <span class="nc">Monoid</span><span class="p">(</span><span class="n">SemiGroup</span><span class="p">):</span>
+<div class="viewcode-block" id="Monoid.__slots__"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Monoid.__slots__">[docs]</a>    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">()</span></div>
+
+    <span class="nd">@abstractproperty</span>
+<div class="viewcode-block" id="Monoid.identity"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Monoid.identity">[docs]</a>    <span class="k">def</span> <span class="nf">identity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        The value for obeying axiom `identity` (3)</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="Monoid.__not__"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Monoid.__not__">[docs]</a>    <span class="k">def</span> <span class="nf">__not__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">identity</span></div>
+
+<div class="viewcode-block" id="Monoid.scalar"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Monoid.scalar">[docs]</a>    <span class="k">def</span> <span class="nf">scalar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">times</span><span class="p">):</span>
+        <span class="k">while</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">times</span> <span class="o">=</span> <span class="n">times</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">if</span> <span class="n">times</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">identity</span>
+        <span class="k">return</span> <span class="n">double_and_add_algorithm</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">identity</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Monoid.__matmul__"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Monoid.__matmul__">[docs]</a>    <span class="k">def</span> <span class="fm">__matmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">times</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">scalar</span><span class="p">(</span><span class="n">times</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Monoid.__pow__"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Monoid.__pow__">[docs]</a>    <span class="k">def</span> <span class="fm">__pow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Group&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">scalar</span><span class="p">(</span><span class="n">times</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Monoid.__xor__"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Monoid.__xor__">[docs]</a>    <span class="k">def</span> <span class="fm">__xor__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Group&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__matmul__</span><span class="p">(</span><span class="n">times</span><span class="p">)</span></div></div>
+
+
+
+<div class="viewcode-block" id="Group"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Group">[docs]</a><span class="k">class</span> <span class="nc">Group</span><span class="p">(</span><span class="n">Monoid</span><span class="p">):</span>
+<div class="viewcode-block" id="Group.__slots__"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Group.__slots__">[docs]</a>    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">()</span></div>
+
+    <span class="nd">@abstractmethod</span>
+<div class="viewcode-block" id="Group.inverse"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Group.inverse">[docs]</a>    <span class="k">def</span> <span class="nf">inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;Group&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Group&#39;</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Implement for axiom `inverse`</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="Group.__sub__"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Group.__sub__">[docs]</a>    <span class="k">def</span> <span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="s1">&#39;Group&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Group&#39;</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Allow to reverse op via a - b</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">inverse</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="Group.__neg__"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Group.__neg__">[docs]</a>    <span class="k">def</span> <span class="fm">__neg__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Group&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">inverse</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="Field"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Field">[docs]</a><span class="k">class</span> <span class="nc">Field</span><span class="p">(</span><span class="n">Group</span><span class="p">):</span>
+<div class="viewcode-block" id="Field.__slots__"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Field.__slots__">[docs]</a>    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">()</span></div>
+
+    <span class="nd">@abstractmethod</span>
+<div class="viewcode-block" id="Field.sec_op"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Field.sec_op">[docs]</a>    <span class="k">def</span> <span class="nf">sec_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="s1">&#39;Field&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Field&#39;</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        The Operator for obeying axiom `associativity` (2)</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">pass</span></div>
+
+    <span class="nd">@abstractmethod</span>
+<div class="viewcode-block" id="Field.sec_inverse"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Field.sec_inverse">[docs]</a>    <span class="k">def</span> <span class="nf">sec_inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Field&#39;</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Implement for axiom `inverse`</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">pass</span></div>
+
+    <span class="nd">@abstractmethod</span>
+<div class="viewcode-block" id="Field.sec_identity"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Field.sec_identity">[docs]</a>    <span class="k">def</span> <span class="nf">sec_identity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="Field.__invert__"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Field.__invert__">[docs]</a>    <span class="k">def</span> <span class="fm">__invert__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sec_inverse</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Field.__mul__"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Field.__mul__">[docs]</a>    <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="s1">&#39;Field&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Field&#39;</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Allowing call associativity operator via A * B</span>
+<span class="sd">        Strict limit arg `g` and ret `res` should be subtype of Group,</span>
+<span class="sd">        For obeying axiom `closure` (1)</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sec_op</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)),</span> <span class="s1">&#39;result shuould be </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">res</span></div>
+
+<div class="viewcode-block" id="Field.__pow__"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Field.__pow__">[docs]</a>    <span class="k">def</span> <span class="fm">__pow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">):</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">value</span>
+
+        <span class="k">if</span> <span class="n">b</span> <span class="o">==</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">):</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="n">modular_sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">P</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="n">root</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;ins dont have root&quot;</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;P&quot;</span><span class="p">):</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">P</span>
+            <span class="k">if</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="o">~</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">b</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">m</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">m</span><span class="p">))</span></div>
+        <span class="c1"># If b == 0:</span>
+        <span class="c1">#     return self.__class__(1)</span>
+        <span class="c1"># if 0 &lt; b &lt; 1:</span>
+        <span class="c1">#     return self.__class__(self.value ** b)</span>
+        <span class="c1"># if b == 1:</span>
+        <span class="c1">#     return self</span>
+        <span class="c1"># if b == 2:</span>
+        <span class="c1">#     return self * self</span>
+        <span class="c1"># return self * (self ** (b - 1))</span>
+
+<div class="viewcode-block" id="Field.__truediv__"><a class="viewcode-back" href="../../../../autoapi/zkp_playground/types/algebra/abstract/index.html#zkp_playground.types.algebra.abstract.Field.__truediv__">[docs]</a>    <span class="k">def</span> <span class="fm">__truediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="s1">&#39;Field&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Field&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="nb">complex</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">complex_truediv_algorithm</span><span class="p">(</span><span class="nb">complex</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sec_op</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">sec_inverse</span><span class="p">())</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+    <a href="https://github.com/oxor-io/zkp-playground">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
+    </a>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../index.html">zkp-playground</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../README.html">TL;DR</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Non-interactive%20and%20Reusable%20Non-malleable%20Commitment%20Schemes.html">Non-interactive and Reusable Non-malleable Commitment Schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Pedersen%20Commitment.html">Pedersen Commitment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../On%20Sigma%20Protocols.html"><span class="math notranslate nohighlight">\(\Sigma\)</span> Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Abstract%20Algebra%20Types.html">Abstract Algebra Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Homomorphic%20Encryption.html">Homomorphic Encryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../From%20ZK%20to%20Bulletproofs.html">From ZK to Bulletproofsproof via Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Paillier%27s%20encryption%20Scheme.html">Paillier’s encryption Scheme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../ElGamal.html">ElGamal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Shamir%27s%20secret%20sharing%20scheme.html">Shamir’s secret sharing scheme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Trapdoor%20Commitment%20Schemes.html">Discrete-Logarithm-Based Trapdoor Commitment Schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Threshold%20ECDSA.html">Threshold ECDSA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../POD-Mini%20and%20POD-AS.html">POD-Mini and POD-AS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Damgard-Jurik%20Scheme%20of%20Paillier.html">Damgard-Jurik Scheme of Paillier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Threshold%20Paillier%20Cryptosystem.html">Threshold Paillier Cryptosystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Ryan Kung.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

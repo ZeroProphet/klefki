@@ -6,7 +6,7 @@ This page contains auto-generated API reference documentation [#f1]_.
 .. toctree::
    :titlesonly:
 
-   /autoapi/klefki/index
+   /autoapi/zkp_playground/index
    /autoapi/qap/index
    /autoapi/r1cs/index
    /autoapi/groth16/index

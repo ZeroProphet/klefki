@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>eos.address &#8212; klefki 1.0-rc documentation</title>
+    <title>eos.address &#8212; zkp-playground 1.0-rc documentation</title>
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
@@ -36,12 +36,12 @@
             
   <h1>Source code for eos.address</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">hashlib</span>
-<span class="kn">from</span> <span class="nn">klefki.crypto.ecdsa.secp256k1</span> <span class="k">import</span> <span class="n">pubkey</span>
-<span class="kn">from</span> <span class="nn">klefki.types.algebra.concrete</span> <span class="k">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.crypto.ecdsa.secp256k1</span> <span class="k">import</span> <span class="n">pubkey</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.types.algebra.concrete</span> <span class="k">import</span> <span class="p">(</span>
     <span class="n">EllipticCurveGroupSecp256k1</span> <span class="k">as</span> <span class="n">ECG</span><span class="p">,</span>
     <span class="n">FiniteFieldCyclicSecp256k1</span> <span class="k">as</span> <span class="n">CF</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">klefki.utils</span> <span class="k">import</span> <span class="n">ripemd160</span><span class="p">,</span> <span class="n">b58encode</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.utils</span> <span class="k">import</span> <span class="n">ripemd160</span><span class="p">,</span> <span class="n">b58encode</span>
 
 
 <span class="kn">from</span> <span class="nn">.public</span> <span class="k">import</span> <span class="n">to_bytes</span>
@@ -62,13 +62,13 @@
           
         </div>
       </div>
-    <a href="https://github.com/ryankung/klefki">
+    <a href="https://github.com/oxor-io/zkp-playground">
         <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
     </a>
 
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../../index.html">klefki</a></h1>
+<h1 class="logo"><a href="../../index.html">zkp-playground</a></h1>
 
 
 

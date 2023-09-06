@@ -1,0 +1,25 @@
+:mod:`zkp_playground.blockchain.ethereum.sign`
+======================================
+
+.. py:module:: zkp_playground.blockchain.ethereum.sign
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.blockchain.ethereum.sign.sign
+   zkp_playground.blockchain.ethereum.sign.recover
+
+
+.. function:: sign(priv: str, msg: str) -> (int, int, int)
+
+
+.. function:: recover(sig: Tuple[int, int, int], msg: str)
+
+

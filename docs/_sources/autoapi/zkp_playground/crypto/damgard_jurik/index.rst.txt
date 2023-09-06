@@ -1,0 +1,58 @@
+:mod:`zkp_playground.crypto.damgard_jurik`
+==================================
+
+.. py:module:: zkp_playground.crypto.damgard_jurik
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.crypto.damgard_jurik.DJPaillier
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.crypto.damgard_jurik.damgard_jurik_reduce
+
+
+.. function:: damgard_jurik_reduce(a: int, n: int, s=1) -> int
+
+   Computes i given a = (1 + n)^i (mod n^(s+1)).
+   :param a: The integer a in the above equation.
+   :param s: The integer s in the above equation.
+   :param n: The integer n in the above equation.
+   :return: The integer i in the above equation.
+
+
+.. py:class:: DJPaillier(P, Q, s=1, strict=False)
+
+   Bases: :class:`zkp_playground.crypto.paillier.Paillier`
+
+   .. method:: cal_privkey(P, Q, s=1)
+      :staticmethod:
+
+
+   .. method:: encrypt(cls, m, pub, s=1, r=None)
+      :classmethod:
+
+
+   .. method:: decrypt(cls, c, priv, pub, s=1)
+      :classmethod:
+
+
+   .. method:: E(self, m, pub=None, s=None, r=None)
+
+
+   .. method:: D(self, c, priv=None, pub=None, s=None)
+
+
+

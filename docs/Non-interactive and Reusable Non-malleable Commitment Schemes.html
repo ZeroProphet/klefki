@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Non-interactive and Reusable Non-malleable Commitment Schemes &#8212; klefki 1.7 documentation</title>
+    <title>Non-interactive and Reusable Non-malleable Commitment Schemes &#8212; zkp-playground 1.0 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
@@ -351,13 +351,13 @@ adversary specify the mes- sages rather than ﬁrst forming commitments and then
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">klefki.types.algebra.concrete</span> <span class="kn">import</span> <span class="n">EllipticCurveCyclicSubgroupSecp256k1</span> <span class="k">as</span> <span class="n">ECC</span>
-<span class="kn">from</span> <span class="nn">klefki.types.algebra.concrete</span> <span class="kn">import</span> <span class="n">EllipticCurveGroupSecp256k1</span> <span class="k">as</span> <span class="n">Cruve</span>
-<span class="kn">from</span> <span class="nn">klefki.types.algebra.concrete</span> <span class="kn">import</span> <span class="n">FiniteFieldCyclicSecp256k1</span> <span class="k">as</span> <span class="n">CF</span>
-<span class="kn">from</span> <span class="nn">klefki.types.algebra.concrete</span> <span class="kn">import</span> <span class="n">FiniteFieldSecp256k1</span> <span class="k">as</span> <span class="n">F</span>
-<span class="kn">from</span> <span class="nn">klefki.types.algebra.utils</span> <span class="kn">import</span> <span class="n">randfield</span>
-<span class="kn">from</span> <span class="nn">klefki.bitcoin.address</span> <span class="kn">import</span> <span class="n">gen_address</span>
-<span class="kn">from</span> <span class="nn">klefki.utils</span> <span class="kn">import</span> <span class="n">to_sha256int</span>
+<span></span><span class="kn">from</span> <span class="nn">zkp_playground.types.algebra.concrete</span> <span class="kn">import</span> <span class="n">EllipticCurveCyclicSubgroupSecp256k1</span> <span class="k">as</span> <span class="n">ECC</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.types.algebra.concrete</span> <span class="kn">import</span> <span class="n">EllipticCurveGroupSecp256k1</span> <span class="k">as</span> <span class="n">Cruve</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.types.algebra.concrete</span> <span class="kn">import</span> <span class="n">FiniteFieldCyclicSecp256k1</span> <span class="k">as</span> <span class="n">CF</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.types.algebra.concrete</span> <span class="kn">import</span> <span class="n">FiniteFieldSecp256k1</span> <span class="k">as</span> <span class="n">F</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.types.algebra.utils</span> <span class="kn">import</span> <span class="n">randfield</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.bitcoin.address</span> <span class="kn">import</span> <span class="n">gen_address</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.utils</span> <span class="kn">import</span> <span class="n">to_sha256int</span>
 
 </pre></div>
 </div>
@@ -384,8 +384,8 @@ adversary specify the mes- sages rather than ﬁrst forming commitments and then
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">klefki.zkp.pedersen</span> <span class="kn">import</span> <span class="n">com</span> <span class="k">as</span> <span class="n">commit</span>
-<span class="kn">from</span> <span class="nn">klefki.zkp.pedersen</span> <span class="kn">import</span> <span class="n">PedersonCommitment</span>
+<span></span><span class="kn">from</span> <span class="nn">zkp_playground.zkp.pedersen</span> <span class="kn">import</span> <span class="n">com</span> <span class="k">as</span> <span class="n">commit</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.zkp.pedersen</span> <span class="kn">import</span> <span class="n">PedersonCommitment</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
 
 <span class="n">G</span> <span class="o">=</span> <span class="n">ECC</span><span class="o">.</span><span class="n">G</span>
@@ -455,8 +455,8 @@ adversary specify the mes- sages rather than ﬁrst forming commitments and then
 <span></span><span class="c1"># Finally, we compute 𝑚𝑎𝑐=𝑀𝐴𝐶𝑎𝑘(𝑎).</span>
 
 <span class="kn">import</span> <span class="nn">hmac</span>
-<span class="kn">from</span> <span class="nn">klefki.bitcoin.public</span> <span class="kn">import</span> <span class="n">encode_pubkey</span>
-<span class="kn">from</span> <span class="nn">klefki.utils</span> <span class="kn">import</span> <span class="n">int_to_byte</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.bitcoin.public</span> <span class="kn">import</span> <span class="n">encode_pubkey</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.utils</span> <span class="kn">import</span> <span class="n">int_to_byte</span>
 <span class="n">mac</span> <span class="o">=</span> <span class="n">hmac</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ak</span><span class="o">.</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span> <span class="n">encode_pubkey</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -541,14 +541,14 @@ True
 </div>
 </div>
 </div>
-<div class="section" id="Implementation-in-Klefki">
-<h2>Implementation in Klefki<a class="headerlink" href="#Implementation-in-Klefki" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Implementation-in-zkp-playground">
+<h2>Implementation in zkp-playground<a class="headerlink" href="#Implementation-in-zkp-playground" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">klefki.zkp.gorth03</span> <span class="kn">import</span> <span class="n">NMCommitment</span><span class="p">,</span> <span class="n">keygen</span>
+<span></span><span class="kn">from</span> <span class="nn">zkp_playground.zkp.gorth03</span> <span class="kn">import</span> <span class="n">NMCommitment</span><span class="p">,</span> <span class="n">keygen</span>
 <span class="n">G</span> <span class="o">=</span> <span class="n">ECC</span><span class="o">.</span><span class="n">G</span>
 <span class="n">H</span> <span class="o">=</span> <span class="n">Cruve</span><span class="o">.</span><span class="n">lift_x</span><span class="p">(</span><span class="n">CF</span><span class="p">(</span><span class="n">to_sha256int</span><span class="p">(</span><span class="s2">&quot;hello NIRNCS&quot;</span><span class="p">)))</span>
 
@@ -574,7 +574,7 @@ True
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">c</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">commit</span><span class="p">(</span><span class="n">CF</span><span class="p">(</span><span class="n">to_sha256int</span><span class="p">(</span><span class="s2">&quot;hello klefki&quot;</span><span class="p">)),</span> <span class="n">ak</span><span class="p">)</span>
+<span></span><span class="n">c</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">commit</span><span class="p">(</span><span class="n">CF</span><span class="p">(</span><span class="n">to_sha256int</span><span class="p">(</span><span class="s2">&quot;hello zkp-playground&quot;</span><span class="p">)),</span> <span class="n">ak</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -583,7 +583,7 @@ True
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">com</span><span class="o">.</span><span class="n">open</span><span class="p">()</span> <span class="o">==</span> <span class="n">CF</span><span class="p">(</span><span class="n">to_sha256int</span><span class="p">(</span><span class="s2">&quot;hello klefki&quot;</span><span class="p">))</span>
+<span></span><span class="n">com</span><span class="o">.</span><span class="n">open</span><span class="p">()</span> <span class="o">==</span> <span class="n">CF</span><span class="p">(</span><span class="n">to_sha256int</span><span class="p">(</span><span class="s2">&quot;hello zkp-playground&quot;</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -632,13 +632,13 @@ True
           
         </div>
       </div>
-    <a href="https://github.com/ZeroProphet/klefki">
+    <a href="https://github.com/oxor-io/zkp-playground">
         <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
     </a>
 
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">klefki</a></h1>
+<h1 class="logo"><a href="index.html">zkp-playground</a></h1>
 
 
 
@@ -667,8 +667,8 @@ True
 <li class="toctree-l1"><a class="reference internal" href="Damgard-Jurik%20Scheme%20of%20Paillier.html">Damgard-Jurik Scheme of Paillier</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Threshold%20Paillier%20Cryptosystem.html">Threshold Paillier Cryptosystem</a></li>
 <li class="toctree-l1"><a class="reference internal" href="R1CS%20to%20QAP.html">R1CS to QAP</a></li>
-<li class="toctree-l1"><a class="reference internal" href="MimbleWimble.html">Play MimbleWimble with klefki</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Groth16.html">Groth16 in Klefki</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MimbleWimble.html">Play MimbleWimble with zkp-playground</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Groth16.html">Groth16 in zkp-playground</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>

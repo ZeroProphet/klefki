@@ -1,0 +1,49 @@
+:mod:`zkp_playground.crypto.paillier`
+=============================
+
+.. py:module:: zkp_playground.crypto.paillier
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.crypto.paillier.Paillier
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.crypto.paillier.L
+
+
+.. function:: L(x, n)
+
+
+.. py:class:: Paillier(P, Q)
+
+   .. method:: encrypt(cls, m, pub)
+      :classmethod:
+
+
+   .. method:: decrypt(cls, c, priv, pub)
+      :classmethod:
+
+
+   .. method:: E(self, m, pub=None)
+
+
+   .. method:: D(self, c, priv=None, pub=None)
+
+
+   .. method:: test(self)
+
+
+

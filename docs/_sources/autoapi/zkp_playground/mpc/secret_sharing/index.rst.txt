@@ -1,0 +1,25 @@
+:mod:`zkp_playground.mpc.secret_sharing`
+================================
+
+.. py:module:: zkp_playground.mpc.secret_sharing
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.mpc.secret_sharing.additive_share
+   zkp_playground.mpc.secret_sharing.additive_reconstruct
+
+
+.. function:: additive_share(secret, F, n)
+
+
+.. function:: additive_reconstruct(shares)
+
+

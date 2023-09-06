@@ -10,7 +10,7 @@
    },
    "outputs": [],
    "source": [
-    "from klefki.asn import signature as sig\n",
+    "from zkp_playground.asn import signature as sig\n",
     "from pyasn1.codec.der.encoder import encode\n",
     "from pyasn1.codec.der.decoder import decode"
    ]
@@ -35,7 +35,7 @@
     "editable": true
    },
    "source": [
-    "* src: klefki/asn/signature.asn\n",
+    "* src: zkp_playground/asn/signature.asn\n",
     "\n",
     "```asn1\n",
     "\n",

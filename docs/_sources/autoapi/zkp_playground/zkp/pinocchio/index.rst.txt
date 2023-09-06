@@ -1,0 +1,60 @@
+:mod:`zkp_playground.zkp.pinocchio`
+===========================
+
+.. py:module:: zkp_playground.zkp.pinocchio
+
+.. autoapi-nested-parse::
+
+   Pinocchio protocol by
+   Parno, Gentry, Howell and Raykova from 2013 (often called PGHR13);
+   ref: https://eprint.iacr.org/2013/279.pdf
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.zkp.pinocchio.PGHR13
+
+
+
+.. py:class:: PGHR13(A=Iterable, B=Iterable, C=Iterable)
+
+   Bases: :class:`zkp_playground.zkp.qap.QAP`
+
+   Given $n$ equations we pick arbitrary distinct $r_1,\cdots,r_n \in \mathbb{F}$ and define
+   $$
+   t(x) = \prod_{q=1}^n (x - r_q)
+   $$
+   Since $t(X)$ is the lowest degreee monomial with $t(r_q) = 0 $ in each point, we can refomulate as:
+   $$
+   \sum_{i=0}^m a_i u_i(X) \circ \sum_{i=0}^m a_i v_i(X) = \sum_{i=0}^m a_i w_i(X) \mod t(X)
+   $$
+   we will be working with quadratic arithmetic programsRthat have thefollowing description
+
+   $$
+   R = (\mathbb{F}, aux, l, \{u_i(X), v_i(X), w_i(X)\}_{i=0}^n, t(X))
+   $$
+
+   .. method:: toxic(self)
+      :property:
+
+
+   .. method:: setup(self, F: Type[Field], G: EllipticCurveGroup)
+
+
+   .. method:: proof(self, c: Field, s: Iterable[FiniteField]) -> Tuple[EllipticCurveGroup, ...]
+
+      c: Callange
+      s: witness vertex
+
+
+   .. method:: verify(self, A, B, C, H, Z)
+
+
+

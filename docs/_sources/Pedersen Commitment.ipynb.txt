@@ -51,11 +51,11 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "from klefki.types.algebra.concrete import EllipticCurveGroupSecp256k1 as Curve\n",
-    "from klefki.types.algebra.concrete import FiniteFieldCyclicSecp256k1 as CF\n",
-    "from klefki.types.algebra.concrete import FiniteFieldSecp256k1 as F\n",
-    "from klefki.types.algebra.utils import randfield\n",
-    "from klefki.utils import to_sha256int\n",
+    "from zkp_playground.types.algebra.concrete import EllipticCurveGroupSecp256k1 as Curve\n",
+    "from zkp_playground.types.algebra.concrete import FiniteFieldCyclicSecp256k1 as CF\n",
+    "from zkp_playground.types.algebra.concrete import FiniteFieldSecp256k1 as F\n",
+    "from zkp_playground.types.algebra.utils import randfield\n",
+    "from zkp_playground.utils import to_sha256int\n",
     "import hashlib\n",
     "\n",
     "G = Curve.G\n",
@@ -198,7 +198,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "from klefki.zkp.pedersen import PedersonCommitment"
+    "from zkp_playground.zkp.pedersen import PedersonCommitment"
    ]
   },
   {
@@ -326,7 +326,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "from klefki.zkp.schnorr import NIZKSchnoor"
+    "from zkp_playground.zkp.schnorr import NIZKSchnoor"
    ]
   },
   {

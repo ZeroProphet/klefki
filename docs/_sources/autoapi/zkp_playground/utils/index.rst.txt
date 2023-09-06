@@ -1,0 +1,129 @@
+:mod:`zkp_playground.utils`
+===================
+
+.. py:module:: zkp_playground.utils
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.utils.EnumDict
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.utils.int_to_byte
+   zkp_playground.utils.int_to_byte64
+   zkp_playground.utils.byte_to_int
+   zkp_playground.utils.to_keccak256int
+   zkp_playground.utils.dhash256
+   zkp_playground.utils.ripemd160
+   zkp_playground.utils.trunks
+   zkp_playground.utils.concat
+   zkp_playground.utils.compose
+   zkp_playground.utils.to_sha256int
+   zkp_playground.utils.parse_lv_format
+   zkp_playground.utils.CF2Bytes
+   zkp_playground.utils.to_u32s
+   zkp_playground.utils.from_u32s
+   zkp_playground.utils.from_u64s
+   zkp_playground.utils.to_u64s
+
+
+.. data:: b58encode
+   
+
+   
+
+.. data:: b64encode
+   
+
+   
+
+.. function:: int_to_byte(key: int, length=32) -> bytes
+
+
+.. function:: int_to_byte64(key: int) -> bytes
+
+
+.. function:: byte_to_int(byte: bytes) -> CF
+
+
+.. function:: to_keccak256int(a: str) -> int
+
+
+.. function:: dhash256(x: int) -> int
+
+
+.. function:: ripemd160(x) -> int
+
+
+.. function:: trunks(l: Iterable, n: int) -> Iterator
+
+
+.. function:: concat(a: bytes, b: bytes) -> bytes
+
+
+.. function:: compose(*fs: Iterable[Callable])
+
+
+.. function:: to_sha256int(m: str)
+
+
+.. py:class:: EnumDict
+
+   Bases: :class:`dict`
+
+   dict() -> new empty dictionary
+   dict(mapping) -> new dictionary initialized from a mapping object's
+       (key, value) pairs
+   dict(iterable) -> new dictionary initialized as if via:
+       d = {}
+       for k, v in iterable:
+           d[k] = v
+   dict(**kwargs) -> new dictionary initialized with the name=value pairs
+       in the keyword argument list.  For example:  dict(one=1, two=2)
+
+   .. method:: __getattr__(self, k)
+
+      Support Lazy
+
+
+   .. method:: __setattr__(self, k, v)
+
+      Implement setattr(self, name, value).
+
+
+   .. method:: __contains__(self, v)
+
+      True if the dictionary has the specified key, else False.
+
+
+
+.. function:: parse_lv_format(b)
+
+
+.. function:: CF2Bytes(cf, l=32)
+
+
+.. function:: to_u32s(a: int, endian='little')
+
+
+.. function:: from_u32s(a: list, endian='little')
+
+
+.. function:: from_u64s(a: list, endian='little')
+
+
+.. function:: to_u64s(a: int, endian='little')
+
+

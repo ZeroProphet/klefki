@@ -1,0 +1,76 @@
+:mod:`zkp_playground.zkp.pedersen`
+==========================
+
+.. py:module:: zkp_playground.zkp.pedersen
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.zkp.pedersen.PedersonCommitment
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.zkp.pedersen.commitment
+   zkp_playground.zkp.pedersen.vertex_commitment
+   zkp_playground.zkp.pedersen.com
+
+
+.. function:: commitment(x: Field, r: Field, H: Group, G: Group) -> Group
+
+
+.. function:: vertex_commitment(x: [Field], r: Field, H: Group, G: [Group]) -> Group
+
+
+.. function:: com(x, r, H, G) -> Group
+
+   Com(x, r) = xG + rH
+
+
+.. py:class:: PedersonCommitment(G, H, x, r)
+
+   Bases: :class:`zkp_playground.zkp.commitment.TrapdoorCommitment`
+
+   .. method:: commit(self, y, s)
+
+
+   .. method:: trapdoor(self, new_secret, x)
+
+      x is trapdoor
+
+
+   .. method:: challenge(self, e)
+
+      e is the random callange
+
+
+   .. method:: proof(self, trans=None)
+
+
+   .. method:: transcript(self)
+      :property:
+
+
+   .. method:: C(self)
+      :property:
+
+
+   .. method:: D(self)
+      :property:
+
+
+   .. method:: verify(H, G, C, D)
+      :staticmethod:
+
+
+

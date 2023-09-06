@@ -1,0 +1,25 @@
+:mod:`zkp_playground.blockchain.bitcoin.script.script`
+==============================================
+
+.. py:module:: zkp_playground.blockchain.bitcoin.script.script
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.blockchain.bitcoin.script.script.pay_to_pubhash
+   zkp_playground.blockchain.bitcoin.script.script.pay_to_scripthash
+
+
+.. function:: pay_to_pubhash(privkey, pubkey, address)
+
+
+.. function:: pay_to_scripthash(scripthash)
+
+

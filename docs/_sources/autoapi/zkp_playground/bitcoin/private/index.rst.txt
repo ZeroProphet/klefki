@@ -1,0 +1,34 @@
+:mod:`zkp_playground.bitcoin.private`
+=============================
+
+.. py:module:: zkp_playground.bitcoin.private
+
+
+Module Contents
+---------------
+
+.. function:: wrap_key(key: bytes, version=128, compress=1)
+
+
+.. function:: unwrap_key(key: bytes)
+
+
+.. function:: to_cf(a: int)
+
+
+.. function:: from_cf(a: CF) -> int
+
+
+.. data:: encode_privkey
+   :annotation: :Callable[[CF], str]
+
+   
+
+.. data:: decode_privkey
+   :annotation: :Callable[[str], CF]
+
+   
+
+.. function:: gen_random_privkey()
+
+

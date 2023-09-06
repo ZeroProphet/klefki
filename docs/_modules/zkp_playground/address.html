@@ -1,0 +1,189 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>zkp_playground.address &#8212; zkp-playground 0.7 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for zkp_playground.address</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">reduce</span>
+<span class="kn">from</span> <span class="nn">hashlib</span> <span class="k">import</span> <span class="n">sha256</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">base58</span>
+<span class="kn">import</span> <span class="nn">zkp_playground.const</span> <span class="k">as</span> <span class="nn">const</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.utils</span> <span class="k">import</span> <span class="n">dhash256</span>
+<span class="kn">from</span> <span class="nn">zkp_playground.types.algebra.concrete</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">JacobianGroupBTC</span><span class="p">,</span>
+    <span class="n">EllipticCurveCyclicSubgroupBTC</span><span class="p">,</span>
+    <span class="n">EllipticCurveGroupBTC</span><span class="p">,</span>
+    <span class="n">FiniteFieldBTC</span>
+<span class="p">)</span>
+
+<div class="viewcode-block" id="G"><a class="viewcode-back" href="../../autoapi/zkp_playground/address/index.html#zkp_playground.address.G">[docs]</a><span class="n">G</span> <span class="o">=</span> <span class="n">EllipticCurveCyclicSubgroupBTC</span><span class="o">.</span><span class="n">G</span></div>
+<div class="viewcode-block" id="A"><a class="viewcode-back" href="../../autoapi/zkp_playground/address/index.html#zkp_playground.address.A">[docs]</a><span class="n">A</span> <span class="o">=</span> <span class="n">EllipticCurveGroupBTC</span><span class="o">.</span><span class="n">A</span></div>
+<div class="viewcode-block" id="B"><a class="viewcode-back" href="../../autoapi/zkp_playground/address/index.html#zkp_playground.address.B">[docs]</a><span class="n">B</span> <span class="o">=</span> <span class="n">EllipticCurveGroupBTC</span><span class="o">.</span><span class="n">B</span></div>
+<div class="viewcode-block" id="P"><a class="viewcode-back" href="../../autoapi/zkp_playground/address/index.html#zkp_playground.address.P">[docs]</a><span class="n">P</span> <span class="o">=</span> <span class="n">FiniteFieldBTC</span><span class="o">.</span><span class="n">P</span></div>
+
+
+<div class="viewcode-block" id="gen_random_number"><a class="viewcode-back" href="../../autoapi/zkp_playground/address/index.html#zkp_playground.address.gen_random_number">[docs]</a><span class="k">def</span> <span class="nf">gen_random_number</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">const</span><span class="o">.</span><span class="n">N</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="encode_pub"><a class="viewcode-back" href="../../autoapi/zkp_playground/address/index.html#zkp_playground.address.encode_pub">[docs]</a><span class="k">def</span> <span class="nf">encode_pub</span><span class="p">(</span><span class="n">pub</span><span class="p">:</span> <span class="n">EllipticCurveGroupBTC</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">hex</span><span class="p">(</span><span class="n">pub</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;0x&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s1">&#39;0&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">pub</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">%</span> <span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="p">((</span><span class="mi">64</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">n</span><span class="p">))</span> <span class="o">*</span> <span class="s1">&#39;0&#39;</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="decode_pub"><a class="viewcode-back" href="../../autoapi/zkp_playground/address/index.html#zkp_playground.address.decode_pub">[docs]</a><span class="k">def</span> <span class="nf">decode_pub</span><span class="p">(</span><span class="n">pub</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EllipticCurveGroupBTC</span><span class="p">:</span>
+    <span class="n">pub</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="n">pub</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">256</span> <span class="o">+</span> <span class="n">y</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">pub</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">33</span><span class="p">]),</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">beta</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">A</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">B</span><span class="p">),</span> <span class="nb">int</span><span class="p">((</span><span class="n">P</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">4</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">P</span><span class="p">))</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">P</span> <span class="o">-</span> <span class="n">beta</span><span class="p">)</span> <span class="k">if</span> <span class="p">((</span><span class="n">beta</span> <span class="o">+</span> <span class="n">pub</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="k">else</span> <span class="n">beta</span>
+    <span class="k">return</span> <span class="n">EllipticCurveGroupBTC</span><span class="p">(</span>
+        <span class="p">(</span>
+            <span class="n">FiniteFieldBTC</span><span class="p">(</span><span class="n">x</span><span class="p">),</span>
+            <span class="n">FiniteFieldBTC</span><span class="p">(</span><span class="n">y</span><span class="p">)</span></div>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+
+<div class="viewcode-block" id="calcu_pub_key"><a class="viewcode-back" href="../../autoapi/zkp_playground/address/index.html#zkp_playground.address.calcu_pub_key">[docs]</a><span class="k">def</span> <span class="nf">calcu_pub_key</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EllipticCurveGroupBTC</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">EllipticCurveGroupBTC</span><span class="p">(</span>
+        <span class="n">JacobianGroupBTC</span><span class="p">(</span><span class="n">G</span> <span class="o">@</span> <span class="n">EllipticCurveCyclicSubgroupBTC</span><span class="p">(</span><span class="n">key</span><span class="p">))</span></div>
+    <span class="p">)</span>
+
+
+<div class="viewcode-block" id="gen_priv_key"><a class="viewcode-back" href="../../autoapi/zkp_playground/address/index.html#zkp_playground.address.gen_priv_key">[docs]</a><span class="k">def</span> <span class="nf">gen_priv_key</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">compress</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">private_key</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">([</span><span class="n">version</span><span class="p">])</span> <span class="o">+</span> <span class="n">key</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span>
+        <span class="mi">32</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s1">&#39;big&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="nb">bytes</span><span class="p">([</span><span class="n">compress</span><span class="p">])</span>
+    <span class="n">auth</span> <span class="o">=</span> <span class="n">sha256</span><span class="p">(</span><span class="n">sha256</span><span class="p">(</span><span class="n">private_key</span><span class="p">)</span><span class="o">.</span><span class="n">digest</span><span class="p">())</span><span class="o">.</span><span class="n">digest</span><span class="p">()[:</span><span class="mi">4</span><span class="p">]</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">private_key</span> <span class="o">+</span> <span class="n">auth</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">32</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">4</span>
+    <span class="k">return</span> <span class="n">base58</span><span class="o">.</span><span class="n">b58encode</span><span class="p">(</span><span class="n">res</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="gen_pub_key"><a class="viewcode-back" href="../../autoapi/zkp_playground/address/index.html#zkp_playground.address.gen_pub_key">[docs]</a><span class="k">def</span> <span class="nf">gen_pub_key</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">encode_pub</span><span class="p">(</span>
+        <span class="n">calcu_pub_key</span><span class="p">(</span><span class="n">key</span><span class="p">)</span></div>
+    <span class="p">)</span>
+
+
+<div class="viewcode-block" id="gen_key_pair"><a class="viewcode-back" href="../../autoapi/zkp_playground/address/index.html#zkp_playground.address.gen_key_pair">[docs]</a><span class="k">def</span> <span class="nf">gen_key_pair</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">gen_random_number</span><span class="p">()):</span>
+    <span class="k">return</span> <span class="n">gen_priv_key</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="n">gen_pub_key</span><span class="p">(</span><span class="n">key</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="gen_address"><a class="viewcode-back" href="../../autoapi/zkp_playground/address/index.html#zkp_playground.address.gen_address">[docs]</a><span class="k">def</span> <span class="nf">gen_address</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
+    <span class="n">pub</span> <span class="o">=</span> <span class="n">G</span> <span class="o">@</span> <span class="n">EllipticCurveCyclicSubgroupBTC</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">pub</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">pub</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+    <span class="k">if</span> <span class="n">y</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">prefix</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">([</span><span class="mh">0x02</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">prefix</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">([</span><span class="mh">0x03</span><span class="p">])</span>
+    <span class="n">networkid</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">([</span><span class="mh">0x00</span><span class="p">])</span>
+    <span class="n">ripemd160</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;ripemd160&#39;</span><span class="p">)</span>
+    <span class="n">ripemd160</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+        <span class="n">sha256</span><span class="p">(</span>
+            <span class="n">prefix</span> <span class="o">+</span> <span class="n">x</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s1">&#39;big&#39;</span><span class="p">)</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">digest</span><span class="p">()</span>
+    <span class="p">)</span>
+    <span class="n">hashed</span> <span class="o">=</span> <span class="n">ripemd160</span><span class="o">.</span><span class="n">digest</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">hashed</span><span class="p">)</span> <span class="o">==</span> <span class="mi">20</span>
+    <span class="n">with_network</span> <span class="o">=</span> <span class="n">networkid</span> <span class="o">+</span> <span class="n">hashed</span>
+    <span class="n">auth</span> <span class="o">=</span> <span class="n">sha256</span><span class="p">(</span><span class="n">sha256</span><span class="p">(</span><span class="n">with_network</span><span class="p">)</span><span class="o">.</span><span class="n">digest</span><span class="p">())</span><span class="o">.</span><span class="n">digest</span><span class="p">()[:</span><span class="mi">4</span><span class="p">]</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">with_network</span> <span class="o">+</span> <span class="n">auth</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="o">==</span> <span class="mi">25</span>
+    <span class="k">return</span> <span class="n">base58</span><span class="o">.</span><span class="n">b58encode</span><span class="p">(</span><span class="n">res</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">zkp-playground</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Ryan Kung.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,29 @@
+:mod:`zkp_playground.blockchain.ethereum.public`
+========================================
+
+.. py:module:: zkp_playground.blockchain.ethereum.public
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.blockchain.ethereum.public.encode_pubkey
+   zkp_playground.blockchain.ethereum.public.decode_pubkey
+   zkp_playground.blockchain.ethereum.public.gen_pub_key
+
+
+.. function:: encode_pubkey(key: ECG)
+
+
+.. function:: decode_pubkey(key: str) -> ECG
+
+
+.. function:: gen_pub_key(key: CF) -> str
+
+

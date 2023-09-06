@@ -1,0 +1,50 @@
+:mod:`zkp_playground.crypto.elgamal`
+============================
+
+.. py:module:: zkp_playground.crypto.elgamal
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.crypto.elgamal.ElGamal
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   zkp_playground.crypto.elgamal.map_to_curve
+   zkp_playground.crypto.elgamal.map_from_curve
+
+
+.. function:: map_to_curve(m, G=Curve.G, bias=1)
+
+
+.. function:: map_from_curve(M)
+
+
+.. py:class:: ElGamal(x, g=Curve.G)
+
+   .. method:: encrypt(cls, m, pub)
+      :classmethod:
+
+
+   .. method:: decrypt(cls, x, c)
+      :classmethod:
+
+
+   .. method:: E(self, m)
+
+
+   .. method:: D(self, c)
+
+
+
