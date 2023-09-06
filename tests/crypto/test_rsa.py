@@ -1,7 +1,7 @@
 import pytest
 
-from klefki.crypto import rsa
-from klefki.const import SECP256K1_P, SECP256K1_N
+from zkp_playground.crypto import rsa
+from zkp_playground.const import SECP256K1_P, SECP256K1_N
 
 
 def test_rsa_block_encrypt():

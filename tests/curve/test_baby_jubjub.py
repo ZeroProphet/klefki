@@ -5,7 +5,7 @@ https://eips.ethereum.org/EIPS/eip-2494
 
 
 import pytest
-from klefki.curves.baby_jubjub import FiniteFieldBabyJubjub as F, EllipticCurveBabyJubjub as G
+from zkp_playground.curves.baby_jubjub import FiniteFieldBabyJubjub as F, EllipticCurveBabyJubjub as G
 
 
 def test_addition():

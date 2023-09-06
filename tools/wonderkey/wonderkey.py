@@ -1,8 +1,8 @@
 import sys
 import re
-from klefki.crypto.ecdsa.secp256k1 import random_privkey
-from klefki.client.shell import command, router
-from klefki import eos, ethereum, bitcoin
+from zkp_playground.crypto.ecdsa.secp256k1 import random_privkey
+from zkp_playground.client.shell import command, router
+from zkp_playground import eos, ethereum, bitcoin
 
 
 def encode_privkey(priv, type):

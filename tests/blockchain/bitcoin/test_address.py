@@ -1,11 +1,11 @@
 import bitcoin
 import base58
 from bitcoin import privtopub, pubkey_to_address
-from klefki.crypto.ecdsa.secp256k1 import pubkey, random_privkey
-from klefki.bitcoin import gen_key_pair
-from klefki.bitcoin.address import gen_address_from_priv
-from klefki.bitcoin.public import decode_pubkey, gen_pub_key
-from klefki.bitcoin.private import encode_privkey, decode_privkey
+from zkp_playground.crypto.ecdsa.secp256k1 import pubkey, random_privkey
+from zkp_playground.bitcoin import gen_key_pair
+from zkp_playground.bitcoin.address import gen_address_from_priv
+from zkp_playground.bitcoin.public import decode_pubkey, gen_pub_key
+from zkp_playground.bitcoin.private import encode_privkey, decode_privkey
 
 
 def test_priv_encode():

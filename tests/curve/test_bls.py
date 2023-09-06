@@ -2,7 +2,7 @@
 https://github.com/ethereum/research/blob/9a7b6825b0dee7a59a03f8ca1d1ec3ae7fb6d598/zksnark/bn128_pairing_test.py
 """
 
-from klefki.curves import bls12_381
+from zkp_playground.curves import bls12_381
 
 G1 = bls12_381.ECGBLS12_381.G1
 G2 = bls12_381.ECGBLS12_381.G2

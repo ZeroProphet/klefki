@@ -1,5 +1,5 @@
 from functools import partial
-from klefki.client.shell import command, help
+from zkp_playground.client.shell import command, help
 
 
 @command

@@ -1,4 +1,4 @@
-SRC_PATH = ./klefki
+SRC_PATH = ./zkp_playground
 
 
 dev-install:

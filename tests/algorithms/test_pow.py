@@ -1,5 +1,5 @@
-from klefki.algorithms import fast_pow as f
-from klefki.curves.bns.bn128 import BN128FP12
+from zkp_playground.algorithms import fast_pow as f
+from zkp_playground.curves.bns.bn128 import BN128FP12
 from random import randint
 
 

@@ -1,4 +1,4 @@
-from klefki.zkp.groth16.r1cs import R1CS
+from zkp_playground.zkp.groth16.r1cs import R1CS
 from functools import partial
 
 

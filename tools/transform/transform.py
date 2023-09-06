@@ -1,6 +1,6 @@
 import sys
-from klefki.client.shell import command, router, output
-from klefki import eos, ethereum, bitcoin
+from zkp_playground.client.shell import command, router, output
+from zkp_playground import eos, ethereum, bitcoin
 
 
 def decode_privkey(priv, type):

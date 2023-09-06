@@ -1,6 +1,6 @@
-from klefki.zkp.plonk.trusted_setup import setup_algo
-from klefki.zkp.plonk.prover import prover_algo
-from klefki.zkp.plonk.verifier import verifier_algo
+from zkp_playground.zkp.plonk.trusted_setup import setup_algo
+from zkp_playground.zkp.plonk.prover import prover_algo
+from zkp_playground.zkp.plonk.verifier import verifier_algo
 
 
 def permute_idices(wires: list[str]) -> list[int]:

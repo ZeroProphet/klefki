@@ -1,8 +1,8 @@
 import bitcoin
 import hashlib
-import klefki.crypto.ecdsa.secp256k1 as ecdsa
-from klefki.bitcoin import gen_key_pair
-from klefki.bitcoin.sign import sign, verify
+import zkp_playground.crypto.ecdsa.secp256k1 as ecdsa
+from zkp_playground.bitcoin import gen_key_pair
+from zkp_playground.bitcoin.sign import sign, verify
 
 
 def test_sign():

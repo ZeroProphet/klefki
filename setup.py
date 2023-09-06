@@ -15,18 +15,18 @@ install_requires = [
         "r"
     )
 ]
-author = 'Ryan Kung'
-email = 'ryankung@ieee.org'
+author = 'oxorio'
+email = 'ping@oxor.io'
 
 
 setup(
-    name='klefki',
-    description="Klefki is a playground for researching elliptic curve group based algorithms & applications, such as MPC, HE, ZKP, and Bitcoin/Ethereum. All data types & structures are based on mathematical defination of abstract algebra.",  # noqa
+    name='zkp-playground',
+    description="zkp-playground is a library for researching elliptic curve group based algorithms & applications, such as MPC, HE, ZKP, and Bitcoin/Ethereum. All data types & structures are based on mathematical defination of abstract algebra.",  # noqa
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url='https://github.com/ZeroProphet/klefki',
-    version='1.7.1',
-    packages=find_packages(here, exclude=['tests', "notes"]),
+    url='https://github.com/oxor-io/zkp-playground',
+    version='1.0.0',
+    packages=find_packages(here, exclude=['tests', 'notes']),
     license='GPL',
     author=author,
     author_email=email,
@@ -44,7 +44,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'klefki=klefki.client.shell:main'
+            'zkp_playground=zkp_playground.client.shell:main'
         ]
     }
 )

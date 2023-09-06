@@ -1,6 +1,6 @@
-from klefki.algebra.fields import PolyExtField
-from klefki.curves.bns.bn128 import BN128FP as FQ
-from klefki.curves.bns.bn128 import BN128FP2 as FQ2
+from zkp_playground.algebra.fields import PolyExtField
+from zkp_playground.curves.bns.bn128 import BN128FP as FQ
+from zkp_playground.curves.bns.bn128 import BN128FP2 as FQ2
 
 
 modulus_coeffs = [82, 0, 0, 0, 0, 0, 18, 0, 0, 0, 0, 0]

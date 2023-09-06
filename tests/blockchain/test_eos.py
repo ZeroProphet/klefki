@@ -1,7 +1,7 @@
 import base58
-from klefki.eos.private import encode_privkey, decode_privkey
-from klefki.eos.public import gen_pub_key
-from klefki.eos.address import gen_address_from_priv
+from zkp_playground.eos.private import encode_privkey, decode_privkey
+from zkp_playground.eos.public import gen_pub_key
+from zkp_playground.eos.address import gen_address_from_priv
 
 
 PUB = 'EOS8PjVopeiNNDxG1Q5McRKPaPtfWFfyXHBfyJwBKJRdp9BjVW7uc'

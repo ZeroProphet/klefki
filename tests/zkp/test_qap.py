@@ -1,8 +1,8 @@
 from functools import partial
-from klefki.zkp.groth16.r1cs import R1CS, mul
-from klefki.zkp.groth16.qap import QAP
-from klefki.curves.bns.bn128 import BN128FP as F
-from klefki.algebra.rings import PolyRing
+from zkp_playground.zkp.groth16.r1cs import R1CS, mul
+from zkp_playground.zkp.groth16.qap import QAP
+from zkp_playground.curves.bns.bn128 import BN128FP as F
+from zkp_playground.algebra.rings import PolyRing
 
 # map int to field
 ciphers = [1, 2, 3, 4, 5, 6, 7, 8, 9]

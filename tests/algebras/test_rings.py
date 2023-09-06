@@ -1,5 +1,5 @@
-from klefki.algebra.rings import PolyRing
-from klefki.curves.baby_jubjub import FiniteFieldBabyJubjub as F
+from zkp_playground.algebra.rings import PolyRing
+from zkp_playground.curves.baby_jubjub import FiniteFieldBabyJubjub as F
 
 
 def test_poly_neg():

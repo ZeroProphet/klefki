@@ -1,7 +1,7 @@
-from klefki.crypto.ssss import SSSS
-from klefki.const import SECP256K1_P as P
-from klefki.algebra.utils import randfield
-from klefki.algebra.meta import field
+from zkp_playground.crypto.ssss import SSSS
+from zkp_playground.const import SECP256K1_P as P
+from zkp_playground.algebra.utils import randfield
+from zkp_playground.algebra.meta import field
 import random
 
 
