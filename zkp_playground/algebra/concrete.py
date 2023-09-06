@@ -7,7 +7,7 @@ __all__ = [
     'FiniteFieldCyclicSecp256k1',
     'EllipticCurveGroupSecp256k1',
     'JacobianGroupSecp256k1',
-    'EllipticCurveCyclicSubgroupSecp256k1',
+    # 'EllipticCurveCyclicSubgroupSecp256k1',
     'FiniteFieldSecp256r1',
     'FiniteFieldCyclicSecp256r1',
     'EllipticCurveGroupSecp256r1',

@@ -20,14 +20,14 @@ def shell():
     from zkp_playground.utils import to_sha256int
     from zkp_playground.algebra.concrete import (
         JacobianGroupSecp256k1 as JG,
-        EllipticCurveCyclicSubgroupSecp256k1 as CG,
+        # EllipticCurveCyclicSubgroupSecp256k1 as CG,
         EllipticCurveGroupSecp256k1 as ECG,
         FiniteFieldCyclicSecp256k1 as CF
     )
     import IPython
 
-    N = CG.N
-    G = CG.G
+    N = ECG.N
+    G = ECG.G
     IPython.embed()
 
 

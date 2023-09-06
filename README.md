@@ -27,7 +27,7 @@ Have Fun!!!!
 * Test pairing
 
 ```python
-from zkp_playground.curves.barreto_naehrig import bn128
+from zkp_playground.curves.bns import bn128
 
 G1 = bn128.ECGBN128.G1
 G2 = bn128.ECGBN128.G2
@@ -35,8 +35,8 @@ G = G1
 e = bn128.ECGBN128.e
 
 one = bn128.BN128FP12.one()
-p1 = e(G2, G1)
-p2 = e(G2, G1 @ 2)
+p1 = e(G1, G2)
+p2 = e(G1 @ 2, G2)
 assert p1 * p1 == p2
 ```
 
@@ -46,8 +46,7 @@ assert p1 * p1 == p2
 import zkp_playground.const as const
 from zkp_playground.algebra.fields import FiniteField
 from zkp_playground.algebra.groups import EllipticCurveGroup
-from zkp_playground.algebra.groups import EllipicCyclicSubgroup
-from zkp_playground.curves.arith import short_weierstrass_form_curve_addition2
+from zkp_playground.curves.arith import short_weierstrass_form_curve_addition
 
 
 class FiniteFieldSecp256k1(FiniteField):
@@ -69,7 +68,7 @@ class EllipticCurveGroupSecp256k1(EllipticCurveGroup):
 
     def op(self, g):
         field = self.id[0].__class__
-        x, y = short_weierstrass_form_curve_addition2(
+        x, y = short_weierstrass_form_curve_addition(
             self.x, self.y,
             g.x, g.y,
             field.zero(),
@@ -91,9 +90,7 @@ class EllipticCurveGroupSecp256k1(EllipticCurveGroup):
 * Play with r1cs
 
 ```python
-from zkp_playground.zkp.r1cs import R1CS
-from functools import partial
-
+from zkp_playground.zkp.groth16.r1cs import R1CS
 
 
 @R1CS.r1cs
@@ -110,7 +107,7 @@ assert s[2] == t(3)
 
 ## MPC Examples (SSSS/VSS)
 
-```
+```python
 from zkp_playground.crypto.ssss import SSSS
 from zkp_playground.const import SECP256K1_P as P
 from zkp_playground.algebra.utils import randfield
@@ -144,14 +141,14 @@ import random
 from zkp_playground.utils import to_sha256int
 from zkp_playground.algebra.concrete import (
     JacobianGroupSecp256k1 as JG,
-    EllipticCurveCyclicSubgroupSecp256k1 as CG,
+    #EllipticCurveCyclicSubgroupSecp256k1 as CG,
     EllipticCurveGroupSecp256k1 as ECG,
     FiniteFieldCyclicSecp256k1 as CF
 )
 
 
-N = CG.N
-G = CG.G
+N = ECG.N
+G = ECG.G
 
 
 def random_privkey() -> CF:
@@ -210,9 +207,9 @@ def proof():
 Or transform your Bitcoin Private Key to EOS Private/Pub key (or back)
 
 ```python
-from zkp_playground.bitcoin.private import decode_privkey
-from zkp_playground.eos.public import gen_pub_key
-from zkp_playground.eos.private import encode_privkey
+from zkp_playground.blockchain.bitcoin.private import decode_privkey
+from zkp_playground.blockchain.eos.public import gen_pub_key
+from zkp_playground.blockchain.eos.private import encode_privkey
 
 
 def test_to_eos(priv):

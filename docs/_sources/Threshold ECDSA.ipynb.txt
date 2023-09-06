@@ -129,8 +129,7 @@
    "metadata": {},
    "source": [
     "We assume the existence of an encryption scheme E which is additively homo- morphic modulo a large integer $N$, One instantiation of a scheme with these properties is **Paillier’s encryption scheme**.\n",
-    "\n",
-    "ref: [Paillier’s encryption scheme](https://ryankung.github.io/klefki/Paillier's%20encryption%20Scheme.html)"
+    "\n"
    ]
   },
   {
