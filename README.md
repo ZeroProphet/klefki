@@ -1,36 +1,23 @@
-Klefki
+zkp-playground
 ===================
 
-[![travis](https://api.travis-ci.com/ZeroProphet/klefki.svg)](https://travis-ci.com/github/ZeroProphet/klefki)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/RyanKung/klefki/graphs/commit-activity)
-[![PyPI version klefki](https://badge.fury.io/py/klefki.svg)](https://pypi.python.org/pypi/klefki/)
-[![PyPI license](https://img.shields.io/pypi/l/klefki.svg)](https://pypi.python.org/pypi/klefki/)
-[![PyPI status](https://img.shields.io/pypi/status/klefki.svg)](https://pypi.python.org/pypi/klefki/)
-[![Generic badge](https://img.shields.io/badge/Document-passing-blue.svg)](https://zeroprophet.github.io/klefki/)
-
-![klefki](res/707Klefki.png)
-
-----------------------
-
-> Klefki (Japanese: クレッフィ Cleffy) is a dual-type Steel/Fairy Pokémon introduced in Generation VI. It is not known to evolve into or from any other Pokémon.
+The project was created on the basis of the [Klefki](https://zeroprophet.github.io/klefki/) and [Plonk_Py](https://github.com/ETHorHIL/Plonk_Py) libraries.
 
 ----------------------
 
 # TL; DR
 
-**Klefki is a playground for researching elliptic curve group based algorithms & applications, such as MPC, HE, ZKP, and Bitcoin/Ethereum. All data types & structures are based on mathematical defination of abstract algebra.**
+**zkp-playground is a library for researching elliptic curve group based algorithms & applications, such as MPC, HE, ZKP, and Bitcoin/Ethereum. All data types & structures are based on mathematical defination of abstract algebra.**
 
 #### [Check the Document](https://ryankung.github.io/klefki)
-
-#### [Try it!](https://repl.it/@RyanKung/Klefki-Demo)
 
 
 #### For Installation (require python>=3.6):
 
 ```shell
-pip3 install klefki
+pip3 install zkp_playground
 
-klefki shell
+zkp_playground shell
 ```
 
 Have Fun!!!!
@@ -40,7 +27,7 @@ Have Fun!!!!
 * Test pairing
 
 ```python
-from klefki.curves.barreto_naehrig import bn128
+from zkp_playground.curves.barreto_naehrig import bn128
 
 G1 = bn128.ECGBN128.G1
 G2 = bn128.ECGBN128.G2
@@ -56,11 +43,11 @@ assert p1 * p1 == p2
 * Create Custom Groups
 
 ```python
-import klefki.const as const
-from klefki.algebra.fields import FiniteField
-from klefki.algebra.groups import EllipticCurveGroup
-from klefki.algebra.groups import EllipicCyclicSubgroup
-from klefki.curves.arith import short_weierstrass_form_curve_addition2
+import zkp_playground.const as const
+from zkp_playground.algebra.fields import FiniteField
+from zkp_playground.algebra.groups import EllipticCurveGroup
+from zkp_playground.algebra.groups import EllipicCyclicSubgroup
+from zkp_playground.curves.arith import short_weierstrass_form_curve_addition2
 
 
 class FiniteFieldSecp256k1(FiniteField):
@@ -104,7 +91,7 @@ class EllipticCurveGroupSecp256k1(EllipticCurveGroup):
 * Play with r1cs
 
 ```python
-from klefki.zkp.r1cs import R1CS
+from zkp_playground.zkp.r1cs import R1CS
 from functools import partial
 
 
@@ -124,10 +111,10 @@ assert s[2] == t(3)
 ## MPC Examples (SSSS/VSS)
 
 ```
-from klefki.crypto.ssss import SSSS
-from klefki.const import SECP256K1_P as P
-from klefki.algebra.utils import randfield
-from klefki.algebra.meta import field
+from zkp_playground.crypto.ssss import SSSS
+from zkp_playground.const import SECP256K1_P as P
+from zkp_playground.algebra.utils import randfield
+from zkp_playground.algebra.meta import field
 import random
 
 
@@ -154,8 +141,8 @@ With `AAT(Abstract Algebra Type)` you can easily implement the bitcoin `priv/pub
 ```python
 
 import random
-from klefki.utils import to_sha256int
-from klefki.algebra.concrete import (
+from zkp_playground.utils import to_sha256int
+from zkp_playground.algebra.concrete import (
     JacobianGroupSecp256k1 as JG,
     EllipticCurveCyclicSubgroupSecp256k1 as CG,
     EllipticCurveGroupSecp256k1 as ECG,
@@ -223,9 +210,9 @@ def proof():
 Or transform your Bitcoin Private Key to EOS Private/Pub key (or back)
 
 ```python
-from klefki.bitcoin.private import decode_privkey
-from klefki.eos.public import gen_pub_key
-from klefki.eos.private import encode_privkey
+from zkp_playground.bitcoin.private import decode_privkey
+from zkp_playground.eos.public import gen_pub_key
+from zkp_playground.eos.private import encode_privkey
 
 
 def test_to_eos(priv):

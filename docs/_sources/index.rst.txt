@@ -2,7 +2,7 @@
 Welcome to zkp-playground!
 ==================================
 
-Klefki is a playground for researching elliptic curve group based cryptocoins, such as Bitcoin and Ethereum. All data types & structures are based on mathematical defination of abstract algebra.
+zkp-playground is a library for researching elliptic curve group based cryptocoins, such as Bitcoin and Ethereum. All data types & structures are based on mathematical defination of abstract algebra.
 
 
 Usage

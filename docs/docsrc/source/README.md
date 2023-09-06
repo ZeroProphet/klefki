@@ -1,19 +1,5 @@
 
-[![travis](https://travis-ci.org/RyanKung/klefki.svg?branch=master)](https://travis-ci.org/RyanKung/klefki)
-
-![klefki](res/707Klefki.png)
-
-----------------------
-
-> Klefki (Japanese: クレッフィ Cleffy) is a dual-type Steel/Fairy Pokémon introduced in Generation VI. It is not known to evolve into or from any other Pokémon.
-
-----------------------
-
-# TL;DR
-
-**Klefki is a playground for researching elliptic curve group based cryptocoins, such as Bitcoin and Ethereum. All data types & structures are based on mathematical defination of abstract algebra.**
-
-#### [Try it!](https://repl.it/@RyanKung/Klefki-Demo)
+**zkp-playground is a library for researching elliptic curve group based cryptocoins, such as Bitcoin and Ethereum. All data types & structures are based on mathematical defination of abstract algebra.**
 
 
 #### For Installation (require python>=3.6):
