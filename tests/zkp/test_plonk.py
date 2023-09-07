@@ -67,4 +67,4 @@ def test_plonk():
     return CRS, Qs, p_i_poly, perm_prep, verifier_prep, proof_SNARK, u
 
 
-CRS, Qs, p_i_poly, perm_prep, verifier_prep, proof_SNARK, u = test_plonk()
+test_plonk()

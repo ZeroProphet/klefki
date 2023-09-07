@@ -25,3 +25,6 @@ def test_groth16():
     tau, sigma = groth16.setup(R, len(a))
     pi = groth16.prov(R, H, tau, sigma, a)
     assert groth16.vfy(R, tau, a, pi)
+
+
+test_groth16()
